@@ -7,9 +7,9 @@ Requirements: React 19, Tailwind CSS 4, and a project initialized for shadcn. Co
 Install directly from the public [lr-run/dir-ui](https://github.com/lr-run/dir-ui) GitHub registry:
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.0
-npx shadcn@4.21.0 add lr-run/dir-ui/data-grid#v0.1.0
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.0
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.1
+npx shadcn@4.21.0 add lr-run/dir-ui/data-grid#v0.1.1
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.1
 ```
 
 The version ref pins an immutable release. No account or Firebase endpoint is required. The root registry.json and

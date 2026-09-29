@@ -1,14 +1,19 @@
 import assert from 'node:assert/strict'
 import { siteRoutes, staticPage } from '../scripts/site.ts'
 import { registryAddress, releaseVersion } from '../registry/catalog.ts'
-Deno.test('static pages contain metadata and readable API content before JavaScript', () => {
+Deno.test('static pages preserve metadata and show fallback content only when JavaScript is disabled', () => {
   const html = staticPage(
     '<html><head><title>old</title></head><body><div id="root"></div></body></html>',
     '/components/button',
     true,
   )
   assert.ok(html.includes('https://ui.usedir.com/components/button'))
-  assert.ok(html.includes('API') || html.includes('onClick'))
+  assert.ok(html.includes('<div id="root"></div><noscript><main>'))
+  const fallback = html.match(/<noscript>([\s\S]*?)<\/noscript>/)?.[1]
+  assert.ok(fallback?.includes('onClick'))
+  const scriptedHtml = html.replace(/<noscript>[\s\S]*?<\/noscript>/g, '')
+  assert.ok(!scriptedHtml.includes('<pre'))
+  assert.ok(!scriptedHtml.includes('onClick'))
   assert.ok(html.includes('index,follow'))
   assert.ok(!html.includes('noindex'))
   assert.ok(!html.includes('/api/docs/'))

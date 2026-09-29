@@ -28,7 +28,7 @@ export function staticPage(html: string, route: string, production: boolean) {
   return html.replace(/<title>.*?<\/title>/s, '').replace(/<meta\s+(?:name="description"|name="robots")[^>]*>/g, '')
     .replace(/<link\s+rel="canonical"[^>]*>/g, '').replace('</head>', head + '</head>').replace(
       '<div id="root"></div>',
-      `<div id="root">${fallback}</div>`,
+      `<div id="root"></div><noscript>${fallback}</noscript>`,
     )
 }
 if (import.meta.main) {

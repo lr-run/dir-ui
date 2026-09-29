@@ -18,8 +18,8 @@ components retain their original [shadcn/ui license](THIRD_PARTY_LICENSES/shadcn
 ## Install
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/button#v0.1.0
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.0
+npx shadcn@4.21.0 add lr-run/dir-ui/button#v0.1.1
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.1
 ```
 
 ## Develop
