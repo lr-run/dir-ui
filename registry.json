@@ -1,0 +1,5075 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "dir-ui",
+  "homepage": "https://ui.usedir.com/",
+  "items": [
+    {
+      "name": "button",
+      "title": "Button",
+      "type": "registry:ui",
+      "description": "Button from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "type": "registry:ui",
+      "description": "Checkbox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "type": "registry:ui",
+      "description": "Select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "type": "registry:ui",
+      "description": "Dialog from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "type": "registry:ui",
+      "description": "Alert Dialog from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "title": "Empty State",
+      "type": "registry:ui",
+      "description": "Empty State from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "error-state",
+      "title": "Error State",
+      "type": "registry:ui",
+      "description": "Error State from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "type": "registry:ui",
+      "description": "Input from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "type": "registry:ui",
+      "description": "Textarea from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "type": "registry:ui",
+      "description": "Field from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "multi-select",
+      "title": "Multi Select",
+      "type": "registry:ui",
+      "description": "Multi Select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "type": "registry:ui",
+      "description": "Combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "multi-combobox",
+      "title": "Multi Combobox",
+      "type": "registry:ui",
+      "description": "Multi Combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "header",
+      "title": "Header",
+      "type": "registry:ui",
+      "description": "Header from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/ui/header.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/header.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "type": "registry:ui",
+      "description": "Sidebar from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/sheet.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/sheet.tsx"
+        },
+        {
+          "path": "components/ui/sidebar.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/sidebar.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "type": "registry:ui",
+      "description": "Tabs from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "cn@^0.4.0",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/tabs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/tabs.tsx"
+        },
+        {
+          "path": "components/ui/tabs.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/tabs.ts"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "title": "Sheet",
+      "type": "registry:ui",
+      "description": "Sheet from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/ui/sheet.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/sheet.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "list",
+      "title": "List",
+      "type": "registry:ui",
+      "description": "List from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/ui/list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/list.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-edit",
+      "title": "Inline Edit",
+      "type": "registry:ui",
+      "description": "Inline Edit from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-inputs",
+      "title": "Inline Inputs",
+      "type": "registry:ui",
+      "description": "Inline Inputs from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-inputs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-inputs.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "rich-text",
+      "title": "Rich Text",
+      "type": "registry:ui",
+      "description": "Rich Text from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-rich-text",
+      "title": "Inline Rich Text",
+      "type": "registry:ui",
+      "description": "Inline Rich Text from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "value",
+      "title": "Value",
+      "type": "registry:ui",
+      "description": "Value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "type": "registry:ui",
+      "description": "Popover from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/popover.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/popover.tsx"
+        },
+        {
+          "path": "components/ui/popover-panel.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/popover-panel.tsx"
+        },
+        {
+          "path": "components/ui/popover.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/popover.ts"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "type": "registry:ui",
+      "description": "Dropdown Menu from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/dropdown-menu.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/dropdown-menu.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/ui/dropdown-menu.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/dropdown-menu.ts"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "type": "registry:ui",
+      "description": "Tooltip from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "cn@^0.4.0",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/tooltip.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/tooltip.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "type": "registry:ui",
+      "description": "Skeleton from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "cn@^0.4.0",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/shadcn/skeleton.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/skeleton.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "icons",
+      "title": "Icons",
+      "type": "registry:ui",
+      "description": "Icons from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "type": "registry:ui",
+      "description": "Toast from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "data-grid",
+      "title": "DataGrid",
+      "type": "registry:ui",
+      "description": "DataGrid from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "react-data-grid@7.0.0-beta.61",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/data-grid/data-grid.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/data-grid.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-header.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-header.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-settings.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-settings.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/filter-tree.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/filter-tree.ts"
+        },
+        {
+          "path": "components/data-grid/internal/query-controls.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/query-controls.tsx"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/query/model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/query/model.ts"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/dropdown-menu.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/dropdown-menu.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/popover.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/popover.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/popover-panel.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/popover-panel.tsx"
+        },
+        {
+          "path": "components/ui/toolbar-button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/toolbar-button.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/data-grid.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/data-grid.css"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "record-list",
+      "title": "Record List",
+      "type": "registry:ui",
+      "description": "Record List from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "react-data-grid@7.0.0-beta.61",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/data-grid/data-grid.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/data-grid.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-header.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-header.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-settings.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-settings.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/filter-tree.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/filter-tree.ts"
+        },
+        {
+          "path": "components/data-grid/internal/query-controls.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/query-controls.tsx"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/query/model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/query/model.ts"
+        },
+        {
+          "path": "components/record-list/infinite-records.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/infinite-records.ts"
+        },
+        {
+          "path": "components/record-list/record-list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-list.tsx"
+        },
+        {
+          "path": "components/record-list/record-table-model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-table-model.ts"
+        },
+        {
+          "path": "components/record-list/record-table.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-table.tsx"
+        },
+        {
+          "path": "components/record-list/table-icon.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/table-icon.tsx"
+        },
+        {
+          "path": "components/record-list/use-infinite-records.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/use-infinite-records.ts"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/dropdown-menu.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/dropdown-menu.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/popover.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/popover.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/popover-panel.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/popover-panel.tsx"
+        },
+        {
+          "path": "components/ui/toolbar-button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/toolbar-button.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/data-grid.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/data-grid.css"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "search-dialog",
+      "title": "Search Dialog",
+      "type": "registry:ui",
+      "description": "Search Dialog from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/collections/remote-search.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/remote-search.ts"
+        },
+        {
+          "path": "components/collections/search-dialog.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/search-dialog.tsx"
+        },
+        {
+          "path": "components/collections/use-remote-search.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/use-remote-search.ts"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "file-upload",
+      "title": "File Upload",
+      "type": "registry:ui",
+      "description": "File Upload from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/collections/file-model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/file-model.ts"
+        },
+        {
+          "path": "components/collections/files.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/files.tsx"
+        },
+        {
+          "path": "components/collections/upload-queue.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/upload-queue.ts"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/list.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "type": "registry:ui",
+      "description": "Chart from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "recharts@^3.10.1",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/charts/chart-frame.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/charts/chart-frame.tsx"
+        },
+        {
+          "path": "components/charts/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/charts/index.tsx"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/chart.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/chart.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "theme",
+      "title": "Theme",
+      "type": "registry:ui",
+      "description": "Theme from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "crm-example",
+      "title": "CRM example",
+      "type": "registry:block",
+      "description": "CRM example from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@hookform/resolvers@^5",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "react-data-grid@7.0.0-beta.61",
+        "react-hook-form@^7",
+        "recharts@^3.10.1",
+        "zod@^4",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/charts/chart-frame.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/charts/chart-frame.tsx"
+        },
+        {
+          "path": "components/collections/remote-search.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/remote-search.ts"
+        },
+        {
+          "path": "components/collections/search-dialog.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/search-dialog.tsx"
+        },
+        {
+          "path": "components/collections/use-remote-search.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/collections/use-remote-search.ts"
+        },
+        {
+          "path": "components/data-grid/data-grid.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/data-grid.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-header.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-header.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/column-settings.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/column-settings.tsx"
+        },
+        {
+          "path": "components/data-grid/internal/filter-tree.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/filter-tree.ts"
+        },
+        {
+          "path": "components/data-grid/internal/query-controls.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/data-grid/internal/query-controls.tsx"
+        },
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/query/model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/query/model.ts"
+        },
+        {
+          "path": "components/record-list/infinite-records.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/infinite-records.ts"
+        },
+        {
+          "path": "components/record-list/record-list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-list.tsx"
+        },
+        {
+          "path": "components/record-list/record-table-model.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-table-model.ts"
+        },
+        {
+          "path": "components/record-list/record-table.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/record-table.tsx"
+        },
+        {
+          "path": "components/record-list/table-icon.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/table-icon.tsx"
+        },
+        {
+          "path": "components/record-list/use-infinite-records.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/record-list/use-infinite-records.ts"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/chart.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/chart.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/dropdown-menu.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/dropdown-menu.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/popover.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/popover.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/tabs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/tabs.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/header.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/header.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-inputs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-inputs.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/list.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/popover-panel.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/popover-panel.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/sheet.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/sheet.tsx"
+        },
+        {
+          "path": "components/ui/sidebar.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/sidebar.tsx"
+        },
+        {
+          "path": "components/ui/tabs.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/tabs.ts"
+        },
+        {
+          "path": "components/ui/toolbar-button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/toolbar-button.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "examples/crm/app.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/app.tsx"
+        },
+        {
+          "path": "examples/crm/components/record-notes.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/components/record-notes.tsx"
+        },
+        {
+          "path": "examples/crm/components/record-preview.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/components/record-preview.tsx"
+        },
+        {
+          "path": "examples/crm/example/data.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/example/data.ts"
+        },
+        {
+          "path": "examples/crm/example/query.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/example/query.ts"
+        },
+        {
+          "path": "examples/crm/example/store.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/example/store.ts"
+        },
+        {
+          "path": "examples/crm/layout.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/layout.tsx"
+        },
+        {
+          "path": "examples/crm/routes/companies-detail.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/companies-detail.tsx"
+        },
+        {
+          "path": "examples/crm/routes/companies-list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/companies-list.tsx"
+        },
+        {
+          "path": "examples/crm/routes/deals-detail.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/deals-detail.tsx"
+        },
+        {
+          "path": "examples/crm/routes/deals-list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/deals-list.tsx"
+        },
+        {
+          "path": "examples/crm/routes/people-detail.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/people-detail.tsx"
+        },
+        {
+          "path": "examples/crm/routes/people-list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/people-list.tsx"
+        },
+        {
+          "path": "examples/crm/routes/report.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/routes/report.tsx"
+        },
+        {
+          "path": "examples/crm/screens/detail-page.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/screens/detail-page.tsx"
+        },
+        {
+          "path": "examples/crm/screens/list-page.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/screens/list-page.tsx"
+        },
+        {
+          "path": "examples/crm/template.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/template.tsx"
+        },
+        {
+          "path": "examples/crm/types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/examples/crm/types.ts"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/data-grid.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/data-grid.css"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "type": "registry:ui",
+      "description": "Switch from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "radio",
+      "title": "Radio",
+      "type": "registry:ui",
+      "description": "Radio from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-textarea",
+      "title": "Inline textarea",
+      "type": "registry:ui",
+      "description": "Inline textarea from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-select",
+      "title": "Inline select",
+      "type": "registry:ui",
+      "description": "Inline select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-multi-select",
+      "title": "Inline multi select",
+      "type": "registry:ui",
+      "description": "Inline multi select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "type": "registry:ui",
+      "description": "Table from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "number-value",
+      "title": "Number value",
+      "type": "registry:ui",
+      "description": "Number value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "date-value",
+      "title": "Date value",
+      "type": "registry:ui",
+      "description": "Date value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "choice-value",
+      "title": "Choice value",
+      "type": "registry:ui",
+      "description": "Choice value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-combobox",
+      "title": "Inline combobox",
+      "type": "registry:ui",
+      "description": "Inline combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-inputs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-inputs.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "inline-multi-combobox",
+      "title": "Inline multi combobox",
+      "type": "registry:ui",
+      "description": "Inline multi combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "@base-ui/react@1.6.0",
+        "@tiptap/core@3.31.3",
+        "@tiptap/extension-highlight@3.31.3",
+        "@tiptap/extension-placeholder@3.31.3",
+        "@tiptap/extension-table@3.31.3",
+        "@tiptap/extension-task-item@3.31.3",
+        "@tiptap/extension-task-list@3.31.3",
+        "@tiptap/extension-text-style@3.31.3",
+        "@tiptap/starter-kit@3.31.3",
+        "@tiptap/suggestion@3.31.3",
+        "class-variance-authority@^0.7.1",
+        "cn@^0.4.0",
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/icons/icons.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/icons.js"
+        },
+        {
+          "path": "components/icons/index.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.d.ts"
+        },
+        {
+          "path": "components/icons/index.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/icons/index.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/BlockMenu.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/BlockMenu.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/FormattingToolbar.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/FormattingToolbar.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/LinkPopover.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/LinkPopover.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.d.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.d.ts"
+        },
+        {
+          "path": "components/rich-text/internal/RichTextEditor.jsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/RichTextEditor.jsx"
+        },
+        {
+          "path": "components/rich-text/internal/commands.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/commands.js"
+        },
+        {
+          "path": "components/rich-text/internal/extensions.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/extensions.js"
+        },
+        {
+          "path": "components/rich-text/internal/locale.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/locale.js"
+        },
+        {
+          "path": "components/rich-text/internal/modal.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/modal.tsx"
+        },
+        {
+          "path": "components/rich-text/internal/paste.js",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/rich-text/internal/paste.js"
+        },
+        {
+          "path": "components/shadcn/button.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/button.tsx"
+        },
+        {
+          "path": "components/shadcn/combobox.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/combobox.tsx"
+        },
+        {
+          "path": "components/shadcn/field.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/field.tsx"
+        },
+        {
+          "path": "components/shadcn/icon-placeholder.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/icon-placeholder.tsx"
+        },
+        {
+          "path": "components/shadcn/input-group.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input-group.tsx"
+        },
+        {
+          "path": "components/shadcn/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/input.tsx"
+        },
+        {
+          "path": "components/shadcn/label.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/label.tsx"
+        },
+        {
+          "path": "components/shadcn/select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/select.tsx"
+        },
+        {
+          "path": "components/shadcn/separator.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/separator.tsx"
+        },
+        {
+          "path": "components/shadcn/textarea.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/shadcn/textarea.tsx"
+        },
+        {
+          "path": "components/ui/choice-types.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/choice-types.ts"
+        },
+        {
+          "path": "components/ui/index.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/index.tsx"
+        },
+        {
+          "path": "components/ui/inline-choice.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-choice.tsx"
+        },
+        {
+          "path": "components/ui/inline-edit.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-edit.tsx"
+        },
+        {
+          "path": "components/ui/inline-inputs.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-inputs.tsx"
+        },
+        {
+          "path": "components/ui/inline-rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-rich-text.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-feedback.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-feedback.tsx"
+        },
+        {
+          "path": "components/ui/inline-save-task.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/inline-save-task.ts"
+        },
+        {
+          "path": "components/ui/input.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/input.tsx"
+        },
+        {
+          "path": "components/ui/multi-select.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/multi-select.tsx"
+        },
+        {
+          "path": "components/ui/rich-text.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/rich-text.tsx"
+        },
+        {
+          "path": "components/ui/use-inline-save.ts",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/use-inline-save.ts"
+        },
+        {
+          "path": "components/ui/value.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/value.tsx"
+        },
+        {
+          "path": "lib/i18n.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/lib/i18n.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "list-item",
+      "title": "List item",
+      "type": "registry:ui",
+      "description": "List item from dir/ui. React 19, Base UI and Tailwind CSS 4.",
+      "dependencies": [
+        "react@^19",
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "components/ui/list.tsx",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/components/ui/list.tsx"
+        },
+        {
+          "path": "styles/tailwind.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/tailwind.css"
+        },
+        {
+          "path": "styles/theme.css",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/styles/theme.css"
+        },
+        {
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/THIRD_PARTY_LICENSES/shadcn-ui.txt"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/lib/dir-components/LICENSE"
+        }
+      ]
+    }
+  ]
+}

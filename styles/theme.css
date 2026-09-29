@@ -1,0 +1,93 @@
+:root {
+  --ui-ring: light-dark(#a1a1aa, #71717a);
+  --dir-text-caption: 12px;
+  --dir-text-label: 13px;
+  --dir-text-inline: 13px;
+  --dir-text-body: 14px;
+  --dir-text-section: 16px;
+  --dir-text-title: 20px;
+  --ui-canvas: light-dark(#ffffff, #151515);
+  --ui-sidebar: light-dark(#fafafa, #191919);
+  --ui-surface: light-dark(#ffffff, #1c1c1c);
+  --ui-raised: light-dark(#ffffff, #242424);
+  --ui-subtle: light-dark(#f4f4f5, #202020);
+  --ui-hover: light-dark(#f4f4f5, #27272a);
+  --ui-selected: light-dark(#f4f4f5, #27272a);
+  --ui-text: light-dark(#202024, #f1f1f3);
+  --ui-muted: light-dark(#68686f, #a5a5ad);
+  --ui-border: light-dark(#ececee, #303033);
+  --ui-control-border: light-dark(#87878e, #75757d);
+  --ui-primary: light-dark(#18181b, #fafafa);
+  --ui-primary-top: light-dark(#4878ee, #608bf2);
+  --ui-primary-hover: light-dark(#2c5ed9, #608bf2);
+  --ui-on-primary: light-dark(#fafafa, #18181b);
+  --ui-focus: light-dark(#a1a1aa, #71717a);
+  --ui-violet: light-dark(#6140b4, #cfbbff);
+  --ui-violet-bg: light-dark(#f0eafb, #332a45);
+  --ui-green: light-dark(#286744, #a5ddb7);
+  --ui-green-bg: light-dark(#eaf4ed, #233b2b);
+  --ui-blue: light-dark(#365e91, #bad1f1);
+  --ui-blue-bg: light-dark(#ebf1fa, #26354b);
+  --ui-amber: light-dark(#795619, #ebcd91);
+  --ui-amber-bg: light-dark(#faf1de, #41341e);
+  --ui-red: light-dark(#a43145, #efb7c0);
+  --ui-red-bg: light-dark(#faebee, #442b32);
+  --ui-overlay: light-dark(rgb(20 20 24 / 0.22), rgb(0 0 0 / 0.48));
+  --ui-shadow-color: light-dark(rgb(20 20 30 / 0.12), rgb(0 0 0 / 0.4));
+  --ui-shadow: 0 8px 28px var(--ui-shadow-color);
+  --ui-sidebar-width: 252px;
+  --ui-header-height: 56px;
+  --ui-row-height: 44px;
+  --ui-control-height: 32px;
+  --ui-radius-control: 8px;
+  --ui-radius-panel: 8px;
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-6: 24px;
+  --ui-ease: cubic-bezier(0.2, 0, 0, 1);
+  --ui-fast: 120ms;
+  --ui-enter: 180ms;
+  --ui-exit: 120ms;
+  --secondary: var(--ui-subtle);
+  --foreground: var(--ui-text);
+  --dir-radius: 6px;
+  --dir-row-height: 40px;
+  --dir-control-height: 32px;
+  --dir-focus: var(--ui-primary);
+  --chart-primary: #52525b;
+  --chart-secondary: #64a49a;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-fast: 0ms;
+    --ui-enter: 0ms;
+    --ui-exit: 0ms;
+  }
+}
+@media (max-width: 1000px) {
+  :root {
+    --ui-sidebar-width: 220px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ui-fast: 0ms;
+    --ui-enter: 0ms;
+    --ui-exit: 0ms;
+  }
+}
+@media (max-width: 1000px) {
+  :root {
+    --ui-sidebar-width: 220px;
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+:root.dark,
+:root[data-theme=dark] {
+  color-scheme: dark;
+}

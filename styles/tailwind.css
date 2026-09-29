@@ -1,0 +1,29 @@
+@import './theme.css';
+@source '../components';
+@source '../lib';
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+@custom-variant dark (&:where(.dark, .dark *, [data-theme=dark], [data-theme=dark] *));
+@theme inline {
+  --color-background: var(--ui-surface);
+  --color-foreground: var(--ui-text);
+  --color-muted: var(--ui-subtle);
+  --color-muted-foreground: var(--ui-muted);
+  --color-border: var(--ui-border);
+  --color-input: var(--ui-border);
+  --color-ring: var(--ui-ring);
+  --color-primary: var(--ui-primary);
+  --color-primary-foreground: var(--ui-on-primary);
+  --color-secondary: var(--ui-subtle);
+  --color-secondary-foreground: var(--ui-text);
+  --color-destructive: var(--ui-red);
+  --color-popover: var(--ui-surface);
+  --color-popover-foreground: var(--ui-text);
+  --color-accent: var(--ui-hover);
+  --color-accent-foreground: var(--ui-text);
+  --radius-md: 6px;
+}

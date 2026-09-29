@@ -1,0 +1,91 @@
+{
+  "nodeModulesDir": "auto",
+  "imports": {
+    "@base-ui/react": "npm:@base-ui/react@1.6.0",
+    "@hookform/resolvers": "npm:@hookform/resolvers@^5",
+    "@tailwindcss/vite": "npm:@tailwindcss/vite@^4",
+    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^6",
+    "class-variance-authority": "npm:class-variance-authority@^0.7.1",
+    "cn": "npm:cn@^0.4.0",
+    "react": "npm:react@^19",
+    "react-dom/server": "npm:react-dom@^19/server",
+    "react-dom/client": "npm:react-dom@^19/client",
+    "react-hook-form": "npm:react-hook-form@^7",
+    "react-data-grid": "npm:react-data-grid@7.0.0-beta.61",
+    "recharts": "npm:recharts@^3.10.1",
+    "react-markdown": "npm:react-markdown@10.1.0",
+    "remark-gfm": "npm:remark-gfm@4.0.1",
+    "tailwindcss": "npm:tailwindcss@^4",
+    "tw-animate-css": "npm:tw-animate-css@^1.4.0",
+    "vite": "npm:vite@^8",
+    "zod": "npm:zod@^4",
+    "@tiptap/core": "npm:@tiptap/core@3.31.3",
+    "@tiptap/extension-highlight": "npm:@tiptap/extension-highlight@3.31.3",
+    "@tiptap/extension-placeholder": "npm:@tiptap/extension-placeholder@3.31.3",
+    "@tiptap/extension-task-item": "npm:@tiptap/extension-task-item@3.31.3",
+    "@tiptap/extension-task-list": "npm:@tiptap/extension-task-list@3.31.3",
+    "@tiptap/extension-text-style": "npm:@tiptap/extension-text-style@3.31.3",
+    "@tiptap/starter-kit": "npm:@tiptap/starter-kit@3.31.3",
+    "@tiptap/suggestion": "npm:@tiptap/suggestion@3.31.3",
+    "@tiptap/extension-table": "npm:@tiptap/extension-table@3.31.3"
+  },
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "types": [
+      "npm:@types/react@^19",
+      "npm:@types/react-dom@^19"
+    ],
+    "lib": [
+      "dom",
+      "dom.asynciterable",
+      "dom.iterable",
+      "deno.ns"
+    ]
+  },
+  "fmt": {
+    "exclude": [
+      ".agents/",
+      ".dir/",
+      "dist/",
+      "components/rich-text/internal/",
+      "components/icons/",
+      "registry.json",
+      "landing/public/r/",
+      "landing/public/components/",
+      "landing/public/examples/",
+      "landing/public/llms.txt",
+      "landing/public/sitemap.xml",
+      "landing/public/robots.txt",
+      "landing/public/api/docs/",
+      "internal/publish/files.json",
+      "internal/**/*.json",
+      ".release/"
+    ],
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "semiColons": false,
+    "singleQuote": true
+  },
+  "tasks": {
+    "dev": "deno task docs:build && deno run -A npm:vite@^8 --config landing/vite.config.ts --host 127.0.0.1",
+    "check": "deno fmt --check && deno lint && deno check landing/src/main.tsx landing/src/pages/studio/preview-runtime.tsx landing/vite.config.ts scripts/site.ts && deno task registry:check",
+    "test": "deno test --allow-env=NODE_ENV --allow-read tests/*.test.ts tests/*.test.tsx",
+    "build": "deno task docs:build && deno run -A npm:vite@^8 build --config landing/vite.config.ts && deno run --allow-read --allow-write=dist --allow-env=SITE_ENV scripts/site.ts",
+    "preview": "deno run -A npm:vite@^8 preview --config landing/vite.config.ts --host 127.0.0.1",
+    "registry:generate": "deno run --allow-read --allow-write=registry.json scripts/registry.ts",
+    "registry:check": "deno run --allow-read scripts/registry.ts --check",
+    "registry:validate": "npm exec --yes --package=shadcn@4.21.0 -- shadcn registry validate registry.json",
+    "docs:build": "deno run --allow-read --allow-write=landing/public scripts/documentation.ts",
+    "check:standalone": "deno task check",
+    "build:standalone": "deno task build"
+  },
+  "lint": {
+    "exclude": [
+      "components/rich-text/internal/",
+      "components/icons/"
+    ]
+  }
+}

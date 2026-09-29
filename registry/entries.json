@@ -1,0 +1,239 @@
+{
+  "button": {
+    "title": "Button",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "checkbox": {
+    "title": "Checkbox",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "select": {
+    "title": "Select",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "dialog": {
+    "title": "Dialog",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "alert-dialog": {
+    "title": "Alert Dialog",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "empty-state": {
+    "title": "Empty State",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "error-state": {
+    "title": "Error State",
+    "files": [
+      "components/ui/index.tsx"
+    ]
+  },
+  "input": {
+    "title": "Input",
+    "files": [
+      "components/ui/input.tsx"
+    ]
+  },
+  "textarea": {
+    "title": "Textarea",
+    "files": [
+      "components/ui/input.tsx"
+    ]
+  },
+  "field": {
+    "title": "Field",
+    "files": [
+      "components/ui/input.tsx"
+    ]
+  },
+  "multi-select": {
+    "title": "Multi Select",
+    "files": [
+      "components/ui/multi-select.tsx"
+    ]
+  },
+  "combobox": {
+    "title": "Combobox",
+    "files": [
+      "components/ui/multi-select.tsx"
+    ]
+  },
+  "multi-combobox": {
+    "title": "Multi Combobox",
+    "files": [
+      "components/ui/multi-select.tsx"
+    ]
+  },
+  "header": {
+    "title": "Header",
+    "files": [
+      "components/ui/header.tsx"
+    ]
+  },
+  "sidebar": {
+    "title": "Sidebar",
+    "files": [
+      "components/ui/sidebar.tsx"
+    ]
+  },
+  "tabs": {
+    "title": "Tabs",
+    "files": [
+      "components/ui/tabs.ts"
+    ]
+  },
+  "sheet": {
+    "title": "Sheet",
+    "files": [
+      "components/ui/sheet.tsx"
+    ]
+  },
+  "list": {
+    "title": "List",
+    "files": [
+      "components/ui/list.tsx"
+    ]
+  },
+  "inline-edit": {
+    "title": "Inline Edit",
+    "files": [
+      "components/ui/inline-edit.tsx"
+    ]
+  },
+  "inline-inputs": {
+    "title": "Inline Inputs",
+    "files": [
+      "components/ui/inline-inputs.tsx"
+    ]
+  },
+  "rich-text": {
+    "title": "Rich Text",
+    "files": [
+      "components/ui/rich-text.tsx"
+    ]
+  },
+  "inline-rich-text": {
+    "title": "Inline Rich Text",
+    "files": [
+      "components/ui/inline-rich-text.tsx"
+    ]
+  },
+  "value": {
+    "title": "Value",
+    "files": [
+      "components/ui/value.tsx"
+    ]
+  },
+  "popover": {
+    "title": "Popover",
+    "files": [
+      "components/ui/popover.ts",
+      "components/ui/popover-panel.tsx"
+    ]
+  },
+  "dropdown-menu": {
+    "title": "Dropdown Menu",
+    "files": [
+      "components/ui/dropdown-menu.ts"
+    ]
+  },
+  "tooltip": {
+    "title": "Tooltip",
+    "files": [
+      "components/shadcn/tooltip.tsx"
+    ]
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "files": [
+      "components/shadcn/skeleton.tsx"
+    ]
+  },
+  "icons": {
+    "title": "Icons",
+    "files": [
+      "components/icons/index.jsx"
+    ]
+  },
+  "toast": {
+    "title": "Toast",
+    "files": [
+      "components/ui/index.tsx",
+      "components/icons/index.jsx"
+    ]
+  },
+  "data-grid": {
+    "title": "DataGrid",
+    "files": [
+      "components/data-grid/data-grid.tsx"
+    ]
+  },
+  "record-list": {
+    "title": "Record List",
+    "files": [
+      "components/record-list/record-list.tsx"
+    ]
+  },
+  "search-dialog": {
+    "title": "Search Dialog",
+    "files": [
+      "components/collections/search-dialog.tsx"
+    ]
+  },
+  "file-upload": {
+    "title": "File Upload",
+    "files": [
+      "components/collections/files.tsx"
+    ]
+  },
+  "chart": {
+    "title": "Chart",
+    "files": [
+      "components/charts/index.tsx",
+      "components/charts/chart-frame.tsx"
+    ]
+  },
+  "theme": {
+    "title": "Theme",
+    "files": [
+      "styles/tailwind.css"
+    ]
+  },
+  "crm-example": {
+    "title": "CRM example",
+    "files": [
+      "examples/crm/app.tsx",
+      "examples/crm/components/record-notes.tsx",
+      "examples/crm/components/record-preview.tsx",
+      "examples/crm/example/data.ts",
+      "examples/crm/example/query.ts",
+      "examples/crm/example/store.ts",
+      "examples/crm/layout.tsx",
+      "examples/crm/routes/companies-detail.tsx",
+      "examples/crm/routes/companies-list.tsx",
+      "examples/crm/routes/deals-detail.tsx",
+      "examples/crm/routes/deals-list.tsx",
+      "examples/crm/routes/people-detail.tsx",
+      "examples/crm/routes/people-list.tsx",
+      "examples/crm/routes/report.tsx",
+      "examples/crm/screens/detail-page.tsx",
+      "examples/crm/screens/list-page.tsx",
+      "examples/crm/types.ts",
+      "examples/crm/template.tsx"
+    ],
+    "type": "registry:block"
+  }
+}
