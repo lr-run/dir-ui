@@ -1,9 +1,10 @@
+import { ChartNoAxesColumnIcon } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import { ChartFrame } from '../../../components/charts/chart-frame.tsx'
-import { ChartTooltip, ChartTooltipContent } from '../../../components/shadcn/chart.tsx'
-import { Header } from '../../../components/ui/header.tsx'
-import { I, Select } from '../../../components/ui/index.tsx'
+import { ChartTooltip, ChartTooltipContent } from '../../../components/ui/chart.tsx'
+import { Header } from '../../../components/header.tsx'
+import { Select } from '../../../components/ui/select.tsx'
 import { WorkspaceSidebarTrigger } from '../layout.tsx'
 import type { ExampleRecord } from '../types.ts'
 import { examples } from '../example/data.ts'
@@ -51,7 +52,7 @@ export default function ReportRoute({ records }: { records: readonly ExampleReco
         leading={<WorkspaceSidebarTrigger />}
         title={
           <span className='flex items-center gap-[8px] text-[14px] font-semibold'>
-            <I name='chart' />Report
+            <ChartNoAxesColumnIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Report
           </span>
         }
         actions={<span className='text-[11px] text-muted-foreground'>Deals · USD</span>}

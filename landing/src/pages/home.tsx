@@ -1,5 +1,6 @@
+import { ArrowRightIcon } from 'lucide-react'
 import { type MouseEvent, useState } from 'react'
-import { Select } from '../../../components/ui/index.tsx'
+import { Select } from '../../../components/ui/select.tsx'
 import { Input } from '../../../components/ui/input.tsx'
 import { landingHref } from '../routes.ts'
 
@@ -75,16 +76,7 @@ export function Home({ onNavigate }: { onNavigate: (id: string) => void }) {
               className='inline-flex h-11 items-center justify-center gap-5 rounded-lg max-[600px]:px-4 bg-foreground px-5 text-[13px] font-medium text-background no-underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring'
             >
               Explore components
-              <svg
-                className='size-4'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='1.5'
-                aria-hidden='true'
-              >
-                <path d='M5 12h14m-6-6 6 6-6 6' />
-              </svg>
+              <ArrowRightIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </a>
             <a
               href={landingHref('studio')}

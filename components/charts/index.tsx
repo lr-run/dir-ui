@@ -3,7 +3,7 @@ import {
   ChartLegendContent,
   ChartTooltip as Tooltip,
   ChartTooltipContent,
-} from '../shadcn/chart.tsx'
+} from '../ui/chart.tsx'
 import { ChartFrame } from './chart-frame.tsx'
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, XAxis, YAxis } from 'recharts'
 import { useI18n } from '../../lib/i18n.tsx'

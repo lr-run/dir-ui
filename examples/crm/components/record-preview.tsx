@@ -1,8 +1,9 @@
-import { I, IconButton } from '../../../components/ui/index.tsx'
+import { ChevronDownIcon, ClockIcon, Maximize2Icon, TargetIcon, Trash2Icon, UserRoundIcon, XIcon } from 'lucide-react'
+import { IconButton } from '../../../components/ui/icon-button.tsx'
 import { SheetBody, SheetClose, SheetContent, SheetHeader, SheetTitle } from '../../../components/ui/sheet.tsx'
 import { RecordNotes } from './record-notes.tsx'
 import { InlineCombobox } from '../../../components/ui/inline-inputs.tsx'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs.ts'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs.tsx'
 import { DetailFields } from '../screens/detail-page.tsx'
 import type { DetailField } from '../screens/detail-page.tsx'
 import type { RecordChange } from '../types.ts'
@@ -30,21 +31,21 @@ export function RecordPreview(
     >
       <SheetHeader>
         <SheetClose render={<IconButton variant='ghost' label='Close preview' />}>
-          <I name='x' />
+          <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </SheetClose>
         <IconButton variant='ghost' label='Previous record' disabled={!onPrevious} onClick={onPrevious}>
           <span className='flex [transform:rotate(180deg)]'>
-            <I name='chevron' />
+            <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </span>
         </IconButton>
         <IconButton variant='ghost' label='Next record' disabled={!onNext} onClick={onNext}>
-          <I name='chevron' />
+          <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </IconButton>
         <span className='text-[11px] text-muted-foreground ml-[5px] overflow-hidden text-ellipsis whitespace-nowrap'>
           {position} of {total} in {config.title}
         </span>
         <IconButton variant='ghost' label='Open full record' onClick={onOpen}>
-          <I name='expand' />
+          <Maximize2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </IconButton>
         <SheetTitle className='[clip-path:inset(50%)] absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0]'>
           {record.name} preview
@@ -60,7 +61,7 @@ export function RecordPreview(
             <p>{kind === 'companies' ? record.domain : record.company || config.singular}</p>
           </div>
           <IconButton variant='ghost' label='Delete record' onClick={onDelete}>
-            <I name='trash' />
+            <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </IconButton>
         </div>
         <Tabs
@@ -81,8 +82,8 @@ export function RecordPreview(
               <h3>Highlights</h3>
               <div className='grid grid-cols-[repeat(2,_minmax(0,_1fr))] gap-[8px] [&>div]:[border:1px_solid_var(--ui-border)] [&>div]:rounded-[8px] [&>div]:p-[12px_10px_8px] [&>div]:min-w-0'>
                 <div>
-                  <span className="flex justify-between items-center text-[11px] text-muted-foreground m-[0_4px_12px] [&_[class~='group/svg-wrap']]:w-[14px] [&_[class~='group/svg-wrap']]:h-[14px]">
-                    Status<I name='target' />
+                  <span className='flex justify-between items-center text-[11px] text-muted-foreground m-[0_4px_12px] [&_svg]:w-[14px] [&_svg]:h-[14px]'>
+                    Status<TargetIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                   </span>
                   <InlineCombobox
                     label='Status'
@@ -95,8 +96,8 @@ export function RecordPreview(
                   />
                 </div>
                 <div>
-                  <span className="flex justify-between items-center text-[11px] text-muted-foreground m-[0_4px_12px] [&_[class~='group/svg-wrap']]:w-[14px] [&_[class~='group/svg-wrap']]:h-[14px]">
-                    Owner<I name='user' />
+                  <span className='flex justify-between items-center text-[11px] text-muted-foreground m-[0_4px_12px] [&_svg]:w-[14px] [&_svg]:h-[14px]'>
+                    Owner<UserRoundIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                   </span>
                   <InlineCombobox
                     label='Owner'
@@ -151,8 +152,8 @@ function PreviewActivity({ events }: { events: ExampleRecord['activity'] }) {
       {events.length
         ? events.map((event) => (
           <li key={event.id}>
-            <span className="grid [place-items:center] w-[26px] h-[26px] [border:1px_solid_var(--ui-border)] rounded-[50%] text-muted-foreground shrink-0 [&_[class~='group/svg-wrap']]:w-[13px] [&_[class~='group/svg-wrap']]:h-[13px]">
-              <I name='clock' />
+            <span className='grid [place-items:center] w-[26px] h-[26px] [border:1px_solid_var(--ui-border)] rounded-[50%] text-muted-foreground shrink-0 [&_svg]:w-[13px] [&_svg]:h-[13px]'>
+              <ClockIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </span>
             <div>
               <p>{event.title}</p>

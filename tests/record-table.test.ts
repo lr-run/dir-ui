@@ -1,4 +1,4 @@
-import { cellText, reorderTableColumns } from '../components/record-list/record-table-model.ts'
+import { cellText, reorderTableColumns } from '../lib/record-table-model.ts'
 Deno.test('typed table formatting preserves null, zero, false, percentages, and date-only values', () => {
   const results = [
     cellText(null, 'money'),

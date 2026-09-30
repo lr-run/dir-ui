@@ -1,8 +1,9 @@
+import { installPath, installSnippet } from '../../../../registry/paths.ts'
 import { componentApi } from './api-data.ts'
 function ImportCode({ id }: { id: string }) {
   const doc = componentApi[id as keyof typeof componentApi]
   if (!doc) return null
-  const specifier = doc.path.startsWith('components/') ? './lib/dir-components/' + doc.path : doc.path
+  const specifier = doc.path.startsWith('components/') ? '@/' + installPath(doc.path) : doc.path
   const statement = doc.path === 'HTML'
     ? '<table className="w-full [border-collapse:collapse] text-[13px] whitespace-nowrap [&_th]:p-[12px_16px] [&_th]:text-left [&_th]:[border-bottom:1px_solid_var(--ui-border)] [&_td]:p-[12px_16px] [&_td]:text-left [&_td]:[border-bottom:1px_solid_var(--ui-border)] [&_th]:text-muted-foreground [&_th]:text-[12px] [&_th]:font-medium [&_tbody_tr:last-child_td]:[border:0]">…</table>'
     : doc.path === 'CSS'
@@ -58,7 +59,7 @@ function Reference({ id, showImport = false }: { id: string; showImport?: boolea
       {doc.types && (
         <>
           <h3>Types</h3>
-          <pre className='text-[12px] leading-[1.7] whitespace-pre overflow-auto m-0 p-[20px_24px] text-muted-foreground max-h-[300px] [border:1px_solid_var(--ui-border)] rounded-[6px] [background:var(--ui-hover)]'><code>{doc.types}</code></pre>
+          <pre className='text-[12px] leading-[1.7] whitespace-pre overflow-auto m-0 p-[20px_24px] text-muted-foreground max-h-[300px] [border:1px_solid_var(--ui-border)] rounded-[6px] [background:var(--ui-hover)]'><code>{installSnippet(doc.types)}</code></pre>
         </>
       )}
       {doc.notes && <p className='text-[13px] text-muted-foreground leading-[1.7] mt-[18px]'>{doc.notes}</p>}

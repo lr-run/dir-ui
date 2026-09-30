@@ -27,7 +27,8 @@
     "@tiptap/extension-text-style": "npm:@tiptap/extension-text-style@3.31.3",
     "@tiptap/starter-kit": "npm:@tiptap/starter-kit@3.31.3",
     "@tiptap/suggestion": "npm:@tiptap/suggestion@3.31.3",
-    "@tiptap/extension-table": "npm:@tiptap/extension-table@3.31.3"
+    "@tiptap/extension-table": "npm:@tiptap/extension-table@3.31.3",
+    "lucide-react": "npm:lucide-react@1.48.0"
   },
   "compilerOptions": {
     "strict": true,
@@ -50,8 +51,6 @@
       ".agents/",
       ".dir/",
       "dist/",
-      "components/rich-text/internal/",
-      "components/icons/",
       "registry.json",
       "landing/public/r/",
       "landing/public/components/",
@@ -62,7 +61,8 @@
       "landing/public/api/docs/",
       "internal/publish/files.json",
       "internal/**/*.json",
-      ".release/"
+      ".release/",
+      "registry/source/"
     ],
     "indentWidth": 2,
     "lineWidth": 120,
@@ -71,21 +71,21 @@
   },
   "tasks": {
     "dev": "deno task docs:build && deno run -A npm:vite@^8 --config landing/vite.config.ts --host 127.0.0.1",
-    "check": "deno fmt --check && deno lint && deno check landing/src/main.tsx landing/src/pages/studio/preview-runtime.tsx landing/vite.config.ts scripts/site.ts && deno task registry:check",
+    "check": "deno fmt --check && deno lint && deno check components/rich-text/internal/RichTextEditor.tsx landing/src/main.tsx landing/src/pages/studio/preview-runtime.tsx landing/vite.config.ts scripts/site.ts && deno task registry:check",
     "test": "deno test --allow-env=NODE_ENV --allow-read tests/*.test.ts tests/*.test.tsx",
     "build": "deno task docs:build && deno run -A npm:vite@^8 build --config landing/vite.config.ts && deno run --allow-read --allow-write=dist --allow-env=SITE_ENV scripts/site.ts",
     "preview": "deno run -A npm:vite@^8 preview --config landing/vite.config.ts --host 127.0.0.1",
-    "registry:generate": "deno run --allow-read --allow-write=registry.json scripts/registry.ts",
+    "registry:generate": "deno run --allow-read --allow-write=registry.json,registry/source scripts/registry.ts",
     "registry:check": "deno run --allow-read scripts/registry.ts --check",
     "registry:validate": "npm exec --yes --package=shadcn@4.21.0 -- shadcn registry validate registry.json",
     "docs:build": "deno run --allow-read --allow-write=landing/public scripts/documentation.ts",
     "check:standalone": "deno task check",
-    "build:standalone": "deno task build"
+    "build:standalone": "deno task build",
+    "registry:local": "deno run --allow-read --allow-write scripts/registry-local.ts"
   },
   "lint": {
     "exclude": [
-      "components/rich-text/internal/",
-      "components/icons/"
+      "registry/source/"
     ]
   }
 }

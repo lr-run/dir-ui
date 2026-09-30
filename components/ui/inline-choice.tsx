@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react'
-import { Select } from './index.tsx'
-import { type Choice, MultiSelect } from './multi-select.tsx'
-import { type InlineSaveHandler, useInlineSave } from './use-inline-save.ts'
+import { Select } from './select.tsx'
+import { type Choice } from '../../lib/choice-types.ts'
+import { MultiSelect } from './multi-select.tsx'
+import { type InlineSaveHandler, useInlineSave } from '../../hooks/use-inline-save.ts'
 import { InlineSaveFeedback } from './inline-save-feedback.tsx'
 
 type ChoiceProps<T> = {

@@ -1,5 +1,5 @@
-import { queryTextRecords } from '../components/record-list/record-list-query.ts'
-import type { RecordFilter } from '../components/query/model.ts'
+import { queryTextRecords } from '../lib/record-list-query.ts'
+import type { RecordFilter } from '../lib/query.ts'
 const rows = [{ name: 'Beta', department: 'Sales', email: '' }, {
   name: 'Alpha',
   department: 'Sales',

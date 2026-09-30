@@ -1,5 +1,5 @@
-import { validateFile } from '../components/collections/file-model.ts'
-import { UploadQueue } from '../components/collections/upload-queue.ts'
+import { validateFile } from '../lib/file-model.ts'
+import { UploadQueue } from '../lib/upload-queue.ts'
 function assert(value: unknown, message: string): void {
   if (!value) throw new Error(message)
 }

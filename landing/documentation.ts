@@ -1,3 +1,4 @@
+import { installPath, installSnippet } from '../registry/paths.ts'
 import { componentApi } from './src/pages/catalog/api-data.ts'
 import { specs } from './src/pages/catalog/playground/specs.ts'
 import { navigationGroups } from './src/pages/catalog/navigation.ts'
@@ -7,32 +8,27 @@ import { installCommand, registryUrl, siteUrl } from '../registry/catalog.ts'
 const code = (language: string, source: string) => `\`\`\`${language}\n${source}\n\`\`\``
 const cell = (value: string) => value.replaceAll('|', '\\|').replaceAll('\n', '<br>')
 const setup =
-  `Requires React 19, Tailwind CSS 4, and a shadcn-initialized project. Uses Base UI. The command installs npm dependencies and copies source into \`lib/dir-components/\`. Adapt import paths to your file location.\n\nImport once from your application stylesheet (adjust relative paths):\n\n${
-    code(
-      'css',
-      "@import 'tailwindcss';\n@import 'tw-animate-css';\n@import '../lib/dir-components/styles/tailwind.css';",
-    )
-  }\n\nUse \`.dark\` or \`data-theme="dark"\` on the document root. No Dir runtime is required.`
+  `Requires React 19, Tailwind CSS 4 and shadcn initialized with Base UI. Registry target placeholders resolve through components.json: @ui, @components, @hooks and @lib. Imports below use the conventional @/ prefix for illustration; the CLI rewrites them to your configured aliases. Shared components are installed once through registryDependencies. Theme CSS is imported by the UI modules. Existing files are never forcibly overwritten; review CLI conflicts before accepting changes. No Dir runtime is required.`
 
 function reference(id: string) {
   const api = componentApi[id as keyof typeof componentApi]
   if (!api) throw new Error(`Missing API reference: ${id}`)
-  const path = api.path.startsWith('components/') ? `./lib/dir-components/${api.path}` : api.path
+  const path = api.path.startsWith('components/') ? `@/${installPath(api.path)}` : api.path
   const imports = api.path === 'HTML'
     ? 'Use native HTML <table>, <thead>, <tbody>, <tr>, <th>, and <td>.'
     : code('tsx', `import { ${api.names} } from '${path}'`)
   return `## ${api.names}\n\n${imports}\n\n| Prop | Type | Default / required | Notes |\n| --- | --- | --- | --- |\n${
     api.rows.map((row) => `| ${[row.name, row.type, row.default, row.detail].map(cell).join(' | ')} |`).join('\n')
-  }\n${api.types ? '\n' + code('ts', api.types) + '\n' : ''}${api.notes ? '\n' + api.notes + '\n' : ''}`
+  }\n${api.types ? '\n' + code('ts', installSnippet(api.types)) + '\n' : ''}${api.notes ? '\n' + api.notes + '\n' : ''}`
 }
 const constraints: Record<string, string> = {
   sidebar: 'Wrap Sidebar and SidebarTrigger in SidebarProvider. Never mount either outside the provider.',
   tooltip: 'Wrap tooltip consumers in Tooltip.Provider.',
   toast: 'Wrap toast consumers in Toast.Provider.',
   'data-grid':
-    'Also import `lib/dir-components/styles/data-grid.css`. Give the grid a bounded height. Sorting and filtering emit query state; the caller supplies the resulting rows. Apply remote queries to the complete dataset before pagination.',
+    'Grid CSS is imported by the component. Give the grid a bounded height. Sorting and filtering emit query state; the caller supplies the resulting rows. Apply remote queries to the complete dataset before pagination.',
   'record-list':
-    'Also import `lib/dir-components/styles/data-grid.css`. Give the list a bounded height. Use stable row IDs. The caller owns data loading and persistence.',
+    'Grid CSS is imported by the component. Give the list a bounded height. Use stable row IDs. The caller owns data loading and persistence.',
   table:
     'The registry item installs shared theme styles; Table is a native HTML recipe, not an exported React component.',
   radio: 'The registry item installs Base UI and shared theme styles. Compose RadioGroup and Radio.Root directly.',
@@ -64,16 +60,20 @@ export function documentationFiles(): Map<string, string> {
       }\n\n## Entry\n\n${
         code(
           'tsx',
-          `import { ${template.exportName} } from './lib/dir-components/${template.entry}'\n\nexport default function Page() {\n  return <div className="h-dvh">${template.usage}</div>\n}`,
+          `import { ${template.exportName} } from '@/${
+            installPath(template.entry)
+          }'\n\nexport default function Page() {\n  return <div className="h-dvh">${template.usage}</div>\n}`,
         )
-      }\n\n${template.integration}\n\n## Files and routes\n\nSource directory: \`${template.sourceDirectory}/\`.\n\n${template.files}\n\nRoutes under basePath: ${
+      }\n\n${template.integration}\n\n## Files and routes\n\nSource directory: \`${
+        installPath(template.sourceDirectory)
+      }/\`.\n\n${template.files}\n\nRoutes under basePath: ${
         template.routes.map((route) => `\`/${route}\``).join(', ')
       }\n`,
     )
   }
   files.set(
     'llms.txt',
-    `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry JSON contains the complete implementation and dependency versions. The library has no Dir runtime dependency.\n\n${
+    `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry items declare owned files, shared registry dependencies, and npm versions. The library has no Dir runtime dependency.\n\n${
       navigationGroups.map((group) =>
         `## ${group.label}\n\n${
           group.items.map((spec) => `- [${spec.title}](${siteUrl}components/${spec.id}.md): ${spec.description}`).join(

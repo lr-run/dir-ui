@@ -1,9 +1,17 @@
+import { ChevronDownIcon, Columns3Icon, CopyIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
-import { type RecordColumn, RecordList } from '../../../components/record-list/record-list.tsx'
+import { type RecordColumn } from '../../../components/record-list/record-table.tsx'
+import { RecordList } from '../../../components/record-list/record-list.tsx'
 import type { RecordFilter, RecordSort } from '../../../components/data-grid/data-grid.tsx'
-import { Button, ConfirmDialog, Dialog, DropdownMenu, I, IconButton, MenuPopup } from '../../../components/ui/index.tsx'
-import { Field, Input } from '../../../components/ui/input.tsx'
-import type { QueryField } from '../../../components/query/model.ts'
+import { Button } from '../../../components/ui/button.tsx'
+import { IconButton } from '../../../components/ui/icon-button.tsx'
+import { ConfirmDialog } from '../../../components/ui/alert-dialog.tsx'
+import { Dialog } from '../../../components/ui/dialog.tsx'
+import { Menu as DropdownMenu } from '@base-ui/react/menu'
+import { MenuPopup } from '../../../components/ui/menu-popup.tsx'
+import { Field } from '../../../components/ui/field.tsx'
+import { Input } from '../../../components/ui/input.tsx'
+import type { QueryField } from '../../../lib/query.ts'
 
 import { useForm } from 'react-hook-form'
 import type { ListView, ListViewProps, ListViews } from '../types.ts'
@@ -98,7 +106,7 @@ export function ListPage<R>(
                     className='h-7 max-w-40 gap-1.5 rounded-r-none px-2 text-xs font-medium @max-[520px]:max-w-24'
                   >
                     <span className='@max-[520px]:hidden'>
-                      <I name='board' />
+                      <Columns3Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                     </span>
                     <span className='truncate'>{view.name}</span>
                   </Button>
@@ -112,7 +120,7 @@ export function ListPage<R>(
                         />
                       }
                     >
-                      <I name='chevron' />
+                      <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                     </DropdownMenu.Trigger>
                     <MenuPopup>
                       <DropdownMenu.Group>
@@ -123,7 +131,7 @@ export function ListPage<R>(
                           onClick={() => setEditing(view)}
                           className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs outline-none data-highlighted:bg-accent'
                         >
-                          <I name='edit' />Rename
+                          <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Rename
                         </DropdownMenu.Item>
                         <DropdownMenu.Item
                           onClick={() => {
@@ -133,7 +141,7 @@ export function ListPage<R>(
                           }}
                           className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs outline-none data-highlighted:bg-accent'
                         >
-                          <I name='copy' />Duplicate
+                          <CopyIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Duplicate
                         </DropdownMenu.Item>
                         <DropdownMenu.Separator className='my-1 h-px bg-border' />
                         <DropdownMenu.Item
@@ -141,7 +149,7 @@ export function ListPage<R>(
                           onClick={() => setDeleting(view)}
                           className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs text-destructive outline-none data-highlighted:bg-accent data-disabled:opacity-40'
                         >
-                          <I name='trash' />Delete
+                          <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Delete
                         </DropdownMenu.Item>
                       </DropdownMenu.Group>
                     </MenuPopup>
@@ -159,7 +167,7 @@ export function ListPage<R>(
                 setSaved((previous) => addListView(previous, active))
               }}
             >
-              <I name='plus' />
+              <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </IconButton>
           </>
         }
@@ -167,10 +175,10 @@ export function ListPage<R>(
           <Button
             className="h-[28px] text-[12px] whitespace-nowrap [@container(max-width:_420px)]:w-[28px] [@container(max-width:_420px)]:p-0 [@container(max-width:_420px)]:ml-auto [@container(max-width:_420px)]:[&_[class~='group/screen-create-label']]:hidden"
             aria-label={`New ${config.singular}`}
-            variant='primary'
+            variant='default'
             onClick={onCreate}
           >
-            <I name='plus' />
+            <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             <span className='group/screen-create-label'>New {config.singular}</span>
           </Button>
         }
@@ -322,7 +330,7 @@ function ViewNameForm({ initialName, names, onClose, onSave }: {
         </Field>
         <div className='flex justify-end gap-2'>
           <Button type='button' onClick={onClose}>Cancel</Button>
-          <Button type='submit' variant='primary'>Save</Button>
+          <Button type='submit' variant='default'>Save</Button>
         </div>
       </form>
     </Dialog>

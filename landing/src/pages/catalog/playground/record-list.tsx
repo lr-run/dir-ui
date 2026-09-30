@@ -1,16 +1,13 @@
 import { useMemo, useState } from 'react'
-import {
-  type RecordColumn,
-  RecordList,
-  type TableColumnState,
-  useInfiniteRecords,
-} from '../../../../../components/record-list/record-list.tsx'
+import { type RecordColumn, type TableColumnState } from '../../../../../components/record-list/record-table.tsx'
+import { RecordList } from '../../../../../components/record-list/record-list.tsx'
+import { useInfiniteRecords } from '../../../../../hooks/use-infinite-records.ts'
 import { queryDemoRecords } from '../../../demo/query.ts'
 import { type DemoRecord, makeDemoRecords } from '../../../demo/records.ts'
 import { demoRecordLoader } from '../../../demo/loaders.ts'
-import { Button } from '../../../../../components/ui/index.tsx'
-import { TextInput } from '../../../../../components/ui/input.tsx'
-import type { QueryField, RecordFilter, RecordSort } from '../../../../../components/query/model.ts'
+import { Button } from '../../../../../components/ui/button.tsx'
+import { Input } from '../../../../../components/ui/input.tsx'
+import type { QueryField, RecordFilter, RecordSort } from '../../../../../lib/query.ts'
 import { bool, num, str, type Update, type Values } from './model.ts'
 import { literal, source, state } from './code.ts'
 import { Surface } from './surface.tsx'
@@ -135,7 +132,7 @@ export function RecordListPreview({ values: v, update }: { values: Values; updat
           filter: { fields, value: filter, onChange: (next) => update('filter', next) },
           columnSettings: true,
           toolbar: (
-            <TextInput
+            <Input
               aria-label='Search records'
               placeholder='Search records…'
               value={search}
@@ -180,10 +177,12 @@ export function RecordListPreview({ values: v, update }: { values: Values; updat
     '"key": "title",\n    getValue: row => row.name,',
   ).replaceAll('"key": "department",', '"key": "department",\n    getValue: row => row.team,')
   const imports = `import { useMemo } from 'react'
-import { RecordList, useInfiniteRecords, type RecordColumn, type TableColumnState } from './components/record-list/record-list.tsx'
-import { Button } from './components/ui/index.tsx'
-import { TextInput } from './components/ui/input.tsx'
-import type { QueryField, RecordFilter, RecordSort } from './components/query/model.ts'
+import { RecordList } from './components/record-list/record-list.tsx'
+import { useInfiniteRecords } from './hooks/use-infinite-records.ts'
+import { type RecordColumn, type TableColumnState } from './components/record-list/record-table.tsx'
+import { Button } from './components/ui/button.tsx'
+import { Input } from './components/ui/input.tsx'
+import type { QueryField, RecordFilter, RecordSort } from './lib/query.ts'
 import { makeDemoRecords, type DemoRecord } from './demo/records.ts'
 import { queryDemoRecords } from './demo/query.ts'
 ${remote ? "import { demoRecordLoader } from './demo/loaders.ts'" : ''}
@@ -222,7 +221,7 @@ const rows = useMemo(() => queryDemoRecords(data, { search, filter, sorts }), [d
   sort: { fields, value: sorts, onChange: setSorts },
   filter: { fields, value: filter, onChange: setFilter },
   columnSettings: true,
-  toolbar: <TextInput aria-label="Search records" placeholder="Search records…" value={search} onChange={event => setSearch(event.target.value)} />,
+  toolbar: <Input aria-label="Search records" placeholder="Search records…" value={search} onChange={event => setSearch(event.target.value)} />,
     'aria-label': 'Records', columns, rows, rowKeyGetter,
     columnState, onColumnStateChange: setColumnState,
     sortColumns: sorts.map(s => ({ columnKey: s.field, direction: s.direction === 'asc' ? 'ASC' : 'DESC' })),

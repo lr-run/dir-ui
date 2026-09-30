@@ -1,7 +1,8 @@
+import { PencilIcon } from 'lucide-react'
 import { useRef, useState } from 'react'
 import type { Note } from './rich-text.tsx'
-import { Button, I } from './index.tsx'
-import { type InlineSaveHandler, useInlineSave } from './use-inline-save.ts'
+import { Button } from './button.tsx'
+import { type InlineSaveHandler, useInlineSave } from '../../hooks/use-inline-save.ts'
 import { InlineSaveFeedback } from './inline-save-feedback.tsx'
 import { RichText, type RichTextValue } from './rich-text.tsx'
 
@@ -75,7 +76,7 @@ export function InlineRichText({ label, value, onValueChange, disabled = false }
             </Button>
             <Button
               disabled={disabled || persistence.saving}
-              variant='primary'
+              variant='default'
               onClick={() => {
                 void finish(true)
               }}
@@ -90,7 +91,7 @@ export function InlineRichText({ label, value, onValueChange, disabled = false }
       <button
         ref={trigger}
         type='button'
-        className="group/inline-value flex items-center justify-between gap-[12px] min-h-[32px] w-full text-left [border:1px_solid_transparent] rounded-[5px] p-[5px_8px] [background:transparent] text-[length:var(--dir-text-inline,_13px)] [&>span:first-child]:overflow-hidden [&>span:first-child]:text-ellipsis [&>span:first-child]:whitespace-nowrap [&_[data-empty]]:text-muted-foreground [&:focus-visible]:[outline:none] [&:focus-visible]:[box-shadow:none] [&:focus-visible]:[border-color:var(--ui-ring)] [&>[class~='group/svg-wrap']>svg]:invisible [&>[class~='group/svg-wrap']>svg]:opacity-0 [&>[class~='group/svg-wrap']>svg]:pointer-events-none [&>[class~='group/svg-wrap']>svg]:text-muted-foreground [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] [@media(hover:_hover)]:[&:hover:not(:disabled)>[class~='group/svg-wrap']>svg]:visible [@media(hover:_hover)]:[&:hover:not(:disabled)>[class~='group/svg-wrap']>svg]:opacity-100"
+        className='group/inline-value flex items-center justify-between gap-[12px] min-h-[32px] w-full text-left [border:1px_solid_transparent] rounded-[5px] p-[5px_8px] [background:transparent] text-[length:var(--dir-text-inline,_13px)] [&>span:first-child]:overflow-hidden [&>span:first-child]:text-ellipsis [&>span:first-child]:whitespace-nowrap [&_[data-empty]]:text-muted-foreground [&:focus-visible]:[outline:none] [&:focus-visible]:[box-shadow:none] [&:focus-visible]:[border-color:var(--ui-ring)] [&>svg>svg]:invisible [&>svg>svg]:opacity-0 [&>svg>svg]:pointer-events-none [&>svg>svg]:text-muted-foreground [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] [@media(hover:_hover)]:[&:hover:not(:disabled)>svg>svg]:visible [@media(hover:_hover)]:[&:hover:not(:disabled)>svg>svg]:opacity-100'
         disabled={disabled}
         aria-label={`Edit ${label}`}
         onClick={() => {
@@ -100,7 +101,7 @@ export function InlineRichText({ label, value, onValueChange, disabled = false }
         }}
       >
         <span data-empty={!value.notes || undefined}>{value.notes || 'Add notes'}</span>
-        <I name='edit' />
+        <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
       </button>
     )
 }

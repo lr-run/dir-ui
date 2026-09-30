@@ -1,8 +1,26 @@
+import {
+  ALargeSmallIcon,
+  ArrowDownWideNarrowIcon,
+  ArrowUpNarrowWideIcon,
+  CalendarIcon,
+  CheckIcon,
+  ChevronDownIcon,
+  DatabaseIcon,
+  EllipsisIcon,
+  GripVerticalIcon,
+  HashIcon,
+  ListFilterIcon,
+  PlusIcon,
+  TargetIcon,
+  Trash2Icon,
+} from 'lucide-react'
 import { ToolbarButton } from '../../ui/toolbar-button.tsx'
 import { useEffect, useRef, useState } from 'react'
-import { Button, I, IconButton, Select } from '../../ui/index.tsx'
-import { TextInput } from '../../ui/input.tsx'
-import { MultiCombobox } from '../../ui/multi-select.tsx'
+import { Button } from '../../ui/button.tsx'
+import { IconButton } from '../../ui/icon-button.tsx'
+import { Select } from '../../ui/select.tsx'
+import { Input } from '../../ui/input.tsx'
+import { MultiCombobox } from '../../ui/combobox.tsx'
 import { PopoverPanel } from '../../ui/popover-panel.tsx'
 import {
   conditionError,
@@ -20,13 +38,8 @@ import {
   type QueryField,
   type RecordFilter,
   type RecordSort,
-} from '../../query/model.ts'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../../shadcn/dropdown-menu.tsx'
+} from '../../../lib/query.ts'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/dropdown-menu.tsx'
 import {
   canWrapFilterNode,
   cloneFilterNode,
@@ -34,24 +47,16 @@ import {
   filterGroupLevels,
   filterNodeDepth,
   nodeConditionCount,
-} from './filter-tree.ts'
-function FieldIcon({ field }: { field?: QueryField }) {
-  if (field?.type === 'number') {
-    return (
-      <span className='group/query-field-icon shrink-0 text-muted-foreground text-[12px] min-w-[16px]' aria-hidden>
-        #
-      </span>
-    )
-  }
-  if (field?.type === 'date' || field?.type === 'datetime') return <I name='calendar' />
-  if (field?.type === 'boolean') return <I name='check' />
-  if (field?.type === 'select' || field?.type === 'multiSelect') return <I name='target' />
-  if (field?.type === 'relation') return <I name='database' />
-  return (
-    <span className='group/query-field-icon shrink-0 text-muted-foreground text-[12px] min-w-[16px]' aria-hidden>
-      Aa
-    </span>
-  )
+} from '../../../lib/filter-tree.ts'
+const fieldIcons = {
+  number: HashIcon,
+  date: CalendarIcon,
+  datetime: CalendarIcon,
+  boolean: CheckIcon,
+  select: TargetIcon,
+  multiSelect: TargetIcon,
+  relation: DatabaseIcon,
+  text: ALargeSmallIcon,
 }
 function PropertyPicker({ fields, value, onChange, label, disabled, add = false }: {
   fields: readonly QueryField[]
@@ -63,6 +68,7 @@ function PropertyPicker({ fields, value, onChange, label, disabled, add = false 
 }) {
   const [open, setOpen] = useState(false), [search, setSearch] = useState('')
   const field = fields.find((item) => item.id === value)
+  const FieldIcon = fieldIcons[field?.type ?? 'text']
   const matches = fields.filter((item) => fieldLabel(item).toLowerCase().includes(search.trim().toLowerCase()))
   return (
     <PopoverPanel
@@ -77,7 +83,7 @@ function PropertyPicker({ fields, value, onChange, label, disabled, add = false 
       trigger={
         <Button
           variant='ghost'
-          className={`group/query-property-trigger justify-start gap-[6px] min-w-0 h-[32px] [padding-inline:8px] [background:var(--ui-hover)] text-[13px] font-medium [&>span:not([class~='group/svg-wrap'])]:overflow-hidden [&>span:not([class~='group/svg-wrap'])]:text-ellipsis [&>span:not([class~='group/svg-wrap'])]:whitespace-nowrap [&_[class~='group/svg-wrap']:last-child]:ml-auto ${
+          className={`group/query-property-trigger justify-start gap-[6px] min-w-0 h-[32px] [padding-inline:8px] [background:var(--ui-hover)] text-[13px] font-medium [&>span:not(svg)]:overflow-hidden [&>span:not(svg)]:text-ellipsis [&>span:not(svg)]:whitespace-nowrap [&_svg:last-child]:ml-auto ${
             add
               ? 'group/query-add justify-start self-start gap-[6px] [background:transparent] text-muted-foreground font-normal text-[13px] h-[32px] [padding-inline:6px]'
               : ''
@@ -85,13 +91,15 @@ function PropertyPicker({ fields, value, onChange, label, disabled, add = false 
           disabled={disabled}
           aria-label={label}
         >
-          {add ? <I name='plus' /> : <FieldIcon field={field} />}
+          {add
+            ? <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+            : <FieldIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
           <span>{add ? label : field ? fieldLabel(field) : 'Select property'}</span>
-          <I name='chevron' />
+          <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </Button>
       }
     >
-      <TextInput
+      <Input
         autoFocus
         aria-label='Search properties'
         placeholder='Search properties…'
@@ -107,22 +115,25 @@ function PropertyPicker({ fields, value, onChange, label, disabled, add = false 
         }}
       />
       <div className='grid max-h-[250px] overflow-y-auto'>
-        {matches.map((item) => (
-          <Button
-            key={item.id}
-            variant='ghost'
-            className="group/query-property-option justify-start gap-[8px] min-h-[32px] text-[13px] min-w-0 [&[aria-pressed='true']]:[background:var(--ui-hover)] [&>span:not([class~='group/svg-wrap']):not([class~='group/query-field-icon'])]:flex-1 [&>span:not([class~='group/svg-wrap']):not([class~='group/query-field-icon'])]:text-left [&>span:not([class~='group/svg-wrap']):not([class~='group/query-field-icon'])]:overflow-hidden [&>span:not([class~='group/svg-wrap']):not([class~='group/query-field-icon'])]:text-ellipsis"
-            aria-pressed={item.id === value}
-            onClick={() => {
-              onChange(item.id)
-              setOpen(false)
-            }}
-          >
-            <FieldIcon field={item} />
-            <span>{fieldLabel(item)}</span>
-            {item.id === value && <I name='check' />}
-          </Button>
-        ))}
+        {matches.map((item) => {
+          const OptionIcon = fieldIcons[item.type]
+          return (
+            <Button
+              key={item.id}
+              variant='ghost'
+              className="group/query-property-option justify-start gap-[8px] min-h-[32px] text-[13px] min-w-0 [&[aria-pressed='true']]:[background:var(--ui-hover)] [&>span:not(svg):not([class~='group/query-field-icon'])]:flex-1 [&>span:not(svg):not([class~='group/query-field-icon'])]:text-left [&>span:not(svg):not([class~='group/query-field-icon'])]:overflow-hidden [&>span:not(svg):not([class~='group/query-field-icon'])]:text-ellipsis"
+              aria-pressed={item.id === value}
+              onClick={() => {
+                onChange(item.id)
+                setOpen(false)
+              }}
+            >
+              <OptionIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+              <span>{fieldLabel(item)}</span>
+              {item.id === value && <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+            </Button>
+          )
+        })}
         {!matches.length && (
           <p className='basis-full text-muted-foreground text-[11px] block m-0'>No properties found.</p>
         )}
@@ -142,13 +153,13 @@ function RuleActions({ label, remove, duplicate, wrap, disabled }: {
       <DropdownMenuTrigger
         render={
           <IconButton variant='ghost' label={label} disabled={disabled}>
-            <I name='more' />
+            <EllipsisIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </IconButton>
         }
       />
       <DropdownMenuContent className='group/query-action-menu min-w-[185px] text-[13px]'>
         <DropdownMenuItem variant='destructive' onClick={remove}>
-          <I name='trash' />Remove
+          <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Remove
         </DropdownMenuItem>
         <DropdownMenuItem disabled={!duplicate} onClick={duplicate}>Duplicate</DropdownMenuItem>
         <DropdownMenuItem disabled={!wrap} onClick={wrap}>Turn into group</DropdownMenuItem>
@@ -254,14 +265,7 @@ function SortEditor({ fields, value, onChange, disabled, maxSorts = Infinity }: 
               }}
               onDragEnd={finishDrag}
             >
-              <svg width='14' height='18' viewBox='0 0 14 18' fill='currentColor' aria-hidden>
-                <circle cx='4' cy='4' r='1' />
-                <circle cx='10' cy='4' r='1' />
-                <circle cx='4' cy='9' r='1' />
-                <circle cx='10' cy='9' r='1' />
-                <circle cx='4' cy='14' r='1' />
-                <circle cx='10' cy='14' r='1' />
-              </svg>
+              <GripVerticalIcon size={14} strokeWidth={1.5} aria-hidden='true' />
             </button>
             <PropertyPicker
               label={`Sort field ${index + 1}`}
@@ -305,7 +309,7 @@ function SortEditor({ fields, value, onChange, disabled, maxSorts = Infinity }: 
               disabled={disabled}
               onClick={() => onChange([])}
             >
-              <I name='trash' /> Delete sort
+              <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' /> Delete sort
             </Button>
           )}
         </div>
@@ -395,7 +399,7 @@ function Condition(
                       direction: direction as 'past' | 'next',
                     })}
                 />
-                <TextInput
+                <Input
                   aria-label='Relative amount'
                   disabled={disabled}
                   type='number'
@@ -438,7 +442,7 @@ function Condition(
             : (
               <div className="group/query-value-inputs flex items-center gap-[6px] min-w-0 [&>[data-slot='input']]:w-full [&>[data-slot='input']]:min-w-0">
                 {(operator?.input === 'range' ? [0, 1] : [0]).map((index) => (
-                  <TextInput
+                  <Input
                     key={index}
                     aria-label={operator?.input === 'range' ? index ? 'Range end' : 'Range start' : 'Filter value'}
                     disabled={disabled}
@@ -561,13 +565,14 @@ function FilterEditor(
                   variant='ghost'
                   disabled={disabled}
                 >
-                  <I name='plus' />Add filter rule<I name='chevron' />
+                  <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Add filter
+                  rule<ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 </Button>
               }
             />
             <DropdownMenuContent className='group/query-action-menu min-w-[185px] text-[13px]'>
               <DropdownMenuItem onClick={addRule}>
-                <I name='plus' />Add filter rule
+                <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Add filter rule
               </DropdownMenuItem>
               <DropdownMenuItem
                 disabled={depth >= depthLimit}
@@ -582,7 +587,7 @@ function FilterEditor(
                     }],
                   })}
               >
-                <I name='database' />Add filter group
+                <DatabaseIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Add filter group
                 {depth >= depthLimit && (
                   <span className='ml-auto text-[10px] text-muted-foreground whitespace-nowrap'>
                     Max {depthLimit + 1} levels
@@ -614,7 +619,9 @@ export function SortMenu(props: SortEditorProps) {
       width={400}
       trigger={
         <ToolbarButton
-          icon={first?.direction === 'desc' ? 'descending' : 'sort'}
+          icon={first?.direction === 'desc'
+            ? <ArrowDownWideNarrowIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+            : <ArrowUpNarrowWideIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
           active={!!first}
           disabled={props.disabled}
         >
@@ -655,7 +662,11 @@ export function FilterMenu(props: FilterEditorProps) {
       className="flex flex-col gap-[8px] [&>[data-slot='popover-header']]:absolute [&>[data-slot='popover-header']]:w-[1px] [&>[data-slot='popover-header']]:h-[1px] [&>[data-slot='popover-header']]:overflow-hidden [&>[data-slot='popover-header']]:[clip-path:inset(50%)] [&_[class~='group/query-delete']]:justify-start [&_[class~='group/query-delete']]:text-muted-foreground [&_[class~='group/query-delete']]:[background:transparent] [&_[class~='group/query-delete']]:text-[13px] [&_[class~='group/query-delete']]:font-normal [&_[class~='group/query-delete']]:[border-top:1px_solid_var(--ui-border)] [&_[class~='group/query-delete']]:rounded-none [&_[class~='group/query-delete']]:p-[8px_6px_2px] [&_[class~='group/query-editor']_[class~='group/query-property-trigger']]:justify-start [&_[class~='group/query-editor']_[class~='group/query-property-trigger']]:text-[13px] [&_[class~='group/query-editor']_[class~='group/query-property-trigger']]:h-[32px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:h-[32px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:min-h-[32px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:text-[13px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:p-[0_8px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:gap-[4px] [&_[class~='group/query-editor']_[class~='group/crm-select']]:[border-color:transparent] [&_[class~='group/query-editor']_[class~='group/crm-select']]:[box-shadow:none] [&_[class~='group/query-conjunction']_[class~='group/crm-select']]:text-[12px] [&_[class~='group/query-conjunction']_[class~='group/crm-select']]:p-[0_4px] [&_[class~='group/query-conjunction']_[class~='group/crm-select']]:gap-[3px] [&_[class~='group/query-conjunction']_[data-slot='select-trigger-icon']]:w-[12px] [&_[class~='group/query-conjunction']_[data-slot='select-trigger-icon']]:h-[12px] [&_[class~='group/query-editor']_[class~='group/query-add']]:justify-start [&_[class~='group/query-editor']_[class~='group/query-add']]:text-muted-foreground [&_[class~='group/query-editor']_[class~='group/query-add']]:[background:transparent] [&_[class~='group/query-editor']_[class~='group/query-add']]:text-[13px] [&_[class~='group/query-editor']_[class~='group/query-add']]:font-normal [&_[class~='group/query-delete']:hover]:[background:var(--ui-hover)] [&_[class~='group/query-group'][data-depth='0']]:[background:transparent] [&_[class~='group/query-group'][data-depth='0']]:[border:0] [&_[class~='group/query-group'][data-depth='0']]:p-0 [&_[class~='group/query-group'][data-depth='0']]:gap-[6px] [&_[class~='group/query-group'][data-nested]]:[border:1px_solid_light-dark(#e3e3e1,_#414141)] [&_[class~='group/query-group'][data-nested]]:rounded-[6px] [&_[class~='group/query-group'][data-nested]]:p-[8px] [&_[class~='group/query-group'][data-nested]]:gap-[6px] [&_[class~='group/query-group'][data-depth='1']]:[background:light-dark(#f7f7f6,_#2b2b2b)] [&_[class~='group/query-group'][data-depth='2']]:[background:light-dark(#efefed,_#333333)] [&_[class~='group/query-group'][data-depth='2']]:[border-color:light-dark(#dbdbd8,_#494949)] [&_[class~='group/query-editor']_[class~='group/crm-select']]:[background:light-dark(#f0f0ee,_#1f1f1f)] [&_[class~='group/query-value']_input[data-slot='input']]:[background:light-dark(#ffffff,_#ffffff03)] [&_[class~='group/query-value']_input[data-slot='input']]:[border-color:light-dark(#dfdfdc,_#454545)] [&_[class~='group/query-editor']_[class~='group/query-add']:hover]:[background:var(--ui-hover)] [&_[class~='group/query-group'][data-nested]_[class~='group/crm-select']]:[background:light-dark(#ffffff,_#222222)] [&_[class~='group/query-editor']_[class~='group/query-property-trigger']:not([class~='group/query-add'])]:[background:light-dark(#f0f0ee,_#1f1f1f)] [&_[class~='group/query-group'][data-nested]_[class~='group/query-property-trigger']:not([class~='group/query-add'])]:[background:light-dark(#ffffff,_#222222)]"
       width={720}
       trigger={
-        <ToolbarButton icon='filter' active={countConditions(props.value) > 0} disabled={props.disabled}>
+        <ToolbarButton
+          icon={<ListFilterIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+          active={countConditions(props.value) > 0}
+          disabled={props.disabled}
+        >
           <span>Filter</span>
           {countConditions(props.value) > 0 && (
             <span className='crm-toolbar-count inline-flex items-center justify-center h-[18px] min-w-[18px] px-1 rounded bg-accent text-muted-foreground text-xs leading-[18px] flex-none'>
@@ -678,7 +689,7 @@ export function FilterMenu(props: FilterEditorProps) {
           disabled={props.disabled}
           onClick={() => update(emptyFilter())}
         >
-          <I name='trash' />Delete filter
+          <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Delete filter
         </Button>
       )}
     </PopoverPanel>

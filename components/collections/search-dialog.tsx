@@ -1,8 +1,10 @@
+import { AlignLeftIcon, InfoIcon, SearchIcon, XIcon } from 'lucide-react'
 import { Combobox } from '@base-ui/react/combobox'
 import { type ComponentProps, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
-import { Button, Dialog, I } from '../ui/index.tsx'
-import { useRemoteSearch } from './use-remote-search.ts'
-import type { SearchLoader } from './remote-search.ts'
+import { Button } from '../ui/button.tsx'
+import { Dialog } from '../ui/dialog.tsx'
+import { useRemoteSearch } from '../../hooks/use-remote-search.ts'
+import type { SearchLoader } from '../../lib/remote-search.ts'
 export type LoadSearchResults = SearchLoader<SearchItem>
 
 export type SearchItem = {
@@ -140,7 +142,7 @@ function SearchResults({
     <div className="flex flex-col min-h-0 max-h-[inherit] w-full text-[13px] [&_kbd]:inline-flex [&_kbd]:items-center [&_kbd]:justify-center [&_kbd]:min-w-[19px] [&_kbd]:h-[19px] [&_kbd]:p-[0_4px] [&_kbd]:[border:1px_solid_var(--ui-border)] [&_kbd]:rounded-[4px] [&_kbd]:[font-family:inherit] [&_kbd]:text-[10px] [&_kbd]:text-muted-foreground [&_kbd]:[background:var(--ui-surface)] [&_[class~='group/search-input']]:flex-1 [&_[class~='group/search-input']]:min-w-0 [&_[class~='group/search-input']]:w-full [&_[class~='group/search-input']]:h-[44px] [&_[class~='group/search-input']]:p-0 [&_[class~='group/search-input']]:[border:0] [&_[class~='group/search-input']]:[outline:none] [&_[class~='group/search-input']]:[box-shadow:none] [&_[class~='group/search-input']]:[background:transparent] [&_[class~='group/search-input']]:text-foreground [&_[class~='group/search-input']]:[font:inherit] [&_[class~='group/search-input']]:text-[16px] [&_[class~='group/search-input']:focus]:flex-1 [&_[class~='group/search-input']:focus]:min-w-0 [&_[class~='group/search-input']:focus]:w-full [&_[class~='group/search-input']:focus]:h-[44px] [&_[class~='group/search-input']:focus]:p-0 [&_[class~='group/search-input']:focus]:[border:0] [&_[class~='group/search-input']:focus]:[outline:none] [&_[class~='group/search-input']:focus]:[box-shadow:none] [&_[class~='group/search-input']:focus]:[background:transparent] [&_[class~='group/search-input']:focus]:text-foreground [&_[class~='group/search-input']:focus]:[font:inherit] [&_[class~='group/search-input']:focus]:text-[16px] [&_[class~='group/search-input']:focus-visible]:flex-1 [&_[class~='group/search-input']:focus-visible]:min-w-0 [&_[class~='group/search-input']:focus-visible]:w-full [&_[class~='group/search-input']:focus-visible]:h-[44px] [&_[class~='group/search-input']:focus-visible]:p-0 [&_[class~='group/search-input']:focus-visible]:[border:0] [&_[class~='group/search-input']:focus-visible]:[outline:none] [&_[class~='group/search-input']:focus-visible]:[box-shadow:none] [&_[class~='group/search-input']:focus-visible]:[background:transparent] [&_[class~='group/search-input']:focus-visible]:text-foreground [&_[class~='group/search-input']:focus-visible]:[font:inherit] [&_[class~='group/search-input']:focus-visible]:text-[16px]">
       <div className='flex items-center justify-between p-[10px_16px_0] text-muted-foreground text-[12px] [&>span]:flex [&>span]:items-center [&>span]:gap-[8px]'>
         <span>
-          <I name='search' />
+          <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           {title}
         </span>
         <button
@@ -149,7 +151,7 @@ function SearchResults({
           aria-label='Close search'
           onClick={onClose}
         >
-          <I name='x' />
+          <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </button>
       </div>
       <Combobox.Root<SearchItem>
@@ -195,7 +197,7 @@ function SearchResults({
                 input.current?.focus()
               }}
             >
-              <I name='x' />
+              <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </button>
           )}
           <kbd className='opacity-75' aria-hidden>Esc</kbd>
@@ -229,7 +231,9 @@ function SearchResults({
                             className='grid [place-items:center] shrink-0 w-[23px] h-[23px] [border:1px_solid_var(--ui-border)] rounded-[6px] [background:var(--ui-surface)] text-muted-foreground [&_svg]:w-[14px] [&_svg]:h-[14px]'
                             aria-hidden
                           >
-                            {item.icon ?? <I name='text' />}
+                            {item.icon ?? (
+                              <AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                            )}
                           </span>
                           <span className='min-w-0 flex-1 flex items-baseline gap-[7px] [@media(max-width:_600px)]:block [@media(max-width:_600px)]:[&_strong]:block [@media(max-width:_600px)]:[&_small]:block'>
                             <strong>
@@ -255,7 +259,7 @@ function SearchResults({
             </Combobox.List>
             {!loading && !error && !remote.waiting && (
               <Combobox.Empty className='flex flex-col items-center justify-center gap-[9px] min-h-[170px] p-[24px] text-center text-muted-foreground text-[12px] [&_strong]:font-medium [&_strong]:text-foreground'>
-                <I name='search' />
+                <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 <strong>{emptyMessage}</strong>
                 <span>Try a different name or keyword.</span>
               </Combobox.Empty>
@@ -285,7 +289,7 @@ function SearchResults({
                 role='alert'
                 className='flex flex-col items-center justify-center gap-[9px] min-h-[170px] p-[24px] text-center text-muted-foreground text-[12px] [&_strong]:font-medium [&_strong]:text-foreground'
               >
-                <I name='info' />
+                <InfoIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 <strong>{error}</strong>
                 {onRetry && <Button size='sm' onClick={onRetry}>Retry search</Button>}
               </div>
@@ -376,9 +380,9 @@ export function SearchDialogTrigger(
       aria-haspopup='dialog'
       aria-label={placeholder}
       {...props}
-      className={`group/search-dialog-trigger flex items-center gap-[8px] w-full min-w-0 h-[34px] p-[0_10px] [border:1px_solid_var(--ui-border)] rounded-[7px] [background:var(--ui-surface)] text-muted-foreground [font:inherit] text-[13px] cursor-pointer [box-shadow:0_1px_2px_#00000005] [&_kbd]:p-[1px_4px] [&_kbd]:[font:inherit] [&_kbd]:text-[10px] [&_kbd]:[border:1px_solid_var(--ui-border)] [&_kbd]:rounded-[4px] [&_kbd]:whitespace-nowrap [&_[class~='group/svg-wrap']]:shrink-0 [&:focus-visible]:[outline:1px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[1px] [&:disabled]:opacity-50 [&:disabled]:cursor-not-allowed [&>span:not([class~='group/svg-wrap'])]:flex-1 [&>span:not([class~='group/svg-wrap'])]:min-w-0 [&>span:not([class~='group/svg-wrap'])]:overflow-hidden [&>span:not([class~='group/svg-wrap'])]:text-ellipsis [&>span:not([class~='group/svg-wrap'])]:whitespace-nowrap [&>span:not([class~='group/svg-wrap'])]:text-left [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:hover:not(:disabled)]:text-foreground ${className}`}
+      className={`group/search-dialog-trigger flex items-center gap-[8px] w-full min-w-0 h-[34px] p-[0_10px] [border:1px_solid_var(--ui-border)] rounded-[7px] [background:var(--ui-surface)] text-muted-foreground [font:inherit] text-[13px] cursor-pointer [box-shadow:0_1px_2px_#00000005] [&_kbd]:p-[1px_4px] [&_kbd]:[font:inherit] [&_kbd]:text-[10px] [&_kbd]:[border:1px_solid_var(--ui-border)] [&_kbd]:rounded-[4px] [&_kbd]:whitespace-nowrap [&_svg]:shrink-0 [&:focus-visible]:[outline:1px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[1px] [&:disabled]:opacity-50 [&:disabled]:cursor-not-allowed [&>span:not(svg)]:flex-1 [&>span:not(svg)]:min-w-0 [&>span:not(svg)]:overflow-hidden [&>span:not(svg)]:text-ellipsis [&>span:not(svg)]:whitespace-nowrap [&>span:not(svg)]:text-left [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:hover:not(:disabled)]:text-foreground ${className}`}
     >
-      <I name='search' />
+      <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
       <span>{placeholder}</span>
       {shortcut && <kbd aria-hidden>{modifier} K</kbd>}
     </button>

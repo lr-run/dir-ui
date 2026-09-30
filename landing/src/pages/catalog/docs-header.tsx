@@ -1,6 +1,7 @@
+import { MoonIcon, SunIcon } from 'lucide-react'
 import { landingHref } from '../../routes.ts'
 import type { ReactNode } from 'react'
-import { I, IconButton } from '../../../../components/ui/index.tsx'
+import { IconButton } from '../../../../components/ui/icon-button.tsx'
 
 export function DocsHeader({ isStudio, isHome, dark, onNavigate, onToggleTheme, controls, actions }: {
   isStudio: boolean
@@ -70,7 +71,9 @@ export function DocsHeader({ isStudio, isHome, dark, onNavigate, onToggleTheme, 
             label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
             onClick={onToggleTheme}
           >
-            <I name={dark ? 'sun' : 'moon'} />
+            {dark
+              ? <SunIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+              : <MoonIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
           </IconButton>
         </div>
       </div>

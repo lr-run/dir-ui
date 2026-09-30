@@ -1,5 +1,5 @@
 import type { DemoRecord } from './records.ts'
-import type { FilterCondition, FilterGroup, RecordFilter, RecordSort } from '../../../components/query/model.ts'
+import type { FilterCondition, FilterGroup, RecordFilter, RecordSort } from '../../../lib/query.ts'
 export function demoValue(row: DemoRecord, field: string): unknown {
   return Reflect.get(row, field === 'title' ? 'name' : field === 'department' ? 'team' : field)
 }

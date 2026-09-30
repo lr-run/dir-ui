@@ -1,19 +1,21 @@
+import {
+  ArrowLeftIcon,
+  CodeXmlIcon,
+  RectangleEllipsisIcon,
+  RefreshCwIcon,
+  SmartphoneIcon,
+  TabletIcon,
+} from 'lucide-react'
 import { TemplateInstall } from './install-command.tsx'
-import { Button, I, IconButton, Select } from '../../../../components/ui/index.tsx'
-import { Hint } from '../../../../components/icons/index.jsx'
+import { Button } from '../../../../components/ui/button.tsx'
+import { IconButton } from '../../../../components/ui/icon-button.tsx'
+import { Select } from '../../../../components/ui/select.tsx'
+import { Hint } from '../../../../components/ui/tooltip.tsx'
 
 const viewports = [
-  { value: 'responsive', label: 'Responsive width', path: 'M8 4H4v16h4m8-16h4v16h-4M7 12h10m-8-2-2 2 2 2m6-4 2 2-2 2' },
-  {
-    value: '768',
-    label: 'Tablet · 768 px',
-    path: 'M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm6 14v.01',
-  },
-  {
-    value: '390',
-    label: 'Mobile · 390 px',
-    path: 'M8 3h8a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm3 3h2m-1 12v.01',
-  },
+  { value: 'responsive', label: 'Responsive width', Icon: RectangleEllipsisIcon },
+  { value: '768', label: 'Tablet · 768 px', Icon: TabletIcon },
+  { value: '390', label: 'Mobile · 390 px', Icon: SmartphoneIcon },
 ]
 
 export function StudioControls({ count, viewport, onCountChange, onViewportChange, onReset }: {
@@ -40,18 +42,7 @@ export function StudioControls({ count, viewport, onCountChange, onViewportChang
               onClick={() => onViewportChange(item.value)}
               className='text-muted-foreground aria-pressed:bg-background aria-pressed:text-foreground aria-pressed:shadow-sm'
             >
-              <svg
-                className='size-3.5'
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='currentColor'
-                strokeWidth='1.6'
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                aria-hidden='true'
-              >
-                <path d={item.path} />
-              </svg>
+              <item.Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </Button>
           </Hint>
         ))}
@@ -75,7 +66,7 @@ export function StudioControls({ count, viewport, onCountChange, onViewportChang
           onClick={onReset}
           className='text-muted-foreground hover:text-foreground'
         >
-          <I name='refresh' />
+          <RefreshCwIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         </IconButton>
       </Hint>
     </div>
@@ -92,18 +83,9 @@ export function StudioActions({ codeView, onToggleCode }: { codeView: boolean; o
         onClick={onToggleCode}
         className='gap-1.5 max-[700px]:w-7 max-[700px]:px-0'
       >
-        <svg
-          className='size-3.5'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='1.6'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          aria-hidden='true'
-        >
-          <path d={codeView ? 'M9 5 2 12l7 7M2 12h20' : 'm7 6-6 6 6 6m10-12 6 6-6 6M14 3l-4 18'} />
-        </svg>
+        {codeView
+          ? <ArrowLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+          : <CodeXmlIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
         <span className='max-[700px]:hidden'>{codeView ? 'Preview' : 'Code'}</span>
       </Button>
       <TemplateInstall />

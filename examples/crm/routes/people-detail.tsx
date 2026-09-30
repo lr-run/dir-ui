@@ -1,8 +1,8 @@
-import { I } from '../../../components/ui/index.tsx'
+import { ClockIcon } from 'lucide-react'
 import { InlineEdit } from '../../../components/ui/inline-edit.tsx'
 import { InlineCombobox } from '../../../components/ui/inline-inputs.tsx'
 import { List, ListItem } from '../../../components/ui/list.tsx'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs.ts'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs.tsx'
 import { examples, owners } from '../example/data.ts'
 import { DetailPage } from '../screens/detail-page.tsx'
 import { RecordNotes } from '../components/record-notes.tsx'
@@ -101,14 +101,24 @@ export function PeopleDetail({ record, onChange, onDelete }: DetailRouteProps) {
             <h3>Recent activity</h3>
             <List>
               {record.activity.slice(0, 3).map((event) => (
-                <ListItem key={event.id} leading={<I name='clock' />} title={event.title} meta={event.time} />
+                <ListItem
+                  key={event.id}
+                  leading={<ClockIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+                  title={event.title}
+                  meta={event.time}
+                />
               ))}
             </List>
           </TabsContent>
           <TabsContent value='activity'>
             <List>
               {record.activity.map((event) => (
-                <ListItem key={event.id} leading={<I name='clock' />} title={event.title} meta={event.time} />
+                <ListItem
+                  key={event.id}
+                  leading={<ClockIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+                  title={event.title}
+                  meta={event.time}
+                />
               ))}
             </List>
           </TabsContent>

@@ -13,6 +13,9 @@ export function jsx(name: string, props: CodeProps = {}, children?: string): str
     : `${opening}>\n${children.split('\n').map((line) => '  ' + line).join('\n')}\n</${name}>`
 }
 export function source(imports: string, body: string, setup = '') {
+  const icons = [...new Set([...`${body} ${setup}`.matchAll(/<([A-Z]\w*Icon)\b/g)].map((match) => match[1]!))]
+    .filter((name) => !imports.includes(name))
+  if (icons.length) imports += `\nimport { ${icons.join(', ')} } from 'lucide-react'`
   return `${
     setup.includes('useState') ? "import { useState } from 'react'\n" : ''
   }${imports}\n\nexport function Example() {\n${

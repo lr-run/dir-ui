@@ -1,6 +1,6 @@
 import type { LoadSearchResults } from '../../../components/collections/search-dialog.tsx'
-import type { LoadRecordPage } from '../../../components/record-list/infinite-records.ts'
-import type { RecordFilter, RecordSort } from '../../../components/query/model.ts'
+import type { LoadRecordPage } from '../../../lib/infinite-records.ts'
+import type { RecordFilter, RecordSort } from '../../../lib/query.ts'
 import { type DemoRecord, makeDemoRecords } from './records.ts'
 import { queryDemoRecords } from './query.ts'
 import { searchDemoItems } from './search.ts'

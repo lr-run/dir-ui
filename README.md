@@ -5,7 +5,7 @@ Reusable React components built with Base UI and Tailwind CSS, distributed as a 
 Browse interactive previews, edit props, inspect generated code and read each component's API in the landing site. The
 CRM is one example of composing the library into an application: lists, record details, notes, search and reports.
 
-- `components/`, `lib/`, `styles/`: the reusable library, independent of Dir and the CRM.
+- `components/`, `hooks/`, `lib/`: the reusable library, independent of Dir and the CRM.
 - `examples/crm/`: a complete CRM example with an in-memory data store.
 - `landing/`: the static documentation and playground.
 - `registry.json`: the GitHub-compatible shadcn registry generated from the library source.
@@ -17,10 +17,18 @@ components retain their original [shadcn/ui license](THIRD_PARTY_LICENSES/shadcn
 
 ## Install
 
+In a shadcn Base UI application, install individual components or the CRM Block:
+
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/button#v0.1.1
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.1
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.2
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.2
 ```
+
+Review existing-file conflicts without `--overwrite` to preserve your customizations.
+
+UI, components, hooks and shared helpers install into the aliases configured in `components.json`. CRM is a Block that
+depends on those shared items and installs no framework-specific root pages. See the installation guide for custom
+aliases and migration of existing customizations.
 
 ## Develop
 

@@ -1,4 +1,4 @@
-import { Button } from './index.tsx'
+import { Button } from './button.tsx'
 
 export function InlineSaveFeedback({ saving, error, retry, cancel, disabled = false }: {
   saving: boolean

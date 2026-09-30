@@ -1,9 +1,10 @@
+import { PencilIcon } from 'lucide-react'
 import { type ComponentProps, type ReactNode, useId, useRef, useState } from 'react'
 import { Popover } from '@base-ui/react/popover'
-import { type InputType, Textarea, TextInput } from './input.tsx'
+import { Input, type InputType } from './input.tsx'
+import { Textarea } from './textarea.tsx'
 import { DateValue, NumberValue } from './value.tsx'
-import { I } from './index.tsx'
-import { type InlineSaveHandler, useInlineSave } from './use-inline-save.ts'
+import { type InlineSaveHandler, useInlineSave } from '../../hooks/use-inline-save.ts'
 import { InlineSaveFeedback } from './inline-save-feedback.tsx'
 
 export type InlineEditProps = {
@@ -18,7 +19,7 @@ export type InlineEditProps = {
   step?: number | 'any'
   rows?: number
   display?: ReactNode
-  renderInput?: (props: ComponentProps<typeof TextInput>) => ReactNode
+  renderInput?: (props: ComponentProps<typeof Input>) => ReactNode
   multiline?: boolean
   disabled?: boolean
   validate?: (value: string) => string | undefined
@@ -134,12 +135,12 @@ export function InlineEdit(
       }}
     >
       <Popover.Trigger
-        className="group/inline-value flex items-center justify-between gap-[12px] min-h-[32px] w-full text-left [border:1px_solid_transparent] rounded-[5px] p-[5px_8px] [background:transparent] text-[length:var(--dir-text-inline,_13px)] [&>span:first-child]:overflow-hidden [&>span:first-child]:text-ellipsis [&>span:first-child]:whitespace-nowrap [&_[data-empty]]:text-muted-foreground [&:focus-visible]:[outline:none] [&:focus-visible]:[box-shadow:none] [&:focus-visible]:[border-color:var(--ui-ring)] [&>[class~='group/svg-wrap']>svg]:invisible [&>[class~='group/svg-wrap']>svg]:opacity-0 [&>[class~='group/svg-wrap']>svg]:pointer-events-none [&>[class~='group/svg-wrap']>svg]:text-muted-foreground [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] [@media(hover:_hover)]:[&:hover:not(:disabled)>[class~='group/svg-wrap']>svg]:visible [@media(hover:_hover)]:[&:hover:not(:disabled)>[class~='group/svg-wrap']>svg]:opacity-100"
+        className='group/inline-value flex items-center justify-between gap-[12px] min-h-[32px] w-full text-left [border:1px_solid_transparent] rounded-[5px] p-[5px_8px] [background:transparent] text-[length:var(--dir-text-inline,_13px)] [&>span:first-child]:overflow-hidden [&>span:first-child]:text-ellipsis [&>span:first-child]:whitespace-nowrap [&_[data-empty]]:text-muted-foreground [&:focus-visible]:[outline:none] [&:focus-visible]:[box-shadow:none] [&:focus-visible]:[border-color:var(--ui-ring)] [&>svg>svg]:invisible [&>svg>svg]:opacity-0 [&>svg>svg]:pointer-events-none [&>svg>svg]:text-muted-foreground [&:hover:not(:disabled)]:[background:var(--ui-hover)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] [@media(hover:_hover)]:[&:hover:not(:disabled)>svg>svg]:visible [@media(hover:_hover)]:[&:hover:not(:disabled)>svg>svg]:opacity-100'
         disabled={disabled}
         aria-label={`Edit ${label}`}
       >
         <span data-empty={!value || undefined}>{value ? formatted : placeholder}</span>
-        <I name='edit' />
+        <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner
@@ -157,7 +158,7 @@ export function InlineEdit(
               Edit {label}
             </Popover.Title>
             {renderInput ? renderInput(inputProps) : multiline ? <Textarea {...inputProps} rows={rows} /> : (
-              <TextInput
+              <Input
                 {...inputProps}
                 type={type}
                 currency={currency}
@@ -196,7 +197,7 @@ export function InlineEdit(
 }
 export { InlineRichText, type InlineRichTextProps } from './inline-rich-text.tsx'
 export { InlineMultiSelect, InlineSelect } from './inline-choice.tsx'
-export type { InlineSaveHandler } from './use-inline-save.ts'
+export type { InlineSaveHandler } from '../../hooks/use-inline-save.ts'
 
 export function InlineInput(props: Omit<InlineEditProps, 'multiline' | 'rows'>) {
   return <InlineEdit {...props} />

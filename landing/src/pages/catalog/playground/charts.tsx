@@ -7,7 +7,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from '../../../../../components/shadcn/chart.tsx'
+} from '../../../../../components/ui/chart.tsx'
 import type { ChartPoint } from '../../../../../components/charts/index.tsx'
 import { bool, num, type PreviewProps, str } from './model.ts'
 import { expression, jsx, literal, source } from './code.ts'
@@ -70,7 +70,7 @@ export default function ChartPreview({ values: v }: PreviewProps) {
     } } from 'recharts'\n` +
       `import { ChartContainer, type ChartConfig${showTooltip ? ', ChartTooltip, ChartTooltipContent' : ''}${
         showLegend ? ', ChartLegend, ChartLegendContent' : ''
-      } } from './components/shadcn/chart.tsx'`,
+      } } from './components/ui/chart.tsx'`,
     jsx(
       'ChartContainer',
       { config: expression('config'), className: 'w-full aspect-auto', style: { height }, 'aria-label': label },

@@ -7,8 +7,8 @@ import {
   operatorsFor,
   type QueryField,
   type RecordFilter,
-} from '../components/query/model.ts'
-import { queryTextRecords } from '../components/record-list/record-list-query.ts'
+} from '../lib/query.ts'
+import { queryTextRecords } from '../lib/record-list-query.ts'
 function assert(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message)
 }

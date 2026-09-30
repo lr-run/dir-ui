@@ -44,7 +44,7 @@ export const inputApi = {
   },
   textarea: {
     names: 'Textarea',
-    path: 'components/ui/input.tsx',
+    path: 'components/ui/textarea.tsx',
     rows: [
       row('value / defaultValue', 'string'),
       row('onChange', 'ChangeEventHandler<HTMLTextAreaElement>'),

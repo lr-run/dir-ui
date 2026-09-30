@@ -1,10 +1,10 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { Button } from '../ui/index.tsx'
+import { Button } from '../ui/button.tsx'
 import { List, ListItem } from '../ui/list.tsx'
-import { type FileItem, formatFileSize, type UploadFile, validateFile } from './file-model.ts'
-import { UploadQueue } from './upload-queue.ts'
-export { formatFileSize, validateFile } from './file-model.ts'
-export type { FileItem, UploadFile } from './file-model.ts'
+import { type FileItem, formatFileSize, type UploadFile, validateFile } from '../../lib/file-model.ts'
+import { UploadQueue } from '../../lib/upload-queue.ts'
+export { formatFileSize, validateFile } from '../../lib/file-model.ts'
+export type { FileItem, UploadFile } from '../../lib/file-model.ts'
 function UploadItems(
   { files, onRemove, onRetry, onCancel, disabled }: {
     files: readonly FileItem[]

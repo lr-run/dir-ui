@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react'
-import type { RecordFilter, RecordSort } from '../../components/query/model.ts'
-import type { TableColumnState } from '../../components/record-list/record-table-model.ts'
+import type { RecordFilter, RecordSort } from '../../lib/query.ts'
+import type { TableColumnState } from '../../lib/record-table-model.ts'
 import type { Note } from '../../components/ui/rich-text.tsx'
 import type { DetailContext, DetailField } from './screens/detail-page.tsx'
 

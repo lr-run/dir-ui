@@ -1,9 +1,12 @@
+import { SlidersHorizontalIcon } from 'lucide-react'
 import { ToolbarButton } from '../../ui/toolbar-button.tsx'
 import { useState } from 'react'
-import { Button, Checkbox, IconButton } from '../../ui/index.tsx'
-import { TextInput } from '../../ui/input.tsx'
+import { Button } from '../../ui/button.tsx'
+import { IconButton } from '../../ui/icon-button.tsx'
+import { Checkbox } from '../../ui/checkbox.tsx'
+import { Input } from '../../ui/input.tsx'
 import { PopoverPanel } from '../../ui/popover-panel.tsx'
-import { moveItem } from '../../query/model.ts'
+import { moveItem } from '../../../lib/query.ts'
 export type ColumnDefinition = { id: string; label: string; required?: boolean; canFreeze?: boolean }
 export type ColumnState = { id: string; visible: boolean; frozen?: boolean }
 export type ColumnSettingsProps = {
@@ -34,7 +37,7 @@ function ColumnSettings({ columns, value, onChange, onReset, disabled }: ColumnS
     onChange(normalized.map((c, i) => i === index ? { ...c, ...changes } : c))
   return (
     <div className="grid gap-[12px] w-full min-h-0 [&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0 [&>ul]:min-h-0 [&>ul]:max-h-[min(420px,_55dvh)] [&>ul]:overflow-y-auto [&_li]:flex [&_li]:items-center [&_li]:gap-[6px] [&_li]:p-[5px_0] [&_li]:text-[13px] [&>[data-slot='input']]:w-full [&>[data-slot='input']]:min-w-0 [&>[data-slot='input']]:h-[32px] [&>[data-slot='input']]:text-[13px] [&_[class~='group/crm-icon-button']]:w-[26px] [&_[class~='group/crm-icon-button']]:h-[28px] [&_[class~='group/crm-icon-button']]:min-h-[28px] [&_[class~='group/crm-icon-button']]:p-0 [&_[class~='group/crm-icon-button']]:shrink-0">
-      <TextInput
+      <Input
         aria-label='Search columns'
         placeholder='Search columns…'
         value={search}
@@ -107,7 +110,11 @@ export function ColumnSettingsMenu(props: ColumnSettingsProps) {
       width={360}
       className='flex flex-col gap-[8px]'
       trigger={
-        <ToolbarButton icon='columns' chevron disabled={props.disabled}>
+        <ToolbarButton
+          icon={<SlidersHorizontalIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+          chevron
+          disabled={props.disabled}
+        >
           <span>Columns</span>
         </ToolbarButton>
       }

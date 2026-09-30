@@ -1,83 +1,116 @@
 # Installation
 
-Requirements: React 19, Tailwind CSS 4, and a project initialized for shadcn. Components use Base UI, not Radix UI.
+This guide describes v0.1.2. Existing v0.1.0 and v0.1.1 installations can migrate without replacing local
+customizations; see the conflict and migration guidance below.
 
-## GitHub registry
+Initialize your application with shadcn, **Base UI**, React 19 and Tailwind CSS 4. The examples use the Nova style.
+Individual components and the CRM Block use the same shared components.
 
-Install directly from the public [lr-run/dir-ui](https://github.com/lr-run/dir-ui) GitHub registry:
+## Local validation
+
+Build an unpublished local registry from this checkout:
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.1
-npx shadcn@4.21.0 add lr-run/dir-ui/data-grid#v0.1.1
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.1
+deno task registry:generate
+deno task registry:local /tmp/dir-ui-registry
 ```
 
-The version ref pins an immutable release. No account or Firebase endpoint is required. The root registry.json and
-source files are read from GitHub. Use a new release ref explicitly when updating copied components.
+In a fresh, shadcn-initialized Vite application:
 
-The CLI copies source into `lib/dir-components/` at your project root and installs the item's npm dependencies. Each
-item includes its transitive local imports and preserves their relative paths. Shared files are identical across items.
-Review the CLI's overwrite prompt when customizing copied files; updates are explicit, not automatic.
-
-## Styles
-
-Import the installed Tailwind extension from your application's CSS. Adjust relative paths to your stylesheet:
-
-```css
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import '../lib/dir-components/styles/tailwind.css';
+```sh
+npx shadcn@4.21.0 add /tmp/dir-ui-registry/input.json
+npx shadcn@4.21.0 add /tmp/dir-ui-registry/crm-example.json
 ```
 
-For DataGrid or Record List, also import:
+Local item dependencies point to absolute paths in that temporary registry. They never resolve against an older public
+release.
 
-```css
-@import '../lib/dir-components/styles/data-grid.css';
-```
+## Components and Blocks
 
-The extension registers component source paths, utilities and the shared theme. It does not install a font or modify
-body layout. Set the font on your application. Use `.dark` or `data-theme="dark"` on the document root for dark mode.
-Theme tokens are optional defaults and can be overridden after the import.
+| Registry target      | Configured directory                  | Content                                                                  |
+| -------------------- | ------------------------------------- | ------------------------------------------------------------------------ |
+| `@ui/`               | `aliases.ui`                          | Basic UI, controls, inline editing and shared CSS                        |
+| `@components/`       | `aliases.components`                  | Grids, collections, charts and composed screens                          |
+| `@hooks/`            | `aliases.hooks`                       | Reusable React hooks                                                     |
+| `@lib/`              | `aliases.lib`                         | Query models, formatting and async helpers                               |
+| `@components/crm/`   | CRM folder under `aliases.components` | Vite-compatible example pages, layout, screen components and sample data |
+| `~/licenses/dir-ui/` | Project root                          | License and source notices                                               |
 
-## Imports and providers
+No `src` directory or import alias is assumed. Registry code uses conventional `@/components/ui`, `@/components`,
+`@/hooks`, and `@/lib` imports, which the shadcn CLI transforms to the aliases in the consumer's `components.json`.
+
+Each file belongs to exactly one registry item. Shared code is referenced with `registryDependencies`; the CRM Block
+contains only CRM files. Unmodified Label, Separator and Skeleton use official shadcn items. Customized recipes are
+distributed by dir/ui. License attribution is kept in `THIRD_PARTY_LICENSES/shadcn-ui-source.md`.
+
+## Use a component
+
+For the default aliases:
 
 ```tsx
-import { Input } from '../lib/dir-components/components/ui/input.tsx'
-import { DataGrid } from '../lib/dir-components/components/data-grid/data-grid.tsx'
+import { Input } from '@/components/ui/input'
+import { SearchIcon } from 'lucide-react'
+
+export function SearchField() {
+  return (
+    <div className='flex items-center gap-2'>
+      <SearchIcon size={16} strokeWidth={1.5} aria-hidden />
+      <Input type='search' aria-label='Search' />
+    </div>
+  )
+}
 ```
 
-Most components work without a global provider. Tooltip, Toast and Sidebar use their corresponding Base UI or library
-providers. `I18n` from `lib/i18n.tsx` is optional and defaults to English. It has no browser-storage or document
-effects.
+Use your configured aliases if they differ. Installed UI modules import the shared theme CSS; the grid imports its own
+CSS. Keep Tailwind and `tw-animate-css` imports in the host stylesheet. The host's Tailwind scan must include its
+configured component directories (for workspace packages, add an `@source` directive to that package).
 
-The `crm-example` registry item includes all of the CRM source and its library dependencies. Mount `CrmApp` within I18n,
-Tooltip.Provider and Toast.Provider as shown in the landing Code view. The host owns URL routing/mount paths. Records
-and views live only in memory and reset on reload. Register the example source directory in your host stylesheet:
+## Use the CRM Block in Vite
 
-```css
-@source '../lib/dir-components/examples';
+The block does not create or replace `App.tsx`, application configuration, an `app/` directory, or a router. Import its
+entry into your existing route or entry point:
+
+```tsx
+import { CrmTemplate } from '@/components/crm/template'
+
+export default function App() {
+  return (
+    <div className='h-dvh'>
+      <CrmTemplate count={100} />
+    </div>
+  )
+}
 ```
 
-## Dir applications
+For a mounted example, pass `basePath="/crm"`. The CRM uses URL paths and the History API. Configure the host to serve
+the application at all routes beneath that path, including direct navigation and reloads. Next.js integration should
+mount this client-side example at an appropriate catch-all route; a Next.js-specific page tree is not installed.
 
-Dir itself does not need a source change. Copy/install the same registry files into the app. Ensure its Deno import map
-contains the npm dependencies listed on the item (the source `deno.json` provides versions). Keep the platform AppShell
-in the app entry; it is not a library dependency. Include the shared CSS in the app's Tailwind build.
+`components/crm/routes/` contains route-specific pages and creation forms; `screens/` contains reusable list/detail
+layouts; `layout.tsx` owns navigation and search. `example/` contains sample data, query helpers and an in-memory store.
+Data resets on reload. Replace these adapters with application APIs for persistence.
 
-GitHub is the public source distribution. The documentation host serves HTML and Markdown, not installation endpoints.
+## Existing applications and conflicts
 
-## Package usage
+Run the installer **without `--overwrite`**. When a target already exists, review the diff and answer No to preserve the
+existing implementation. `--yes` does not grant overwrite permission. Shared dependencies resolve to one target rather
+than copying a second implementation into a private directory.
 
-The root package exposes TypeScript source through subpaths such as `@dir/ui/input` and `@dir/ui/data-grid`. It is
-private and is not published to npm. It can be linked in a workspace using a TypeScript-aware bundler. The source
-registry is the supported public distribution route.
+The standard Button contract uses `default`, `outline`, `secondary`, `ghost`, `destructive`, and `link` variants.
+`IconButton` is a separate accessible button composition in `components/ui/icon-button.tsx`; it does not wrap or select
+icon libraries. Existing compatible shadcn buttons can therefore be retained.
 
-## Templates and AI documentation
+Some dir/ui recipes have additional contracts (for example, Input accepts `money` and `percent`). If a customized
+existing component does not implement the required API, merge those capabilities deliberately or adapt the block. The
+installer does not silently replace it or migrate/delete old directories. For applications installed with v0.1.1, first
+port local customizations and update imports; remove obsolete files only after validation.
 
-Template metadata lives in examples/catalog.ts; each template owns examples/<id>/ and a registry:block entry in
-registry/entries.json. CRM installs with crm-example, including a CrmTemplate entry with its providers. Components and
-templates include all local dependencies. The copied lib/dir-components path is stable.
+## Install from GitHub
 
-/llms.txt indexes concise /components/<id>.md and /examples/<id>.md documents. Descriptions and API tables come from the
-same data as the interactive website. Generated static documents are rebuilt by docs:build and served as plain-text
-files.
+```sh
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.2
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.2
+```
+
+Same-repository dependencies are pinned to v0.1.2. Local generation and installation remain available for testing
+changes before a release; they do not publish a tag, push a repository, or deploy the site.

@@ -43,7 +43,7 @@ Deno.test('JSON controls reject malformed values and duplicate row identities', 
 })
 Deno.test('generated JSX preserves special characters as string data', () => {
   const value = 'Quotes " and a newline\n</Button>{danger()}'
-  const code = jsx('TextInput', { value })
+  const code = jsx('Input', { value })
   assert(code.includes(`value={${JSON.stringify(value)}}`), 'User text must remain a quoted JS string')
 })
 

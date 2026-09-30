@@ -1,3 +1,4 @@
+import { FolderIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 
 function Folder({ name, children }: { name: string; children: ReactNode }) {
@@ -8,17 +9,7 @@ function Folder({ name, children }: { name: string; children: ReactNode }) {
     >
       <summary>
         <span className='group/code-tree-chevron w-[10px] text-center text-[16px]' aria-hidden='true'>›</span>
-        <svg
-          width='14'
-          height='14'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='1.5'
-          aria-hidden='true'
-        >
-          <path d='M3 7V5a1 1 0 0 1 1-1h5l2 3h9a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z' />
-        </svg>
+        <FolderIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         {name}
       </summary>
       <div className='ml-[10px] pl-[7px] [border-left:1px_solid_var(--ui-border)]'>{children}</div>
@@ -36,11 +27,7 @@ export function FileTree({ files, selected, onSelect }: {
       aria-label='Source files'
     >
       <h2>Explorer</h2>
-      <Folder name='examples'>
-        <Folder name='crm'>
-          <TreeEntries files={files} selected={selected} onSelect={onSelect} />
-        </Folder>
-      </Folder>
+      <TreeEntries files={files} selected={selected} onSelect={onSelect} />
     </nav>
   )
 }

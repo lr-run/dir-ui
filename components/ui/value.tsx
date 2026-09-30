@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
-import { type Choice, ChoiceContent } from './multi-select.tsx'
+import { type Choice } from '../../lib/choice-types.ts'
+import { ChoiceContent } from './choice-content.tsx'
 export type NumberFormat = {
   locale?: string
   format?: 'number' | 'currency' | 'percent'

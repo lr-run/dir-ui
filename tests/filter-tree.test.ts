@@ -1,5 +1,5 @@
-import { cloneFilterNode, filterNodeDepth, nodeConditionCount } from '../components/data-grid/internal/filter-tree.ts'
-import type { FilterNode } from '../components/query/model.ts'
+import { cloneFilterNode, filterNodeDepth, nodeConditionCount } from '../lib/filter-tree.ts'
+import type { FilterNode } from '../lib/query.ts'
 Deno.test('duplicating filter groups creates independent IDs and values at every depth', () => {
   const source: FilterNode = {
     id: 'group',
@@ -31,7 +31,7 @@ Deno.test('duplicating filter groups creates independent IDs and values at every
 
 Deno.test('filter nesting is capped at three total levels across add and wrap paths', async () => {
   const { canWrapFilterNode, filterDepthLimit, filterGroupLevels } = await import(
-    '../components/data-grid/internal/filter-tree.ts'
+    '../lib/filter-tree.ts'
   )
   const rule: FilterNode = { id: 'rule', field: 'name', operator: 'contains', value: 'Acme' }
   const group: FilterNode = { id: 'group', conjunction: 'and', conditions: [rule] }

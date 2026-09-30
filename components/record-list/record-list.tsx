@@ -1,9 +1,6 @@
 import type { Key, ReactNode } from 'react'
 import { cn } from 'cn'
 import { RecordTable, type RecordTableProps } from './record-table.tsx'
-export type { RecordColumn, RecordPagination, RecordTableProps, TableColumnState } from './record-table.tsx'
-export { useInfiniteRecords } from './use-infinite-records.ts'
-export type { LoadRecordPage, RecordPage } from './use-infinite-records.ts'
 type ListChrome = {
   title: ReactNode
   gridKey?: Key

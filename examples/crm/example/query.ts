@@ -1,11 +1,5 @@
 import type { ExampleKind, ExampleRecord } from '../types.ts'
-import type {
-  FilterCondition,
-  FilterGroup,
-  QueryField,
-  RecordFilter,
-  RecordSort,
-} from '../../../components/query/model.ts'
+import type { FilterCondition, FilterGroup, QueryField, RecordFilter, RecordSort } from '../../../lib/query.ts'
 import { examples, sampleRecords } from './data.ts'
 
 export function exampleValue(row: ExampleRecord, field: string): unknown {

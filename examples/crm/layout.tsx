@@ -1,10 +1,10 @@
+import { Building2Icon, ChartNoAxesColumnIcon, SearchIcon, TargetIcon, UserRoundIcon } from 'lucide-react'
 import { SearchDialog } from '../../components/collections/search-dialog.tsx'
-import { I } from '../../components/ui/index.tsx'
 import type { ExampleRecord } from './types.ts'
 import { searchRecords } from './example/query.ts'
 import { SearchDialogTrigger } from '../../components/collections/search-dialog.tsx'
 import { type ReactNode, useEffect, useMemo, useState } from 'react'
-import { Header } from '../../components/ui/header.tsx'
+import { Header } from '../../components/header.tsx'
 import {
   Sidebar,
   SidebarContent,
@@ -19,6 +19,11 @@ import {
 } from '../../components/ui/sidebar.tsx'
 import { examples } from './example/data.ts'
 import type { ExampleKind } from './types.ts'
+const recordIcons = {
+  companies: <Building2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
+  people: <UserRoundIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
+  deals: <TargetIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
+}
 export function Layout(
   { kind, report = false, onReport, recordName, onBack, onNavigate, searchOpen, onSearch, href, children }: {
     kind: ExampleKind
@@ -72,7 +77,7 @@ export function Layout(
                   <SidebarMenuButton
                     label={examples[key].title}
                     href={href('/' + key)}
-                    icon={examples[key].icon}
+                    icon={recordIcons[key]}
                     active={!report && key === kind}
                     onClick={() => {
                       onNavigate(key)
@@ -89,7 +94,7 @@ export function Layout(
                 <SidebarMenuButton
                   label='Report'
                   href={href('/report')}
-                  icon='chart'
+                  icon={<ChartNoAxesColumnIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
                   active={report}
                   onClick={() => {
                     onReport()
@@ -135,7 +140,13 @@ export function WorkspaceSidebarTrigger({ inside = false }: { inside?: boolean }
 function WorkspaceSearchTrigger({ open, onClick }: { open: boolean; onClick: () => void }) {
   const sidebar = useSidebar()
   if (!sidebar.open && !sidebar.isMobile) {
-    return <SidebarMenuButton label='Search records' icon='search' onClick={onClick} />
+    return (
+      <SidebarMenuButton
+        label='Search records'
+        icon={<SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
+        onClick={onClick}
+      />
+    )
   }
   return <SearchDialogTrigger placeholder='Search records' shortcut aria-expanded={open} onClick={onClick} />
 }
@@ -159,7 +170,7 @@ export function WorkspaceSearch({ open, onOpenChange, collections, count, onOpen
       : (Object.keys(examples) as ExampleKind[]).flatMap((kind) =>
         results.filter((item) => item.kind === kind).slice(0, 5)
       )
-    return ordered.map((item) => ({ ...item, icon: <I name={examples[item.kind].icon} /> }))
+    return ordered.map((item) => ({ ...item, icon: recordIcons[item.kind] }))
   }, [results, query])
   return (
     <SearchDialog

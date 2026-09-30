@@ -1,13 +1,8 @@
-import type { ComponentProps } from 'react'
-const paths = {
-  sort: 'M5 17V5M2 8l3-3 3 3M12 7h9M12 12h6M12 17h3',
-  descending: 'M5 5v12M2 14l3 3 3-3M12 7h3M12 12h6M12 17h9',
-  filter: 'M4 6h16M7 12h10M10 18h4',
-  columns: 'M4 7h7m4 0h5M4 17h3m4 0h9M11 4v6M7 14v6',
-}
+import { ChevronDownIcon } from 'lucide-react'
+import type { ComponentProps, ReactNode } from 'react'
 export function ToolbarButton(
   { icon, active, chevron, children, className = '', ...props }: ComponentProps<'button'> & {
-    icon: keyof typeof paths
+    icon: ReactNode
     active?: boolean
     chevron?: boolean
   },
@@ -20,37 +15,9 @@ export function ToolbarButton(
       data-active={active || undefined}
       data-placeholder={!active && !chevron || undefined}
     >
-      <svg
-        className='crm-toolbar-icon block flex-none text-muted-foreground'
-        width='16'
-        height='16'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='1.5'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden
-      >
-        <path d={paths[icon]} />
-      </svg>
+      {icon}
       {children}
-      {chevron && (
-        <svg
-          className='crm-toolbar-chevron block flex-none'
-          width='12'
-          height='12'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='1.5'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          aria-hidden
-        >
-          <path d='m7 10 5 5 5-5' />
-        </svg>
-      )}
+      {chevron && <ChevronDownIcon size={12} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
     </button>
   )
 }

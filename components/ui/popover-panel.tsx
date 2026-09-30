@@ -1,12 +1,5 @@
 import type { CSSProperties, ReactElement, ReactNode } from 'react'
-import {
-  Popover,
-  PopoverContent,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverTitle,
-  PopoverTrigger,
-} from '../shadcn/popover.tsx'
+import { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from './popover.tsx'
 
 export type PopoverPanelProps = {
   trigger: ReactElement

@@ -1,3 +1,4 @@
+import { Building2Icon, UserRoundIcon } from 'lucide-react'
 import { type ComponentProps, type ReactNode, useMemo, useState } from 'react'
 import {
   type Column,
@@ -5,8 +6,11 @@ import {
   renderTextEditor,
   SelectColumn,
 } from '../../../../../components/data-grid/data-grid.tsx'
-import { Button, ConfirmDialog, Dialog, I, Toast } from '../../../../../components/ui/index.tsx'
-import { Header } from '../../../../../components/ui/header.tsx'
+import { Button } from '../../../../../components/ui/button.tsx'
+import { ConfirmDialog } from '../../../../../components/ui/alert-dialog.tsx'
+import { Dialog } from '../../../../../components/ui/dialog.tsx'
+import { Toast } from '@base-ui/react/toast'
+import { Header } from '../../../../../components/header.tsx'
 import {
   Sidebar,
   SidebarContent,
@@ -27,7 +31,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '../../../../../components/ui/dropdown-menu.ts'
+} from '../../../../../components/ui/dropdown-menu.tsx'
 import {
   Sheet,
   SheetBody,
@@ -38,10 +42,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '../../../../../components/ui/sheet.tsx'
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../../../../components/shadcn/tooltip.tsx'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../../components/ui/tabs.ts'
+import { Tooltip, TooltipContent, TooltipTrigger } from '../../../../../components/ui/tooltip.tsx'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../../components/ui/tabs.tsx'
 import type { QueryField, RecordFilter, RecordSort } from '../../../../../components/data-grid/data-grid.tsx'
-import { queryTextRecords } from '../../../../../components/record-list/record-list-query.ts'
+import { queryTextRecords } from '../../../../../lib/record-list-query.ts'
 import { bool, num, type PreviewProps, str } from './model.ts'
 import { expression as e, jsx, literal, source, state } from './code.ts'
 import { Surface } from './surface.tsx'
@@ -112,7 +116,9 @@ export function Navigation(
               <SidebarMenuItem key={value}>
                 <SidebarMenuButton
                   label={value === 'companies' ? 'Companies' : 'People'}
-                  icon={value === 'companies' ? 'building' : 'user'}
+                  icon={value === 'companies'
+                    ? <Building2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                    : <UserRoundIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
                   active={active === value}
                   onClick={() => {
                     change(value)
@@ -147,7 +153,11 @@ const navigationCode = (title: string, group: string) =>
                 {},
                 jsx('SidebarMenuButton', {
                   label: value === 'companies' ? 'Companies' : 'People',
-                  icon: value === 'companies' ? 'building' : 'user',
+                  icon: e(
+                    value === 'companies'
+                      ? '<Building2Icon size={16} strokeWidth={1.5} aria-hidden="true" />'
+                      : '<UserRoundIcon size={16} strokeWidth={1.5} aria-hidden="true" />',
+                  ),
                   active: e(`active === ${literal(value)}`),
                   onClick: e(`() => { setActive(${literal(value)}); setOpenMobile(false) }`),
                 }),
@@ -235,7 +245,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
       'DataGrid, SelectColumn, renderTextEditor, type Column, type QueryField, type RecordSort, type RecordFilter',
       'data-grid/data-grid.tsx',
     ) +
-      "\nimport { queryTextRecords } from './components/record-list/record-list-query.ts'\nimport './tailwind.css'\ntype Row = { id: number; name: string; team: string; email: string }"
+      "\nimport { queryTextRecords } from './lib/record-list-query.ts'\nimport './tailwind.css'\ntype Row = { id: number; name: string; team: string; email: string }"
     setup = state('rows', rows, 'Row[]') + '\n' + state('search', search) +
       `\nconst [selected, setSelected] = useState<ReadonlySet<number>>(new Set(${literal([...selected])}))\n` +
       state('sorts', sorts, 'RecordSort[]') + '\n' + state('filter', filter, 'RecordFilter') +
@@ -277,7 +287,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
         <TabsContent value='activity'>Recent activity</TabsContent>
       </Tabs>
     )
-    imports = from('Tabs, TabsList, TabsTrigger, TabsContent', 'ui/tabs.ts')
+    imports = from('Tabs, TabsList, TabsTrigger, TabsContent', 'ui/tabs.tsx')
     setup = state('value', p.value)
     body = jsx(
       'Tabs',
@@ -294,17 +304,21 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
     preview = (
       <Header
         title={str(v, 'title')}
-        leading={bool(v, 'leading') ? <I name='building' /> : undefined}
+        leading={bool(v, 'leading')
+          ? <Building2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+          : undefined}
         actions={bool(v, 'actions')
           ? <Button onClick={() => setMessage('Action triggered')}>Add company</Button>
           : undefined}
       />
     )
-    imports = from('Header', 'ui/header.tsx') + '\n' + from('Button, I', 'ui/index.tsx')
+    imports = from('Header', 'header.tsx') + '\n' + from('Button', 'ui/button.tsx')
     setup = state('message', '')
     body = jsx('Header', {
       title: v.title,
-      leading: bool(v, 'leading') ? e('<I name="building" />') : undefined,
+      leading: bool(v, 'leading')
+        ? e('<Building2Icon size={16} strokeWidth={1.5} aria-hidden="true" className="shrink-0" />')
+        : undefined,
       actions: bool(v, 'actions')
         ? e('<Button onClick={() => setMessage("Action triggered")}>Add company</Button>')
         : undefined,
@@ -329,7 +343,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
     imports = from(
       'Sidebar, SidebarHeader, SidebarContent, SidebarGroup, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarProvider, SidebarTrigger',
       'ui/sidebar.tsx',
-    ) + '\n' + from('Header', 'ui/header.tsx')
+    ) + '\n' + from('Header', 'header.tsx')
     setup = state('active', v.active) + '\n' + state('openMobile', v.openMobile)
     body = jsx(
       'div',
@@ -359,7 +373,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
         {str(v, 'children')}
       </PopoverPanel>
     )
-    imports = from('PopoverPanel', 'ui/popover-panel.tsx') + '\n' + from('Button', 'ui/index.tsx')
+    imports = from('PopoverPanel', 'ui/popover-panel.tsx') + '\n' + from('Button', 'ui/button.tsx')
     setup = state('open', v.open)
     body = jsx('PopoverPanel', {
       ...p,
@@ -384,8 +398,8 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
     )
     imports = from(
       'DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuCheckboxItem',
-      'ui/dropdown-menu.ts',
-    ) + '\n' + from('Button', 'ui/index.tsx')
+      'ui/dropdown-menu.tsx',
+    ) + '\n' + from('Button', 'ui/button.tsx')
     setup = state('open', v.open) + '\n' + state('checked', v.checked) + '\n' + state('message', '')
     body = jsx(
       'DropdownMenu',
@@ -433,7 +447,8 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
       </>
     )
     const name = id === 'dialog' ? 'Dialog' : 'ConfirmDialog'
-    imports = from(`Button, ${name}`, 'ui/index.tsx')
+    imports = from('Button', 'ui/button.tsx') + '\n' +
+      from(name, id === 'dialog' ? 'ui/dialog.tsx' : 'ui/alert-dialog.tsx')
     setup = state('open', v.open) + (id === 'alert-dialog' ? '\n' + state('message', '') : '')
     body = `<>\n<Button onClick={() => setOpen(true)}>Open ${id === 'dialog' ? 'dialog' : 'confirmation'}</Button>\n${
       jsx(
@@ -479,7 +494,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
     imports = from(
       'Sheet, SheetTrigger, SheetContent, SheetHeader, SheetTitle, SheetBody, SheetFooter, SheetClose',
       'ui/sheet.tsx',
-    ) + '\n' + from('Button', 'ui/index.tsx')
+    ) + '\n' + from('Button', 'ui/button.tsx')
     setup = state('open', v.open)
     body = jsx(
       'Sheet',
@@ -502,8 +517,8 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
         </TooltipContent>
       </Tooltip>
     )
-    imports = from('Tooltip, TooltipTrigger, TooltipContent', 'shadcn/tooltip.tsx') + '\n' +
-      from('Button', 'ui/index.tsx')
+    imports = from('Tooltip, TooltipTrigger, TooltipContent', 'ui/tooltip.tsx') + '\n' +
+      from('Button', 'ui/button.tsx')
     body = jsx(
       'Tooltip',
       {},
@@ -513,7 +528,7 @@ export default function AdvancedPreview({ id, values: v, update }: PreviewProps)
   } else if (id === 'toast') {
     const p = { title: str(v, 'title'), description: str(v, 'description'), type: str(v, 'type') }
     preview = <Button onClick={() => toast.add(p)}>Show toast</Button>
-    imports = from('Button, Toast', 'ui/index.tsx')
+    imports = from('Button', 'ui/button.tsx') + '\n' + "import { Toast } from '@base-ui/react/toast'"
     setup = 'const toast = Toast.useToastManager()'
     body = jsx('Button', { onClick: e(`() => toast.add(${literal(p)})`) }, 'Show toast')
   }

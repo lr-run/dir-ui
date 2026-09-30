@@ -1,4 +1,5 @@
-import { I, IconButton } from '../../../components/ui/index.tsx'
+import { Trash2Icon } from 'lucide-react'
+import { IconButton } from '../../../components/ui/icon-button.tsx'
 import type { ReactNode } from 'react'
 
 export type DetailContext<R, Change> = {
@@ -32,7 +33,7 @@ export function DetailPage<R, Change>(
           </span>
           <h2>{title}</h2>
           <IconButton label='Delete record' onClick={onDelete}>
-            <I name='trash' />
+            <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </IconButton>
         </div>
         <h3>Record details</h3>

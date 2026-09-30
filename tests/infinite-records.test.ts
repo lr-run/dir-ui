@@ -1,8 +1,4 @@
-import {
-  createInfiniteRecords,
-  type InfiniteRecordState,
-  type RecordPage,
-} from '../components/record-list/infinite-records.ts'
+import { createInfiniteRecords, type InfiniteRecordState, type RecordPage } from '../lib/infinite-records.ts'
 function assert(value: unknown, message: string) {
   if (!value) throw new Error(message)
 }

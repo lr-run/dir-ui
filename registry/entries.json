@@ -1,219 +1,42 @@
 {
-  "button": {
-    "title": "Button",
+  "licenses": {
+    "title": "Licenses",
     "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "checkbox": {
-    "title": "Checkbox",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "select": {
-    "title": "Select",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "dialog": {
-    "title": "Dialog",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "alert-dialog": {
-    "title": "Alert Dialog",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "empty-state": {
-    "title": "Empty State",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "error-state": {
-    "title": "Error State",
-    "files": [
-      "components/ui/index.tsx"
-    ]
-  },
-  "input": {
-    "title": "Input",
-    "files": [
-      "components/ui/input.tsx"
-    ]
-  },
-  "textarea": {
-    "title": "Textarea",
-    "files": [
-      "components/ui/input.tsx"
-    ]
-  },
-  "field": {
-    "title": "Field",
-    "files": [
-      "components/ui/input.tsx"
-    ]
-  },
-  "multi-select": {
-    "title": "Multi Select",
-    "files": [
-      "components/ui/multi-select.tsx"
-    ]
-  },
-  "combobox": {
-    "title": "Combobox",
-    "files": [
-      "components/ui/multi-select.tsx"
-    ]
-  },
-  "multi-combobox": {
-    "title": "Multi Combobox",
-    "files": [
-      "components/ui/multi-select.tsx"
-    ]
-  },
-  "header": {
-    "title": "Header",
-    "files": [
-      "components/ui/header.tsx"
-    ]
-  },
-  "sidebar": {
-    "title": "Sidebar",
-    "files": [
-      "components/ui/sidebar.tsx"
-    ]
-  },
-  "tabs": {
-    "title": "Tabs",
-    "files": [
-      "components/ui/tabs.ts"
-    ]
-  },
-  "sheet": {
-    "title": "Sheet",
-    "files": [
-      "components/ui/sheet.tsx"
-    ]
-  },
-  "list": {
-    "title": "List",
-    "files": [
-      "components/ui/list.tsx"
-    ]
-  },
-  "inline-edit": {
-    "title": "Inline Edit",
-    "files": [
-      "components/ui/inline-edit.tsx"
-    ]
-  },
-  "inline-inputs": {
-    "title": "Inline Inputs",
-    "files": [
-      "components/ui/inline-inputs.tsx"
-    ]
-  },
-  "rich-text": {
-    "title": "Rich Text",
-    "files": [
-      "components/ui/rich-text.tsx"
-    ]
-  },
-  "inline-rich-text": {
-    "title": "Inline Rich Text",
-    "files": [
-      "components/ui/inline-rich-text.tsx"
-    ]
-  },
-  "value": {
-    "title": "Value",
-    "files": [
-      "components/ui/value.tsx"
-    ]
-  },
-  "popover": {
-    "title": "Popover",
-    "files": [
-      "components/ui/popover.ts",
-      "components/ui/popover-panel.tsx"
-    ]
-  },
-  "dropdown-menu": {
-    "title": "Dropdown Menu",
-    "files": [
-      "components/ui/dropdown-menu.ts"
-    ]
-  },
-  "tooltip": {
-    "title": "Tooltip",
-    "files": [
-      "components/shadcn/tooltip.tsx"
-    ]
-  },
-  "skeleton": {
-    "title": "Skeleton",
-    "files": [
-      "components/shadcn/skeleton.tsx"
-    ]
-  },
-  "icons": {
-    "title": "Icons",
-    "files": [
-      "components/icons/index.jsx"
-    ]
-  },
-  "toast": {
-    "title": "Toast",
-    "files": [
-      "components/ui/index.tsx",
-      "components/icons/index.jsx"
-    ]
-  },
-  "data-grid": {
-    "title": "DataGrid",
-    "files": [
-      "components/data-grid/data-grid.tsx"
-    ]
-  },
-  "record-list": {
-    "title": "Record List",
-    "files": [
-      "components/record-list/record-list.tsx"
-    ]
-  },
-  "search-dialog": {
-    "title": "Search Dialog",
-    "files": [
-      "components/collections/search-dialog.tsx"
-    ]
-  },
-  "file-upload": {
-    "title": "File Upload",
-    "files": [
-      "components/collections/files.tsx"
-    ]
-  },
-  "chart": {
-    "title": "Chart",
-    "files": [
-      "components/charts/index.tsx",
-      "components/charts/chart-frame.tsx"
-    ]
+      "LICENSE",
+      "THIRD_PARTY_LICENSES/shadcn-ui.txt",
+      "THIRD_PARTY_LICENSES/shadcn-ui-source.md",
+      "THIRD_PARTY_LICENSES/shadcn-ui-notice.md"
+    ],
+    "type": "registry:item"
   },
   "theme": {
     "title": "Theme",
     "files": [
-      "styles/tailwind.css"
+      "components/ui/dir-theme.css"
+    ],
+    "type": "registry:style",
+    "dependencies": [
+      "tw-animate-css"
+    ],
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "data-grid-styles": {
+    "title": "Data Grid Styles",
+    "files": [
+      "components/ui/data-grid.css"
+    ],
+    "type": "registry:style",
+    "dependencies": [
+      "react-data-grid"
+    ],
+    "registryDependencies": [
+      "@dir/licenses"
     ]
   },
   "crm-example": {
-    "title": "CRM example",
+    "title": "Crm Example",
     "files": [
       "examples/crm/app.tsx",
       "examples/crm/components/record-notes.tsx",
@@ -231,9 +54,776 @@
       "examples/crm/routes/report.tsx",
       "examples/crm/screens/detail-page.tsx",
       "examples/crm/screens/list-page.tsx",
-      "examples/crm/types.ts",
-      "examples/crm/template.tsx"
+      "examples/crm/template.tsx",
+      "examples/crm/types.ts"
     ],
-    "type": "registry:block"
+    "type": "registry:block",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "button": {
+    "title": "Button",
+    "files": [
+      "components/ui/button.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "input": {
+    "title": "Input",
+    "files": [
+      "components/ui/input.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "textarea": {
+    "title": "Textarea",
+    "files": [],
+    "registryDependencies": [
+      "@dir/input"
+    ]
+  },
+  "rich-text": {
+    "title": "Rich Text",
+    "files": [
+      "components/ui/rich-text.tsx",
+      "components/rich-text/internal/BlockMenu.tsx",
+      "components/rich-text/internal/FormattingToolbar.tsx",
+      "components/rich-text/internal/LinkPopover.tsx",
+      "components/rich-text/internal/RichTextEditor.tsx",
+      "components/rich-text/internal/commands.ts",
+      "components/rich-text/internal/extensions.ts",
+      "components/rich-text/internal/locale.ts",
+      "components/rich-text/internal/modal.tsx",
+      "components/rich-text/internal/paste.ts"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "select": {
+    "title": "Select",
+    "files": [
+      "components/ui/select.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "combobox": {
+    "title": "Combobox",
+    "files": [
+      "components/ui/multi-select.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "multi-select": {
+    "title": "Multi Select",
+    "files": [],
+    "registryDependencies": [
+      "@dir/combobox"
+    ]
+  },
+  "multi-combobox": {
+    "title": "Multi Combobox",
+    "files": [],
+    "registryDependencies": [
+      "@dir/combobox"
+    ]
+  },
+  "checkbox": {
+    "title": "Checkbox",
+    "files": [
+      "components/ui/checkbox.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "switch": {
+    "title": "Switch",
+    "files": [],
+    "type": "registry:item",
+    "dependencies": [
+      "@base-ui/react"
+    ]
+  },
+  "radio": {
+    "title": "Radio",
+    "files": [],
+    "type": "registry:item",
+    "dependencies": [
+      "@base-ui/react"
+    ]
+  },
+  "field": {
+    "title": "Field",
+    "files": [
+      "components/ui/field.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "inline-edit": {
+    "title": "Inline Edit",
+    "files": [
+      "components/ui/inline-edit.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "inline-textarea": {
+    "title": "Inline Textarea",
+    "files": [],
+    "registryDependencies": [
+      "@dir/inline-edit"
+    ]
+  },
+  "inline-select": {
+    "title": "Inline Select",
+    "files": [
+      "components/ui/inline-choice.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "inline-multi-select": {
+    "title": "Inline Multi Select",
+    "files": [],
+    "registryDependencies": [
+      "@dir/inline-select"
+    ]
+  },
+  "inline-rich-text": {
+    "title": "Inline Rich Text",
+    "files": [
+      "components/ui/inline-rich-text.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "table": {
+    "title": "Table",
+    "files": [],
+    "type": "registry:item"
+  },
+  "data-grid": {
+    "title": "Data Grid",
+    "files": [
+      "components/data-grid/data-grid.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "tabs": {
+    "title": "Tabs",
+    "files": [
+      "components/ui/tabs.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "header": {
+    "title": "Header",
+    "files": [
+      "components/header.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "sidebar": {
+    "title": "Sidebar",
+    "files": [
+      "components/ui/sidebar.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "chart": {
+    "title": "Chart",
+    "files": [
+      "components/ui/chart.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "icons": {
+    "title": "Icons",
+    "files": [],
+    "type": "registry:item",
+    "dependencies": [
+      "lucide-react"
+    ]
+  },
+  "popover": {
+    "title": "Popover",
+    "files": [
+      "components/ui/popover-panel.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "dropdown-menu": {
+    "title": "Dropdown Menu",
+    "files": [
+      "components/ui/dropdown-menu.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "dialog": {
+    "title": "Dialog",
+    "files": [
+      "components/ui/dialog.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "sheet": {
+    "title": "Sheet",
+    "files": [
+      "components/ui/sheet.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "alert-dialog": {
+    "title": "Alert Dialog",
+    "files": [
+      "components/ui/alert-dialog.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "tooltip": {
+    "title": "Tooltip",
+    "files": [
+      "components/ui/tooltip.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "toast": {
+    "title": "Toast",
+    "files": [
+      "components/ui/toast.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "empty-state": {
+    "title": "Empty State",
+    "files": [
+      "components/ui/empty-state.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "error-state": {
+    "title": "Error State",
+    "files": [
+      "components/ui/error-state.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "files": [],
+    "registryDependencies": [
+      "skeleton"
+    ]
+  },
+  "record-list": {
+    "title": "Record List",
+    "files": [
+      "components/record-list/record-list.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "number-value": {
+    "title": "Number Value",
+    "files": [
+      "components/ui/value.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "date-value": {
+    "title": "Date Value",
+    "files": [],
+    "registryDependencies": [
+      "@dir/number-value"
+    ]
+  },
+  "choice-value": {
+    "title": "Choice Value",
+    "files": [],
+    "registryDependencies": [
+      "@dir/number-value"
+    ]
+  },
+  "inline-combobox": {
+    "title": "Inline Combobox",
+    "files": [
+      "components/ui/inline-inputs.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "inline-multi-combobox": {
+    "title": "Inline Multi Combobox",
+    "files": [],
+    "registryDependencies": [
+      "@dir/inline-combobox"
+    ]
+  },
+  "list": {
+    "title": "List",
+    "files": [
+      "components/ui/list.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "list-item": {
+    "title": "List Item",
+    "files": [],
+    "registryDependencies": [
+      "@dir/list"
+    ]
+  },
+  "search-dialog": {
+    "title": "Search Dialog",
+    "files": [
+      "components/collections/search-dialog.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "file-upload": {
+    "title": "File Upload",
+    "files": [
+      "components/collections/files.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "chart-frame": {
+    "title": "Chart Frame",
+    "files": [
+      "components/charts/chart-frame.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "charts": {
+    "title": "Charts",
+    "files": [
+      "components/charts/index.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "column-header": {
+    "title": "Column Header",
+    "files": [
+      "components/data-grid/internal/column-header.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "column-settings": {
+    "title": "Column Settings",
+    "files": [
+      "components/data-grid/internal/column-settings.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "query-controls": {
+    "title": "Query Controls",
+    "files": [
+      "components/data-grid/internal/query-controls.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "record-table": {
+    "title": "Record Table",
+    "files": [
+      "components/record-list/record-table.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/data-grid-styles"
+    ]
+  },
+  "badge": {
+    "title": "Badge",
+    "files": [
+      "components/ui/badge.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "choice-content": {
+    "title": "Choice Content",
+    "files": [
+      "components/ui/choice-content.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "components-combobox": {
+    "title": "Components Combobox",
+    "files": [
+      "components/ui/combobox.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "error-boundary": {
+    "title": "Error Boundary",
+    "files": [
+      "components/ui/error-boundary.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "inline-save-feedback": {
+    "title": "Inline Save Feedback",
+    "files": [
+      "components/ui/inline-save-feedback.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "loading-state": {
+    "title": "Loading State",
+    "files": [
+      "components/ui/loading-state.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "menu-popup": {
+    "title": "Menu Popup",
+    "files": [
+      "components/ui/menu-popup.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "components-popover": {
+    "title": "Components Popover",
+    "files": [
+      "components/ui/popover.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "components-textarea": {
+    "title": "Components Textarea",
+    "files": [
+      "components/ui/textarea.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "toolbar-button": {
+    "title": "Toolbar Button",
+    "files": [
+      "components/ui/toolbar-button.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "use-choices": {
+    "title": "Use Choices",
+    "files": [
+      "hooks/use-choices.ts"
+    ],
+    "type": "registry:hook",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "use-infinite-records": {
+    "title": "Use Infinite Records",
+    "files": [
+      "hooks/use-infinite-records.ts"
+    ],
+    "type": "registry:hook",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "use-inline-save": {
+    "title": "Use Inline Save",
+    "files": [
+      "hooks/use-inline-save.ts"
+    ],
+    "type": "registry:hook",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "use-remote-search": {
+    "title": "Use Remote Search",
+    "files": [
+      "hooks/use-remote-search.ts"
+    ],
+    "type": "registry:hook",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "choice-types": {
+    "title": "Choice Types",
+    "files": [
+      "lib/choice-types.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "file-model": {
+    "title": "File Model",
+    "files": [
+      "lib/file-model.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "filter-tree": {
+    "title": "Filter Tree",
+    "files": [
+      "lib/filter-tree.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "i18n": {
+    "title": "I18N",
+    "files": [
+      "lib/i18n.tsx"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "infinite-records": {
+    "title": "Infinite Records",
+    "files": [
+      "lib/infinite-records.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "inline-save-task": {
+    "title": "Inline Save Task",
+    "files": [
+      "lib/inline-save-task.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "query": {
+    "title": "Query",
+    "files": [
+      "lib/query.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "record-list-query": {
+    "title": "Record List Query",
+    "files": [
+      "lib/record-list-query.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "record-table-model": {
+    "title": "Record Table Model",
+    "files": [
+      "lib/record-table-model.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "remote-search": {
+    "title": "Remote Search",
+    "files": [
+      "lib/remote-search.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "upload-queue": {
+    "title": "Upload Queue",
+    "files": [
+      "lib/upload-queue.ts"
+    ],
+    "type": "registry:lib",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "icon-button": {
+    "title": "Icon Button",
+    "files": [
+      "components/ui/icon-button.tsx"
+    ],
+    "registryDependencies": [
+      "@dir/theme",
+      "@dir/licenses"
+    ]
   }
 }

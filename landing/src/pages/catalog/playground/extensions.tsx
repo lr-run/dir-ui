@@ -1,9 +1,10 @@
+import { AlignLeftIcon } from 'lucide-react'
 import { loadDemoSearchResults } from '../../../demo/loaders.ts'
 import { type ReactNode, useEffect, useRef, useState } from 'react'
-import { Checkbox, I } from '../../../../../components/ui/index.tsx'
+import { Checkbox } from '../../../../../components/ui/checkbox.tsx'
 import { ChoiceValue, DateValue, NumberValue } from '../../../../../components/ui/value.tsx'
 import { InlineCombobox, InlineMultiCombobox } from '../../../../../components/ui/inline-inputs.tsx'
-import type { Choice } from '../../../../../components/ui/multi-select.tsx'
+import type { Choice } from '../../../../../lib/choice-types.ts'
 import { List, ListItem } from '../../../../../components/ui/list.tsx'
 import {
   SearchDialog,
@@ -106,7 +107,7 @@ export default function ExtensionsPreview({ id, values: v, update }: PreviewProp
                   : activity
                   ? <span aria-hidden>◷</span>
                   : icons
-                  ? <I name='text' />
+                  ? <AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                   : undefined}
               />
             ))
@@ -125,7 +126,7 @@ export default function ExtensionsPreview({ id, values: v, update }: PreviewProp
             : activity
             ? ' leading={<span aria-hidden>◷</span>}'
             : icons
-            ? ' leading={<I name="text" />}'
+            ? ' leading={<AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden="true" className="shrink-0" />}'
             : ''
         } />) : null}</List>`
     } else {
@@ -137,13 +138,27 @@ export default function ExtensionsPreview({ id, values: v, update }: PreviewProp
       }
       preview = (
         <List>
-          <ListItem {...p} leading={icons ? <I name='text' /> : undefined} />
+          <ListItem
+            {...p}
+            leading={icons
+              ? <AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+              : undefined}
+          />
         </List>
       )
-      body = jsx('List', {}, jsx('ListItem', { ...p, leading: icons ? e('<I name="text" />') : undefined }))
+      body = jsx(
+        'List',
+        {},
+        jsx('ListItem', {
+          ...p,
+          leading: icons
+            ? e('<AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden="true" className="shrink-0" />')
+            : undefined,
+        }),
+      )
     }
     imports = from('List, ListItem', 'ui/list.tsx') +
-      (task ? '\n' + from('Checkbox', 'ui/index.tsx') : icons ? '\n' + from('I', 'ui/index.tsx') : '')
+      (task ? '\n' + from('Checkbox', 'ui/checkbox.tsx') : '')
   } else if (id === 'search-dialog') {
     const p = {
       items: v.items as SearchItem[],

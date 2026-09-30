@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import type { FilterCondition, RecordFilter } from '../../../../../components/query/model.ts'
+import type { FilterCondition, RecordFilter } from '../../../../../lib/query.ts'
 const filterValueSchema = z.union([
   z.string(),
   z.number(),

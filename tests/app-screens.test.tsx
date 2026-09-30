@@ -36,13 +36,25 @@ Deno.test('detail screen accepts unrelated record shapes and arbitrary route con
 Deno.test('source tree groups nested folders while keeping exact file paths', () => {
   const html = renderToStaticMarkup(
     <FileTree
-      files={['app.tsx', 'routes/companies.tsx', 'routes/report/report-route.tsx', 'screens/list-page.tsx']}
-      selected='routes/report/report-route.tsx'
+      files={[
+        'components/crm/app.tsx',
+        'components/crm/routes/companies.tsx',
+        'components/crm/routes/report/report-route.tsx',
+        'components/crm/screens/list-page.tsx',
+      ]}
+      selected='components/crm/routes/report/report-route.tsx'
       onSelect={() => {}}
     />,
   )
   if ((html.match(/aria-current="page"/g) ?? []).length !== 1) throw new Error('Invalid selected file')
-  for (const path of ['app.tsx', 'routes/companies.tsx', 'routes/report/report-route.tsx', 'screens/list-page.tsx']) {
+  for (
+    const path of [
+      'components/crm/app.tsx',
+      'components/crm/routes/companies.tsx',
+      'components/crm/routes/report/report-route.tsx',
+      'components/crm/screens/list-page.tsx',
+    ]
+  ) {
     if (!html.includes(`title="${path}"`)) throw new Error(`Missing source path: ${path}`)
   }
   if ((html.match(/<summary>/g) ?? []).length !== 5) throw new Error('Directory hierarchy was flattened')

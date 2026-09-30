@@ -8,7 +8,7 @@ export const templates = [{
   exportName: 'CrmTemplate',
   sourceDirectory: 'examples/crm',
   usage: '<CrmTemplate count={100} basePath="/crm" />',
-  styles: "@import '../lib/dir-components/styles/data-grid.css';\n@source '../lib/dir-components/examples';",
+  styles: '// Theme and grid styles are imported by the installed components.',
   files:
     'routes/: route-specific list/detail pages and creation forms. screens/: shared list/detail screens driven by route definitions. layout.tsx: navigation and global search. example/: sample records, query helpers, and in-memory storage.',
   routes: ['companies', 'companies/:id', 'people', 'people/:id', 'deals', 'deals/:id', 'report'],

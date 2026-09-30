@@ -1,6 +1,6 @@
 import { landingBaseUrl } from '../../routes.ts'
 import { type CSSProperties, useEffect, useMemo, useState } from 'react'
-import { Button } from '../../../../components/ui/index.tsx'
+import { Button } from '../../../../components/ui/button.tsx'
 import { SourceViewer } from './source-viewer.tsx'
 import { FileTree } from './file-tree.tsx'
 import { sourceFiles } from './source-files.ts'
@@ -15,7 +15,7 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
   const [copied, setCopied] = useState(''), [copyError, setCopyError] = useState('')
   useEffect(() => setCopied(''), [count])
   const usage =
-    `import { CrmTemplate } from './template.tsx'\n\nexport default function Example() {\n  return <div className="h-dvh"><CrmTemplate count={${count}} /></div>\n}\n`
+    `import { CrmTemplate } from '@/components/crm/template.tsx'\n\nexport default function Example() {\n  return <div className="h-dvh"><CrmTemplate count={${count}} /></div>\n}\n`
   const files: Record<string, string> = { 'Example.tsx': usage, ...sourceFiles }
   const source = files[file] ?? usage
   const previewUrl = useMemo(() => {
@@ -27,9 +27,7 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
   const copy = async (all: boolean) => {
     try {
       await navigator.clipboard.writeText(
-        all
-          ? Object.entries(files).map(([path, content]) => `// FILE: examples/crm/${path}\n${content}`).join('\n\n')
-          : source,
+        all ? Object.entries(files).map(([path, content]) => `// FILE: ${path}\n${content}`).join('\n\n') : source,
       )
       setCopied(all ? 'all' : 'file')
       setCopyError('')
@@ -73,7 +71,7 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
             <span className='text-xs font-medium text-muted-foreground'>Source code</span>
             <div className='flex gap-[8px] ml-auto [@media(max-width:_700px)]:gap-[4px]'>
               <Button onClick={() => copy(false)}>{copied === 'file' ? 'Copied' : 'Copy file'}</Button>
-              <Button variant='primary' onClick={() => copy(true)}>
+              <Button variant='default' onClick={() => copy(true)}>
                 {copied === 'all' ? 'Copied all' : 'Copy all files'}
               </Button>
             </div>
@@ -93,7 +91,7 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
               <span className='ml-auto pr-[18px] text-[10px] text-muted-foreground'>Read only</span>
             </div>
             <div className='p-[12px_20px_8px] text-[11px] text-muted-foreground [&_strong]:font-normal [&_strong]:text-foreground'>
-              examples / crm / <strong>{file}</strong>
+              Source root / <strong>{file}</strong>
             </div>
             <SourceViewer key={file} source={source} />
           </div>

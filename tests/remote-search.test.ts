@@ -1,4 +1,4 @@
-import { createRemoteSearch, type RemoteSearchState } from '../components/collections/remote-search.ts'
+import { createRemoteSearch, type RemoteSearchState } from '../lib/remote-search.ts'
 function assert(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message)
 }

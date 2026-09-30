@@ -1,3 +1,4 @@
+import { ArrowLeftIcon, ArrowRightIcon, CheckIcon, EyeOffIcon, PinIcon, SearchIcon } from 'lucide-react'
 import { type Key, type ReactNode, useCallback, useMemo, useState } from 'react'
 import {
   type Column,
@@ -15,14 +16,14 @@ import {
 } from './internal/column-settings.tsx'
 import { cn } from 'cn'
 import { Menu } from '@base-ui/react/menu'
-import { I, IconButton } from '../ui/index.tsx'
+import { IconButton } from '../ui/icon-button.tsx'
 import { Input } from '../ui/input.tsx'
 import { PopoverPanel } from '../ui/popover-panel.tsx'
 import { ColumnHeader, columnMenuItem } from './internal/column-header.tsx'
-import { moveItem } from '../query/model.ts'
+import { moveItem } from '../../lib/query.ts'
 export { renderTextEditor, SelectColumn } from 'react-data-grid'
 export type { Column, SortColumn } from 'react-data-grid'
-export type { FilterCondition, FilterValue, QueryField, RecordFilter, RecordSort } from '../query/model.ts'
+export type { FilterCondition, FilterValue, QueryField, RecordFilter, RecordSort } from '../../lib/query.ts'
 export type GridSortOptions = SortEditorProps
 export type GridFilterOptions = FilterEditorProps
 export type GridColumnSettings = ColumnSettingsProps
@@ -139,7 +140,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
                   onClick={() => sorting('ASC')}
                 >
                   <span aria-hidden>↑</span>Sort ascending<Menu.CheckboxItemIndicator className='ml-auto'>
-                    <I name='check' />
+                    <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                   </Menu.CheckboxItemIndicator>
                 </Menu.CheckboxItem>
                 <Menu.CheckboxItem
@@ -151,7 +152,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
                     sorting('DESC')}
                 >
                   <span aria-hidden>↓</span>Sort descending<Menu.CheckboxItemIndicator className='ml-auto'>
-                    <I name='check' />
+                    <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                   </Menu.CheckboxItemIndicator>
                 </Menu.CheckboxItem>
               </>
@@ -162,7 +163,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
               onClick={() =>
                 patchColumn(column.key, { frozen: !state.frozen })}
             >
-              <I name='pin' />
+              <PinIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
               {state.frozen ? 'Unfreeze column' : 'Freeze column'}
             </Menu.Item>
             <Menu.Item
@@ -172,7 +173,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
               onClick={() =>
                 moveColumn(column.key, ordered[index - 1]!.id)}
             >
-              <span aria-hidden>←</span>Move left
+              <ArrowLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Move left
             </Menu.Item>
             <Menu.Item
               className={columnMenuItem}
@@ -180,7 +181,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
                 !!ordered[index + 1]?.frozen !== !!state.frozen}
               onClick={() => moveColumn(column.key, ordered[index + 1]!.id)}
             >
-              <span aria-hidden>→</span>Move right
+              <ArrowRightIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Move right
             </Menu.Item>
             <Menu.Separator className='my-1 h-px bg-border' />
             <Menu.Item
@@ -188,7 +189,7 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
               disabled={!columnSettings || controls.disabled || definition?.required}
               onClick={() => patchColumn(column.key, { visible: false })}
             >
-              <I name='hide' />Hide from view
+              <EyeOffIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Hide from view
             </Menu.Item>
           </ColumnHeader>
         ),
@@ -254,7 +255,7 @@ function GridSearch(
   return (
     <>
       <label className='ml-auto hidden min-w-20 max-w-[180px] flex-1 items-center gap-1.5 rounded border border-transparent pl-2 text-muted-foreground focus-within:border-ring @min-[521px]:flex'>
-        <I name='search' />
+        <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
         <Input
           aria-label={label}
           placeholder={placeholder}
@@ -276,7 +277,7 @@ function GridSearch(
               disabled={disabled}
               className={value ? 'bg-accent text-foreground' : 'text-muted-foreground'}
             >
-              <I name='search' />
+              <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </IconButton>
           }
         >

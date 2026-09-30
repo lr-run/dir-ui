@@ -1,8 +1,9 @@
+import { ChevronDownIcon, PanelLeftIcon } from 'lucide-react'
 // Composition follows shadcn/ui's Base UI Sidebar recipe; scoped to the Dir app shell.
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { Collapsible } from '@base-ui/react/collapsible'
 import { Tooltip } from '@base-ui/react/tooltip'
-import { I, IconButton } from './index.tsx'
+import { IconButton } from './icon-button.tsx'
 import { useI18n } from '../../lib/i18n.tsx'
 import { Sheet, SheetContent, SheetTitle } from './sheet.tsx'
 import { cn } from 'cn'
@@ -151,9 +152,9 @@ export function SidebarGroup({ label, children }: { label?: string; children: Re
       open={!open && !mobile ? true : expanded}
       onOpenChange={setExpanded}
     >
-      <Collapsible.Trigger className="group/crm-sidebar-group-label flex items-center justify-between w-full h-[32px] p-[0_8px] rounded-[6px] text-muted-foreground text-[length:var(--dir-text-caption)] font-medium [&:hover]:[background:var(--ui-hover)] [&:hover]:text-foreground [&_[class~='group/svg-wrap']]:w-[12px] [&_[class~='group/svg-wrap']]:h-[12px] [&:focus-visible]:[outline:2px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[-2px] [&[data-panel-open]_[class~='group/svg-wrap']]:[transform:rotate(0)] [&:not([data-panel-open])_[class~='group/svg-wrap']]:[transform:rotate(-90deg)]">
+      <Collapsible.Trigger className='group/crm-sidebar-group-label flex items-center justify-between w-full h-[32px] p-[0_8px] rounded-[6px] text-muted-foreground text-[length:var(--dir-text-caption)] font-medium [&:hover]:[background:var(--ui-hover)] [&:hover]:text-foreground [&_svg]:w-[12px] [&_svg]:h-[12px] [&:focus-visible]:[outline:2px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[-2px] [&[data-panel-open]_svg]:[transform:rotate(0)] [&:not([data-panel-open])_svg]:[transform:rotate(-90deg)]'>
         <span>{label}</span>
-        <I name='chevron' />
+        <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
       </Collapsible.Trigger>
       <Collapsible.Panel>{children}</Collapsible.Panel>
     </Collapsible.Root>
@@ -167,7 +168,7 @@ export function SidebarMenuItem({ children }: { children: ReactNode }) {
 }
 export function SidebarMenuButton({ label, icon, active, href, onClick, shortcut }: {
   label: string
-  icon: string
+  icon: ReactNode
   active?: boolean
   href?: string
   onClick: () => void
@@ -176,14 +177,14 @@ export function SidebarMenuButton({ label, icon, active, href, onClick, shortcut
   const { open } = useSidebar(), mobile = useContext(MobileContext)
   const content = (
     <>
-      <I name={icon} />
+      {icon}
       <span className='group/crm-sidebar-label min-w-0 overflow-hidden text-ellipsis'>{label}</span>
       {shortcut && <kbd>{shortcut}</kbd>}
     </>
   )
   const props = {
     className:
-      "group/crm-sidebar-menu-button flex items-center gap-[10px] w-full h-[34px] p-[0_10px] [border:1px_solid_transparent] rounded-[6px] no-underline text-foreground text-[length:var(--dir-text-body)] font-normal text-left whitespace-nowrap [background:transparent] [&:hover]:[background:var(--ui-hover)] [&[data-active]]:[background:var(--ui-hover)] [&[data-active]]:font-medium [&[data-active]]:[box-shadow:0_1px_2px_#00000005] [&:focus-visible]:[outline:2px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[-2px] [&>[class~='group/svg-wrap']]:[flex:0_0_16px] [&>[class~='group/svg-wrap']]:w-[16px] [&>[class~='group/svg-wrap']]:h-[16px] [&>[class~='group/svg-wrap']]:text-muted-foreground [&[data-active]>[class~='group/svg-wrap']]:text-foreground",
+      'group/crm-sidebar-menu-button flex items-center gap-[10px] w-full h-[34px] p-[0_10px] [border:1px_solid_transparent] rounded-[6px] no-underline text-foreground text-[length:var(--dir-text-body)] font-normal text-left whitespace-nowrap [background:transparent] [&:hover]:[background:var(--ui-hover)] [&[data-active]]:[background:var(--ui-hover)] [&[data-active]]:font-medium [&[data-active]]:[box-shadow:0_1px_2px_#00000005] [&:focus-visible]:[outline:2px_solid_var(--ui-focus)] [&:focus-visible]:outline-offset-[-2px] [&>svg]:[flex:0_0_16px] [&>svg]:w-[16px] [&>svg]:h-[16px] [&>svg]:text-muted-foreground [&[data-active]>svg]:text-foreground',
     'aria-label': label,
     'data-active': active || undefined,
   }
@@ -226,18 +227,7 @@ export function SidebarTrigger() {
       aria-expanded={isMobile ? openMobile : open}
       onClick={toggleSidebar}
     >
-      <svg
-        width='16'
-        height='16'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='1.7'
-        aria-hidden='true'
-      >
-        <rect x='3' y='3' width='18' height='18' rx='2' />
-        <path d='M9 3v18' />
-      </svg>
+      <PanelLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
     </IconButton>
   )
 }

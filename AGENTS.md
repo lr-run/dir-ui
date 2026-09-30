@@ -8,3 +8,6 @@ This repository contains reusable React components, a GitHub shadcn registry, an
 - Source registry entries are generated with `deno task registry:generate`. Keep them current.
 - Deployment and OSS export configuration live only in the private development repository.
 - Preserve unrelated work. Never publish private Git history or credentials.
+
+- Public repository pushes, release tags, publishing workflows, and production deployments require an explicit user
+  instruction. Keep unreleased work local or in the private repository until then.

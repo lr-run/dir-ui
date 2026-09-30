@@ -1,10 +1,7 @@
 import { useCallback } from 'react'
-import {
-  type Choice,
-  type LoadChoices,
-  MultiCombobox,
-  SingleCombobox,
-} from '../../../../../components/ui/multi-select.tsx'
+import { type Choice } from '../../../../../lib/choice-types.ts'
+import { type LoadChoices } from '../../../../../hooks/use-choices.ts'
+import { MultiCombobox, SingleCombobox } from '../../../../../components/ui/combobox.tsx'
 import { bool, num, type PreviewProps, str } from './model.ts'
 import { expression as e, jsx, literal, source, state } from './code.ts'
 import { Surface } from './surface.tsx'

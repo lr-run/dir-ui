@@ -7,7 +7,7 @@ export interface Note {
   content?: Note[]
 }
 
-const Editor = lazy(() => import('../rich-text/internal/RichTextEditor.jsx'))
+const Editor = lazy(() => import('../rich-text/internal/RichTextEditor.tsx'))
 export type RichTextValue = { notesDoc: Note; notes: string }
 export type RichTextProps = {
   initialContent?: Note

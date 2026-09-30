@@ -1,9 +1,36 @@
+import {
+  AlignLeftIcon,
+  ArchiveIcon,
+  ArrowUpRightIcon,
+  Building2Icon,
+  ChartNoAxesColumnIcon,
+  CheckIcon,
+  DatabaseIcon,
+  EllipsisIcon,
+  InfoIcon,
+  PencilIcon,
+  PlusIcon,
+  RefreshCwIcon,
+  SearchIcon,
+  SlidersHorizontalIcon,
+  TargetIcon,
+  UserRoundIcon,
+} from 'lucide-react'
 import { type ComponentProps, type ReactNode, useState } from 'react'
 import { RadioGroup } from '@base-ui/react/radio-group'
 import { Radio } from '@base-ui/react/radio'
-import { Button, Checkbox, EmptyState, ErrorState, I, Select, Switch } from '../../../../../components/ui/index.tsx'
-import { Field, Input, type InputType, Textarea, TextInput } from '../../../../../components/ui/input.tsx'
-import { type Choice, MultiCombobox, MultiSelect, SingleCombobox } from '../../../../../components/ui/multi-select.tsx'
+import { Button } from '../../../../../components/ui/button.tsx'
+import { Checkbox } from '../../../../../components/ui/checkbox.tsx'
+import { EmptyState } from '../../../../../components/ui/empty-state.tsx'
+import { ErrorState } from '../../../../../components/ui/error-state.tsx'
+import { Select } from '../../../../../components/ui/select.tsx'
+import { Switch } from '@base-ui/react/switch'
+import { Field } from '../../../../../components/ui/field.tsx'
+import { Input, type InputType } from '../../../../../components/ui/input.tsx'
+import { Textarea } from '../../../../../components/ui/textarea.tsx'
+import { type Choice } from '../../../../../lib/choice-types.ts'
+import { MultiCombobox, SingleCombobox } from '../../../../../components/ui/combobox.tsx'
+import { MultiSelect } from '../../../../../components/ui/multi-select.tsx'
 import {
   InlineInput,
   InlineMultiSelect,
@@ -12,7 +39,7 @@ import {
   InlineTextarea,
 } from '../../../../../components/ui/inline-edit.tsx'
 import { RichText } from '../../../../../components/ui/rich-text.tsx'
-import { Skeleton } from '../../../../../components/shadcn/skeleton.tsx'
+import { Skeleton } from '../../../../../components/ui/skeleton.tsx'
 import type { Note } from '../../../../../components/ui/rich-text.tsx'
 import { SelectionPreview } from './selection.tsx'
 import { bool, num, type PreviewProps, str } from './model.ts'
@@ -88,7 +115,13 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
     } else preview = <InlineMultiSelect {...p} disabled={disabled} value={value as string[]} onValueChange={setValue} />
     imports = from(
       name,
-      id === 'select' ? 'ui/index.tsx' : id.startsWith('inline-') ? 'ui/inline-choice.tsx' : 'ui/multi-select.tsx',
+      id === 'select'
+        ? 'ui/select.tsx'
+        : id.startsWith('inline-')
+        ? 'ui/inline-choice.tsx'
+        : id.includes('combobox')
+        ? 'ui/combobox.tsx'
+        : 'ui/multi-select.tsx',
     )
     setup = state(
       'value',
@@ -119,7 +152,7 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
         <output>{message}</output>
       </div>
     )
-    imports = from('Button', 'ui/index.tsx')
+    imports = from('Button', 'ui/button.tsx')
     setup = state('message', '')
     body = `<>\n${
       jsx('Button', { ...p, onClick: e('() => setMessage("Action triggered")') }, `{${literal(v.children)}}`)
@@ -150,7 +183,7 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
         {label}
       </label>
     )
-    imports = from(id === 'checkbox' ? 'Checkbox' : 'Switch', 'ui/index.tsx')
+    imports = id === 'checkbox' ? from('Checkbox', 'ui/checkbox.tsx') : "import { Switch } from '@base-ui/react/switch'"
     setup = state('checked', p.checked)
     body = jsx(
       'label',
@@ -215,15 +248,15 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
     }
     preview = (
       <Field {...p}>
-        {(props) => <TextInput {...props} value={str(v, 'value')} onChange={(event) => setValue(event.target.value)} />}
+        {(props) => <Input {...props} value={str(v, 'value')} onChange={(event) => setValue(event.target.value)} />}
       </Field>
     )
-    imports = from('Field, TextInput', 'ui/input.tsx')
+    imports = from('Field', 'ui/field.tsx') + '\n' + from('Input', 'ui/input.tsx')
     setup = state('value', v.value)
     body = jsx(
       'Field',
       p,
-      '{props => <TextInput {...props} value={value} onChange={event => setValue(event.target.value)} />}',
+      '{props => <Input {...props} value={value} onChange={event => setValue(event.target.value)} />}',
     )
   } else if (id === 'inline-edit' || id === 'inline-textarea') {
     const type = str(v, 'type') as InputType
@@ -269,12 +302,33 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
     imports = from('RichText', 'ui/rich-text.tsx')
     body = jsx('RichText', p)
   } else if (id === 'icons') {
-    preview = <I name={str(v, 'name')} />
-    imports = from('I', 'ui/index.tsx')
-    body = jsx('I', { name: v.name })
+    const icons = {
+      Building2Icon,
+      UserRoundIcon,
+      TargetIcon,
+      DatabaseIcon,
+      SearchIcon,
+      SlidersHorizontalIcon,
+      ChartNoAxesColumnIcon,
+      CheckIcon,
+      PlusIcon,
+      ArchiveIcon,
+      ArrowUpRightIcon,
+      EllipsisIcon,
+      PencilIcon,
+      InfoIcon,
+      AlignLeftIcon,
+      RefreshCwIcon,
+    }
+    const name = str(v, 'example') as keyof typeof icons
+    const Icon = icons[name] ?? SearchIcon
+    const props = { size: Number(v.size), strokeWidth: Number(v.strokeWidth), 'aria-hidden': true as const }
+    preview = <Icon {...props} />
+    imports = `import { ${name} } from 'lucide-react'`
+    body = jsx(name, props)
   } else if (id === 'empty-state') {
     preview = <EmptyState title={str(v, 'title')}>{str(v, 'children')}</EmptyState>
-    imports = from('EmptyState', 'ui/index.tsx')
+    imports = from('EmptyState', 'ui/empty-state.tsx')
     body = jsx('EmptyState', { title: v.title }, `{${literal(v.children)}}`)
   } else if (id === 'error-state') {
     preview = (
@@ -286,7 +340,7 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
         <output>{message}</output>
       </>
     )
-    imports = from('ErrorState', 'ui/index.tsx')
+    imports = from('ErrorState', 'ui/error-state.tsx')
     setup = state('message', '')
     body = `<>\n${
       jsx('ErrorState', {
@@ -296,7 +350,7 @@ export default function BasicPreview({ id, values: v, update }: PreviewProps) {
     }\n<output>{message}</output>\n</>`
   } else if (id === 'skeleton') {
     preview = <Skeleton className={str(v, 'className')} aria-label='Loading content' />
-    imports = from('Skeleton', 'shadcn/skeleton.tsx')
+    imports = from('Skeleton', 'ui/skeleton.tsx')
     body = jsx('Skeleton', { className: v.className, 'aria-label': 'Loading content' })
   }
   return <Surface code={source(imports, body, setup)}>{preview}</Surface>

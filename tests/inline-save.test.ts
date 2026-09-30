@@ -1,4 +1,4 @@
-import { createInlineSaveTask } from '../components/ui/inline-save-task.ts'
+import { createInlineSaveTask } from '../lib/inline-save-task.ts'
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message)
 }

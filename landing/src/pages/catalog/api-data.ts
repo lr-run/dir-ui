@@ -2,12 +2,12 @@ import { inputApi } from './input-api.ts'
 import { extendedApi } from './extended-api.ts'
 export const componentApi = {
   'button': {
-    'names': 'Button, IconButton',
-    'path': 'components/ui/index.tsx',
+    'names': 'Button',
+    'path': 'components/ui/button.tsx',
     'rows': [
       {
         'name': 'variant',
-        'type': "'primary' | 'secondary' | 'ghost' | 'danger'",
+        'type': "'default' | 'outline' | 'secondary' | 'ghost' | 'destructive' | 'link'",
         'default': "'secondary'",
         'detail': '',
       },
@@ -104,7 +104,7 @@ export const componentApi = {
   },
   'select': {
     'names': 'Select',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/select.tsx',
     'rows': [
       {
         'name': 'items',
@@ -148,7 +148,7 @@ export const componentApi = {
   },
   'field': {
     'names': 'Field',
-    'path': 'components/ui/input.tsx',
+    'path': 'components/ui/field.tsx',
     'rows': [
       {
         'name': 'label',
@@ -304,12 +304,12 @@ export const componentApi = {
       },
     ],
     'notes':
-      'Escape or an outside click closes the panel and restores trigger focus. Lower-level Popover, Trigger, and Content exports are available from components/ui/popover.ts.',
+      'Escape or an outside click closes the panel and restores trigger focus. Lower-level Popover, Trigger, and Content exports are available from components/ui/popover.tsx.',
     'types': '',
   },
   'dropdown-menu': {
     'names': 'DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem',
-    'path': 'components/ui/dropdown-menu.ts',
+    'path': 'components/ui/dropdown-menu.tsx',
     'rows': [
       {
         'name': 'DropdownMenu.open / defaultOpen',
@@ -360,7 +360,7 @@ export const componentApi = {
   },
   'header': {
     'names': 'Header',
-    'path': 'components/ui/header.tsx',
+    'path': 'components/header.tsx',
     'rows': [
       {
         'name': 'title',
@@ -409,12 +409,12 @@ export const componentApi = {
       },
     ],
     'notes':
-      'Place all sidebar parts inside SidebarProvider. SidebarMenuButton requires label, icon, and onClick; active, href, and shortcut are optional.',
+      'Place all sidebar parts inside SidebarProvider. SidebarMenuButton requires label, a ReactNode icon (for example <Building2Icon />), and onClick; active, href, and shortcut are optional.',
     'types': '',
   },
   'chart': {
     'names': 'ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, type ChartConfig',
-    'path': 'components/shadcn/chart.tsx',
+    'path': 'components/ui/chart.tsx',
     'rows': [
       {
         'name': 'ChartContainer.config',
@@ -543,23 +543,33 @@ export const componentApi = {
     types: 'type ChartPoint = { label: string; value: number; secondary?: number }',
   },
   'icons': {
-    'names': 'I',
-    'path': 'components/ui/index.tsx',
-    'rows': [
+    names: 'SearchIcon',
+    path: 'lucide-react',
+    rows: [
       {
-        'name': 'name',
-        'type': 'string',
-        'default': 'Required',
-        'detail': '',
+        name: 'size',
+        type: 'number | string',
+        default: '24 (use 16 in dir/ui)',
+        detail: 'Width and height in pixels.',
+      },
+      { name: 'strokeWidth', type: 'number', default: '2 (use 1.5 in dir/ui)', detail: 'SVG stroke width.' },
+      { name: 'className', type: 'string', default: '—', detail: 'Tailwind classes for layout and color.' },
+      {
+        name: 'aria-hidden',
+        type: 'boolean',
+        default: 'true for decorative icons',
+        detail:
+          'Give the containing button an accessible name. For a meaningful standalone icon, set aria-hidden={false}, role="img", and aria-label.',
       },
     ],
-    'notes': 'Choose a supported icon name in the preview props.',
-    'types': '',
+    notes:
+      'Import named React components directly from lucide-react. No dir/ui icon wrapper or string-based icon names. The preview example selector only chooses which direct import to demonstrate.',
+    types: '',
   },
 
   'dialog': {
     'names': 'Dialog',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/dialog.tsx',
     'rows': [
       {
         'name': 'open',
@@ -647,7 +657,7 @@ export const componentApi = {
   },
   'alert-dialog': {
     'names': 'ConfirmDialog',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/alert-dialog.tsx',
     'rows': [
       {
         'name': 'open / onOpenChange',
@@ -685,7 +695,7 @@ export const componentApi = {
   },
   'tooltip': {
     'names': 'Tooltip, TooltipTrigger, TooltipContent, TooltipProvider',
-    'path': 'components/shadcn/tooltip.tsx',
+    'path': 'components/ui/tooltip.tsx',
     'rows': [
       {
         'name': 'TooltipProvider.delay',
@@ -728,8 +738,8 @@ export const componentApi = {
     'types': '',
   },
   'toast': {
-    'names': 'Toast',
-    'path': 'components/ui/index.tsx',
+    'names': 'Toast, Toasts',
+    'path': 'components/ui/toast.tsx',
     'rows': [
       {
         'name': 'toast.add.title / description',
@@ -757,12 +767,12 @@ export const componentApi = {
       },
     ],
     'notes':
-      'Call Toast.useToastManager() inside Toast.Provider. Import the Toasts renderer from components/icons/index.jsx.',
+      'Call Toast.useToastManager() inside Toast.Provider. Import the Toasts renderer from components/ui/toast.tsx.',
     'types': '',
   },
   'empty-state': {
     'names': 'EmptyState',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/empty-state.tsx',
     'rows': [
       {
         'name': 'title',
@@ -782,7 +792,7 @@ export const componentApi = {
   },
   'error-state': {
     'names': 'ErrorState',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/error-state.tsx',
     'rows': [
       {
         'name': 'message',
@@ -802,7 +812,7 @@ export const componentApi = {
   },
   'skeleton': {
     'names': 'Skeleton',
-    'path': 'components/shadcn/skeleton.tsx',
+    'path': 'components/ui/skeleton.tsx',
     'rows': [
       {
         'name': 'className',
@@ -954,7 +964,7 @@ export const componentApi = {
   },
   'tabs': {
     'names': 'Tabs, TabsList, TabsTrigger, TabsContent',
-    'path': 'components/ui/tabs.ts',
+    'path': 'components/ui/tabs.tsx',
     'rows': [
       {
         'name': 'Tabs.value / defaultValue',
@@ -1023,7 +1033,7 @@ export const componentApi = {
   },
   'combobox': {
     'names': 'SingleCombobox',
-    'path': 'components/ui/multi-select.tsx',
+    'path': 'components/ui/combobox.tsx',
     'rows': [
       {
         'name': 'items',
@@ -1129,7 +1139,7 @@ export const componentApi = {
   },
   'multi-combobox': {
     'names': 'MultiCombobox',
-    'path': 'components/ui/multi-select.tsx',
+    'path': 'components/ui/combobox.tsx',
     'rows': [
       {
         'name': 'items',
@@ -1197,7 +1207,7 @@ export const componentApi = {
   },
   'checkbox': {
     'names': 'Checkbox',
-    'path': 'components/ui/index.tsx',
+    'path': 'components/ui/checkbox.tsx',
     'rows': [
       {
         'name': 'label',
@@ -1241,7 +1251,7 @@ export const componentApi = {
   },
   'switch': {
     'names': 'Switch',
-    'path': 'components/ui/index.tsx',
+    'path': '@base-ui/react/switch',
     'rows': [
       {
         'name': 'Root.checked / Root.defaultChecked',

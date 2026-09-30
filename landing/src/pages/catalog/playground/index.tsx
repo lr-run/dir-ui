@@ -1,6 +1,10 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Button, Checkbox, Select } from '../../../../../components/ui/index.tsx'
-import { Field, Textarea, TextInput } from '../../../../../components/ui/input.tsx'
+import { Button } from '../../../../../components/ui/button.tsx'
+import { Checkbox } from '../../../../../components/ui/checkbox.tsx'
+import { Select } from '../../../../../components/ui/select.tsx'
+import { Field } from '../../../../../components/ui/field.tsx'
+import { Textarea } from '../../../../../components/ui/textarea.tsx'
+import { Input } from '../../../../../components/ui/input.tsx'
 import { ErrorBoundary } from '../../../../../components/ui/error-boundary.tsx'
 import { type Control, parseControl, type Spec, type Values } from './model.ts'
 import { inputSampleValues } from './examples.ts'
@@ -186,7 +190,7 @@ export function Playground({ spec }: { spec: Spec }) {
                         />
                       )
                       : (
-                        <TextInput
+                        <Input
                           {...props}
                           type={control.type === 'number' ? 'number' : 'text'}
                           min={control.min}

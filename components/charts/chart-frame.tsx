@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactElement } from 'react'
-import { type ChartConfig, ChartContainer } from '../shadcn/chart.tsx'
-import { EmptyState, ErrorState, Skeleton } from '../ui/index.tsx'
+import { type ChartConfig, ChartContainer } from '../ui/chart.tsx'
+import { EmptyState } from '../ui/empty-state.tsx'
+import { ErrorState } from '../ui/error-state.tsx'
+import { LoadingState as Skeleton } from '../ui/loading-state.tsx'
 import { useI18n } from '../../lib/i18n.tsx'
 export function ChartFrame(
   { label, height = 230, empty = false, loading = false, error, config = {}, children }: {

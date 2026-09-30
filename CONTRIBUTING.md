@@ -5,7 +5,7 @@ The library package lists its own runtime and peer dependencies. The shadcn CLI 
 
 ## Structure
 
-The library lives in `components/`, `lib/` and `styles/`. It may not import from `landing/`, `examples/` or `@dir/sdk`.
+The library lives in `components/`, `hooks/` and `lib/`. It may not import from `landing/`, `examples/` or `@dir/sdk`.
 The CRM in `examples/crm/` and the catalog in `landing/` both consume those exact source files. Internal helpers are not
 separate registry products unless they are useful on their own. Keep lightweight items free of chart/editor deps.
 

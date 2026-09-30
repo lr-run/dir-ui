@@ -1,3 +1,4 @@
+import { installPath, installSource } from '../../../../registry/paths.ts'
 // @deno-types="./source-text.d.ts"
 import templateSource from '../../../../examples/crm/template.tsx?raw'
 // @deno-types="./source-text.d.ts"
@@ -37,7 +38,7 @@ import source15 from '../../../../examples/crm/example/store.ts?raw'
 // @deno-types="./source-text.d.ts"
 import source16 from '../../../../examples/crm/example/query.ts?raw'
 
-export const sourceFiles = {
+const originals = {
   'template.tsx': templateSource,
   'app.tsx': source0,
   'components/record-notes.tsx': source1,
@@ -57,3 +58,10 @@ export const sourceFiles = {
   'screens/list-page.tsx': source13,
   'types.ts': source14,
 }
+
+export const sourceFiles = Object.fromEntries(
+  Object.entries(originals).map(([path, source]) => [
+    installPath(`examples/crm/${path}`),
+    installSource(`examples/crm/${path}`, source),
+  ]),
+)

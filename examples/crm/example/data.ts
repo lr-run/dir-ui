@@ -1,19 +1,17 @@
 import type { ExampleKind, ExampleRecord } from '../types.ts'
-import type { QueryField } from '../../../components/query/model.ts'
+import type { QueryField } from '../../../lib/query.ts'
 
 export const owners = ['Alex Morgan', 'Jordan Lee', 'Sam Taylor']
 export const examples = {
   companies: {
     title: 'Companies',
     singular: 'Company',
-    icon: 'building',
     statuses: ['Prospect', 'Active', 'Customer'],
   },
-  people: { title: 'People', singular: 'Person', icon: 'user', statuses: ['New', 'Contacted', 'Connected'] },
+  people: { title: 'People', singular: 'Person', statuses: ['New', 'Contacted', 'Connected'] },
   deals: {
     title: 'Deals',
     singular: 'Deal',
-    icon: 'target',
     statuses: ['Qualified', 'Proposal', 'Negotiation', 'Won'],
   },
 } as const

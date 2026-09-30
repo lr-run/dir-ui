@@ -1,8 +1,9 @@
+import { FileCodeIcon, TerminalIcon } from 'lucide-react'
 import { useState } from 'react'
 import { PopoverPanel } from '../../../../components/ui/popover-panel.tsx'
 import { templates } from '../../../../examples/catalog.ts'
 import { landingHref } from '../../routes.ts'
-import { Button } from '../../../../components/ui/index.tsx'
+import { Button } from '../../../../components/ui/button.tsx'
 import { installCommand } from '../../../../registry/catalog.ts'
 
 export function MarkdownLink({ markdown }: { markdown: string }) {
@@ -13,19 +14,7 @@ export function MarkdownLink({ markdown }: { markdown: string }) {
       className='inline-flex size-8 shrink-0 items-center justify-center rounded-md border border-border text-muted-foreground no-underline hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
       href={markdown}
     >
-      <svg
-        className='size-4'
-        viewBox='0 0 24 24'
-        fill='none'
-        stroke='currentColor'
-        strokeWidth='1.5'
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        aria-hidden='true'
-      >
-        <rect x='2' y='5' width='20' height='14' rx='2' />
-        <path d='M5 15V9l3 3 3-3v6m6-6v6m-2-2 2 2 2-2' />
-      </svg>
+      <FileCodeIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
     </a>
   )
 }
@@ -70,23 +59,12 @@ export function TemplateInstall() {
       width={560}
       trigger={
         <Button
-          variant='secondary'
+          variant='outline'
           aria-label='Install CRM'
           title='Install CRM'
           className='gap-1.5 max-[700px]:w-7 max-[700px]:px-0'
         >
-          <svg
-            className='size-3.5'
-            viewBox='0 0 24 24'
-            fill='none'
-            stroke='currentColor'
-            strokeWidth='1.6'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            aria-hidden='true'
-          >
-            <path d='m5 6 5 6-5 6m8 0h6' />
-          </svg>
+          <TerminalIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           <span className='max-[700px]:hidden'>Install</span>
         </Button>
       }

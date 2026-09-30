@@ -1,6 +1,8 @@
+import { installSnippet } from '../../../../../registry/paths.ts'
 import { type ReactNode, useState } from 'react'
-import { Button } from '../../../../../components/ui/index.tsx'
+import { Button } from '../../../../../components/ui/button.tsx'
 export function Surface({ code, children }: { code: string; children: ReactNode }) {
+  code = installSnippet(code)
   const [copied, setCopied] = useState(false), [error, setError] = useState('')
   return (
     <div className='contents'>

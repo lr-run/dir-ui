@@ -1,19 +1,42 @@
+import {
+  AlignLeftIcon,
+  ArrowDownWideNarrowIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ArrowUpNarrowWideIcon,
+  Building2Icon,
+  CalendarIcon,
+  CheckIcon,
+  CircleDotIcon,
+  ClockIcon,
+  DollarSignIcon,
+  EyeOffIcon,
+  HashIcon,
+  LinkIcon,
+  MailIcon,
+  PanelRightOpenIcon,
+  PercentIcon,
+  PinIcon,
+  Settings2Icon,
+  SquareCheckIcon,
+  TagsIcon,
+  UserRoundIcon,
+} from 'lucide-react'
 import { cn } from 'cn'
 import { ColumnHeader, columnMenuItem, ColumnPopup } from '../data-grid/internal/column-header.tsx'
-import { TableIcon } from './table-icon.tsx'
 import { type Key, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { type Column, type DataGridHandle } from 'react-data-grid'
 import { DataGrid, type DataGridProps } from '../data-grid/data-grid.tsx'
 import { Menu } from '@base-ui/react/menu'
-import { Button, I } from '../ui/index.tsx'
+import { Button } from '../ui/button.tsx'
 import {
   cellText,
   type ColumnFormat,
   type RecordCellType,
   reorderTableColumns,
   type TableColumnState,
-} from './record-table-model.ts'
-export type { ColumnFormat, RecordCellType, TableColumnState } from './record-table-model.ts'
+} from '../../lib/record-table-model.ts'
+export type { ColumnFormat, RecordCellType, TableColumnState } from '../../lib/record-table-model.ts'
 export type RecordColumn<R, SR = unknown> = Column<R, SR> & {
   type?: RecordCellType
   getValue?: (row: R) => unknown
@@ -116,7 +139,7 @@ function Value(
             onClick={onPreview ?? onOpen}
             aria-label={`${onPreview ? 'Preview' : 'Open'} ${text}`}
           >
-            <TableIcon name='open' />
+            <PanelRightOpenIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </button>
         )}
       </span>
@@ -185,6 +208,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
   )
   const rendered = useMemo(() =>
     visible.map((column, index): Column<R, SR> => {
+      const ColumnIcon = columnIcons[column.type ?? 'text']
       const label = column.state?.label ?? (typeof column.name === 'string' ? column.name : column.key)
       const format = { ...column.format, ...column.state?.format }
       const activeSort = sortColumns?.find((s) => s.columnKey === column.key)
@@ -216,7 +240,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
           (({ tabIndex }) => (
             <ColumnHeader
               label={label}
-              icon={column.icon ?? <TableIcon name={column.type ?? 'text'} />}
+              icon={column.icon ?? <ColumnIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
               direction={activeSort?.direction}
               tabIndex={tabIndex}
             >
@@ -228,8 +252,9 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                     checked={activeSort?.direction === 'ASC'}
                     onClick={() => sorting('ASC')}
                   >
-                    <TableIcon name='asc' />Sort ascending<Menu.CheckboxItemIndicator>
-                      ✓
+                    <ArrowUpNarrowWideIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Sort
+                    ascending<Menu.CheckboxItemIndicator>
+                      <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                     </Menu.CheckboxItemIndicator>
                   </Menu.CheckboxItem>
                   <Menu.CheckboxItem
@@ -238,14 +263,15 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                     checked={activeSort?.direction === 'DESC'}
                     onClick={() => sorting('DESC')}
                   >
-                    <TableIcon name='desc' />Sort descending<Menu.CheckboxItemIndicator>
-                      ✓
+                    <ArrowDownWideNarrowIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Sort
+                    descending<Menu.CheckboxItemIndicator>
+                      <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                     </Menu.CheckboxItemIndicator>
                   </Menu.CheckboxItem>
                 </>
               )}
               <Menu.Item className={columnMenuItem} onClick={() => patch(column.key, { frozen: !column.frozen })}>
-                <I name='pin' />
+                <PinIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 {column.frozen ? 'Unfreeze column' : 'Freeze column'}
               </Menu.Item>
               <Menu.Item
@@ -254,7 +280,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                   freezeGroup(visible[index - 1]?.frozen ?? false) !== freezeGroup(column.frozen)}
                 onClick={() => reorder(column.key, visible[index - 1]!.key)}
               >
-                <TableIcon name='left' />Move left
+                <ArrowLeftIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Move left
               </Menu.Item>
               <Menu.Item
                 className='flex items-center gap-[8px] min-h-[32px] p-[6px_8px] rounded-[5px] cursor-default [outline:none] leading-[20px] [&[data-highlighted]]:[background:var(--ui-hover)] [&[data-popup-open]]:[background:var(--ui-hover)] [&[data-disabled]]:opacity-40 [&>[data-slot]]:ml-auto [&>[data-slot]]:text-[var(--ui-accent)] [&>[data-checked]]:ml-auto [&>[data-checked]]:text-[var(--ui-accent)]'
@@ -263,13 +289,18 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                   freezeGroup(visible[index + 1]?.frozen ?? false) !== freezeGroup(column.frozen)}
                 onClick={() => reorder(column.key, visible[index + 1]!.key)}
               >
-                <TableIcon name='right' />Move right
+                <ArrowRightIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Move right
               </Menu.Item>
               <Menu.Separator className='h-[1px] m-[5px_-5px] [background:var(--ui-border)]' />
               {formatting && (
                 <Menu.SubmenuRoot>
                   <Menu.SubmenuTrigger className='flex items-center gap-[8px] min-h-[32px] p-[6px_8px] rounded-[5px] cursor-default [outline:none] leading-[20px] [&[data-highlighted]]:[background:var(--ui-hover)] [&[data-popup-open]]:[background:var(--ui-hover)] [&[data-disabled]]:opacity-40 [&>[data-slot]]:ml-auto [&>[data-slot]]:text-[var(--ui-accent)] [&>[data-checked]]:ml-auto [&>[data-checked]]:text-[var(--ui-accent)]'>
-                    <TableIcon name='settings' />Formatting<span className='ml-auto text-muted-foreground text-[12px]'>
+                    <Settings2Icon
+                      size={15}
+                      strokeWidth={1.5}
+                      aria-hidden='true'
+                      className='shrink-0'
+                    />Formatting<span className='ml-auto text-muted-foreground text-[12px]'>
                       ›
                     </span>
                   </Menu.SubmenuTrigger>
@@ -290,7 +321,9 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                               <span className='ml-auto text-muted-foreground text-[12px]'>
                                 {grouping ? '1,200.5' : '1200.5'}
                               </span>
-                              <Menu.CheckboxItemIndicator>✓</Menu.CheckboxItemIndicator>
+                              <Menu.CheckboxItemIndicator>
+                                <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                              </Menu.CheckboxItemIndicator>
                             </Menu.CheckboxItem>
                           ))}
                           <Menu.Separator className='h-[1px] m-[5px_-5px] [background:var(--ui-border)]' />
@@ -303,7 +336,9 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                               checked={format.decimals === decimals}
                               onClick={() => patch(column.key, { format: { ...format, decimals } })}
                             >
-                              {decimals} decimals<Menu.CheckboxItemIndicator>✓</Menu.CheckboxItemIndicator>
+                              {decimals} decimals<Menu.CheckboxItemIndicator>
+                                <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                              </Menu.CheckboxItemIndicator>
                             </Menu.CheckboxItem>
                           ))}
                         </>
@@ -322,7 +357,9 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                               <span className='ml-auto text-muted-foreground text-[12px]'>
                                 {cellText('2026-09-28', 'date', { dateStyle })}
                               </span>
-                              <Menu.CheckboxItemIndicator>✓</Menu.CheckboxItemIndicator>
+                              <Menu.CheckboxItemIndicator>
+                                <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                              </Menu.CheckboxItemIndicator>
                             </Menu.CheckboxItem>
                           ))}
                         </>
@@ -335,7 +372,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
                 disabled={locked.has(column.key)}
                 onClick={() => patch(column.key, { hidden: true })}
               >
-                <TableIcon name='hide' />Hide from view
+                <EyeOffIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Hide from view
               </Menu.Item>
             </ColumnHeader>
           )),
@@ -494,4 +531,20 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
       )}
     </>
   )
+}
+
+const columnIcons = {
+  text: AlignLeftIcon,
+  record: Building2Icon,
+  email: MailIcon,
+  url: LinkIcon,
+  number: HashIcon,
+  money: DollarSignIcon,
+  percent: PercentIcon,
+  date: CalendarIcon,
+  datetime: ClockIcon,
+  boolean: SquareCheckIcon,
+  status: CircleDotIcon,
+  tags: TagsIcon,
+  member: UserRoundIcon,
 }

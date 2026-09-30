@@ -1,6 +1,9 @@
+import { AlignLeftIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { createElement, type CSSProperties, type ReactNode, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, ConfirmDialog, I, IconButton } from '../../../components/ui/index.tsx'
+import { Button } from '../../../components/ui/button.tsx'
+import { IconButton } from '../../../components/ui/icon-button.tsx'
+import { ConfirmDialog } from '../../../components/ui/alert-dialog.tsx'
 import { Input } from '../../../components/ui/input.tsx'
 import { RichText, type RichTextValue } from '../../../components/ui/rich-text.tsx'
 import type { ExampleNote } from '../types.ts'
@@ -19,7 +22,7 @@ export function RecordNotes({ notes, onChange }: {
           Notes <span>{notes.length}</span>
         </h3>
         <Button disabled={editing !== null} onClick={() => setEditing('new')}>
-          <I name='plus' />Add note
+          <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Add note
         </Button>
       </div>
       {editing && (
@@ -37,8 +40,8 @@ export function RecordNotes({ notes, onChange }: {
         />
       )}
       {!notes.length && !editing && (
-        <div className="p-[34px_12px] text-center text-muted-foreground text-[12px] [&_p]:text-foreground [&_p]:m-[12px_0_8px] [&_p]:text-[13px] [&>[class~='group/svg-wrap']>svg]:w-[24px] [&>[class~='group/svg-wrap']>svg]:h-[24px] [&>[class~='group/svg-wrap']>svg]:m-[0_auto]">
-          <I name='text' />
+        <div className='p-[34px_12px] text-center text-muted-foreground text-[12px] [&_p]:text-foreground [&_p]:m-[12px_0_8px] [&_p]:text-[13px] [&>svg>svg]:w-[24px] [&>svg>svg]:h-[24px] [&>svg>svg]:m-[0_auto]'>
+          <AlignLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           <p>No notes yet</p>
           <span>Keep meeting notes, context, and next steps together.</span>
         </div>
@@ -70,7 +73,7 @@ export function RecordNotes({ notes, onChange }: {
                   disabled={editing !== null}
                   onClick={() => setEditing(note.id)}
                 >
-                  <I name='edit' />
+                  <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 </IconButton>
                 <IconButton
                   variant='ghost'
@@ -78,7 +81,7 @@ export function RecordNotes({ notes, onChange }: {
                   disabled={editing !== null}
                   onClick={() => setDeleting(note)}
                 >
-                  <I name='trash' />
+                  <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 </IconButton>
               </div>
             </header>
@@ -163,7 +166,7 @@ function NoteEditor(
       )}
       <footer>
         <Button type='button' onClick={onCancel}>Cancel</Button>
-        <Button type='submit' variant='primary'>{note ? 'Save changes' : 'Add note'}</Button>
+        <Button type='submit' variant='default'>{note ? 'Save changes' : 'Add note'}</Button>
       </footer>
     </form>
   )

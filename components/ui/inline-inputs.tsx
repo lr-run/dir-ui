@@ -1,9 +1,10 @@
 import { useRef } from 'react'
 import { InlineEdit } from './inline-edit.tsx'
-import { DateInput, DateTimeInput, MoneyInput, NumberInput, PercentInput } from './input.tsx'
+import { Input } from './input.tsx'
 import { DateValue, type NumberFormat, NumberValue } from './value.tsx'
-import { type ComboboxOptions, MultiCombobox, SingleCombobox } from './multi-select.tsx'
-import { type InlineSaveHandler, useInlineSave } from './use-inline-save.ts'
+import { type ComboboxOptions } from '../../hooks/use-choices.ts'
+import { MultiCombobox, SingleCombobox } from './combobox.tsx'
+import { type InlineSaveHandler, useInlineSave } from '../../hooks/use-inline-save.ts'
 import { InlineSaveFeedback } from './inline-save-feedback.tsx'
 type NumberProps = NumberFormat & {
   label: string
@@ -17,7 +18,7 @@ type NumberProps = NumberFormat & {
 export function InlineNumber(
   { value, onValueChange, label, disabled, min, max, step = 'any', ...format }: NumberProps,
 ) {
-  const Input = format.format === 'currency' ? MoneyInput : format.format === 'percent' ? PercentInput : NumberInput
+  const inputType = format.format === 'currency' ? 'money' : format.format === 'percent' ? 'percent' : 'number'
   return (
     <InlineEdit
       label={label}
@@ -31,7 +32,9 @@ export function InlineNumber(
           (!Number.isFinite(Number(next)) || Number(next) < (min ?? -Infinity) || Number(next) > (max ?? Infinity))
           ? 'Enter a number within the allowed range.'
           : undefined}
-      renderInput={(props) => <Input {...props} min={min} max={max} step={step} currency={format.currency} />}
+      renderInput={(props) => (
+        <Input {...props} type={inputType} min={min} max={max} step={step} currency={format.currency} />
+      )}
     />
   )
 }
@@ -54,7 +57,7 @@ export function InlineDate(props: DateProps) {
       {...props}
       type='date'
       display={<DateValue value={props.value} locale={props.locale} />}
-      renderInput={(input) => <DateInput {...input} />}
+      renderInput={(input) => <Input {...input} type='date' />}
     />
   )
 }
@@ -64,7 +67,7 @@ export function InlineDateTime(props: DateProps) {
       {...props}
       type='datetime-local'
       display={props.value.replace('T', ' ')}
-      renderInput={(input) => <DateTimeInput {...input} />}
+      renderInput={(input) => <Input {...input} type='datetime-local' />}
     />
   )
 }

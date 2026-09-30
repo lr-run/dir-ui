@@ -7,8 +7,9 @@ import { StudioActions, StudioControls } from './catalog/studio-controls.tsx'
 import { DocsHeader } from './catalog/docs-header.tsx'
 import { ApiReference, Usage } from './catalog/api-reference.tsx'
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Button, Select } from '../../../components/ui/index.tsx'
-import { TextInput } from '../../../components/ui/input.tsx'
+import { Button } from '../../../components/ui/button.tsx'
+import { Select } from '../../../components/ui/select.tsx'
+import { Input } from '../../../components/ui/input.tsx'
 import { Playground } from './catalog/playground/index.tsx'
 import { specs as sections } from './catalog/playground/specs.ts'
 import { categoryById, navigationGroups } from './catalog/navigation.ts'
@@ -119,7 +120,7 @@ export function ComponentCatalog() {
               className='sticky top-(--docs-header-height) max-h-[calc(100dvh_-_var(--dir-app-shell-height,0px)_-_var(--docs-header-height))] overflow-y-auto overscroll-contain px-5 pt-8 pb-12 max-[700px]:hidden [&>[data-slot=input]]:h-8 [&>[data-slot=input]]:text-xs'
               aria-label='Component navigation'
             >
-              <TextInput
+              <Input
                 aria-label='Search components'
                 placeholder='Search components…'
                 value={search}

@@ -1,7 +1,7 @@
+import { XIcon } from 'lucide-react'
 import { useI18n } from '../../../lib/i18n.tsx'
 import type { ReactNode } from 'react'
 import { Dialog } from '@base-ui/react/dialog'
-import { I } from '../../icons/index.jsx'
 export function Modal(
   { open, onOpenChange, title, children, wide = false }: {
     open: boolean
@@ -30,7 +30,7 @@ export function Modal(
               className='w-[28px] h-[28px] inline-grid [place-items:center] text-muted-foreground rounded-[5px] [&:hover]:[background:var(--ui-hover)]'
               aria-label={t('閉じる')}
             >
-              <I name='x' />
+              <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </Dialog.Close>
           </header>
           <Dialog.Description className='[clip-path:inset(50%)] absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0]'>

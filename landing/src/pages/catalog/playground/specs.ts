@@ -88,12 +88,12 @@ function add(
 }
 add('button', 'Button', 'A button with emphasis, size, and disabled states.', {
   children: 'Add company',
-  variant: 'primary',
+  variant: 'default',
   size: 'default',
   disabled: false,
 }, [
   text('children'),
-  select('variant', ['primary', 'secondary', 'ghost', 'danger']),
+  select('variant', ['default', 'outline', 'secondary', 'ghost', 'destructive', 'link']),
   select('size', ['xs', 'sm', 'default', 'lg']),
   toggle('disabled'),
 ])
@@ -291,25 +291,31 @@ add(
   ],
   'charts',
 )
-add('icons', 'Icons', 'Use consistent line icons for actions, navigation, and record types.', { name: 'building' }, [
-  select('name', [
-    'building',
-    'user',
-    'target',
-    'database',
-    'search',
-    'sliders',
-    'chart',
-    'check',
-    'plus',
-    'archive',
-    'arrow',
-    'more',
-    'edit',
-    'info',
-    'text',
-    'refresh',
+add('icons', 'Icons', 'Import Lucide React components directly for actions and navigation.', {
+  example: 'SearchIcon',
+  size: 16,
+  strokeWidth: 1.5,
+}, [
+  select('example', [
+    'Building2Icon',
+    'UserRoundIcon',
+    'TargetIcon',
+    'DatabaseIcon',
+    'SearchIcon',
+    'SlidersHorizontalIcon',
+    'ChartNoAxesColumnIcon',
+    'CheckIcon',
+    'PlusIcon',
+    'ArchiveIcon',
+    'ArrowUpRightIcon',
+    'EllipsisIcon',
+    'PencilIcon',
+    'InfoIcon',
+    'AlignLeftIcon',
+    'RefreshCwIcon',
   ]),
+  number('size', 12, 48),
+  number('strokeWidth', 1, 3),
 ])
 add('popover', 'Popover', 'Open arbitrary content in a panel anchored to a trigger button.', {
   title: 'Display settings',

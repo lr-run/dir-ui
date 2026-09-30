@@ -1,9 +1,13 @@
+import { TargetIcon } from 'lucide-react'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { Button, Dialog, I, Select } from '../../../components/ui/index.tsx'
-import { Field, Input } from '../../../components/ui/input.tsx'
+import { Button } from '../../../components/ui/button.tsx'
+import { Dialog } from '../../../components/ui/dialog.tsx'
+import { Select } from '../../../components/ui/select.tsx'
+import { Field } from '../../../components/ui/field.tsx'
+import { Input } from '../../../components/ui/input.tsx'
 import { examples, owners, queryFields } from '../example/data.ts'
 import { queryExampleRecords } from '../example/query.ts'
 import { WorkspaceSidebarTrigger } from '../layout.tsx'
@@ -14,7 +18,7 @@ const fields = queryFields('deals')
 const definition: ListPageDefinition<ExampleRecord> = {
   title: 'Deals',
   singular: 'Deal',
-  icon: <I name='target' />,
+  icon: <TargetIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
   rowKey: (record) => record.id,
   queryFields: fields,
   query: (records, query) => queryExampleRecords(records, fields, query),
@@ -73,7 +77,7 @@ function CreateDealForm({ onClose, onCreate }: { onClose: () => void; onCreate: 
       footer={
         <div className='flex items-center justify-end gap-2'>
           <Button type='button' onClick={onClose}>Cancel</Button>
-          <Button variant='primary' type='submit' form='create-deals'>Create record</Button>
+          <Button variant='default' type='submit' form='create-deals'>Create record</Button>
         </div>
       }
     >

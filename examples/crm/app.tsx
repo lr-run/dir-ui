@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { Button, ConfirmDialog } from '../../components/ui/index.tsx'
+import { Button } from '../../components/ui/button.tsx'
+import { ConfirmDialog } from '../../components/ui/alert-dialog.tsx'
 import { Sheet } from '../../components/ui/sheet.tsx'
 import { Layout, WorkspaceSearch } from './layout.tsx'
 import { RecordPreview } from './components/record-preview.tsx'
