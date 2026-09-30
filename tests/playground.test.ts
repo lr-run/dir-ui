@@ -1,7 +1,7 @@
-import { specs } from '../landing/src/pages/catalog/playground/specs.ts'
-import { parseControl } from '../landing/src/pages/catalog/playground/model.ts'
-import { componentApi } from '../landing/src/pages/catalog/api-data.ts'
-import { jsx } from '../landing/src/pages/catalog/playground/code.ts'
+import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
+import { parseControl } from '../apps/docs/src/pages/catalog/playground/model.ts'
+import { componentApi } from '../apps/docs/src/pages/catalog/api-data.ts'
+import { jsx } from '../apps/docs/src/pages/catalog/playground/code.ts'
 function assert(value: unknown, message: string): asserts value {
   if (!value) throw new Error(message)
 }

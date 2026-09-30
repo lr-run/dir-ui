@@ -13,14 +13,14 @@ node_modules/
 dir.json
 coverage/
 *.tsbuildinfo
-landing/public/r/
+apps/docs/public/r/
 .standalone-dist/
-landing/public/components/
-landing/public/examples/
-landing/public/llms.txt
-landing/public/sitemap.xml
-landing/public/robots.txt
-landing/public/api/docs/
+apps/docs/public/components/
+apps/docs/public/examples/
+apps/docs/public/llms.txt
+apps/docs/public/sitemap.xml
+apps/docs/public/robots.txt
+apps/docs/public/api/docs/
 
 .release/
 firebase-debug.log
@@ -28,3 +28,5 @@ firebase-debug.*.log
 gha-creds-*.json
 
 pglite-debug.log
+
+examples/crm/dist/

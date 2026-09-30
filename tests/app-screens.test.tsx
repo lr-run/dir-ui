@@ -1,8 +1,8 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import { DetailPage } from '../examples/crm/screens/detail-page.tsx'
-import type { DetailField } from '../examples/crm/screens/detail-page.tsx'
-import { resolveRoute } from '../examples/crm/app.tsx'
-import { FileTree } from '../landing/src/pages/studio/file-tree.tsx'
+import { DetailPage } from '../examples/crm/src/screens/detail-page.tsx'
+import type { DetailField } from '../examples/crm/src/screens/detail-page.tsx'
+import { resolveRoute } from '../examples/crm/src/app.tsx'
+import { FileTree } from '../apps/docs/src/pages/studio/file-tree.tsx'
 
 Deno.test('detail screen accepts unrelated record shapes and arbitrary route content', () => {
   type Ticket = { reference: string; subject: string; priority: number }

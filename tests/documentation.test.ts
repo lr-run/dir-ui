@@ -1,8 +1,8 @@
-import { registrySourcePath } from '../registry/paths.ts'
-import { documentationFiles } from '../landing/documentation.ts'
-import { specs } from '../landing/src/pages/catalog/playground/specs.ts'
-import { componentApi } from '../landing/src/pages/catalog/api-data.ts'
-import { templates } from '../examples/catalog.ts'
+import { sourcePath } from '../registry/paths.ts'
+import { documentationFiles } from '../apps/docs/documentation.ts'
+import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
+import { componentApi } from '../apps/docs/src/pages/catalog/api-data.ts'
+import { templates } from '../registry/templates.ts'
 import { installCommand, registryAddress } from '../registry/catalog.ts'
 import { makeRegistry } from '../scripts/registry.ts'
 
@@ -25,7 +25,7 @@ Deno.test('every component command installs its documented API source', async ()
     if (
       api.path.startsWith('components/') && api.path !== 'components/ui/skeleton.tsx' &&
       !registry.items.filter((i) => installed.has(i.name)).some((i) =>
-        i.files.some((f) => f.path === registrySourcePath(api.path))
+        i.files.some((f) => f.path === sourcePath(api.path))
       )
     ) {
       throw new Error(`Missing API source: ${spec.id}: ${api.path}`)
@@ -39,7 +39,7 @@ Deno.test('every component command installs its documented API source', async ()
   for (const template of templates) {
     const item = registry.items.find((item) => item.name === template.registryItem)
     if (
-      item?.type !== 'registry:block' || !item.files.some((file) => file.path === registrySourcePath(template.entry))
+      item?.type !== 'registry:block' || !item.files.some((file) => file.path === sourcePath(template.entry))
     ) {
       throw new Error(`Uninstallable template: ${template.id}`)
     }

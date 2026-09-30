@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
-import { documentationFiles, pageMetadata } from '../landing/documentation.ts'
-import { specs } from '../landing/src/pages/catalog/playground/specs.ts'
-import { templates } from '../examples/catalog.ts'
+import { documentationFiles, pageMetadata } from '../apps/docs/documentation.ts'
+import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
+import { templates } from '../registry/templates.ts'
 import { siteUrl } from '../registry/catalog.ts'
 
 export const siteRoutes = [

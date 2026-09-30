@@ -11,51 +11,53 @@
   },
   "theme": {
     "title": "Theme",
-    "files": [
-      "components/ui/dir-theme.css"
-    ],
+    "files": [],
     "type": "registry:style",
     "dependencies": [
       "tw-animate-css"
     ],
     "registryDependencies": [
       "@dir/licenses"
+    ],
+    "styles": [
+      "packages/ui/src/styles/theme.css"
     ]
   },
   "data-grid-styles": {
     "title": "Data Grid Styles",
-    "files": [
-      "components/ui/data-grid.css"
-    ],
+    "files": [],
     "type": "registry:style",
     "dependencies": [
       "react-data-grid"
     ],
     "registryDependencies": [
       "@dir/licenses"
+    ],
+    "styles": [
+      "packages/ui/src/styles/data-grid.css"
     ]
   },
   "crm-example": {
     "title": "Crm Example",
     "files": [
-      "examples/crm/app.tsx",
-      "examples/crm/components/record-notes.tsx",
-      "examples/crm/components/record-preview.tsx",
-      "examples/crm/example/data.ts",
-      "examples/crm/example/query.ts",
-      "examples/crm/example/store.ts",
-      "examples/crm/layout.tsx",
-      "examples/crm/routes/companies-detail.tsx",
-      "examples/crm/routes/companies-list.tsx",
-      "examples/crm/routes/deals-detail.tsx",
-      "examples/crm/routes/deals-list.tsx",
-      "examples/crm/routes/people-detail.tsx",
-      "examples/crm/routes/people-list.tsx",
-      "examples/crm/routes/report.tsx",
-      "examples/crm/screens/detail-page.tsx",
-      "examples/crm/screens/list-page.tsx",
-      "examples/crm/template.tsx",
-      "examples/crm/types.ts"
+      "examples/crm/src/app.tsx",
+      "examples/crm/src/components/record-notes.tsx",
+      "examples/crm/src/components/record-preview.tsx",
+      "examples/crm/src/example/data.ts",
+      "examples/crm/src/example/query.ts",
+      "examples/crm/src/example/store.ts",
+      "examples/crm/src/layout.tsx",
+      "examples/crm/src/routes/companies-detail.tsx",
+      "examples/crm/src/routes/companies-list.tsx",
+      "examples/crm/src/routes/deals-detail.tsx",
+      "examples/crm/src/routes/deals-list.tsx",
+      "examples/crm/src/routes/people-detail.tsx",
+      "examples/crm/src/routes/people-list.tsx",
+      "examples/crm/src/routes/report.tsx",
+      "examples/crm/src/screens/detail-page.tsx",
+      "examples/crm/src/screens/list-page.tsx",
+      "examples/crm/src/template.tsx",
+      "examples/crm/src/types.ts"
     ],
     "type": "registry:block",
     "registryDependencies": [
@@ -65,7 +67,7 @@
   "button": {
     "title": "Button",
     "files": [
-      "components/ui/button.tsx"
+      "packages/ui/src/components/ui/button.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -76,7 +78,7 @@
   "input": {
     "title": "Input",
     "files": [
-      "components/ui/input.tsx"
+      "packages/ui/src/components/ui/input.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -94,16 +96,16 @@
   "rich-text": {
     "title": "Rich Text",
     "files": [
-      "components/ui/rich-text.tsx",
-      "components/rich-text/internal/BlockMenu.tsx",
-      "components/rich-text/internal/FormattingToolbar.tsx",
-      "components/rich-text/internal/LinkPopover.tsx",
-      "components/rich-text/internal/RichTextEditor.tsx",
-      "components/rich-text/internal/commands.ts",
-      "components/rich-text/internal/extensions.ts",
-      "components/rich-text/internal/locale.ts",
-      "components/rich-text/internal/modal.tsx",
-      "components/rich-text/internal/paste.ts"
+      "packages/ui/src/components/ui/rich-text.tsx",
+      "packages/ui/src/components/rich-text/internal/BlockMenu.tsx",
+      "packages/ui/src/components/rich-text/internal/FormattingToolbar.tsx",
+      "packages/ui/src/components/rich-text/internal/LinkPopover.tsx",
+      "packages/ui/src/components/rich-text/internal/RichTextEditor.tsx",
+      "packages/ui/src/components/rich-text/internal/commands.ts",
+      "packages/ui/src/components/rich-text/internal/extensions.ts",
+      "packages/ui/src/components/rich-text/internal/locale.ts",
+      "packages/ui/src/components/rich-text/internal/modal.tsx",
+      "packages/ui/src/components/rich-text/internal/paste.ts"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -114,7 +116,7 @@
   "select": {
     "title": "Select",
     "files": [
-      "components/ui/select.tsx"
+      "packages/ui/src/components/ui/select.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -125,7 +127,7 @@
   "combobox": {
     "title": "Combobox",
     "files": [
-      "components/ui/multi-select.tsx"
+      "packages/ui/src/components/ui/multi-select.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -150,7 +152,7 @@
   "checkbox": {
     "title": "Checkbox",
     "files": [
-      "components/ui/checkbox.tsx"
+      "packages/ui/src/components/ui/checkbox.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -177,7 +179,7 @@
   "field": {
     "title": "Field",
     "files": [
-      "components/ui/field.tsx"
+      "packages/ui/src/components/ui/field.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -188,7 +190,7 @@
   "inline-edit": {
     "title": "Inline Edit",
     "files": [
-      "components/ui/inline-edit.tsx"
+      "packages/ui/src/components/ui/inline-edit.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -206,7 +208,7 @@
   "inline-select": {
     "title": "Inline Select",
     "files": [
-      "components/ui/inline-choice.tsx"
+      "packages/ui/src/components/ui/inline-choice.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -224,7 +226,7 @@
   "inline-rich-text": {
     "title": "Inline Rich Text",
     "files": [
-      "components/ui/inline-rich-text.tsx"
+      "packages/ui/src/components/ui/inline-rich-text.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -240,7 +242,7 @@
   "data-grid": {
     "title": "Data Grid",
     "files": [
-      "components/data-grid/data-grid.tsx"
+      "packages/ui/src/components/data-grid/data-grid.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -250,7 +252,7 @@
   "tabs": {
     "title": "Tabs",
     "files": [
-      "components/ui/tabs.tsx"
+      "packages/ui/src/components/ui/tabs.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -261,7 +263,7 @@
   "header": {
     "title": "Header",
     "files": [
-      "components/header.tsx"
+      "packages/ui/src/components/header.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -271,7 +273,7 @@
   "sidebar": {
     "title": "Sidebar",
     "files": [
-      "components/ui/sidebar.tsx"
+      "packages/ui/src/components/ui/sidebar.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -282,7 +284,7 @@
   "chart": {
     "title": "Chart",
     "files": [
-      "components/ui/chart.tsx"
+      "packages/ui/src/components/ui/chart.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -301,7 +303,7 @@
   "popover": {
     "title": "Popover",
     "files": [
-      "components/ui/popover-panel.tsx"
+      "packages/ui/src/components/ui/popover-panel.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -312,7 +314,7 @@
   "dropdown-menu": {
     "title": "Dropdown Menu",
     "files": [
-      "components/ui/dropdown-menu.tsx"
+      "packages/ui/src/components/ui/dropdown-menu.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -323,7 +325,7 @@
   "dialog": {
     "title": "Dialog",
     "files": [
-      "components/ui/dialog.tsx"
+      "packages/ui/src/components/ui/dialog.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -334,7 +336,7 @@
   "sheet": {
     "title": "Sheet",
     "files": [
-      "components/ui/sheet.tsx"
+      "packages/ui/src/components/ui/sheet.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -345,7 +347,7 @@
   "alert-dialog": {
     "title": "Alert Dialog",
     "files": [
-      "components/ui/alert-dialog.tsx"
+      "packages/ui/src/components/ui/alert-dialog.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -356,7 +358,7 @@
   "tooltip": {
     "title": "Tooltip",
     "files": [
-      "components/ui/tooltip.tsx"
+      "packages/ui/src/components/ui/tooltip.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -367,7 +369,7 @@
   "toast": {
     "title": "Toast",
     "files": [
-      "components/ui/toast.tsx"
+      "packages/ui/src/components/ui/toast.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -378,7 +380,7 @@
   "empty-state": {
     "title": "Empty State",
     "files": [
-      "components/ui/empty-state.tsx"
+      "packages/ui/src/components/ui/empty-state.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -389,7 +391,7 @@
   "error-state": {
     "title": "Error State",
     "files": [
-      "components/ui/error-state.tsx"
+      "packages/ui/src/components/ui/error-state.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -407,7 +409,7 @@
   "record-list": {
     "title": "Record List",
     "files": [
-      "components/record-list/record-list.tsx"
+      "packages/ui/src/components/record-list/record-list.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -417,7 +419,7 @@
   "number-value": {
     "title": "Number Value",
     "files": [
-      "components/ui/value.tsx"
+      "packages/ui/src/components/ui/value.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -442,7 +444,7 @@
   "inline-combobox": {
     "title": "Inline Combobox",
     "files": [
-      "components/ui/inline-inputs.tsx"
+      "packages/ui/src/components/ui/inline-inputs.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -460,7 +462,7 @@
   "list": {
     "title": "List",
     "files": [
-      "components/ui/list.tsx"
+      "packages/ui/src/components/ui/list.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -478,7 +480,7 @@
   "search-dialog": {
     "title": "Search Dialog",
     "files": [
-      "components/collections/search-dialog.tsx"
+      "packages/ui/src/components/collections/search-dialog.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -488,7 +490,7 @@
   "file-upload": {
     "title": "File Upload",
     "files": [
-      "components/collections/files.tsx"
+      "packages/ui/src/components/collections/files.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -498,7 +500,7 @@
   "chart-frame": {
     "title": "Chart Frame",
     "files": [
-      "components/charts/chart-frame.tsx"
+      "packages/ui/src/components/charts/chart-frame.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -508,7 +510,7 @@
   "charts": {
     "title": "Charts",
     "files": [
-      "components/charts/index.tsx"
+      "packages/ui/src/components/charts/index.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -518,7 +520,7 @@
   "column-header": {
     "title": "Column Header",
     "files": [
-      "components/data-grid/internal/column-header.tsx"
+      "packages/ui/src/components/data-grid/internal/column-header.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -528,7 +530,7 @@
   "column-settings": {
     "title": "Column Settings",
     "files": [
-      "components/data-grid/internal/column-settings.tsx"
+      "packages/ui/src/components/data-grid/internal/column-settings.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -538,7 +540,7 @@
   "query-controls": {
     "title": "Query Controls",
     "files": [
-      "components/data-grid/internal/query-controls.tsx"
+      "packages/ui/src/components/data-grid/internal/query-controls.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -548,7 +550,7 @@
   "record-table": {
     "title": "Record Table",
     "files": [
-      "components/record-list/record-table.tsx"
+      "packages/ui/src/components/record-list/record-table.tsx"
     ],
     "type": "registry:component",
     "registryDependencies": [
@@ -559,7 +561,7 @@
   "badge": {
     "title": "Badge",
     "files": [
-      "components/ui/badge.tsx"
+      "packages/ui/src/components/ui/badge.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -570,7 +572,7 @@
   "choice-content": {
     "title": "Choice Content",
     "files": [
-      "components/ui/choice-content.tsx"
+      "packages/ui/src/components/ui/choice-content.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -581,7 +583,7 @@
   "components-combobox": {
     "title": "Components Combobox",
     "files": [
-      "components/ui/combobox.tsx"
+      "packages/ui/src/components/ui/combobox.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -592,7 +594,7 @@
   "error-boundary": {
     "title": "Error Boundary",
     "files": [
-      "components/ui/error-boundary.tsx"
+      "packages/ui/src/components/ui/error-boundary.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -603,7 +605,7 @@
   "inline-save-feedback": {
     "title": "Inline Save Feedback",
     "files": [
-      "components/ui/inline-save-feedback.tsx"
+      "packages/ui/src/components/ui/inline-save-feedback.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -614,7 +616,7 @@
   "loading-state": {
     "title": "Loading State",
     "files": [
-      "components/ui/loading-state.tsx"
+      "packages/ui/src/components/ui/loading-state.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -625,7 +627,7 @@
   "menu-popup": {
     "title": "Menu Popup",
     "files": [
-      "components/ui/menu-popup.tsx"
+      "packages/ui/src/components/ui/menu-popup.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -636,7 +638,7 @@
   "components-popover": {
     "title": "Components Popover",
     "files": [
-      "components/ui/popover.tsx"
+      "packages/ui/src/components/ui/popover.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -647,7 +649,7 @@
   "components-textarea": {
     "title": "Components Textarea",
     "files": [
-      "components/ui/textarea.tsx"
+      "packages/ui/src/components/ui/textarea.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -658,7 +660,7 @@
   "toolbar-button": {
     "title": "Toolbar Button",
     "files": [
-      "components/ui/toolbar-button.tsx"
+      "packages/ui/src/components/ui/toolbar-button.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -669,7 +671,7 @@
   "use-choices": {
     "title": "Use Choices",
     "files": [
-      "hooks/use-choices.ts"
+      "packages/ui/src/hooks/use-choices.ts"
     ],
     "type": "registry:hook",
     "registryDependencies": [
@@ -679,7 +681,7 @@
   "use-infinite-records": {
     "title": "Use Infinite Records",
     "files": [
-      "hooks/use-infinite-records.ts"
+      "packages/ui/src/hooks/use-infinite-records.ts"
     ],
     "type": "registry:hook",
     "registryDependencies": [
@@ -689,7 +691,7 @@
   "use-inline-save": {
     "title": "Use Inline Save",
     "files": [
-      "hooks/use-inline-save.ts"
+      "packages/ui/src/hooks/use-inline-save.ts"
     ],
     "type": "registry:hook",
     "registryDependencies": [
@@ -699,7 +701,7 @@
   "use-remote-search": {
     "title": "Use Remote Search",
     "files": [
-      "hooks/use-remote-search.ts"
+      "packages/ui/src/hooks/use-remote-search.ts"
     ],
     "type": "registry:hook",
     "registryDependencies": [
@@ -709,7 +711,7 @@
   "choice-types": {
     "title": "Choice Types",
     "files": [
-      "lib/choice-types.ts"
+      "packages/ui/src/lib/choice-types.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -719,7 +721,7 @@
   "file-model": {
     "title": "File Model",
     "files": [
-      "lib/file-model.ts"
+      "packages/ui/src/lib/file-model.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -729,7 +731,7 @@
   "filter-tree": {
     "title": "Filter Tree",
     "files": [
-      "lib/filter-tree.ts"
+      "packages/ui/src/lib/filter-tree.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -739,7 +741,7 @@
   "i18n": {
     "title": "I18N",
     "files": [
-      "lib/i18n.tsx"
+      "packages/ui/src/lib/i18n.tsx"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -749,7 +751,7 @@
   "infinite-records": {
     "title": "Infinite Records",
     "files": [
-      "lib/infinite-records.ts"
+      "packages/ui/src/lib/infinite-records.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -759,7 +761,7 @@
   "inline-save-task": {
     "title": "Inline Save Task",
     "files": [
-      "lib/inline-save-task.ts"
+      "packages/ui/src/lib/inline-save-task.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -769,7 +771,7 @@
   "query": {
     "title": "Query",
     "files": [
-      "lib/query.ts"
+      "packages/ui/src/lib/query.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -779,7 +781,7 @@
   "record-list-query": {
     "title": "Record List Query",
     "files": [
-      "lib/record-list-query.ts"
+      "packages/ui/src/lib/record-list-query.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -789,7 +791,7 @@
   "record-table-model": {
     "title": "Record Table Model",
     "files": [
-      "lib/record-table-model.ts"
+      "packages/ui/src/lib/record-table-model.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -799,7 +801,7 @@
   "remote-search": {
     "title": "Remote Search",
     "files": [
-      "lib/remote-search.ts"
+      "packages/ui/src/lib/remote-search.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -809,7 +811,7 @@
   "upload-queue": {
     "title": "Upload Queue",
     "files": [
-      "lib/upload-queue.ts"
+      "packages/ui/src/lib/upload-queue.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -819,7 +821,7 @@
   "icon-button": {
     "title": "Icon Button",
     "files": [
-      "components/ui/icon-button.tsx"
+      "packages/ui/src/components/ui/icon-button.tsx"
     ],
     "registryDependencies": [
       "@dir/theme",

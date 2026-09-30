@@ -1,5 +1,5 @@
-import { searchRecords } from '../examples/crm/example/query.ts'
-import { sampleRecords } from '../examples/crm/example/data.ts'
+import { searchRecords } from '../examples/crm/src/example/query.ts'
+import { sampleRecords } from '../examples/crm/src/example/data.ts'
 
 Deno.test('workspace search includes unvisited routes and respects edited and deleted records', () => {
   const companies = sampleRecords('companies', 2)

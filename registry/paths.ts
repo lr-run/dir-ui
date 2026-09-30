@@ -1,7 +1,11 @@
-/** Canonical paths describe the default shadcn layout, never a fixed host source root. */
+import { templates } from './templates.ts'
+
+/** Repository source and consumer installation paths are intentionally independent. */
 export function installPath(path: string): string {
+  if (path.startsWith('packages/ui/src/')) return path.slice('packages/ui/src/'.length)
+  const example = path.match(/^examples\/([^/]+)\/src(?:\/(.*))?$/)
+  if (example) return `components/${example[1]}${example[2] ? '/' + example[2] : ''}`
   if (/^(components|hooks|lib)\//.test(path)) return path
-  if (path.startsWith('examples/')) return `components/${path.slice('examples/'.length)}`
   if (path === 'LICENSE' || path.startsWith('THIRD_PARTY_LICENSES/')) return `licenses/dir-ui/${path}`
   throw new Error(`No installation path for ${path}`)
 }
@@ -13,48 +17,18 @@ export function targetPath(path: string): string {
   }
   return `~/${installed}`
 }
-export function originalPath(path: string): string {
-  if (path.startsWith('components/crm/')) return `examples/${path.slice('components/'.length)}`
-  if (path.startsWith('licenses/dir-ui/')) return path.slice('licenses/dir-ui/'.length)
-  return path
-}
-export const registrySourcePath = (path: string) => `registry/source/${installPath(path)}`
-function normalize(path: string): string {
-  const parts: string[] = []
-  for (const part of path.split('/')) {
-    if (part === '..') {
-      if (!parts.length) throw new Error(`Escaping source: ${path}`)
-      parts.pop()
-    } else if (part !== '.' && part) parts.push(part)
+/** Resolve the standard shadcn import slots back to authored workspace source. */
+export function sourcePath(path: string): string {
+  const canonical = path.replace(/^@\//, '')
+  for (const template of templates) {
+    const prefix = `components/${template.id}/`
+    if (canonical.startsWith(prefix)) return `${template.sourceDirectory}/${canonical.slice(prefix.length)}`
   }
-  return parts.join('/')
-}
-/** The CLI transforms canonical shadcn imports to the consumer's configured aliases. */
-export function installSource(path: string, source: string): string {
-  const style = path.startsWith('components/ui/') && path.endsWith('.tsx')
-    ? '@/components/ui/dir-theme.css'
-    : path === 'components/record-list/record-table.tsx'
-    ? '@/components/ui/data-grid.css'
-    : undefined
-  if (style) {
-    const statement = `import '${style}'\n`
-    source = source.startsWith("'use client'\n")
-      ? source.replace("'use client'\n", "'use client'\n" + statement)
-      : statement + source
-  }
-
-  return source.replace(
-    /((?:\bfrom\s*|\bimport\s*(?:\(\s*)?)['"])(\.[^'"]+)(['"])/g,
-    (_match, prefix: string, specifier: string, quote: string) => {
-      const dependency = normalize([...path.split('/').slice(0, -1), specifier].join('/'))
-      // Relative CSS imports stay colocated; TS imports use canonical shadcn prefixes.
-      if (path.endsWith('.css')) return prefix + specifier + quote
-      return prefix + '@/' + installPath(dependency) + quote
-    },
-  )
+  if (/^(components|hooks|lib)\//.test(canonical)) return `packages/ui/src/${canonical}`
+  return canonical
 }
 export const installSnippet = (source: string) =>
   source.replace(
-    /(['"])\.\/(components|hooks|lib|examples)\/([^'"]+)\1/g,
-    (_match, quote, directory, rest) => `${quote}@/${installPath(`${directory}/${rest}`)}${quote}`,
+    /(['"])\.\/(components|hooks|lib)\/([^'"]+)\1/g,
+    (_match, quote, directory, rest) => `${quote}@/${directory}/${rest}${quote}`,
   )

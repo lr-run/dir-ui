@@ -1,5 +1,5 @@
-import { buildReport } from '../examples/crm/routes/report.tsx'
-import { sampleRecords } from '../examples/crm/example/data.ts'
+import { buildReport } from '../examples/crm/src/routes/report.tsx'
+import { sampleRecords } from '../examples/crm/src/example/data.ts'
 
 Deno.test('report totals reconcile across stages, months and owners after combined filtering', () => {
   const rows = sampleRecords('deals', 100)

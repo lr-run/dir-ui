@@ -28,7 +28,12 @@
     "@tiptap/starter-kit": "npm:@tiptap/starter-kit@3.31.3",
     "@tiptap/suggestion": "npm:@tiptap/suggestion@3.31.3",
     "@tiptap/extension-table": "npm:@tiptap/extension-table@3.31.3",
-    "lucide-react": "npm:lucide-react@1.48.0"
+    "lucide-react": "npm:lucide-react@1.48.0",
+    "@/components/crm/": "./examples/crm/src/",
+    "@/components/": "./packages/ui/src/components/",
+    "@/hooks/": "./packages/ui/src/hooks/",
+    "@/lib/": "./packages/ui/src/lib/",
+    "postcss": "npm:postcss@8.5.19"
   },
   "compilerOptions": {
     "strict": true,
@@ -52,17 +57,16 @@
       ".dir/",
       "dist/",
       "registry.json",
-      "landing/public/r/",
-      "landing/public/components/",
-      "landing/public/examples/",
-      "landing/public/llms.txt",
-      "landing/public/sitemap.xml",
-      "landing/public/robots.txt",
-      "landing/public/api/docs/",
+      "apps/docs/public/r/",
+      "apps/docs/public/components/",
+      "apps/docs/public/examples/",
+      "apps/docs/public/llms.txt",
+      "apps/docs/public/sitemap.xml",
+      "apps/docs/public/robots.txt",
+      "apps/docs/public/api/docs/",
       "internal/publish/files.json",
       "internal/**/*.json",
-      ".release/",
-      "registry/source/"
+      ".release/"
     ],
     "indentWidth": 2,
     "lineWidth": 120,
@@ -70,22 +74,24 @@
     "singleQuote": true
   },
   "tasks": {
-    "dev": "deno task docs:build && deno run -A npm:vite@^8 --config landing/vite.config.ts --host 127.0.0.1",
-    "check": "deno fmt --check && deno lint && deno check components/rich-text/internal/RichTextEditor.tsx landing/src/main.tsx landing/src/pages/studio/preview-runtime.tsx landing/vite.config.ts scripts/site.ts && deno task registry:check",
-    "test": "deno test --allow-env=NODE_ENV --allow-read tests/*.test.ts tests/*.test.tsx",
-    "build": "deno task docs:build && deno run -A npm:vite@^8 build --config landing/vite.config.ts && deno run --allow-read --allow-write=dist --allow-env=SITE_ENV scripts/site.ts",
-    "preview": "deno run -A npm:vite@^8 preview --config landing/vite.config.ts --host 127.0.0.1",
-    "registry:generate": "deno run --allow-read --allow-write=registry.json,registry/source scripts/registry.ts",
-    "registry:check": "deno run --allow-read scripts/registry.ts --check",
+    "dev": "deno task docs:build && deno run -A npm:vite@^8 --config apps/docs/vite.config.ts --host 127.0.0.1",
+    "check": "deno fmt --check && deno lint && deno check packages/ui/src/components/rich-text/internal/RichTextEditor.tsx apps/docs/src/main.tsx apps/docs/src/pages/studio/preview-runtime.tsx apps/docs/vite.config.ts scripts/site.ts && deno task registry:check && deno check examples/crm/main.tsx examples/crm/vite.config.ts",
+    "test": "deno test --allow-env=NODE_ENV,CI --allow-read tests/*.test.ts tests/*.test.tsx packages/ui/tests/",
+    "build": "deno task docs:build && deno run -A npm:vite@^8 build --config apps/docs/vite.config.ts && deno run --allow-read --allow-write=dist --allow-env=SITE_ENV scripts/site.ts",
+    "preview": "deno run -A npm:vite@^8 preview --config apps/docs/vite.config.ts --host 127.0.0.1",
+    "registry:generate": "deno run --allow-read --allow-env=CI --allow-write=registry.json scripts/registry.ts",
+    "registry:check": "deno run --allow-read --allow-env=CI scripts/registry.ts --check",
     "registry:validate": "npm exec --yes --package=shadcn@4.21.0 -- shadcn registry validate registry.json",
-    "docs:build": "deno run --allow-read --allow-write=landing/public scripts/documentation.ts",
+    "docs:build": "deno run --allow-read --allow-write=apps/docs/public scripts/documentation.ts",
     "check:standalone": "deno task check",
     "build:standalone": "deno task build",
-    "registry:local": "deno run --allow-read --allow-write scripts/registry-local.ts"
+    "registry:local": "deno run --allow-read --allow-env=CI --allow-write scripts/registry-local.ts",
+    "dev:crm": "deno run -A npm:vite@^8 --config examples/crm/vite.config.ts --host 127.0.0.1",
+    "build:crm": "deno run -A npm:vite@^8 build --config examples/crm/vite.config.ts"
   },
-  "lint": {
-    "exclude": [
-      "registry/source/"
-    ]
-  }
+  "workspace": [
+    "packages/ui",
+    "examples/crm",
+    "apps/docs"
+  ]
 }

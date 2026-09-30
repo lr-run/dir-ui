@@ -3,9 +3,13 @@
 This repository contains reusable React components, a GitHub shadcn registry, and a static documentation site.
 
 - Run `deno task check`, `deno task test`, and `deno task build` for changes.
-- Components must not depend on landing or internal deployment code.
-- CRM is one example under `examples/crm/`; it uses in-memory data and browser-only loaders.
-- Source registry entries are generated with `deno task registry:generate`. Keep them current.
+- `packages/ui/src` must not depend on docs, examples, registry scripts, or internal deployment code.
+- CRM is one runnable workspace example under `examples/crm/src/`; it uses in-memory data and browser-only loaders.
+- `registry.json` is generated with `deno task registry:generate` and references authored workspace files directly. Do
+  not duplicate source into registry/.
+- Deno workspaces contain `packages/ui`, `examples/crm`, and `apps/docs`. Keep `deno.lock` as the shared dependency
+  lockfile.
+- Also run `deno task build:crm` after shared UI or CRM changes.
 - Deployment and OSS export configuration live only in the private development repository.
 - Preserve unrelated work. Never publish private Git history or credentials.
 

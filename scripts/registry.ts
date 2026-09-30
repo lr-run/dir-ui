@@ -1,11 +1,13 @@
 /** Each source file has one owning item. Consumers compose items through registryDependencies. */
 import { dirname, relative, resolve } from 'node:path'
-import { installSource, originalPath, registrySourcePath, targetPath } from '../registry/paths.ts'
+import { sourcePath, targetPath } from '../registry/paths.ts'
 import { projectName, registryAddress, siteUrl } from '../registry/catalog.ts'
+import postcss, { type Container } from 'postcss'
 export const root = resolve(import.meta.dirname!, '..')
 export type Entry = {
   title: string
   files: string[]
+  styles?: string[]
   type?: string
   dependencies?: string[]
   registryDependencies?: string[]
@@ -14,9 +16,9 @@ export function imports(source: string): string[] {
   return [...source.matchAll(/(?:from\s*|import\s*\(\s*|import\s*)['"]([^'"]+)['"]/g)].map((m) => m[1]!)
 }
 const official: Record<string, string> = {
-  'components/ui/label.tsx': 'label',
-  'components/ui/separator.tsx': 'separator',
-  'components/ui/skeleton.tsx': 'skeleton',
+  'packages/ui/src/components/ui/label.tsx': 'label',
+  'packages/ui/src/components/ui/separator.tsx': 'separator',
+  'packages/ui/src/components/ui/skeleton.tsx': 'skeleton',
 }
 export async function makeRegistry() {
   const entries: Record<string, Entry> = JSON.parse(await Deno.readTextFile(resolve(root, 'registry/entries.json')))
@@ -34,8 +36,10 @@ export async function makeRegistry() {
     for (const path of entry.files) {
       const content = await Deno.readTextFile(resolve(root, path))
       for (const specifier of imports(content)) {
-        if (specifier.startsWith('.')) {
-          const dependency = relative(root, resolve(root, dirname(path), specifier)).replaceAll('\\', '/')
+        if (specifier.startsWith('.') || specifier.startsWith('@/')) {
+          const dependency = specifier.startsWith('@/')
+            ? sourcePath(specifier)
+            : relative(root, resolve(root, dirname(path), specifier)).replaceAll('\\', '/')
           const owner = owners.get(dependency)
           if (official[dependency]) dependencies.add(official[dependency]!)
           else if (!owner) throw new Error(`Unowned dependency: ${path} -> ${dependency}`)
@@ -50,6 +54,7 @@ export async function makeRegistry() {
     }
     items.push({
       name,
+      ...(entry.styles?.length ? { css: await registryCss(entry.styles) } : {}),
       title: entry.title,
       type: entry.type ?? 'registry:ui',
       description: `${entry.title} from ${projectName}. React 19, Base UI and Tailwind CSS 4.`,
@@ -63,14 +68,14 @@ export async function makeRegistry() {
         dependency.startsWith('@dir/') ? registryAddress(dependency.slice(5)) : dependency
       ),
       files: entry.files.map((path) => ({
-        path: registrySourcePath(path),
-        type: path.startsWith('components/ui/') && !path.endsWith('.css')
+        path,
+        type: path.startsWith('packages/ui/src/components/ui/') && !path.endsWith('.css')
           ? 'registry:ui'
-          : path.startsWith('hooks/')
+          : path.startsWith('packages/ui/src/hooks/')
           ? 'registry:hook'
-          : path.startsWith('lib/')
+          : path.startsWith('packages/ui/src/lib/')
           ? 'registry:lib'
-          : path.startsWith('components/') && !path.endsWith('.css') || path.startsWith('examples/')
+          : path.startsWith('packages/ui/src/components/') && !path.endsWith('.css') || path.startsWith('examples/')
           ? 'registry:component'
           : 'registry:file',
         target: targetPath(path),
@@ -79,41 +84,36 @@ export async function makeRegistry() {
   }
   return { $schema: 'https://ui.shadcn.com/schema/registry.json', name: 'dir-ui', homepage: siteUrl, items }
 }
+/** Local test payloads embed the exact original bytes; GitHub reads these same files directly. */
 export async function registrySources(registry: Awaited<ReturnType<typeof makeRegistry>>) {
   const output = new Map<string, string>()
-  for (const destination of new Set(registry.items.flatMap((item) => item.files.map((file) => file.path)))) {
-    const path = originalPath(destination.slice('registry/source/'.length))
-    output.set(destination, installSource(path, await Deno.readTextFile(resolve(root, path))))
+  for (const file of registry.items.flatMap((item) => item.files)) {
+    output.set(file.path, await Deno.readTextFile(resolve(root, file.path)))
   }
   return output
 }
-export async function* generatedFiles(directory: string): AsyncGenerator<string> {
-  try {
-    for await (const entry of Deno.readDir(resolve(root, directory))) {
-      const path = `${directory}/${entry.name}`
-      if (entry.isSymlink) throw new Error(`Unexpected symlink: ${path}`)
-      if (entry.isDirectory) yield* generatedFiles(path)
-      else yield path
+
+/** Derive shadcn CSS metadata from the stylesheet also consumed by workspace apps. */
+export async function registryCss(paths: string[]) {
+  const rules: Record<string, unknown> = {}
+  function collect(container: Container, into: Record<string, unknown>) {
+    for (const node of container.nodes ?? []) {
+      if (node.type === 'decl') into[node.prop] = node.value + (node.important ? ' !important' : '')
+      else if (node.type === 'rule' || node.type === 'atrule') {
+        const key = node.type === 'rule' ? node.selector : `@${node.name}${node.params ? ' ' + node.params : ''}`
+        const nested = (into[key] ??= {}) as Record<string, unknown>
+        collect(node, nested)
+      }
     }
-  } catch (error) {
-    if (!(error instanceof Deno.errors.NotFound)) throw error
   }
+  for (const path of paths) collect(postcss.parse(await Deno.readTextFile(resolve(root, path))), rules)
+  return rules
 }
+
 if (import.meta.main) {
-  const registry = await makeRegistry(), sources = await registrySources(registry)
-  for await (const path of generatedFiles('registry/source')) {
-    if (sources.has(path)) continue
-    if (Deno.args.includes('--check')) throw new Error(`Obsolete generated source: ${path}`)
-    await Deno.remove(resolve(root, path))
-  }
-  sources.set('registry.json', JSON.stringify(registry, null, 2) + '\n')
-  for (const [path, content] of sources) {
-    if (Deno.args.includes('--check')) {
-      if (await Deno.readTextFile(resolve(root, path)) !== content) throw new Error(`Stale registry source: ${path}`)
-    } else {
-      if (path !== 'registry.json') await Deno.mkdir(dirname(resolve(root, path)), { recursive: true })
-      await Deno.writeTextFile(resolve(root, path), content)
-    }
-  }
-  console.log(`${registry.items.length} registry items validated; each source has one owner.`)
+  const registry = await makeRegistry(), content = JSON.stringify(registry, null, 2) + '\n'
+  if (Deno.args.includes('--check')) {
+    if (await Deno.readTextFile(resolve(root, 'registry.json')) !== content) throw new Error('Stale registry.json')
+  } else await Deno.writeTextFile(resolve(root, 'registry.json'), content)
+  console.log(`${registry.items.length} registry items reference authored workspace files directly.`)
 }

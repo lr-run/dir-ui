@@ -1,7 +1,7 @@
-import { createDemoSearchLoader, demoRecordLoader } from '../landing/src/demo/loaders.ts'
-import { makeDemoRecords } from '../landing/src/demo/records.ts'
-import { queryDemoRecords } from '../landing/src/demo/query.ts'
-import type { RecordFilter, RecordSort } from '../lib/query.ts'
+import { createDemoSearchLoader, demoRecordLoader } from '../apps/docs/src/demo/loaders.ts'
+import { makeDemoRecords } from '../apps/docs/src/demo/records.ts'
+import { queryDemoRecords } from '../apps/docs/src/demo/query.ts'
+import type { RecordFilter, RecordSort } from '../packages/ui/src/lib/query.ts'
 
 const signal = () => new AbortController().signal
 const emptyFilter: RecordFilter = { conjunction: 'and', conditions: [] }

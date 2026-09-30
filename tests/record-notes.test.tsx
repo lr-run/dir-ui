@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server'
-import { NoteContent } from '../examples/crm/components/record-notes.tsx'
+import { NoteContent } from '../examples/crm/src/components/record-notes.tsx'
 
 Deno.test('saved notes keep formatting while escaping text and refusing unsafe links', () => {
   const html = renderToStaticMarkup(

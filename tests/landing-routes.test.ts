@@ -1,4 +1,4 @@
-import { landingHref, resolveLandingRoute } from '../landing/src/routes.ts'
+import { landingHref, resolveLandingRoute } from '../apps/docs/src/routes.ts'
 const base = 'https://example.com/'
 Deno.test('landing routes support direct entry, trailing slashes and legacy aliases', () => {
   for (

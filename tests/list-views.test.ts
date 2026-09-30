@@ -1,5 +1,5 @@
-import { addListView, removeListView } from '../examples/crm/screens/list-page.tsx'
-import { defaultListViews } from '../examples/crm/example/store.ts'
+import { addListView, removeListView } from '../examples/crm/src/screens/list-page.tsx'
+import { defaultListViews } from '../examples/crm/src/example/store.ts'
 function assert(value: unknown, message: string) {
   if (!value) throw new Error(message)
 }

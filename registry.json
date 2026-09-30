@@ -12,22 +12,22 @@
       "registryDependencies": [],
       "files": [
         {
-          "path": "registry/source/licenses/dir-ui/LICENSE",
+          "path": "LICENSE",
           "type": "registry:file",
           "target": "~/licenses/dir-ui/LICENSE"
         },
         {
-          "path": "registry/source/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui.txt",
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui.txt",
           "type": "registry:file",
           "target": "~/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui.txt"
         },
         {
-          "path": "registry/source/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui-source.md",
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui-source.md",
           "type": "registry:file",
           "target": "~/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui-source.md"
         },
         {
-          "path": "registry/source/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui-notice.md",
+          "path": "THIRD_PARTY_LICENSES/shadcn-ui-notice.md",
           "type": "registry:file",
           "target": "~/licenses/dir-ui/THIRD_PARTY_LICENSES/shadcn-ui-notice.md"
         }
@@ -35,6 +35,83 @@
     },
     {
       "name": "theme",
+      "css": {
+        ":root": {
+          "--ui-ring": "light-dark(#a1a1aa, #71717a)",
+          "--dir-text-caption": "12px",
+          "--dir-text-label": "13px",
+          "--dir-text-inline": "13px",
+          "--dir-text-body": "14px",
+          "--dir-text-section": "16px",
+          "--dir-text-title": "20px",
+          "--ui-canvas": "light-dark(#ffffff, #151515)",
+          "--ui-sidebar": "light-dark(#fafafa, #191919)",
+          "--ui-surface": "light-dark(#ffffff, #1c1c1c)",
+          "--ui-raised": "light-dark(#ffffff, #242424)",
+          "--ui-subtle": "light-dark(#f4f4f5, #202020)",
+          "--ui-hover": "light-dark(#f4f4f5, #27272a)",
+          "--ui-selected": "light-dark(#f4f4f5, #27272a)",
+          "--ui-text": "light-dark(#202024, #f1f1f3)",
+          "--ui-muted": "light-dark(#68686f, #a5a5ad)",
+          "--ui-border": "light-dark(#ececee, #303033)",
+          "--ui-control-border": "light-dark(#87878e, #75757d)",
+          "--ui-primary": "light-dark(#18181b, #fafafa)",
+          "--ui-primary-top": "light-dark(#4878ee, #608bf2)",
+          "--ui-primary-hover": "light-dark(#2c5ed9, #608bf2)",
+          "--ui-on-primary": "light-dark(#fafafa, #18181b)",
+          "--ui-focus": "light-dark(#a1a1aa, #71717a)",
+          "--ui-violet": "light-dark(#6140b4, #cfbbff)",
+          "--ui-violet-bg": "light-dark(#f0eafb, #332a45)",
+          "--ui-green": "light-dark(#286744, #a5ddb7)",
+          "--ui-green-bg": "light-dark(#eaf4ed, #233b2b)",
+          "--ui-blue": "light-dark(#365e91, #bad1f1)",
+          "--ui-blue-bg": "light-dark(#ebf1fa, #26354b)",
+          "--ui-amber": "light-dark(#795619, #ebcd91)",
+          "--ui-amber-bg": "light-dark(#faf1de, #41341e)",
+          "--ui-red": "light-dark(#a43145, #efb7c0)",
+          "--ui-red-bg": "light-dark(#faebee, #442b32)",
+          "--ui-overlay": "light-dark(rgb(20 20 24 / 0.22), rgb(0 0 0 / 0.48))",
+          "--ui-shadow-color": "light-dark(rgb(20 20 30 / 0.12), rgb(0 0 0 / 0.4))",
+          "--ui-shadow": "0 8px 28px var(--ui-shadow-color)",
+          "--ui-sidebar-width": "252px",
+          "--ui-header-height": "56px",
+          "--ui-row-height": "44px",
+          "--ui-control-height": "32px",
+          "--ui-radius-control": "8px",
+          "--ui-radius-panel": "8px",
+          "--ui-space-1": "4px",
+          "--ui-space-2": "8px",
+          "--ui-space-3": "12px",
+          "--ui-space-4": "16px",
+          "--ui-space-6": "24px",
+          "--ui-ease": "cubic-bezier(0.2, 0, 0, 1)",
+          "--ui-fast": "120ms",
+          "--ui-enter": "180ms",
+          "--ui-exit": "120ms",
+          "--dir-radius": "6px",
+          "--dir-row-height": "40px",
+          "--dir-control-height": "32px",
+          "--dir-focus": "var(--ui-primary)",
+          "--chart-primary": "#52525b",
+          "--chart-secondary": "#64a49a",
+          "color-scheme": "light"
+        },
+        "@media (prefers-reduced-motion: reduce)": {
+          ":root": {
+            "--ui-fast": "0ms",
+            "--ui-enter": "0ms",
+            "--ui-exit": "0ms"
+          }
+        },
+        "@media (max-width: 1000px)": {
+          ":root": {
+            "--ui-sidebar-width": "220px"
+          }
+        },
+        ":root.dark,\n:root[data-theme=dark]": {
+          "color-scheme": "dark"
+        }
+      },
       "title": "Theme",
       "type": "registry:style",
       "description": "Theme from dir/ui. React 19, Base UI and Tailwind CSS 4.",
@@ -42,18 +119,15 @@
         "tw-animate-css@^1.4.0"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
-      "files": [
-        {
-          "path": "registry/source/components/ui/dir-theme.css",
-          "type": "registry:file",
-          "target": "@ui/dir-theme.css"
-        }
-      ]
+      "files": []
     },
     {
       "name": "data-grid-styles",
+      "css": {
+        "@import 'react-data-grid/lib/styles.css' layer(components)": {}
+      },
       "title": "Data Grid Styles",
       "type": "registry:style",
       "description": "Data Grid Styles from dir/ui. React 19, Base UI and Tailwind CSS 4.",
@@ -61,15 +135,9 @@
         "react-data-grid@7.0.0-beta.61"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
-      "files": [
-        {
-          "path": "registry/source/components/ui/data-grid.css",
-          "type": "registry:file",
-          "target": "@ui/data-grid.css"
-        }
-      ]
+      "files": []
     },
     {
       "name": "crm-example",
@@ -86,122 +154,122 @@
         "zod@^4"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/alert-dialog#v0.1.2",
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/chart#v0.1.2",
-        "lr-run/dir-ui/chart-frame#v0.1.2",
-        "lr-run/dir-ui/data-grid#v0.1.2",
-        "lr-run/dir-ui/dialog#v0.1.2",
-        "lr-run/dir-ui/field#v0.1.2",
-        "lr-run/dir-ui/header#v0.1.2",
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/inline-combobox#v0.1.2",
-        "lr-run/dir-ui/inline-edit#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/list#v0.1.2",
-        "lr-run/dir-ui/menu-popup#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2",
-        "lr-run/dir-ui/record-list#v0.1.2",
-        "lr-run/dir-ui/record-table#v0.1.2",
-        "lr-run/dir-ui/record-table-model#v0.1.2",
-        "lr-run/dir-ui/rich-text#v0.1.2",
-        "lr-run/dir-ui/search-dialog#v0.1.2",
-        "lr-run/dir-ui/select#v0.1.2",
-        "lr-run/dir-ui/sheet#v0.1.2",
-        "lr-run/dir-ui/sidebar#v0.1.2",
-        "lr-run/dir-ui/tabs#v0.1.2",
-        "lr-run/dir-ui/toast#v0.1.2"
+        "lr-run/dir-ui/alert-dialog#v0.1.3",
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/chart#v0.1.3",
+        "lr-run/dir-ui/chart-frame#v0.1.3",
+        "lr-run/dir-ui/data-grid#v0.1.3",
+        "lr-run/dir-ui/dialog#v0.1.3",
+        "lr-run/dir-ui/field#v0.1.3",
+        "lr-run/dir-ui/header#v0.1.3",
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/inline-combobox#v0.1.3",
+        "lr-run/dir-ui/inline-edit#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/list#v0.1.3",
+        "lr-run/dir-ui/menu-popup#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3",
+        "lr-run/dir-ui/record-list#v0.1.3",
+        "lr-run/dir-ui/record-table#v0.1.3",
+        "lr-run/dir-ui/record-table-model#v0.1.3",
+        "lr-run/dir-ui/rich-text#v0.1.3",
+        "lr-run/dir-ui/search-dialog#v0.1.3",
+        "lr-run/dir-ui/select#v0.1.3",
+        "lr-run/dir-ui/sheet#v0.1.3",
+        "lr-run/dir-ui/sidebar#v0.1.3",
+        "lr-run/dir-ui/tabs#v0.1.3",
+        "lr-run/dir-ui/toast#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/crm/app.tsx",
+          "path": "examples/crm/src/app.tsx",
           "type": "registry:component",
           "target": "@components/crm/app.tsx"
         },
         {
-          "path": "registry/source/components/crm/components/record-notes.tsx",
+          "path": "examples/crm/src/components/record-notes.tsx",
           "type": "registry:component",
           "target": "@components/crm/components/record-notes.tsx"
         },
         {
-          "path": "registry/source/components/crm/components/record-preview.tsx",
+          "path": "examples/crm/src/components/record-preview.tsx",
           "type": "registry:component",
           "target": "@components/crm/components/record-preview.tsx"
         },
         {
-          "path": "registry/source/components/crm/example/data.ts",
+          "path": "examples/crm/src/example/data.ts",
           "type": "registry:component",
           "target": "@components/crm/example/data.ts"
         },
         {
-          "path": "registry/source/components/crm/example/query.ts",
+          "path": "examples/crm/src/example/query.ts",
           "type": "registry:component",
           "target": "@components/crm/example/query.ts"
         },
         {
-          "path": "registry/source/components/crm/example/store.ts",
+          "path": "examples/crm/src/example/store.ts",
           "type": "registry:component",
           "target": "@components/crm/example/store.ts"
         },
         {
-          "path": "registry/source/components/crm/layout.tsx",
+          "path": "examples/crm/src/layout.tsx",
           "type": "registry:component",
           "target": "@components/crm/layout.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/companies-detail.tsx",
+          "path": "examples/crm/src/routes/companies-detail.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/companies-detail.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/companies-list.tsx",
+          "path": "examples/crm/src/routes/companies-list.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/companies-list.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/deals-detail.tsx",
+          "path": "examples/crm/src/routes/deals-detail.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/deals-detail.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/deals-list.tsx",
+          "path": "examples/crm/src/routes/deals-list.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/deals-list.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/people-detail.tsx",
+          "path": "examples/crm/src/routes/people-detail.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/people-detail.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/people-list.tsx",
+          "path": "examples/crm/src/routes/people-list.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/people-list.tsx"
         },
         {
-          "path": "registry/source/components/crm/routes/report.tsx",
+          "path": "examples/crm/src/routes/report.tsx",
           "type": "registry:component",
           "target": "@components/crm/routes/report.tsx"
         },
         {
-          "path": "registry/source/components/crm/screens/detail-page.tsx",
+          "path": "examples/crm/src/screens/detail-page.tsx",
           "type": "registry:component",
           "target": "@components/crm/screens/detail-page.tsx"
         },
         {
-          "path": "registry/source/components/crm/screens/list-page.tsx",
+          "path": "examples/crm/src/screens/list-page.tsx",
           "type": "registry:component",
           "target": "@components/crm/screens/list-page.tsx"
         },
         {
-          "path": "registry/source/components/crm/template.tsx",
+          "path": "examples/crm/src/template.tsx",
           "type": "registry:component",
           "target": "@components/crm/template.tsx"
         },
         {
-          "path": "registry/source/components/crm/types.ts",
+          "path": "examples/crm/src/types.ts",
           "type": "registry:component",
           "target": "@components/crm/types.ts"
         }
@@ -218,12 +286,12 @@
         "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/button.tsx",
+          "path": "packages/ui/src/components/ui/button.tsx",
           "type": "registry:ui",
           "target": "@ui/button.tsx"
         }
@@ -241,14 +309,14 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/components-textarea#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/components-textarea#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/input.tsx",
+          "path": "packages/ui/src/components/ui/input.tsx",
           "type": "registry:ui",
           "target": "@ui/input.tsx"
         }
@@ -261,7 +329,7 @@
       "description": "Textarea from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/input#v0.1.2"
+        "lr-run/dir-ui/input#v0.1.3"
       ],
       "files": []
     },
@@ -285,59 +353,59 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/tooltip#v0.1.2"
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/tooltip#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/rich-text.tsx",
+          "path": "packages/ui/src/components/ui/rich-text.tsx",
           "type": "registry:ui",
           "target": "@ui/rich-text.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/BlockMenu.tsx",
+          "path": "packages/ui/src/components/rich-text/internal/BlockMenu.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/BlockMenu.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/FormattingToolbar.tsx",
+          "path": "packages/ui/src/components/rich-text/internal/FormattingToolbar.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/FormattingToolbar.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/LinkPopover.tsx",
+          "path": "packages/ui/src/components/rich-text/internal/LinkPopover.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/LinkPopover.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/RichTextEditor.tsx",
+          "path": "packages/ui/src/components/rich-text/internal/RichTextEditor.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/RichTextEditor.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/commands.ts",
+          "path": "packages/ui/src/components/rich-text/internal/commands.ts",
           "type": "registry:component",
           "target": "@components/rich-text/internal/commands.ts"
         },
         {
-          "path": "registry/source/components/rich-text/internal/extensions.ts",
+          "path": "packages/ui/src/components/rich-text/internal/extensions.ts",
           "type": "registry:component",
           "target": "@components/rich-text/internal/extensions.ts"
         },
         {
-          "path": "registry/source/components/rich-text/internal/locale.ts",
+          "path": "packages/ui/src/components/rich-text/internal/locale.ts",
           "type": "registry:component",
           "target": "@components/rich-text/internal/locale.ts"
         },
         {
-          "path": "registry/source/components/rich-text/internal/modal.tsx",
+          "path": "packages/ui/src/components/rich-text/internal/modal.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/modal.tsx"
         },
         {
-          "path": "registry/source/components/rich-text/internal/paste.ts",
+          "path": "packages/ui/src/components/rich-text/internal/paste.ts",
           "type": "registry:component",
           "target": "@components/rich-text/internal/paste.ts"
         }
@@ -355,12 +423,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/select.tsx",
+          "path": "packages/ui/src/components/ui/select.tsx",
           "type": "registry:ui",
           "target": "@ui/select.tsx"
         }
@@ -373,14 +441,14 @@
       "description": "Combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/select#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/select#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/multi-select.tsx",
+          "path": "packages/ui/src/components/ui/multi-select.tsx",
           "type": "registry:ui",
           "target": "@ui/multi-select.tsx"
         }
@@ -393,7 +461,7 @@
       "description": "Multi Select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/combobox#v0.1.2"
+        "lr-run/dir-ui/combobox#v0.1.3"
       ],
       "files": []
     },
@@ -404,7 +472,7 @@
       "description": "Multi Combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/combobox#v0.1.2"
+        "lr-run/dir-ui/combobox#v0.1.3"
       ],
       "files": []
     },
@@ -419,12 +487,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/checkbox.tsx",
+          "path": "packages/ui/src/components/ui/checkbox.tsx",
           "type": "registry:ui",
           "target": "@ui/checkbox.tsx"
         }
@@ -463,14 +531,14 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
         "label",
         "separator"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/field.tsx",
+          "path": "packages/ui/src/components/ui/field.tsx",
           "type": "registry:ui",
           "target": "@ui/field.tsx"
         }
@@ -487,19 +555,19 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/components-textarea#v0.1.2",
-        "lr-run/dir-ui/inline-rich-text#v0.1.2",
-        "lr-run/dir-ui/inline-save-feedback#v0.1.2",
-        "lr-run/dir-ui/inline-select#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/number-value#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/use-inline-save#v0.1.2"
+        "lr-run/dir-ui/components-textarea#v0.1.3",
+        "lr-run/dir-ui/inline-rich-text#v0.1.3",
+        "lr-run/dir-ui/inline-save-feedback#v0.1.3",
+        "lr-run/dir-ui/inline-select#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/number-value#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/use-inline-save#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/inline-edit.tsx",
+          "path": "packages/ui/src/components/ui/inline-edit.tsx",
           "type": "registry:ui",
           "target": "@ui/inline-edit.tsx"
         }
@@ -512,7 +580,7 @@
       "description": "Inline Textarea from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/inline-edit#v0.1.2"
+        "lr-run/dir-ui/inline-edit#v0.1.3"
       ],
       "files": []
     },
@@ -525,17 +593,17 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/combobox#v0.1.2",
-        "lr-run/dir-ui/inline-save-feedback#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/select#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/use-inline-save#v0.1.2"
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/combobox#v0.1.3",
+        "lr-run/dir-ui/inline-save-feedback#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/select#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/use-inline-save#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/inline-choice.tsx",
+          "path": "packages/ui/src/components/ui/inline-choice.tsx",
           "type": "registry:ui",
           "target": "@ui/inline-choice.tsx"
         }
@@ -548,7 +616,7 @@
       "description": "Inline Multi Select from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/inline-select#v0.1.2"
+        "lr-run/dir-ui/inline-select#v0.1.3"
       ],
       "files": []
     },
@@ -562,16 +630,16 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/inline-save-feedback#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/rich-text#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/use-inline-save#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/inline-save-feedback#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/rich-text#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/use-inline-save#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/inline-rich-text.tsx",
+          "path": "packages/ui/src/components/ui/inline-rich-text.tsx",
           "type": "registry:ui",
           "target": "@ui/inline-rich-text.tsx"
         }
@@ -599,18 +667,18 @@
         "react-data-grid@7.0.0-beta.61"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/column-header#v0.1.2",
-        "lr-run/dir-ui/column-settings#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/popover#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2",
-        "lr-run/dir-ui/query-controls#v0.1.2"
+        "lr-run/dir-ui/column-header#v0.1.3",
+        "lr-run/dir-ui/column-settings#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/popover#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3",
+        "lr-run/dir-ui/query-controls#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/data-grid/data-grid.tsx",
+          "path": "packages/ui/src/components/data-grid/data-grid.tsx",
           "type": "registry:component",
           "target": "@components/data-grid/data-grid.tsx"
         }
@@ -626,12 +694,12 @@
         "cn@^0.4.0"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/tabs.tsx",
+          "path": "packages/ui/src/components/ui/tabs.tsx",
           "type": "registry:ui",
           "target": "@ui/tabs.tsx"
         }
@@ -647,11 +715,11 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/header.tsx",
+          "path": "packages/ui/src/components/header.tsx",
           "type": "registry:component",
           "target": "@components/header.tsx"
         }
@@ -669,15 +737,15 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/sheet#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/sheet#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/sidebar.tsx",
+          "path": "packages/ui/src/components/ui/sidebar.tsx",
           "type": "registry:ui",
           "target": "@ui/sidebar.tsx"
         }
@@ -694,12 +762,12 @@
         "recharts@^3.10.1"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/chart.tsx",
+          "path": "packages/ui/src/components/ui/chart.tsx",
           "type": "registry:ui",
           "target": "@ui/chart.tsx"
         }
@@ -725,13 +793,13 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/components-popover#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/components-popover#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/popover-panel.tsx",
+          "path": "packages/ui/src/components/ui/popover-panel.tsx",
           "type": "registry:ui",
           "target": "@ui/popover-panel.tsx"
         }
@@ -749,12 +817,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/dropdown-menu.tsx",
+          "path": "packages/ui/src/components/ui/dropdown-menu.tsx",
           "type": "registry:ui",
           "target": "@ui/dropdown-menu.tsx"
         }
@@ -771,14 +839,14 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/dialog.tsx",
+          "path": "packages/ui/src/components/ui/dialog.tsx",
           "type": "registry:ui",
           "target": "@ui/dialog.tsx"
         }
@@ -794,12 +862,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/sheet.tsx",
+          "path": "packages/ui/src/components/ui/sheet.tsx",
           "type": "registry:ui",
           "target": "@ui/sheet.tsx"
         }
@@ -814,15 +882,15 @@
         "@base-ui/react@1.6.0"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/error-state#v0.1.2",
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/error-state#v0.1.3",
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/alert-dialog.tsx",
+          "path": "packages/ui/src/components/ui/alert-dialog.tsx",
           "type": "registry:ui",
           "target": "@ui/alert-dialog.tsx"
         }
@@ -839,12 +907,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/tooltip.tsx",
+          "path": "packages/ui/src/components/ui/tooltip.tsx",
           "type": "registry:ui",
           "target": "@ui/tooltip.tsx"
         }
@@ -860,12 +928,12 @@
         "lucide-react@1.48.0"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/toast.tsx",
+          "path": "packages/ui/src/components/ui/toast.tsx",
           "type": "registry:ui",
           "target": "@ui/toast.tsx"
         }
@@ -881,12 +949,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/empty-state.tsx",
+          "path": "packages/ui/src/components/ui/empty-state.tsx",
           "type": "registry:ui",
           "target": "@ui/empty-state.tsx"
         }
@@ -899,14 +967,14 @@
       "description": "Error State from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/error-state.tsx",
+          "path": "packages/ui/src/components/ui/error-state.tsx",
           "type": "registry:ui",
           "target": "@ui/error-state.tsx"
         }
@@ -933,12 +1001,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/record-table#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/record-table#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/record-list/record-list.tsx",
+          "path": "packages/ui/src/components/record-list/record-list.tsx",
           "type": "registry:component",
           "target": "@components/record-list/record-list.tsx"
         }
@@ -953,14 +1021,14 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-content#v0.1.2",
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/choice-content#v0.1.3",
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/value.tsx",
+          "path": "packages/ui/src/components/ui/value.tsx",
           "type": "registry:ui",
           "target": "@ui/value.tsx"
         }
@@ -973,7 +1041,7 @@
       "description": "Date Value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/number-value#v0.1.2"
+        "lr-run/dir-ui/number-value#v0.1.3"
       ],
       "files": []
     },
@@ -984,7 +1052,7 @@
       "description": "Choice Value from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/number-value#v0.1.2"
+        "lr-run/dir-ui/number-value#v0.1.3"
       ],
       "files": []
     },
@@ -997,19 +1065,19 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/components-combobox#v0.1.2",
-        "lr-run/dir-ui/inline-edit#v0.1.2",
-        "lr-run/dir-ui/inline-save-feedback#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/number-value#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/use-choices#v0.1.2",
-        "lr-run/dir-ui/use-inline-save#v0.1.2"
+        "lr-run/dir-ui/components-combobox#v0.1.3",
+        "lr-run/dir-ui/inline-edit#v0.1.3",
+        "lr-run/dir-ui/inline-save-feedback#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/number-value#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/use-choices#v0.1.3",
+        "lr-run/dir-ui/use-inline-save#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/inline-inputs.tsx",
+          "path": "packages/ui/src/components/ui/inline-inputs.tsx",
           "type": "registry:ui",
           "target": "@ui/inline-inputs.tsx"
         }
@@ -1022,7 +1090,7 @@
       "description": "Inline Multi Combobox from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/inline-combobox#v0.1.2"
+        "lr-run/dir-ui/inline-combobox#v0.1.3"
       ],
       "files": []
     },
@@ -1035,12 +1103,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/list.tsx",
+          "path": "packages/ui/src/components/ui/list.tsx",
           "type": "registry:ui",
           "target": "@ui/list.tsx"
         }
@@ -1053,7 +1121,7 @@
       "description": "List Item from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/list#v0.1.2"
+        "lr-run/dir-ui/list#v0.1.3"
       ],
       "files": []
     },
@@ -1068,15 +1136,15 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/dialog#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/remote-search#v0.1.2",
-        "lr-run/dir-ui/use-remote-search#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/dialog#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/remote-search#v0.1.3",
+        "lr-run/dir-ui/use-remote-search#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/collections/search-dialog.tsx",
+          "path": "packages/ui/src/components/collections/search-dialog.tsx",
           "type": "registry:component",
           "target": "@components/collections/search-dialog.tsx"
         }
@@ -1091,15 +1159,15 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/file-model#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/list#v0.1.2",
-        "lr-run/dir-ui/upload-queue#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/file-model#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/list#v0.1.3",
+        "lr-run/dir-ui/upload-queue#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/collections/files.tsx",
+          "path": "packages/ui/src/components/collections/files.tsx",
           "type": "registry:component",
           "target": "@components/collections/files.tsx"
         }
@@ -1114,16 +1182,16 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/chart#v0.1.2",
-        "lr-run/dir-ui/empty-state#v0.1.2",
-        "lr-run/dir-ui/error-state#v0.1.2",
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/loading-state#v0.1.2"
+        "lr-run/dir-ui/chart#v0.1.3",
+        "lr-run/dir-ui/empty-state#v0.1.3",
+        "lr-run/dir-ui/error-state#v0.1.3",
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/loading-state#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/charts/chart-frame.tsx",
+          "path": "packages/ui/src/components/charts/chart-frame.tsx",
           "type": "registry:component",
           "target": "@components/charts/chart-frame.tsx"
         }
@@ -1138,14 +1206,14 @@
         "recharts@^3.10.1"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/chart#v0.1.2",
-        "lr-run/dir-ui/chart-frame#v0.1.2",
-        "lr-run/dir-ui/i18n#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/chart#v0.1.3",
+        "lr-run/dir-ui/chart-frame#v0.1.3",
+        "lr-run/dir-ui/i18n#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/charts/index.tsx",
+          "path": "packages/ui/src/components/charts/index.tsx",
           "type": "registry:component",
           "target": "@components/charts/index.tsx"
         }
@@ -1162,11 +1230,11 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/data-grid/internal/column-header.tsx",
+          "path": "packages/ui/src/components/data-grid/internal/column-header.tsx",
           "type": "registry:component",
           "target": "@components/data-grid/internal/column-header.tsx"
         }
@@ -1182,18 +1250,18 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/checkbox#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/popover#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2",
-        "lr-run/dir-ui/toolbar-button#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/checkbox#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/popover#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3",
+        "lr-run/dir-ui/toolbar-button#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/data-grid/internal/column-settings.tsx",
+          "path": "packages/ui/src/components/data-grid/internal/column-settings.tsx",
           "type": "registry:component",
           "target": "@components/data-grid/internal/column-settings.tsx"
         }
@@ -1209,21 +1277,21 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/components-combobox#v0.1.2",
-        "lr-run/dir-ui/dropdown-menu#v0.1.2",
-        "lr-run/dir-ui/filter-tree#v0.1.2",
-        "lr-run/dir-ui/icon-button#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/popover#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2",
-        "lr-run/dir-ui/select#v0.1.2",
-        "lr-run/dir-ui/toolbar-button#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/components-combobox#v0.1.3",
+        "lr-run/dir-ui/dropdown-menu#v0.1.3",
+        "lr-run/dir-ui/filter-tree#v0.1.3",
+        "lr-run/dir-ui/icon-button#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/popover#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3",
+        "lr-run/dir-ui/select#v0.1.3",
+        "lr-run/dir-ui/toolbar-button#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/data-grid/internal/query-controls.tsx",
+          "path": "packages/ui/src/components/data-grid/internal/query-controls.tsx",
           "type": "registry:component",
           "target": "@components/data-grid/internal/query-controls.tsx"
         }
@@ -1242,16 +1310,16 @@
         "react-data-grid@7.0.0-beta.61"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/column-header#v0.1.2",
-        "lr-run/dir-ui/data-grid#v0.1.2",
-        "lr-run/dir-ui/data-grid-styles#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/record-table-model#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/column-header#v0.1.3",
+        "lr-run/dir-ui/data-grid#v0.1.3",
+        "lr-run/dir-ui/data-grid-styles#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/record-table-model#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/record-list/record-table.tsx",
+          "path": "packages/ui/src/components/record-list/record-table.tsx",
           "type": "registry:component",
           "target": "@components/record-list/record-table.tsx"
         }
@@ -1266,12 +1334,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/badge.tsx",
+          "path": "packages/ui/src/components/ui/badge.tsx",
           "type": "registry:ui",
           "target": "@ui/badge.tsx"
         }
@@ -1286,13 +1354,13 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/choice-content.tsx",
+          "path": "packages/ui/src/components/ui/choice-content.tsx",
           "type": "registry:ui",
           "target": "@ui/choice-content.tsx"
         }
@@ -1310,17 +1378,17 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/choice-content#v0.1.2",
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/input#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2",
-        "lr-run/dir-ui/use-choices#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/choice-content#v0.1.3",
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/input#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3",
+        "lr-run/dir-ui/use-choices#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/combobox.tsx",
+          "path": "packages/ui/src/components/ui/combobox.tsx",
           "type": "registry:ui",
           "target": "@ui/combobox.tsx"
         }
@@ -1335,12 +1403,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/error-boundary.tsx",
+          "path": "packages/ui/src/components/ui/error-boundary.tsx",
           "type": "registry:ui",
           "target": "@ui/error-boundary.tsx"
         }
@@ -1353,13 +1421,13 @@
       "description": "Inline Save Feedback from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/inline-save-feedback.tsx",
+          "path": "packages/ui/src/components/ui/inline-save-feedback.tsx",
           "type": "registry:ui",
           "target": "@ui/inline-save-feedback.tsx"
         }
@@ -1372,12 +1440,12 @@
       "description": "Loading State from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/loading-state.tsx",
+          "path": "packages/ui/src/components/ui/loading-state.tsx",
           "type": "registry:ui",
           "target": "@ui/loading-state.tsx"
         }
@@ -1393,12 +1461,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/menu-popup.tsx",
+          "path": "packages/ui/src/components/ui/menu-popup.tsx",
           "type": "registry:ui",
           "target": "@ui/menu-popup.tsx"
         }
@@ -1415,12 +1483,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/popover.tsx",
+          "path": "packages/ui/src/components/ui/popover.tsx",
           "type": "registry:ui",
           "target": "@ui/popover.tsx"
         }
@@ -1436,12 +1504,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/textarea.tsx",
+          "path": "packages/ui/src/components/ui/textarea.tsx",
           "type": "registry:ui",
           "target": "@ui/textarea.tsx"
         }
@@ -1457,12 +1525,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/toolbar-button.tsx",
+          "path": "packages/ui/src/components/ui/toolbar-button.tsx",
           "type": "registry:ui",
           "target": "@ui/toolbar-button.tsx"
         }
@@ -1477,12 +1545,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/hooks/use-choices.ts",
+          "path": "packages/ui/src/hooks/use-choices.ts",
           "type": "registry:hook",
           "target": "@hooks/use-choices.ts"
         }
@@ -1497,12 +1565,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/infinite-records#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/infinite-records#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/hooks/use-infinite-records.ts",
+          "path": "packages/ui/src/hooks/use-infinite-records.ts",
           "type": "registry:hook",
           "target": "@hooks/use-infinite-records.ts"
         }
@@ -1517,12 +1585,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/inline-save-task#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/inline-save-task#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/hooks/use-inline-save.ts",
+          "path": "packages/ui/src/hooks/use-inline-save.ts",
           "type": "registry:hook",
           "target": "@hooks/use-inline-save.ts"
         }
@@ -1537,12 +1605,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/remote-search#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/remote-search#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/hooks/use-remote-search.ts",
+          "path": "packages/ui/src/hooks/use-remote-search.ts",
           "type": "registry:hook",
           "target": "@hooks/use-remote-search.ts"
         }
@@ -1555,11 +1623,11 @@
       "description": "Choice Types from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/choice-types.ts",
+          "path": "packages/ui/src/lib/choice-types.ts",
           "type": "registry:lib",
           "target": "@lib/choice-types.ts"
         }
@@ -1572,11 +1640,11 @@
       "description": "File Model from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/file-model.ts",
+          "path": "packages/ui/src/lib/file-model.ts",
           "type": "registry:lib",
           "target": "@lib/file-model.ts"
         }
@@ -1589,12 +1657,12 @@
       "description": "Filter Tree from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/filter-tree.ts",
+          "path": "packages/ui/src/lib/filter-tree.ts",
           "type": "registry:lib",
           "target": "@lib/filter-tree.ts"
         }
@@ -1609,11 +1677,11 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/i18n.tsx",
+          "path": "packages/ui/src/lib/i18n.tsx",
           "type": "registry:lib",
           "target": "@lib/i18n.tsx"
         }
@@ -1626,11 +1694,11 @@
       "description": "Infinite Records from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/infinite-records.ts",
+          "path": "packages/ui/src/lib/infinite-records.ts",
           "type": "registry:lib",
           "target": "@lib/infinite-records.ts"
         }
@@ -1643,11 +1711,11 @@
       "description": "Inline Save Task from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/inline-save-task.ts",
+          "path": "packages/ui/src/lib/inline-save-task.ts",
           "type": "registry:lib",
           "target": "@lib/inline-save-task.ts"
         }
@@ -1662,12 +1730,12 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/choice-types#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/choice-types#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/query.ts",
+          "path": "packages/ui/src/lib/query.ts",
           "type": "registry:lib",
           "target": "@lib/query.ts"
         }
@@ -1680,12 +1748,12 @@
       "description": "Record List Query from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/query#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/query#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/record-list-query.ts",
+          "path": "packages/ui/src/lib/record-list-query.ts",
           "type": "registry:lib",
           "target": "@lib/record-list-query.ts"
         }
@@ -1698,11 +1766,11 @@
       "description": "Record Table Model from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/record-table-model.ts",
+          "path": "packages/ui/src/lib/record-table-model.ts",
           "type": "registry:lib",
           "target": "@lib/record-table-model.ts"
         }
@@ -1715,11 +1783,11 @@
       "description": "Remote Search from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/remote-search.ts",
+          "path": "packages/ui/src/lib/remote-search.ts",
           "type": "registry:lib",
           "target": "@lib/remote-search.ts"
         }
@@ -1732,12 +1800,12 @@
       "description": "Upload Queue from dir/ui. React 19, Base UI and Tailwind CSS 4.",
       "dependencies": [],
       "registryDependencies": [
-        "lr-run/dir-ui/file-model#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2"
+        "lr-run/dir-ui/file-model#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/lib/upload-queue.ts",
+          "path": "packages/ui/src/lib/upload-queue.ts",
           "type": "registry:lib",
           "target": "@lib/upload-queue.ts"
         }
@@ -1752,13 +1820,13 @@
         "react@^19"
       ],
       "registryDependencies": [
-        "lr-run/dir-ui/button#v0.1.2",
-        "lr-run/dir-ui/licenses#v0.1.2",
-        "lr-run/dir-ui/theme#v0.1.2"
+        "lr-run/dir-ui/button#v0.1.3",
+        "lr-run/dir-ui/licenses#v0.1.3",
+        "lr-run/dir-ui/theme#v0.1.3"
       ],
       "files": [
         {
-          "path": "registry/source/components/ui/icon-button.tsx",
+          "path": "packages/ui/src/components/ui/icon-button.tsx",
           "type": "registry:ui",
           "target": "@ui/icon-button.tsx"
         }

@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { SearchIcon } from 'lucide-react'
-import { IconButton } from '../components/ui/icon-button.tsx'
+import { IconButton } from '../packages/ui/src/components/ui/icon-button.tsx'
 import { makeRegistry, registrySources } from '../scripts/registry.ts'
-import { documentationFiles } from '../landing/documentation.ts'
-import { source } from '../landing/src/pages/catalog/playground/code.ts'
+import { documentationFiles } from '../apps/docs/documentation.ts'
+import { source } from '../apps/docs/src/pages/catalog/playground/code.ts'
 
 Deno.test('icon-only controls retain their accessible label with decorative Lucide SVGs', () => {
   const html = renderToStaticMarkup(

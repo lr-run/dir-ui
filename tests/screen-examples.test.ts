@@ -1,8 +1,8 @@
-import { queryExampleRecords } from '../examples/crm/example/query.ts'
-import { queryFields, sampleRecords } from '../examples/crm/example/data.ts'
-import { companiesFormSchema } from '../examples/crm/routes/companies-list.tsx'
-import { peopleFormSchema } from '../examples/crm/routes/people-list.tsx'
-import { dealsFormSchema } from '../examples/crm/routes/deals-list.tsx'
+import { queryExampleRecords } from '../examples/crm/src/example/query.ts'
+import { queryFields, sampleRecords } from '../examples/crm/src/example/data.ts'
+import { companiesFormSchema } from '../examples/crm/src/routes/companies-list.tsx'
+import { peopleFormSchema } from '../examples/crm/src/routes/people-list.tsx'
+import { dealsFormSchema } from '../examples/crm/src/routes/deals-list.tsx'
 
 Deno.test('screen fixture counts have stable distinct identities for every dataset', () => {
   for (const kind of ['companies', 'people', 'deals'] as const) {

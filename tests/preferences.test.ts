@@ -1,4 +1,4 @@
-import { readPreference, writePreference } from '../landing/src/preferences.ts'
+import { readPreference, writePreference } from '../apps/docs/src/preferences.ts'
 Deno.test('unavailable or denied browser storage cannot interrupt startup', () => {
   const denied = () => {
     throw new DOMException('Access denied', 'SecurityError')

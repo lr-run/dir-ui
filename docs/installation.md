@@ -1,6 +1,6 @@
 # Installation
 
-This guide describes v0.1.2. Existing v0.1.0 and v0.1.1 installations can migrate without replacing local
+This guide describes v0.1.3. Existing v0.1.0 and v0.1.1 installations can migrate without replacing local
 customizations; see the conflict and migration guidance below.
 
 Initialize your application with shadcn, **Base UI**, React 19 and Tailwind CSS 4. The examples use the Nova style.
@@ -61,9 +61,10 @@ export function SearchField() {
 }
 ```
 
-Use your configured aliases if they differ. Installed UI modules import the shared theme CSS; the grid imports its own
-CSS. Keep Tailwind and `tw-animate-css` imports in the host stylesheet. The host's Tailwind scan must include its
-configured component directories (for workspace packages, add an `@source` directive to that package).
+Use your configured aliases if they differ. The installer merges shared theme rules and the grid import into the CSS
+file configured in `components.json`. Keep Tailwind and `tw-animate-css` imports in the host stylesheet. The host's
+Tailwind scan must include its configured component directories (for workspace packages, add an `@source` directive to
+that package).
 
 ## Use the CRM Block in Vite
 
@@ -108,9 +109,9 @@ port local customizations and update imports; remove obsolete files only after v
 ## Install from GitHub
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.2
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.2
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.3
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.3
 ```
 
-Same-repository dependencies are pinned to v0.1.2. Local generation and installation remain available for testing
+Same-repository dependencies are pinned to v0.1.3. Local generation and installation remain available for testing
 changes before a release; they do not publish a tag, push a repository, or deploy the site.

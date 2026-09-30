@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from 'node:util'
-import { createExampleState, exampleReducer } from '../examples/crm/example/store.ts'
-import { addListView } from '../examples/crm/screens/list-page.tsx'
+import { createExampleState, exampleReducer } from '../examples/crm/src/example/store.ts'
+import { addListView } from '../examples/crm/src/screens/list-page.tsx'
 
 function assert(value: unknown, message: string) {
   if (!value) throw new Error(message)

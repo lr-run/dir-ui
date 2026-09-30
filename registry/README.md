@@ -1,34 +1,29 @@
-# Registry source
+# Registry
 
-Edit `components/`, `hooks/`, `lib/`, and `examples/`. UI recipes live in `components/ui/`; composed elements live in
-`components/`. `components/shadcn/` and the shared UI barrel no longer exist.
+The authored source lives in `packages/ui/src` and `examples/crm/src`. `registry.json` points directly at those files.
+There is no generated TypeScript source tree. The docs and CRM workspace use the exact same implementation.
 
-`registry/entries.json` assigns each source file to one item. `scripts/registry.ts` discovers imports, adds npm and
-registry dependencies, rejects unowned imports and duplicate file ownership, and generates `registry.json`. Bare
-dependency names refer to official shadcn items; dir/ui dependencies are full, version-pinned GitHub addresses.
+`entries.json` assigns each file to one item. Shared code is linked through `registryDependencies`. Unchanged upstream
+items use official shadcn dependencies. UI item targets use `@ui`, composed parts use `@components`, hooks use `@hooks`,
+and helpers use `@lib`. CRM source installs under `@components/crm`; Vite host files are excluded from the Block.
 
-`registry/source/` contains generated source with canonical shadcn imports. GitHub installations read these files
-directly. Do not edit them manually. Target placeholders (`@ui/`, `@components/`, `@hooks/`, `@lib/`) resolve against
-the consumer's `components.json`; the CLI also rewrites import aliases. License files intentionally target the project
-root.
+Distributed source uses canonical shadcn import slots. The CLI rewrites them to the consumer's `components.json`
+aliases; local Deno and Vite configuration resolve them to the workspace. GitHub reads authored files directly. Local
+test JSON embeds their exact bytes, without import or CSS injection.
 
-CRM is a `registry:block`. It owns only files from `examples/crm/`, installed under `@components/crm/`. Shared UI is
-linked through dependencies. The consumer mounts `CrmTemplate` in its existing Vite entry/router; no framework-specific
-`app/` tree is created.
+Theme and grid CSS live in `packages/ui/src/styles`. Workspace apps import them directly. The generator reads the same
+stylesheets with PostCSS to produce standard shadcn `css` metadata, which the installer adds to the consumer's
+configured stylesheet. Existing source conflicts must be reviewed without `--overwrite`.
 
 ```sh
 deno task registry:generate
 deno task registry:check
 deno task registry:local /tmp/dir-ui-registry
-# In a fresh shadcn Base UI project, without --overwrite:
+# In a fresh shadcn Base UI project:
 npx shadcn@4.21.0 add /tmp/dir-ui-registry/input.json
 npx shadcn@4.21.0 add /tmp/dir-ui-registry/crm-example.json
 ```
 
-The local builder emits self-contained JSON files with absolute **local dependency addresses**. It does not rewrite the
-checked-in GitHub registry or contact the public repository. Runtime code is identical between local payloads and
-generated GitHub source.
-
-Tests verify unique ownership, complete and acyclic dependencies, official-item reuse, API availability, icon imports
-and framework-neutral targets. Installation checks must cover custom aliases, existing component preservation, strict
-TypeScript and production builds.
+Tests verify exact source identity, dependency boundaries, complete/acyclic registry dependencies, unique ownership, CSS
+metadata, and installation paths. Fresh-app verification covers independent Input and CRM installs, custom aliases, CSS,
+preservation of existing components, TypeScript, builds and browser interaction.

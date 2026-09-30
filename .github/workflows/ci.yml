@@ -22,6 +22,7 @@ jobs:
       - run: deno task check
       - run: deno task test
       - run: deno task registry:validate
+      - run: deno task build:crm
       - run: deno task build
         env:
           SITE_ENV: prd
