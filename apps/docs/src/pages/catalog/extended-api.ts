@@ -211,7 +211,7 @@ export const extendedApi: Record<string, Api> = {
  type GridFilterOptions = { fields: readonly QueryField[]; value: RecordFilter; onChange: (value: RecordFilter) => void; disabled?: boolean; maxConditions?: number; maxDepth?: number; contextLabel?: string }
  type GridColumnState = { id: string; visible: boolean; frozen?: boolean }
  type GridColumnSettings = { columns: readonly { id: string; label: string; required?: boolean; canFreeze?: boolean }[]; value: GridColumnState[]; onChange: (value: GridColumnState[]) => void; onReset?: () => void; disabled?: boolean }`,
-    'Sort, Filter, and Columns are built-in DataGrid features, not separate public components. Sorting/filtering emit query state; the caller supplies the resulting rows for local or remote data. Do not sort individual loaded pages. Column settings apply locally. Record List exposes these options inside grid. Editable filtered collections must merge changed rows by stable ID into their source data.',
+    'Sort, Filter, and Columns are built-in DataGrid features, not separate public components. Sorting/filtering emit query state; the caller supplies the resulting rows for local or remote data. Do not sort individual loaded pages. Column settings apply locally. Editable filtered collections must merge changed rows by stable ID into their source data.',
   ),
   'combobox': api('SingleCombobox', 'ui/multi-select.tsx', [
     row('value', 'string | null', 'Required'),

@@ -27,8 +27,6 @@ const constraints: Record<string, string> = {
   toast: 'Wrap toast consumers in Toast.Provider.',
   'data-grid':
     'The installer adds the grid stylesheet import to your configured CSS file. Give the grid a bounded height. Sorting and filtering emit query state; the caller supplies the resulting rows. Apply remote queries to the complete dataset before pagination.',
-  'record-list':
-    'The installer adds the grid stylesheet import to your configured CSS file. Give the list a bounded height. Use stable row IDs. The caller owns data loading and persistence.',
   table:
     'The registry item installs shared theme styles; Table is a native HTML recipe, not an exported React component.',
   radio: 'The registry item installs Base UI and shared theme styles. Compose RadioGroup and Radio.Root directly.',

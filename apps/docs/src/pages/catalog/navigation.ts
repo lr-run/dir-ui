@@ -27,7 +27,6 @@ const categories = [
       'list-item',
       'table',
       'data-grid',
-      'record-list',
       'chart',
     ],
   },

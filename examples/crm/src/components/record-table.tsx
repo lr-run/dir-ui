@@ -1,3 +1,4 @@
+import { TableSkeleton } from '@/components/crm/components/table-skeleton.tsx'
 import {
   AlignLeftIcon,
   ArrowDownWideNarrowIcon,
@@ -35,8 +36,8 @@ import {
   type RecordCellType,
   reorderTableColumns,
   type TableColumnState,
-} from '@/lib/record-table-model.ts'
-export type { ColumnFormat, RecordCellType, TableColumnState } from '@/lib/record-table-model.ts'
+} from '@/components/crm/components/record-table-model.ts'
+export type { ColumnFormat, RecordCellType, TableColumnState } from '@/components/crm/components/record-table-model.ts'
 export type RecordColumn<R, SR = unknown> = Column<R, SR> & {
   type?: RecordCellType
   getValue?: (row: R) => unknown
@@ -440,18 +441,21 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
         }}
         columns={rendered}
         renderers={{
-          noRowsFallback: (
-            <div
-              className='group/crm-record-list-empty [grid-column:1_/_-1] p-[32px] text-center text-muted-foreground'
-              role='status'
-            >
-              {pagination?.loading
-                ? 'Loading records…'
-                : pagination?.error
-                ? 'Records could not be loaded.'
-                : 'No records found.'}
-            </div>
-          ),
+          noRowsFallback: pagination?.loading
+            ? (
+              <TableSkeleton
+                columns={rendered.length}
+                rowHeight={typeof grid.rowHeight === 'number' ? grid.rowHeight : 36}
+              />
+            )
+            : (
+              <div
+                className='group/crm-record-list-empty [grid-column:1_/_-1] p-[32px] text-center text-muted-foreground'
+                role='status'
+              >
+                {pagination?.error ? 'Records could not be loaded.' : 'No records found.'}
+              </div>
+            ),
           ...grid.renderers,
         }}
         rowHeight={grid.rowHeight ?? 36}

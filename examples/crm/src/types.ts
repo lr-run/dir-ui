@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from 'react'
 import type { RecordFilter, RecordSort } from '@/lib/query.ts'
-import type { TableColumnState } from '@/lib/record-table-model.ts'
+import type { TableColumnState } from '@/components/crm/components/record-table-model.ts'
 import type { DetailContext, DetailField } from '@/components/crm/screens/detail-page.tsx'
 import type { ExampleState, useExampleStore } from '@/components/crm/example/store.ts'
 export type ExampleKind = 'companies' | 'people' | 'deals' | 'tasks'
@@ -119,7 +119,7 @@ export type ListRouteProps = ListViewProps & {
   state: ExampleState
   archived: boolean
   onArchivedChange: (value: boolean) => void
-  onCreate: (values: RecordDraft) => void
+  onCreate: (values: RecordDraft) => void | Promise<void>
   onOpenDetail: (record: ExampleRecord) => void
   onOpenPreview: (record: ExampleRecord, rows: readonly ExampleRecord[]) => void
 }
@@ -127,7 +127,7 @@ export type DetailRouteProps = {
   onOpenRecord: (kind: ExampleKind, id: string) => void
   record: ExampleRecord
   store: CrmStore
-  onChange: (change: Partial<RecordDraft>, label: string) => void
+  onChange: (change: Partial<RecordDraft>, label: string) => void | Promise<void>
   onArchive: () => void
 }
 export type ListView = {

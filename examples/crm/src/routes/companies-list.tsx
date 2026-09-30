@@ -53,7 +53,7 @@ type Values = z.infer<typeof companiesFormSchema>
 function CreateCompanyForm(
   { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
 ) {
-  const { register, control, handleSubmit, setError, formState: { errors } } = useForm<Values>({
+  const { register, control, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(companiesFormSchema),
     defaultValues: { name: '', ownerId: state.users.find((u) => u.isActive)?.id ?? '', industry: '', website: '' },
   })
@@ -67,7 +67,9 @@ function CreateCompanyForm(
       footer={
         <div className='flex justify-end gap-2'>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-companies'>Create company</Button>
+          <Button variant='default' disabled={isSubmitting} type='submit' form='create-companies'>
+            Create company
+          </Button>
         </div>
       }
     >
@@ -75,9 +77,9 @@ function CreateCompanyForm(
         id='create-companies'
         className='grid gap-4 p-5'
         noValidate
-        onSubmit={handleSubmit((values) => {
+        onSubmit={handleSubmit(async (values) => {
           try {
-            onCreate(values)
+            await onCreate(values)
             onClose()
           } catch (error) {
             setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })

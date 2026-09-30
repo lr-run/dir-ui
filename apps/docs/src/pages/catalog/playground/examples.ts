@@ -84,22 +84,6 @@ export function examplesFor(id: string): Example[] | undefined {
     }, { label: 'Disabled tab', values: { disabled: true } }]
   }
 
-  if (id === 'record-list') {
-    return [
-      { label: 'People · 3 records', values: {} },
-      { label: 'Mixed types · 25 records', values: { dataset: 'Mixed types', rowCount: 25 } },
-      { label: 'Numbers · 100 records', values: { dataset: 'Numbers', rowCount: 100 } },
-      { label: 'Dates · 25 records', values: { dataset: 'Dates', rowCount: 25 } },
-      { label: 'Choices · 25 records', values: { dataset: 'Choices', rowCount: 25 } },
-      { label: 'Large collection · 10,000 records', values: { dataset: 'Mixed types', rowCount: 10000 } },
-      { label: 'Async · 1,000 records', values: { dataset: 'Mixed types', rowCount: 1000, remote: true } },
-      {
-        label: 'Async · retry',
-        values: { dataset: 'Mixed types', rowCount: 1000, remote: true, failPage: true, pageSize: 20 },
-      },
-      { label: 'Empty', values: { rowCount: 0 } },
-    ]
-  }
   if (id === 'search-dialog') {
     return [
       { label: 'Documentation', values: {} },

@@ -1,6 +1,6 @@
 import type { Key, ReactNode } from 'react'
 import { cn } from 'cn'
-import { RecordTable, type RecordTableProps } from '@/components/record-list/record-table.tsx'
+import { RecordTable, type RecordTableProps } from '@/components/crm/components/record-table.tsx'
 type ListChrome = {
   title: ReactNode
   gridKey?: Key

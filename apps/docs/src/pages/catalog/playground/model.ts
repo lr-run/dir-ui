@@ -41,7 +41,7 @@ export type Spec = {
   id: string
   title: string
   description: string
-  group: 'basic' | 'advanced' | 'charts' | 'records' | 'extensions'
+  group: 'basic' | 'advanced' | 'charts' | 'extensions'
   previewSize: 'natural' | 'control' | 'panel' | 'wide' | 'full'
   defaults: Values
   controls: Control[]

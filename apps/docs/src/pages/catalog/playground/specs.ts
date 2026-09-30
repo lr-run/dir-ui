@@ -74,7 +74,6 @@ const previewSizes: Partial<Record<string, Spec['previewSize']>> = {
   header: 'full',
   sidebar: 'full',
   chart: 'full',
-  'record-list': 'full',
 }
 function add(
   id: string,
@@ -400,39 +399,6 @@ add('error-state', 'Error state', 'Display an error message with an optional ret
 add('skeleton', 'Skeleton', 'Reserve space while a small part of the interface loads.', {
   className: 'h-10 w-40 rounded-md',
 }, [text('className')])
-add(
-  'record-list',
-  'Record List',
-  'Browse a virtualized data grid with search, multi-column sorting, and grouped filters.',
-  {
-    title: 'People',
-    actions: true,
-    search: '',
-    sorts: [],
-    filter: { conjunction: 'and', conditions: [] },
-    footer: true,
-    dataset: 'People',
-    rowCount: 3,
-    remote: false,
-    pageSize: 50,
-    failPage: false,
-  },
-  [
-    text('title'),
-    toggle('actions'),
-    text('search'),
-    json('sorts', 'listSorts'),
-    json('filter', 'listFilter'),
-    toggle('footer'),
-    select('dataset', ['People', 'Mixed types', 'Numbers', 'Dates', 'Choices']),
-    number('rowCount', 0, 10000),
-    toggle('remote'),
-    number('pageSize', 1, 100),
-    toggle('failPage'),
-  ],
-  'records',
-)
-
 add('number-value', 'Number value', 'Format numbers, money, and percentage points without an editing control.', {
   value: 12000,
   format: 'currency',

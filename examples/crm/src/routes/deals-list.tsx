@@ -64,7 +64,7 @@ type Values = z.infer<typeof dealsFormSchema>
 function CreateDealForm(
   { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
 ) {
-  const { register, control, handleSubmit, setError, formState: { errors } } = useForm<Values>({
+  const { register, control, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(dealsFormSchema),
     defaultValues: {
       name: '',
@@ -87,7 +87,7 @@ function CreateDealForm(
       footer={
         <div className='flex justify-end gap-2'>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-deals'>Create deal</Button>
+          <Button variant='default' disabled={isSubmitting} type='submit' form='create-deals'>Create deal</Button>
         </div>
       }
     >
@@ -95,9 +95,9 @@ function CreateDealForm(
         id='create-deals'
         className='grid gap-4 p-5'
         noValidate
-        onSubmit={handleSubmit((values) => {
+        onSubmit={handleSubmit(async (values) => {
           try {
-            onCreate({ ...values, amount: values.amount || null })
+            await onCreate({ ...values, amount: values.amount || null })
             onClose()
           } catch (error) {
             setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })

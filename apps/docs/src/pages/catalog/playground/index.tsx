@@ -13,7 +13,6 @@ const previews = {
   basic: lazy(() => import('./basic.tsx')),
   advanced: lazy(() => import('./advanced.tsx')),
   charts: lazy(() => import('./charts.tsx')),
-  records: lazy(() => import('./records.tsx')),
 }
 function JsonControl(
   { control, value, onChange }: {

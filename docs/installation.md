@@ -1,6 +1,6 @@
 # Installation
 
-This guide describes v0.1.4. Existing v0.1.0 and v0.1.1 installations can migrate without replacing local
+This guide describes v0.1.5. Existing v0.1.0 and v0.1.1 installations can migrate without replacing local
 customizations; see the conflict and migration guidance below.
 
 Initialize your application with shadcn, **Base UI**, React 19 and Tailwind CSS 4. The examples use the Nova style.
@@ -109,9 +109,16 @@ port local customizations and update imports; remove obsolete files only after v
 ## Install from GitHub
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.4
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.4
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.5
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.5
 ```
 
-Same-repository dependencies are pinned to v0.1.4. Local generation and installation remain available for testing
+Same-repository dependencies are pinned to v0.1.5. Local generation and installation remain available for testing
 changes before a release; they do not publish a tag, push a repository, or deploy the site.
+
+## v0.1.5 CRM list scope
+
+Record List is now a CRM example composition, not a standalone component or registry item. Use DataGrid for shared table
+UI, or install the CRM Block for its record-specific list, table model, and loading skeletons. Existing pinned versions
+remain available. Existing apps may keep their installed Record List files; this release does not remove or overwrite
+customized files. Review imports and local changes before moving an existing app to the CRM-owned files.

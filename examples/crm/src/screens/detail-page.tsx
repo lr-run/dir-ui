@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 
 export type DetailContext<R, Change> = {
   record: R
-  onChange: (change: Change, label: string) => void
+  onChange: (change: Change, label: string) => void | Promise<void>
 }
 export type DetailField<R, Change> = {
   id: string

@@ -1,6 +1,6 @@
 {
   "name": "@dir/ui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "private": true,
   "type": "module",
   "description": "Reusable Base UI and Tailwind components with a shadcn registry.",
@@ -35,7 +35,6 @@
   "exports": {
     "./input": "./src/components/ui/input.tsx",
     "./data-grid": "./src/components/data-grid/data-grid.tsx",
-    "./record-list": "./src/components/record-list/record-list.tsx",
     "./rich-text": "./src/components/ui/rich-text.tsx",
     "./charts": "./src/components/charts/index.tsx",
     "./styles.css": "./src/styles/theme.css",

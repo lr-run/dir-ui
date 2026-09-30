@@ -60,7 +60,7 @@ type Values = z.infer<typeof tasksFormSchema>
 function CreateTaskForm(
   { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
 ) {
-  const { register, control, handleSubmit, watch, setError, formState: { errors } } = useForm<Values>({
+  const { register, control, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(tasksFormSchema),
     defaultValues: {
       name: '',
@@ -82,7 +82,7 @@ function CreateTaskForm(
       footer={
         <div className='flex justify-end gap-2'>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-tasks'>Create task</Button>
+          <Button variant='default' disabled={isSubmitting} type='submit' form='create-tasks'>Create task</Button>
         </div>
       }
     >
@@ -90,9 +90,9 @@ function CreateTaskForm(
         id='create-tasks'
         className='grid gap-4 p-5'
         noValidate
-        onSubmit={handleSubmit((values) => {
+        onSubmit={handleSubmit(async (values) => {
           try {
-            onCreate({ ...values, dueAt: values.dueAt ? new Date(values.dueAt).toISOString() : '' })
+            await onCreate({ ...values, dueAt: values.dueAt ? new Date(values.dueAt).toISOString() : '' })
             onClose()
           } catch (error) {
             setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })

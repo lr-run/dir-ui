@@ -41,11 +41,16 @@
     "title": "Crm Example",
     "files": [
       "examples/crm/src/app.tsx",
+      "examples/crm/src/components/loading.tsx",
       "examples/crm/src/components/record-activity.tsx",
       "examples/crm/src/components/record-detail.tsx",
       "examples/crm/src/components/record-fields.tsx",
+      "examples/crm/src/components/record-list.tsx",
       "examples/crm/src/components/record-notes.tsx",
       "examples/crm/src/components/record-preview.tsx",
+      "examples/crm/src/components/record-table-model.ts",
+      "examples/crm/src/components/record-table.tsx",
+      "examples/crm/src/components/table-skeleton.tsx",
       "examples/crm/src/example/data.ts",
       "examples/crm/src/example/query.ts",
       "examples/crm/src/example/store.ts",
@@ -412,16 +417,6 @@
       "skeleton"
     ]
   },
-  "record-list": {
-    "title": "Record List",
-    "files": [
-      "packages/ui/src/components/record-list/record-list.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
   "number-value": {
     "title": "Number Value",
     "files": [
@@ -551,17 +546,6 @@
     "type": "registry:component",
     "registryDependencies": [
       "@dir/licenses"
-    ]
-  },
-  "record-table": {
-    "title": "Record Table",
-    "files": [
-      "packages/ui/src/components/record-list/record-table.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/data-grid-styles"
     ]
   },
   "badge": {
@@ -788,16 +772,6 @@
     "title": "Record List Query",
     "files": [
       "packages/ui/src/lib/record-list-query.ts"
-    ],
-    "type": "registry:lib",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "record-table-model": {
-    "title": "Record Table Model",
-    "files": [
-      "packages/ui/src/lib/record-table-model.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [

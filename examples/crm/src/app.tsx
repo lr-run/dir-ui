@@ -1,3 +1,4 @@
+import { ReportSkeleton, SettingsSkeleton } from '@/components/crm/components/loading.tsx'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button.tsx'
 import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
@@ -113,13 +114,13 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
       >
         {route.page === 'report'
           ? (
-            <Suspense fallback={null}>
+            <Suspense fallback={<ReportSkeleton />}>
               <Report records={store.collections.deals.filter((r) => !r.archivedAt && r.currency === 'USD')} />
             </Suspense>
           )
           : route.page === 'settings'
           ? (
-            <Suspense fallback={null}>
+            <Suspense fallback={<SettingsSkeleton />}>
               <Settings store={store} />
             </Suspense>
           )

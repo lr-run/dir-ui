@@ -309,9 +309,9 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
           onOpenChange={(open) => {
             if (!open) setTarget(null)
           }}
-          onConfirm={() => {
+          onConfirm={async () => {
             try {
-              store.archiveActivity(target.id, !!target.archivedAt)
+              await store.archiveActivity(target.id, !!target.archivedAt)
               setError('')
               setTarget(null)
             } catch (e) {
@@ -335,7 +335,9 @@ function ActivityForm(
   },
 ) {
   const body = useRef<RichTextValue>({ notesDoc: document(activity?.body ?? ''), notes: '' })
-  const { register, control, watch, handleSubmit, setError, formState: { errors } } = useForm<ActivityDraft>({
+  const { register, control, watch, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<
+    ActivityDraft
+  >({
     defaultValues: {
       name: activity?.name ?? '',
       type: activity?.type ?? 'note',
@@ -357,16 +359,16 @@ function ActivityForm(
       footer={
         <div className='flex justify-end gap-2'>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant='default' form='activity-form' type='submit'>Save activity</Button>
+          <Button variant='default' disabled={isSubmitting} form='activity-form' type='submit'>Save activity</Button>
         </div>
       }
     >
       <form
         id='activity-form'
         className='grid gap-4 p-5'
-        onSubmit={handleSubmit((values) => {
+        onSubmit={handleSubmit(async (values) => {
           try {
-            store.saveActivity({
+            await store.saveActivity({
               ...values,
               body: JSON.stringify(body.current.notesDoc),
               occurredAt: utcDateTime(values.occurredAt),

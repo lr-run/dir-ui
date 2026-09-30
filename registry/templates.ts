@@ -10,7 +10,7 @@ export const templates = [{
   usage: '<CrmTemplate count={100} basePath="/crm" />',
   styles: '// The installer adds theme rules and the grid import to your configured stylesheet.',
   files:
-    'routes/: route-specific list/detail pages and creation forms. screens/: shared list/detail screens driven by route definitions. layout.tsx: navigation and global search. example/: sample records, query helpers, and in-memory storage.',
+    'routes/: route-specific list/detail pages and creation forms. screens/: shared list/detail screens driven by route definitions. components/: CRM-only record list/table, detail compositions and loading skeletons. layout.tsx: navigation and global search. example/: sample records, query helpers, and in-memory storage.',
   routes: [
     'companies',
     'companies/:id',
