@@ -1,4 +1,12 @@
-import { Building2Icon, ChartNoAxesColumnIcon, SearchIcon, TargetIcon, UserRoundIcon } from 'lucide-react'
+import {
+  Building2Icon,
+  ChartNoAxesColumnIcon,
+  SearchIcon,
+  SettingsIcon,
+  SquareCheckIcon,
+  TargetIcon,
+  UserRoundIcon,
+} from 'lucide-react'
 import { SearchDialog } from '@/components/collections/search-dialog.tsx'
 import type { ExampleRecord } from '@/components/crm/types.ts'
 import { searchRecords } from '@/components/crm/example/query.ts'
@@ -20,13 +28,29 @@ import {
 import { examples } from '@/components/crm/example/data.ts'
 import type { ExampleKind } from '@/components/crm/types.ts'
 const recordIcons = {
+  tasks: <SquareCheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
   companies: <Building2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
   people: <UserRoundIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
   deals: <TargetIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
 }
 export function Layout(
-  { kind, report = false, onReport, recordName, onBack, onNavigate, searchOpen, onSearch, href, children }: {
+  {
+    kind,
+    report = false,
+    settings = false,
+    onSettings,
+    onReport,
+    recordName,
+    onBack,
+    onNavigate,
+    searchOpen,
+    onSearch,
+    href,
+    children,
+  }: {
     kind: ExampleKind
+    settings?: boolean
+    onSettings: () => void
     report?: boolean
     onReport: () => void
     onNavigate: (kind: ExampleKind) => void
@@ -78,7 +102,7 @@ export function Layout(
                     label={examples[key].title}
                     href={href('/' + key)}
                     icon={recordIcons[key]}
-                    active={!report && key === kind}
+                    active={!report && !settings && key === kind}
                     onClick={() => {
                       onNavigate(key)
                       setOpenMobile(false)
@@ -98,6 +122,22 @@ export function Layout(
                   active={report}
                   onClick={() => {
                     onReport()
+                    setOpenMobile(false)
+                  }}
+                />
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroup>
+          <SidebarGroup label='Workspace'>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  label='Settings'
+                  href={href('/settings')}
+                  icon={<SettingsIcon size={16} aria-hidden />}
+                  active={settings}
+                  onClick={() => {
+                    onSettings()
                     setOpenMobile(false)
                   }}
                 />
@@ -184,7 +224,7 @@ export function WorkspaceSearch({ open, onOpenChange, collections, count, onOpen
       shortcut
       title='Search records'
       inputLabel='Search records'
-      placeholder='Search companies, people, and deals…'
+      placeholder='Search companies, people, deals, and tasks…'
       emptyMessage='No matching records. Try a different name, company, or email.'
       selectLabel='Open record'
       items={items}

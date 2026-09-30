@@ -1,102 +1,186 @@
-import type { ExampleKind, ExampleRecord } from '@/components/crm/types.ts'
+import type { CrmRecord, ExampleKind, ExampleRecord, Stage, User } from '@/components/crm/types.ts'
 import type { QueryField } from '@/lib/query.ts'
-
 export const owners = ['Alex Morgan', 'Jordan Lee', 'Sam Taylor']
+export const users: User[] = owners.map((name, i) => ({
+  id: `user-${i + 1}`,
+  name,
+  email: `member${i + 1}@example.com`,
+  isActive: true,
+}))
+export const stages: Stage[] = ['Qualified', 'Proposal', 'Negotiation', 'Won', 'Lost'].map((name, i) => ({
+  id: `stage-${i + 1}`,
+  name,
+  sortOrder: i,
+  status: i === 3 ? 'won' : i === 4 ? 'lost' : 'open',
+}))
+export const taskStatuses = [{ value: 'todo', label: 'To do' }, { value: 'in_progress', label: 'In progress' }, {
+  value: 'done',
+  label: 'Done',
+}, { value: 'cancelled', label: 'Cancelled' }] as const
 export const examples = {
-  companies: {
-    title: 'Companies',
-    singular: 'Company',
-    statuses: ['Prospect', 'Active', 'Customer'],
-  },
-  people: { title: 'People', singular: 'Person', statuses: ['New', 'Contacted', 'Connected'] },
-  deals: {
-    title: 'Deals',
-    singular: 'Deal',
-    statuses: ['Qualified', 'Proposal', 'Negotiation', 'Won'],
-  },
+  companies: { title: 'Companies', singular: 'Company', statuses: [] },
+  people: { title: 'People', singular: 'Person', statuses: [] },
+  deals: { title: 'Deals', singular: 'Deal', statuses: stages.map((s) => s.name) },
+  tasks: { title: 'Tasks', singular: 'Task', statuses: taskStatuses.map((s) => s.label) },
 } as const
+export const fieldLabels: Record<string, string> = {
+  name: 'Name',
+  ownerId: 'Owner',
+  companyId: 'Company',
+  stageId: 'Stage',
+  amount: 'Amount',
+  currency: 'Currency',
+  expectedCloseDate: 'Expected close',
+  closedAt: 'Closed at',
+  nextAction: 'Next action',
+  assigneeId: 'Assignee',
+  dueAt: 'Due',
+  completedAt: 'Completed at',
+  dealId: 'Deal',
+  personId: 'Person',
+  archivedAt: 'Archived',
+  occurredAt: 'Occurred at',
+  createdBy: 'Created by',
+  isActive: 'Active',
+  sortOrder: 'Order',
+  body: 'Body',
+  type: 'Type',
+  status: 'Status',
+  email: 'Email',
+  website: 'Website',
+  industry: 'Industry',
+  department: 'Department',
+  title: 'Title',
+  phone: 'Phone',
+}
+export function sampleEntities(kind: ExampleKind, count = 5): CrmRecord[] {
+  return Array.from({ length: count }, (_, i) => {
+    const base = {
+      id: `${kind}-${i + 1}`,
+      name: '',
+      createdAt: '2026-09-28T10:00:00Z',
+      updatedAt: '2026-09-28T10:00:00Z',
+      version: 1,
+      archivedAt: null,
+    }
+    const companyName = ['Acme Studio', 'Northstar', 'Linear Labs', 'Summit', 'Orbit'][i % 5]! +
+      (i >= 5 ? ` ${Math.floor(i / 5) + 1}` : '')
+    if (kind === 'companies') {
+      return {
+        ...base,
+        kind,
+        name: companyName,
+        ownerId: users[i % 3]!.id,
+        industry: ['Software', 'Finance', 'Healthcare', 'Manufacturing', 'Retail'][i % 5]!,
+        website: `https://company${i + 1}.example`,
+      }
+    }
+    if (kind === 'people') {
+      return {
+        ...base,
+        kind,
+        name: ['Alex Morgan', 'Jordan Lee', 'Sam Taylor', 'Riley Chen', 'Casey Kim'][i % 5]! +
+          (i >= 5 ? ` ${Math.floor(i / 5) + 1}` : ''),
+        companyId: `companies-${i + 1}`,
+        department: ['Sales', 'Product', 'Engineering'][i % 3]!,
+        title: ['Director', 'Manager', 'Lead'][i % 3]!,
+        email: `contact${i + 1}@example.com`,
+        phone: `+1 415 555 ${String(100 + i).padStart(4, '0')}`,
+      }
+    }
+    if (kind === 'deals') {
+      return {
+        ...base,
+        kind,
+        name: `${companyName} · Enterprise`,
+        companyId: `companies-${i + 1}`,
+        ownerId: users[i % 3]!.id,
+        stageId: stages[i % 5]!.id,
+        amount: i % 7 === 6 ? null : String([24000, 48000, 12000, 8000, 36000][i % 5]) + '.00',
+        currency: 'USD',
+        expectedCloseDate: `2026-${10 + i % 3}-${String(1 + i % 28).padStart(2, '0')}`,
+        closedAt: i % 5 >= 3 ? '2026-09-28T10:00:00Z' : null,
+        nextAction: 'Schedule a follow-up',
+      }
+    }
+    return {
+      ...base,
+      kind,
+      name: `Follow up with ${companyName}`,
+      companyId: `companies-${i + 1}`,
+      dealId: `deals-${i + 1}`,
+      personId: `people-${i + 1}`,
+      assigneeId: users[i % 3]!.id,
+      dueAt: `2026-10-${String(1 + i % 28).padStart(2, '0')}T15:00:00Z`,
+      status: taskStatuses[i % 4]!.value,
+      completedAt: i % 4 === 2 ? '2026-09-28T10:00:00Z' : null,
+    }
+  })
+}
+export function projectRecord(
+  record: CrmRecord,
+  records: readonly CrmRecord[],
+  members: readonly User[] = users,
+  dealStages: readonly Stage[] = stages,
+  labels?: ReadonlyMap<string, string>,
+): ExampleRecord {
+  const find = (id: string) => labels?.get(id) ?? records.find((r) => r.id === id)?.name ?? id
+  const member = (id: string) => members.find((u) => u.id === id)?.name ?? id
+  const stage = record.kind === 'deals' ? dealStages.find((s) => s.id === record.stageId) : undefined
+  return {
+    ...record,
+    data: record,
+    domain: record.kind === 'companies' ? record.website : '',
+    company: 'companyId' in record ? find(record.companyId) : '',
+    owner: 'ownerId' in record ? member(record.ownerId) : record.kind === 'tasks' ? member(record.assigneeId) : '',
+    status: stage?.name ?? (record.kind === 'tasks' ? taskStatuses.find((s) => s.value === record.status)!.label : ''),
+    email: record.kind === 'people' ? record.email : '',
+    value: record.kind === 'deals' ? Number(record.amount ?? 0) : 0,
+    amount: record.kind === 'deals' && record.amount !== null ? Number(record.amount) : null,
+    currency: record.kind === 'deals' ? record.currency : 'USD',
+    closeDate: record.kind === 'deals' ? record.expectedCloseDate : undefined,
+    stageCategory: stage?.status,
+    probability: stage?.status === 'won' ? 100 : 0,
+    deal: record.kind === 'tasks' && record.dealId ? find(record.dealId) : '',
+    person: record.kind === 'tasks' && record.personId ? find(record.personId) : '',
+  }
+}
 export function sampleRecords(kind: ExampleKind, count = 5): ExampleRecord[] {
-  const names = kind === 'people'
-    ? ['Alex Morgan', 'Jordan Lee', 'Sam Taylor', 'Riley Chen', 'Casey Kim']
-    : kind === 'deals'
-    ? ['Acme · Enterprise', 'Northstar · Expansion', 'Linear Labs · Renewal', 'Summit · Pilot', 'Orbit · Platform']
-    : ['Acme Studio', 'Northstar', 'Linear Labs', 'Summit', 'Orbit']
-  return Array.from({ length: count }, (_, index) => ({
-    id: `${kind}-${index + 1}`,
-    name: `${names[index % names.length]}${index >= names.length ? ` ${Math.floor(index / names.length) + 1}` : ''}`,
-    domain: ['acme.example', 'northstar.example', 'linear.example', 'summit.example', 'orbit.example'][index % 5]!,
-    email: `contact${index + 1}@example.com`,
-    company: ['Acme Studio', 'Northstar', 'Linear Labs'][index % 3]!,
-    status: examples[kind].statuses[index % examples[kind].statuses.length]!,
-    owner: owners[index % owners.length]!,
-    value: [24000, 48000, 12000, 8000, 36000][index % 5]!,
-    industry: ['Software', 'Finance', 'Healthcare', 'Manufacturing', 'Retail'][index % 5],
-    employees: [24, 120, 850, 48, 320][index % 5],
-    revenue: [2400000, 18000000, 96000000, 6800000, 42000000][index % 5],
-    city: ['San Francisco', 'London', 'Tokyo', 'Berlin', 'Toronto'][index % 5],
-    country: ['United States', 'United Kingdom', 'Japan', 'Germany', 'Canada'][index % 5],
-    jobTitle: ['CEO', 'VP of Sales', 'Product Manager', 'CTO', 'Operations Lead'][index % 5],
-    department: ['Leadership', 'Sales', 'Product', 'Engineering', 'Operations'][index % 5],
-    phone: `+1 415 555 ${String(100 + index).padStart(4, '0')}`,
-    probability: [25, 50, 75, 100][index % 4],
-    closeDate: `2026-${String(10 + index % 3).padStart(2, '0')}-${String(1 + index % 28).padStart(2, '0')}`,
-    source: ['Inbound', 'Referral', 'Outbound', 'Event'][index % 4],
-    priority: ['High', 'Medium', 'Low'][index % 3],
-    recurring: index % 2 === 0,
-    tags: index % 2 ? ['Partner'] : ['Enterprise', 'Strategic'],
-    lastContact: `2026-09-${String(1 + index % 28).padStart(2, '0')}`,
-    createdAt: `2026-08-${String(1 + index % 28).padStart(2, '0')}`,
-    notes: [],
-
-    activity: [{ id: `created-${index}`, title: `${examples[kind].singular} created`, time: 'Sep 28, 2026' }],
-  }))
+  const all = (Object.keys(examples) as ExampleKind[]).flatMap((k) => sampleEntities(k, count))
+  const labels = new Map(all.map((r) => [r.id, r.name]))
+  return all.filter((r) => r.kind === kind).map((r) => projectRecord(r, all, users, stages, labels))
 }
 export function queryFields(kind: ExampleKind): QueryField[] {
+  const text = (id: string, label: string): QueryField => ({ id, label, type: 'text' })
   return [
-    { id: 'name', label: 'Name', type: 'text' },
-    {
-      id: 'status',
-      label: 'Status',
-      type: 'select',
-      options: examples[kind].statuses.map((value) => ({ value, label: value })),
-    },
-    { id: 'owner', label: 'Owner', type: 'select', options: owners.map((value) => ({ value, label: value })) },
-    {
-      id: kind === 'companies' ? 'domain' : 'company',
-      label: kind === 'companies' ? 'Domain' : 'Company',
-      type: 'text',
-    },
-    ...(kind === 'companies'
-      ? [
-        { id: 'industry', label: 'Industry', type: 'text' as const },
-        { id: 'employees', label: 'Employees', type: 'number' as const },
-        { id: 'revenue', label: 'Annual revenue', type: 'number' as const },
-        { id: 'city', label: 'City', type: 'text' as const },
-        { id: 'country', label: 'Country', type: 'text' as const },
-      ]
+    text('name', kind === 'tasks' ? 'Title' : 'Name'),
+    ...kind === 'companies'
+      ? [text('owner', 'Owner'), text('industry', 'Industry'), text('domain', 'Website')]
       : kind === 'people'
       ? [
-        { id: 'email', label: 'Email', type: 'text' as const },
-        { id: 'jobTitle', label: 'Job title', type: 'text' as const },
-        { id: 'department', label: 'Department', type: 'text' as const },
-        { id: 'phone', label: 'Phone', type: 'text' as const },
-        { id: 'country', label: 'Country', type: 'text' as const },
+        text('company', 'Company'),
+        text('department', 'Department'),
+        text('title', 'Title'),
+        text('email', 'Email'),
+        text('phone', 'Phone'),
       ]
-      : [
-        { id: 'value', label: 'Value', type: 'number' as const },
-        { id: 'probability', label: 'Probability', type: 'number' as const },
-        { id: 'closeDate', label: 'Close date', type: 'date' as const },
-        { id: 'source', label: 'Source', type: 'text' as const },
-        { id: 'priority', label: 'Priority', type: 'text' as const },
-        { id: 'recurring', label: 'Recurring', type: 'boolean' as const },
-      ]),
-    {
-      id: 'tags',
-      label: 'Tags',
-      type: 'multiSelect',
-      options: ['Enterprise', 'Strategic', 'Partner'].map((value) => ({ value, label: value })),
-    },
-    ...(kind !== 'deals' ? [{ id: 'lastContact', label: 'Last contact', type: 'date' as const }] : []),
-    { id: 'createdAt', label: 'Created', type: 'date' },
+      : kind === 'deals'
+      ? [
+        text('company', 'Company'),
+        text('owner', 'Owner'),
+        text('status', 'Stage'),
+        { id: 'amount', label: 'Amount', type: 'number' as const },
+        text('currency', 'Currency'),
+        { id: 'closeDate', label: 'Expected close', type: 'date' as const },
+        text('nextAction', 'Next action'),
+      ]
+      : [text('company', 'Company'), text('deal', 'Deal'), text('person', 'Person'), text('owner', 'Assignee'), {
+        id: 'status',
+        label: 'Status',
+        type: 'select' as const,
+        options: taskStatuses.map((s) => ({ value: s.label, label: s.label })),
+      }, { id: 'dueAt', label: 'Due', type: 'datetime' as const }],
+    { id: 'createdAt', label: 'Created', type: 'datetime' },
+    { id: 'updatedAt', label: 'Updated', type: 'datetime' },
   ]
 }

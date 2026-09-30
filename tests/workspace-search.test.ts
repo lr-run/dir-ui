@@ -5,11 +5,11 @@ Deno.test('workspace search includes unvisited routes and respects edited and de
   const companies = sampleRecords('companies', 2)
   const edited = { ...companies[0]!, name: 'Renamed company', tags: ['Priority'] }
   const results = searchRecords({ companies: [edited], people: [] }, 2)
-  if (results.length !== 3 || results.some((item) => item.kind === 'people')) {
+  if (results.length !== 5 || results.some((item) => item.kind === 'people')) {
     throw new Error('Deleted records returned')
   }
   const company = results.find((item) => item.kind === 'companies')
-  if (company?.label !== 'Renamed company' || !company.keywords.includes('Priority')) {
+  if (company?.label !== 'Renamed company') {
     throw new Error('Stale search data')
   }
   if (company.recordId !== edited.id || company.group !== 'Companies') throw new Error('Invalid navigation target')

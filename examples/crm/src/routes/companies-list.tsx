@@ -1,14 +1,12 @@
 import { Building2Icon } from 'lucide-react'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
-import { Select } from '@/components/ui/select.tsx'
-import { Field } from '@/components/ui/field.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { examples, owners, queryFields } from '@/components/crm/example/data.ts'
+import { ChoiceField, TextField, userChoices } from '@/components/crm/components/record-fields.tsx'
+import { examples, queryFields } from '@/components/crm/example/data.ts'
 import { queryExampleRecords } from '@/components/crm/example/query.ts'
 import { WorkspaceSidebarTrigger } from '@/components/crm/layout.tsx'
 import { ListPage, type ListPageDefinition } from '@/components/crm/screens/list-page.tsx'
@@ -16,28 +14,21 @@ import type { ExampleRecord, ListRouteProps } from '@/components/crm/types.ts'
 
 const fields = queryFields('companies')
 const definition: ListPageDefinition<ExampleRecord> = {
-  title: 'Companies',
+  title: examples.companies.title,
   singular: 'Company',
-  icon: <Building2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
-  rowKey: (record) => record.id,
+  icon: <Building2Icon size={16} aria-hidden />,
+  rowKey: (r) => r.id,
   queryFields: fields,
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Company', type: 'record', width: 235, required: true },
-    { key: 'domain', name: 'Domain', type: 'url', width: 210 },
-    { key: 'status', name: 'Status', type: 'status', width: 150 },
-    { key: 'owner', name: 'Owner', type: 'member', width: 180 },
-    { key: 'industry', name: 'Industry', type: 'text', width: 170 },
-    { key: 'employees', name: 'Employees', type: 'number', width: 150 },
-    { key: 'revenue', name: 'Annual revenue', type: 'money', width: 165 },
-    { key: 'city', name: 'City', type: 'text', width: 160 },
-    { key: 'country', name: 'Country', type: 'text', width: 175 },
-    { key: 'tags', name: 'Tags', type: 'tags', width: 210 },
-    { key: 'lastContact', name: 'Last contact', type: 'date', width: 155 },
-    { key: 'createdAt', name: 'Created', type: 'date', width: 155 },
+    { key: 'owner', name: 'Owner', type: 'member', width: 175 },
+    { key: 'industry', name: 'Industry', type: 'text', width: 175 },
+    { key: 'domain', name: 'Website', type: 'url', width: 175 },
+    { key: 'createdAt', name: 'Created', type: 'date', width: 170 },
+    { key: 'updatedAt', name: 'Updated', type: 'date', width: 170 },
   ],
 }
-
 export function CompaniesList(props: ListRouteProps) {
   const [creating, setCreating] = useState(false)
   return (
@@ -48,87 +39,77 @@ export function CompaniesList(props: ListRouteProps) {
         {...props}
         onCreate={() => setCreating(true)}
       />
-      {creating && <CreateCompanyForm onClose={() => setCreating(false)} onCreate={props.onCreate} />}
+      {creating && <CreateCompanyForm {...props} onClose={() => setCreating(false)} />}
     </>
   )
 }
-
 export const companiesFormSchema = z.object({
-  name: z.string().trim().min(1, 'Enter a name.').max(120, 'Use 120 characters or fewer.'),
-  domain: z.string().trim(),
-  status: z.enum(examples.companies.statuses),
-  owner: z.string().min(1),
+  name: z.string().trim().min(1, 'Name is required.').max(120),
+  ownerId: z.string().trim().min(1, 'Owner is required.'),
+  industry: z.string().trim(),
+  website: z.string().trim(),
 })
-type FormValues = z.infer<typeof companiesFormSchema>
-
-function CreateCompanyForm({ onClose, onCreate }: { onClose: () => void; onCreate: (values: FormValues) => void }) {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<FormValues>({
+type Values = z.infer<typeof companiesFormSchema>
+function CreateCompanyForm(
+  { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
+) {
+  const { register, control, handleSubmit, setError, formState: { errors } } = useForm<Values>({
     resolver: zodResolver(companiesFormSchema),
-    defaultValues: { name: '', domain: '', status: examples.companies.statuses[0], owner: owners[0] },
+    defaultValues: { name: '', ownerId: state.users.find((u) => u.isActive)?.id ?? '', industry: '', website: '' },
   })
   return (
     <Dialog
       open
+      title='Create Company'
       onOpenChange={(open) => {
         if (!open) onClose()
       }}
-      title='Create Company'
       footer={
-        <div className='flex items-center justify-end gap-2'>
-          <Button type='button' onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-companies'>Create record</Button>
+        <div className='flex justify-end gap-2'>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant='default' type='submit' form='create-companies'>Create company</Button>
         </div>
       }
     >
       <form
         id='create-companies'
-        className="grid gap-5 p-6 [&_[role='combobox']]:w-full"
+        className='grid gap-4 p-5'
         noValidate
         onSubmit={handleSubmit((values) => {
-          onCreate(values)
-          onClose()
+          try {
+            onCreate(values)
+            onClose()
+          } catch (error) {
+            setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })
+          }
         })}
       >
-        <Field label='Name' required error={errors.name?.message}>
-          {(props) => <Input {...props} {...register('name')} placeholder='Enter company name' />}
-        </Field>
-        <Field label='Domain'>
-          {(props) => <Input {...props} {...register('domain')} placeholder='company.example' />}
-        </Field>
-        <Controller
-          name='status'
-          control={control}
-          render={({ field }) => (
-            <Field label='Status' required error={errors.status?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Status'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={examples.companies.statuses.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+        <TextField
+          name='name'
+          label='Name'
+          register={register}
+          type='text'
+          required
+          error={errors.name?.message}
         />
-        <Controller
-          name='owner'
-          control={control}
-          render={({ field }) => (
-            <Field label='Owner' required error={errors.owner?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Owner'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={owners.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+        <ChoiceField name='ownerId' label='Owner' control={control} items={userChoices(state)} required />
+        <TextField
+          name='industry'
+          label='Industry'
+          register={register}
+          type='text'
+          required={false}
+          error={errors.industry?.message}
         />
+        <TextField
+          name='website'
+          label='Website'
+          register={register}
+          type='url'
+          required={false}
+          error={errors.website?.message}
+        />
+        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

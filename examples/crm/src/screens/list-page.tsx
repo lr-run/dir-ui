@@ -1,4 +1,4 @@
-import { ChevronDownIcon, Columns3Icon, CopyIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
+import { ArchiveIcon, ChevronDownIcon, Columns3Icon, CopyIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { type RecordColumn } from '@/components/record-list/record-table.tsx'
 import { RecordList } from '@/components/record-list/record-list.tsx'
@@ -37,7 +37,11 @@ export function ListPage<R>(
     onCreate,
     onOpenDetail,
     onOpenPreview,
+    archived = false,
+    onArchivedChange,
   }: ListViewProps & {
+    archived?: boolean
+    onArchivedChange?: (value: boolean) => void
     definition: ListPageDefinition<R>
     leading?: ReactNode
     records: readonly R[]
@@ -172,15 +176,27 @@ export function ListPage<R>(
           </>
         }
         actions={
-          <Button
-            className="h-[28px] text-[12px] whitespace-nowrap [@container(max-width:_420px)]:w-[28px] [@container(max-width:_420px)]:p-0 [@container(max-width:_420px)]:ml-auto [@container(max-width:_420px)]:[&_[class~='group/screen-create-label']]:hidden"
-            aria-label={`New ${config.singular}`}
-            variant='default'
-            onClick={onCreate}
-          >
-            <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-            <span className='group/screen-create-label'>New {config.singular}</span>
-          </Button>
+          <>
+            {onArchivedChange && (
+              <Button
+                aria-pressed={archived}
+                onClick={() => onArchivedChange(!archived)}
+                className='h-7 text-xs'
+              >
+                <ArchiveIcon size={14} aria-hidden />
+                {archived ? 'Archived' : 'Archive'}
+              </Button>
+            )}
+            <Button
+              className="h-[28px] text-[12px] whitespace-nowrap [@container(max-width:_420px)]:w-[28px] [@container(max-width:_420px)]:p-0 [@container(max-width:_420px)]:ml-auto [@container(max-width:_420px)]:[&_[class~='group/screen-create-label']]:hidden"
+              aria-label={`New ${config.singular}`}
+              variant='default'
+              onClick={onCreate}
+            >
+              <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+              <span className='group/screen-create-label'>New {config.singular}</span>
+            </Button>
+          </>
         }
         footer={
           <>

@@ -20,8 +20,8 @@ components retain their original [shadcn/ui license](THIRD_PARTY_LICENSES/shadcn
 In a shadcn Base UI application, install individual components or the CRM Block:
 
 ```sh
-npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.3
-npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.3
+npx shadcn@4.21.0 add lr-run/dir-ui/input#v0.1.4
+npx shadcn@4.21.0 add lr-run/dir-ui/crm-example#v0.1.4
 ```
 
 Review existing-file conflicts without `--overwrite` to preserve your customizations.

@@ -1,14 +1,12 @@
 import { TargetIcon } from 'lucide-react'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
-import { Select } from '@/components/ui/select.tsx'
-import { Field } from '@/components/ui/field.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { examples, owners, queryFields } from '@/components/crm/example/data.ts'
+import { ChoiceField, recordChoices, TextField, userChoices } from '@/components/crm/components/record-fields.tsx'
+import { examples, queryFields } from '@/components/crm/example/data.ts'
 import { queryExampleRecords } from '@/components/crm/example/query.ts'
 import { WorkspaceSidebarTrigger } from '@/components/crm/layout.tsx'
 import { ListPage, type ListPageDefinition } from '@/components/crm/screens/list-page.tsx'
@@ -16,28 +14,25 @@ import type { ExampleRecord, ListRouteProps } from '@/components/crm/types.ts'
 
 const fields = queryFields('deals')
 const definition: ListPageDefinition<ExampleRecord> = {
-  title: 'Deals',
+  title: examples.deals.title,
   singular: 'Deal',
-  icon: <TargetIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
-  rowKey: (record) => record.id,
+  icon: <TargetIcon size={16} aria-hidden />,
+  rowKey: (r) => r.id,
   queryFields: fields,
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Deal', type: 'record', width: 235, required: true },
-    { key: 'company', name: 'Company', type: 'text', width: 180 },
-    { key: 'status', name: 'Status', type: 'status', width: 150 },
-    { key: 'owner', name: 'Owner', type: 'member', width: 180 },
-    { key: 'value', name: 'Value', type: 'money', width: 150 },
-    { key: 'probability', name: 'Probability', type: 'percent', width: 135 },
-    { key: 'closeDate', name: 'Close date', type: 'date', width: 155 },
-    { key: 'source', name: 'Source', type: 'text', width: 140 },
-    { key: 'priority', name: 'Priority', type: 'status', width: 130 },
-    { key: 'recurring', name: 'Recurring', type: 'boolean', width: 130 },
-    { key: 'tags', name: 'Tags', type: 'tags', width: 210 },
-    { key: 'createdAt', name: 'Created', type: 'date', width: 155 },
+    { key: 'company', name: 'Company', type: 'text', width: 175 },
+    { key: 'owner', name: 'Owner', type: 'member', width: 175 },
+    { key: 'status', name: 'Stage', type: 'status', width: 175 },
+    { key: 'amount', name: 'Amount', type: 'number', width: 175 },
+    { key: 'currency', name: 'Currency', type: 'text', width: 175 },
+    { key: 'closeDate', name: 'Expected close', type: 'date', width: 175 },
+    { key: 'nextAction', name: 'Next action', type: 'text', width: 175 },
+    { key: 'createdAt', name: 'Created', type: 'date', width: 170 },
+    { key: 'updatedAt', name: 'Updated', type: 'date', width: 170 },
   ],
 }
-
 export function DealsList(props: ListRouteProps) {
   const [creating, setCreating] = useState(false)
   return (
@@ -48,93 +43,125 @@ export function DealsList(props: ListRouteProps) {
         {...props}
         onCreate={() => setCreating(true)}
       />
-      {creating && <CreateDealForm onClose={() => setCreating(false)} onCreate={props.onCreate} />}
+      {creating && <CreateDealForm {...props} onClose={() => setCreating(false)} />}
     </>
   )
 }
-
 export const dealsFormSchema = z.object({
-  name: z.string().trim().min(1, 'Enter a name.').max(120, 'Use 120 characters or fewer.'),
-  company: z.string().trim(),
-  status: z.enum(examples.deals.statuses),
-  owner: z.string().min(1),
-  value: z.number().finite().min(0, 'Enter a positive value or zero.'),
+  name: z.string().trim().min(1, 'Name is required.').max(120),
+  companyId: z.string().trim().min(1, 'Company is required.'),
+  ownerId: z.string().trim().min(1, 'Owner is required.'),
+  stageId: z.string().trim().min(1, 'Stage is required.'),
+  amount: z.string().trim().refine(
+    (v) => !v || /^\d+(\.\d{1,2})?$/.test(v),
+    'Enter a nonnegative amount with up to two decimals.',
+  ),
+  currency: z.string().trim().min(1, 'Currency is required.'),
+  expectedCloseDate: z.string().trim(),
+  nextAction: z.string().trim(),
 })
-type FormValues = z.infer<typeof dealsFormSchema>
-
-function CreateDealForm({ onClose, onCreate }: { onClose: () => void; onCreate: (values: FormValues) => void }) {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<FormValues>({
+type Values = z.infer<typeof dealsFormSchema>
+function CreateDealForm(
+  { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
+) {
+  const { register, control, handleSubmit, setError, formState: { errors } } = useForm<Values>({
     resolver: zodResolver(dealsFormSchema),
-    defaultValues: { name: '', company: '', value: 0, status: examples.deals.statuses[0], owner: owners[0] },
+    defaultValues: {
+      name: '',
+      companyId: '',
+      ownerId: state.users.find((u) => u.isActive)?.id ?? '',
+      stageId: [...state.stages].sort((a, b) => a.sortOrder - b.sortOrder)[0]?.id ?? '',
+      amount: '',
+      currency: 'USD',
+      expectedCloseDate: '',
+      nextAction: '',
+    },
   })
   return (
     <Dialog
       open
+      title='Create Deal'
       onOpenChange={(open) => {
         if (!open) onClose()
       }}
-      title='Create Deal'
       footer={
-        <div className='flex items-center justify-end gap-2'>
-          <Button type='button' onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-deals'>Create record</Button>
+        <div className='flex justify-end gap-2'>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant='default' type='submit' form='create-deals'>Create deal</Button>
         </div>
       }
     >
       <form
         id='create-deals'
-        className="grid gap-5 p-6 [&_[role='combobox']]:w-full"
+        className='grid gap-4 p-5'
         noValidate
         onSubmit={handleSubmit((values) => {
-          onCreate(values)
-          onClose()
+          try {
+            onCreate({ ...values, amount: values.amount || null })
+            onClose()
+          } catch (error) {
+            setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })
+          }
         })}
       >
-        <Field label='Name' required error={errors.name?.message}>
-          {(props) => <Input {...props} {...register('name')} placeholder='Enter deal name' />}
-        </Field>
-        <Field label='Company'>
-          {(props) => <Input {...props} {...register('company')} placeholder='Company name' />}
-        </Field>
-        <Controller
-          name='status'
-          control={control}
-          render={({ field }) => (
-            <Field label='Status' required error={errors.status?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Status'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={examples.deals.statuses.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+        <TextField
+          name='name'
+          label='Name'
+          register={register}
+          type='text'
+          required
+          error={errors.name?.message}
         />
-        <Controller
-          name='owner'
+        <ChoiceField
+          name='companyId'
+          label='Company'
           control={control}
-          render={({ field }) => (
-            <Field label='Owner' required error={errors.owner?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Owner'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={owners.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+          items={recordChoices(state, 'companies')}
+          required
         />
-        <Field label='Value' error={errors.value?.message}>
-          {(props) => (
-            <Input {...props} type='money' min={0} step='0.01' {...register('value', { valueAsNumber: true })} />
-          )}
-        </Field>
+        <ChoiceField name='ownerId' label='Owner' control={control} items={userChoices(state)} required />
+        <ChoiceField
+          name='stageId'
+          label='Stage'
+          control={control}
+          items={[...state.stages].sort((a, b) => a.sortOrder - b.sortOrder).map((s) => ({
+            value: s.id,
+            label: s.name,
+          }))}
+          required
+        />
+        <TextField
+          name='amount'
+          label='Amount'
+          register={register}
+          type='money'
+          required={false}
+          error={errors.amount?.message}
+        />
+        <ChoiceField
+          name='currency'
+          label='Currency'
+          control={control}
+          items={Intl.supportedValuesOf('currency').map((value) => ({ value, label: value }))}
+          required
+        />
+        <TextField
+          name='expectedCloseDate'
+          label='Expected close'
+          register={register}
+          type='date'
+          required={false}
+          error={errors.expectedCloseDate?.message}
+        />
+        <TextField
+          name='nextAction'
+          label='Next action'
+          register={register}
+          type='text'
+          required={false}
+          error={errors.nextAction?.message}
+        />
+        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

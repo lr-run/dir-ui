@@ -12,102 +12,98 @@ import { PeopleList } from '@/components/crm/routes/people-list.tsx'
 import { PeopleDetail, peopleFields } from '@/components/crm/routes/people-detail.tsx'
 import { DealsList } from '@/components/crm/routes/deals-list.tsx'
 import { DealsDetail, dealsFields } from '@/components/crm/routes/deals-detail.tsx'
-import type { ExampleKind, RecordChange, RecordDraft } from '@/components/crm/types.ts'
-
+import { TasksList } from '@/components/crm/routes/tasks-list.tsx'
+import { TasksDetail, tasksFields } from '@/components/crm/routes/tasks-detail.tsx'
+import type { ExampleKind, ExampleRecord, RecordChange, RecordDraft } from '@/components/crm/types.ts'
 const Report = lazy(() => import('@/components/crm/routes/report.tsx'))
+const Settings = lazy(() => import('@/components/crm/routes/settings.tsx'))
 const pages = {
   companies: { List: CompaniesList, Detail: CompaniesDetail, fields: companiesFields },
   people: { List: PeopleList, Detail: PeopleDetail, fields: peopleFields },
   deals: { List: DealsList, Detail: DealsDetail, fields: dealsFields },
+  tasks: { List: TasksList, Detail: TasksDetail, fields: tasksFields },
 }
-export type AppRoute = { page: 'list' | 'detail'; kind: ExampleKind; id?: string } | { page: 'report' | 'not-found' }
+export type AppRoute = { page: 'list' | 'detail'; kind: ExampleKind; id?: string } | {
+  page: 'report' | 'settings' | 'not-found'
+}
 export function resolveRoute(pathname: string, basePath = ''): AppRoute {
   if (basePath && pathname !== basePath && !pathname.startsWith(`${basePath}/`)) return { page: 'not-found' }
   const path = pathname.slice(basePath.length).replace(/\/$/, '') || '/'
   if (path === '/') return { page: 'list', kind: 'companies' }
-  if (path === '/report') return { page: 'report' }
-  const match = /^\/(companies|people|deals)(?:\/([^/]+))?$/.exec(path)
+  if (path === '/report' || path === '/settings') return { page: path === '/report' ? 'report' : 'settings' }
+  const match = /^\/(companies|people|deals|tasks)(?:\/([^/]+))?$/.exec(path)
   if (!match) return { page: 'not-found' }
-  const kind = match[1] as ExampleKind
   try {
-    return match[2] ? { page: 'detail', kind, id: decodeURIComponent(match[2]) } : { page: 'list', kind }
+    return match[2]
+      ? { page: 'detail', kind: match[1] as ExampleKind, id: decodeURIComponent(match[2]) }
+      : { page: 'list', kind: match[1] as ExampleKind }
   } catch {
     return { page: 'not-found' }
   }
 }
-
-// The app works at /companies, /companies/:id, etc. The studio mounts it under /api/preview.
-// The example store owns sample records and views; this component owns navigation and overlays.
 export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePath?: string }) {
-  const [pathname, setPathname] = useState(() => location.pathname)
-  const route = resolveRoute(pathname, basePath)
-  const kind = 'kind' in route ? route.kind : 'companies'
+  const [pathname, setPathname] = useState(() => location.pathname),
+    [archived, setArchived] = useState(false),
+    [searchOpen, setSearchOpen] = useState(false),
+    [previewId, setPreviewId] = useState<string | null>(null),
+    [previewOrder, setPreviewOrder] = useState<string[]>([]),
+    [archiveTarget, setArchiveTarget] = useState<ExampleRecord | null>(null),
+    [error, setError] = useState('')
+  const route = resolveRoute(pathname, basePath), kind = 'kind' in route ? route.kind : 'companies'
   const href = (path: string) => `${basePath}${path}${location.search}`
-  const navigate = (path: string, replace = false) => {
-    const target = href(path)
-    if (`${location.pathname}${location.search}` !== target) {
-      if (replace) history.replaceState(null, '', target)
-      else history.pushState(null, '', target)
-      setPathname(location.pathname)
-    }
+  const navigate = (path: string) => {
+    history.pushState(null, '', href(path))
+    setPathname(location.pathname)
   }
   useEffect(() => {
-    const onPopState = () => setPathname(location.pathname)
-    addEventListener('popstate', onPopState)
-    if (location.pathname === basePath || location.pathname === `${basePath}/`) {
-      history.replaceState(null, '', `${basePath}/companies${location.search}`)
-      setPathname(location.pathname)
-    }
-    return () => removeEventListener('popstate', onPopState)
-  }, [basePath])
-  const store = useExampleStore(count)
-  const { collections } = store
-  const records = collections[kind]
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [previewId, setPreviewId] = useState<string | null>(null)
-  const [previewOrder, setPreviewOrder] = useState<string[]>([])
-  const [deleting, setDeleting] = useState(false)
-  const [notice, setNotice] = useState('')
+    const pop = () => setPathname(location.pathname)
+    addEventListener('popstate', pop)
+    return () => removeEventListener('popstate', pop)
+  }, [])
   useEffect(() => {
     setPreviewId(null)
-    setDeleting(false)
-    setNotice('')
+    setArchiveTarget(null)
+    setError('')
+    setArchived(false)
   }, [pathname])
+  const store = useExampleStore(count), records = store.collections[kind]
+  const rows = useMemo(() => records.filter((r) => !!r.archivedAt === archived), [records, archived])
   const previewRows = useMemo(() => {
-    const ids = new Set(records.map((record) => record.id))
+    const ids = new Set(rows.map((r) => r.id))
     return previewOrder.filter((id) => ids.has(id))
-  }, [records, previewOrder])
+  }, [rows, previewOrder])
   const previewIndex = previewRows.indexOf(previewId ?? '')
-  const record = route.page === 'detail' ? records.find((record) => record.id === route.id) : undefined
-  const selected = previewId ? records.find((record) => record.id === previewId) : record
-  const patch = (change: RecordChange, label: string) => {
-    if (!selected) return
-    store.update(kind, selected.id, change, label)
-    setNotice(change.notes ? label : `${label} saved`)
+  const record = route.page === 'detail' ? records.find((r) => r.id === route.id) : undefined
+  const selected = previewId ? records.find((r) => r.id === previewId) : record
+  const patch = (change: RecordChange, _label: string) => {
+    if (selected) store.update(kind, selected.id, change)
   }
   const openRecord = (next: ExampleKind, id: string) => {
     setPreviewId(null)
     navigate(`/${next}/${encodeURIComponent(id)}`)
   }
   const create = (values: RecordDraft) => {
-    const record = store.create(kind, values)
-    openRecord(kind, record.id)
-  }
-  const remove = () => {
-    if (!selected) return
-    store.remove(kind, selected.id)
-    setPreviewId(null)
-    setDeleting(false)
-    if (route.page === 'detail') navigate(`/${kind}`)
-    else setNotice('Record deleted')
+    const r = store.create(kind, values)
+    openRecord(kind, r.id)
   }
   const { List, Detail, fields } = pages[kind]
+  const detailProps = selected
+    ? {
+      record: selected,
+      store,
+      onChange: patch,
+      onArchive: () => setArchiveTarget(selected),
+      onOpenRecord: openRecord,
+    }
+    : null
   return (
     <>
       <Layout
         kind={kind}
         report={route.page === 'report'}
+        settings={route.page === 'settings'}
         href={href}
+        onSettings={() => navigate('/settings')}
         onReport={() => navigate('/report')}
         onNavigate={(next) => navigate(`/${next}`)}
         recordName={record?.name}
@@ -118,46 +114,51 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
         {route.page === 'report'
           ? (
             <Suspense fallback={null}>
-              <Report records={collections.deals} />
+              <Report records={store.collections.deals.filter((r) => !r.archivedAt && r.currency === 'USD')} />
             </Suspense>
           )
-          : route.page === 'not-found' || (route.page === 'detail' && !record)
+          : route.page === 'settings'
           ? (
-            <section className='flex-1 p-8'>
-              <h1 className='mb-2 text-lg font-semibold'>
-                {route.page === 'detail' ? 'Record not found' : 'Page not found'}
-              </h1>
-              <p className='mb-4 text-sm text-muted-foreground'>This demo resets its sample data when reloaded.</p>
+            <Suspense fallback={null}>
+              <Settings store={store} />
+            </Suspense>
+          )
+          : route.page === 'not-found' || route.page === 'detail' && !record
+          ? (
+            <section className='p-8'>
+              <h1 className='mb-3 text-lg font-semibold'>Record not found</h1>
+              <p className='mb-4 text-sm text-muted-foreground'>Sample records reset when this example reloads.</p>
               <Button onClick={() => navigate(`/${kind}`)}>Back to {examples[kind].title}</Button>
             </section>
           )
-          : record
-          ? <Detail key={record.id} record={record} onChange={patch} onDelete={() => setDeleting(true)} />
+          : record && detailProps
+          ? <Detail {...detailProps} />
           : (
             <List
               key={kind}
-              records={records}
+              records={rows}
+              state={store.state}
+              archived={archived}
+              onArchivedChange={(next) => {
+                setArchived(next)
+                setPreviewId(null)
+              }}
               views={store.views[kind]}
               onViewsChange={(value) => store.setViews(kind, value)}
               onCreate={create}
               onOpenDetail={(row) => openRecord(kind, row.id)}
-              onOpenPreview={(row, rows) => {
-                setPreviewOrder(rows.map((item) => item.id))
+              onOpenPreview={(row, visible) => {
+                setPreviewOrder(visible.map((r) => r.id))
                 setPreviewId(row.id)
               }}
             />
           )}
-        <div
-          className='shrink-0 border-t border-border px-3.5 py-1.5 text-[11px] text-muted-foreground empty:hidden'
-          role='status'
-        >
-          {notice}
-        </div>
+        {error && <p role='alert' className='border-t border-border p-3 text-xs text-destructive'>{error}</p>}
       </Layout>
       <WorkspaceSearch
         open={searchOpen}
         onOpenChange={setSearchOpen}
-        collections={collections}
+        collections={store.collections}
         count={count}
         onOpenRecord={openRecord}
       />
@@ -169,31 +170,44 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
           if (!open) setPreviewId(null)
         }}
       >
-        {previewId && selected && (
+        {previewId && detailProps && (
           <RecordPreview
-            kind={kind}
-            record={selected}
-            fields={fields.filter((field) => field.id !== 'status' && field.id !== 'owner')}
+            {...detailProps}
+            fields={fields(detailProps)}
             position={previewIndex + 1}
             total={previewRows.length}
             onPrevious={previewIndex > 0 ? () => setPreviewId(previewRows[previewIndex - 1]!) : undefined}
-            onNext={previewIndex >= 0 && previewIndex < previewRows.length - 1
+            onNext={previewIndex < previewRows.length - 1
               ? () => setPreviewId(previewRows[previewIndex + 1]!)
               : undefined}
-            onOpen={() => openRecord(kind, selected.id)}
-            onDelete={() => setDeleting(true)}
-            onChange={patch}
+            onOpen={() => openRecord(kind, selected!.id)}
           />
         )}
       </Sheet>
-      <ConfirmDialog
-        open={deleting}
-        onOpenChange={setDeleting}
-        title={`Delete ${selected?.name ?? 'record'}?`}
-        description='This removes the record from this demo. Reset preview to restore the sample data.'
-        action='Delete record'
-        onConfirm={remove}
-      />
+      {archiveTarget && (
+        <ConfirmDialog
+          open
+          title={`${archiveTarget.archivedAt ? 'Restore' : 'Archive'} ${archiveTarget.name}?`}
+          description={archiveTarget.archivedAt
+            ? 'Restore this record to edit it. Related records are not restored automatically.'
+            : 'This record will be hidden from active lists. Its data, links and history are retained.'}
+          action={archiveTarget.archivedAt ? 'Restore' : 'Archive'}
+          onOpenChange={(open) => {
+            if (!open) setArchiveTarget(null)
+          }}
+          onConfirm={() => {
+            try {
+              store.archive(archiveTarget.id, !!archiveTarget.archivedAt)
+              setError('')
+              setArchiveTarget(null)
+              setPreviewId(null)
+            } catch (e) {
+              setError(e instanceof Error ? e.message : 'Unable to update.')
+              setArchiveTarget(null)
+            }
+          }}
+        />
+      )}
     </>
   )
 }

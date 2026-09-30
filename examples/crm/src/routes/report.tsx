@@ -242,11 +242,12 @@ export type ReportSummary = { name: string; count: number; value: number; weight
 const summary = (name: string): ReportSummary => ({ name, count: 0, value: 0, weighted: 0, won: 0 })
 const add = (total: ReportSummary, row: ExampleRecord) => {
   const value = Number.isFinite(row.value) ? Math.max(0, row.value) : 0
-  const probability = row.status === 'Won' ? 100 : Math.min(100, Math.max(0, row.probability ?? 0))
+  const won = row.stageCategory ? row.stageCategory === 'won' : row.status === 'Won'
+  const probability = won ? 100 : Math.min(100, Math.max(0, row.probability ?? 0))
   total.count++
   total.value += value
   total.weighted += value * probability / 100
-  if (row.status === 'Won') total.won += value
+  if (won) total.won += value
 }
 
 // All views share one filtered collection; missing close dates remain in the all-dates report.

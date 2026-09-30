@@ -1,4 +1,4 @@
-import { Trash2Icon } from 'lucide-react'
+import { ArchiveIcon } from 'lucide-react'
 import { IconButton } from '@/components/ui/icon-button.tsx'
 import type { ReactNode } from 'react'
 
@@ -13,10 +13,11 @@ export type DetailField<R, Change> = {
 }
 
 export function DetailPage<R, Change>(
-  { title, fields, record, onChange, onDelete, children }: DetailContext<R, Change> & {
+  { title, fields, record, onChange, onArchive, children, archived = false }: DetailContext<R, Change> & {
     title: string
     fields: readonly DetailField<R, Change>[]
-    onDelete: () => void
+    onArchive: () => void
+    archived?: boolean
     children?: ReactNode
   },
 ) {
@@ -32,15 +33,16 @@ export function DetailPage<R, Change>(
             {title[0]}
           </span>
           <h2>{title}</h2>
-          <IconButton label='Delete record' onClick={onDelete}>
-            <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+          <IconButton label={archived ? 'Restore record' : 'Archive record'} onClick={onArchive}>
+            <ArchiveIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
           </IconButton>
         </div>
+        {archived && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore this record to edit.</p>}
         <h3>Record details</h3>
         <DetailFields fields={fields} {...context} />
       </section>
       <section
-        className="[&_h3]:text-[12px] [&_h3]:text-muted-foreground [&_h3]:font-medium [&_h3]:m-[0_0_16px] p-[12px_20px_28px] min-w-0 [@media(max-width:_800px)]:p-[12px_16px_24px] [&_[role='tabpanel']]:pt-[24px] [&_[class~='group/ui-list']]:text-[12px]"
+        className="min-w-0 p-5 pt-3 max-[800px]:px-4 [&_[role='tabpanel']]:pt-6"
         aria-label='Record content'
       >
         {children}

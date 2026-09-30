@@ -1,68 +1,95 @@
+import assert from 'node:assert/strict'
+import { relatedRecordGroups } from '../examples/crm/src/components/record-detail.tsx'
+import { createExampleState } from '../examples/crm/src/example/store.ts'
 import { queryExampleRecords } from '../examples/crm/src/example/query.ts'
 import { queryFields, sampleRecords } from '../examples/crm/src/example/data.ts'
 import { companiesFormSchema } from '../examples/crm/src/routes/companies-list.tsx'
 import { peopleFormSchema } from '../examples/crm/src/routes/people-list.tsx'
 import { dealsFormSchema } from '../examples/crm/src/routes/deals-list.tsx'
-
-Deno.test('screen fixture counts have stable distinct identities for every dataset', () => {
-  for (const kind of ['companies', 'people', 'deals'] as const) {
-    for (const count of [0, 5, 25, 100, 1000]) {
+import { tasksFormSchema } from '../examples/crm/src/routes/tasks-list.tsx'
+Deno.test('typed CRM fixtures have stable IDs and only their own editable data', () => {
+  for (const kind of ['companies', 'people', 'deals', 'tasks'] as const) {
+    for (const count of [0, 5, 100, 1000]) {
       const rows = sampleRecords(kind, count)
-      if (rows.length !== count || new Set(rows.map((row) => row.id)).size !== count) {
-        throw new Error('Invalid row identities')
-      }
-      if (rows.some((row) => !row.name || !row.status || !row.owner || !Number.isFinite(row.value))) {
-        throw new Error('Missing fixture fields')
+      assert.equal(rows.length, count)
+      assert.equal(new Set(rows.map((r) => r.id)).size, count)
+      for (const row of rows) {
+        assert.equal(row.data.kind, kind)
+        assert.ok(row.name)
+        if (kind === 'companies') assert.ok(!('email' in row.data))
       }
     }
   }
 })
-Deno.test('each route validates only its own creation fields', () => {
-  const company = companiesFormSchema.parse({ name: ' New company ', domain: '', status: 'Prospect', owner: 'Alex' })
-  if (company.name !== 'New company' || 'email' in company || 'value' in company) {
-    throw new Error('Company form requires unrelated fields')
+Deno.test('each record form validates its own required fields and decimal amounts', () => {
+  assert.equal(
+    companiesFormSchema.parse({ name: ' Company ', ownerId: 'user-1', industry: '', website: '' }).name,
+    'Company',
+  )
+  const person = { name: 'Person', companyId: 'companies-1', department: '', title: '', email: '', phone: '' }
+  assert.ok(peopleFormSchema.safeParse(person).success)
+  for (const change of [{ name: ' ' }, { companyId: '' }, { email: 'invalid' }]) {
+    assert.ok(!peopleFormSchema.safeParse({ ...person, ...change }).success)
   }
-  const person = { name: ' New contact ', company: '', email: '', status: 'New', owner: 'Alex' }
-  if (peopleFormSchema.parse(person).name !== 'New contact') throw new Error('Name was not trimmed')
-  for (const change of [{ name: '  ' }, { name: 'a'.repeat(121) }, { email: 'invalid' }, { status: 'Won' }]) {
-    if (peopleFormSchema.safeParse({ ...person, ...change }).success) throw new Error('Accepted invalid person input')
+  const deal = {
+    name: 'Deal',
+    companyId: 'companies-1',
+    ownerId: 'user-1',
+    stageId: 'stage-1',
+    amount: '',
+    currency: 'USD',
+    expectedCloseDate: '',
+    nextAction: '',
   }
-  const deal = { name: 'New deal', company: '', status: 'Qualified', owner: 'Alex', value: 0 }
-  if (dealsFormSchema.parse(deal).value !== 0) throw new Error('Zero value rejected')
-  for (const value of [-1, NaN]) {
-    if (dealsFormSchema.safeParse({ ...deal, value }).success) throw new Error('Accepted invalid deal value')
-  }
+  assert.ok(dealsFormSchema.safeParse(deal).success)
+  assert.ok(dealsFormSchema.safeParse({ ...deal, amount: '0' }).success)
+  for (const amount of ['-1', 'NaN', '2.001']) assert.ok(!dealsFormSchema.safeParse({ ...deal, amount }).success)
+  assert.ok(!tasksFormSchema.safeParse({ name: 'Task' }).success)
 })
-
-Deno.test('expanded examples combine number, date, tag and boolean filters', () => {
-  const rows = sampleRecords('deals', 5)
-  const result = queryExampleRecords(rows, queryFields('deals'), {
+Deno.test('record list composes monetary and date filters and keeps unknown amounts last', () => {
+  const rows = sampleRecords('deals', 10), fields = queryFields('deals')
+  const filtered = queryExampleRecords(rows, fields, {
     filter: {
       conjunction: 'and',
-      conditions: [
-        { id: 'value', field: 'value', operator: 'gte', value: 24000 },
-        { id: 'date', field: 'closeDate', operator: 'between', value: ['2026-10-01', '2026-12-31'] },
-        { id: 'tags', field: 'tags', operator: 'all', value: ['Enterprise', 'Strategic'] },
-        { id: 'recurring', field: 'recurring', operator: 'eq', value: true },
-      ],
+      conditions: [{ id: 'a', field: 'amount', operator: 'gte', value: 24000 }, {
+        id: 'd',
+        field: 'closeDate',
+        operator: 'between',
+        value: ['2026-10-01', '2026-12-31'],
+      }],
     },
   })
-  if (result.map((row) => row.id).join(',') !== 'deals-1,deals-5') throw new Error('Typed filters do not compose')
-  const sorted = queryExampleRecords(rows, queryFields('deals'), { sorts: [{ field: 'value', direction: 'desc' }] })
-  if (sorted[0]?.value !== 48000 || rows[0]?.value !== 24000) throw new Error('Invalid numeric sort or mutated fixture')
+  assert.ok(filtered.length > 0)
+  assert.ok(filtered.every((r) => r.amount !== null && r.amount >= 24000))
+  const sorted = queryExampleRecords(rows, fields, { sorts: [{ field: 'amount', direction: 'desc' }] })
+  assert.equal(sorted.at(-1)!.amount, null)
+  assert.equal(
+    queryExampleRecords(sampleRecords('companies', 10), queryFields('companies'), { search: 'software' }).length,
+    2,
+  )
 })
-Deno.test('expanded examples search visible fields and handle missing optional values', () => {
-  const rows = sampleRecords('companies', 10)
-  if (queryExampleRecords(rows, queryFields('companies'), { search: 'software' }).length !== 2) {
-    throw new Error('New column not searchable')
-  }
-  const missing = { ...rows[0]!, id: 'new', employees: undefined }
-  const sorted = queryExampleRecords([missing, ...rows], queryFields('companies'), {
-    sorts: [{ field: 'employees', direction: 'desc' }],
-  })
-  if (sorted.at(-1)?.id !== 'new') throw new Error('Empty values must sort last')
-  const empty = queryExampleRecords([missing, ...rows], queryFields('companies'), {
-    filter: { conjunction: 'and', conditions: [{ id: 'empty', field: 'employees', operator: 'empty' }] },
-  })
-  if (empty.length !== 1 || empty[0]?.id !== 'new') throw new Error('Empty numeric filter failed')
+
+Deno.test('related records follow explicit links and keep archived parents readable', () => {
+  const state = createExampleState(2)
+  const company = state.records.find((r) => r.id === 'companies-1')!
+  const person = state.records.find((r) => r.id === 'people-1')!
+  const task = state.records.find((r) => r.id === 'tasks-1')!
+  assert.deepEqual(relatedRecordGroups(company, state.records).flatMap((g) => g.records.map((r) => r.id)), [
+    'people-1',
+    'deals-1',
+    'tasks-1',
+  ])
+  assert.deepEqual(relatedRecordGroups(person, state.records).flatMap((g) => g.records.map((r) => r.id)), [
+    'companies-1',
+    'tasks-1',
+  ])
+  assert.deepEqual(relatedRecordGroups(task, state.records).flatMap((g) => g.records.map((r) => r.id)), [
+    'companies-1',
+    'deals-1',
+    'people-1',
+  ])
+  const archived = state.records.map((r) =>
+    ['companies-1', 'tasks-1'].includes(r.id) ? { ...r, archivedAt: '2026-09-30T00:00:00Z' } : r
+  )
+  assert.deepEqual(relatedRecordGroups(person, archived).flatMap((g) => g.records.map((r) => r.id)), ['companies-1'])
 })

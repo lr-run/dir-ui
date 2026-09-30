@@ -1,14 +1,12 @@
 import { UserRoundIcon } from 'lucide-react'
 import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
-import { Select } from '@/components/ui/select.tsx'
-import { Field } from '@/components/ui/field.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { examples, owners, queryFields } from '@/components/crm/example/data.ts'
+import { ChoiceField, recordChoices, TextField } from '@/components/crm/components/record-fields.tsx'
+import { examples, queryFields } from '@/components/crm/example/data.ts'
 import { queryExampleRecords } from '@/components/crm/example/query.ts'
 import { WorkspaceSidebarTrigger } from '@/components/crm/layout.tsx'
 import { ListPage, type ListPageDefinition } from '@/components/crm/screens/list-page.tsx'
@@ -16,28 +14,23 @@ import type { ExampleRecord, ListRouteProps } from '@/components/crm/types.ts'
 
 const fields = queryFields('people')
 const definition: ListPageDefinition<ExampleRecord> = {
-  title: 'People',
+  title: examples.people.title,
   singular: 'Person',
-  icon: <UserRoundIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
-  rowKey: (record) => record.id,
+  icon: <UserRoundIcon size={16} aria-hidden />,
+  rowKey: (r) => r.id,
   queryFields: fields,
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Person', type: 'record', width: 235, required: true },
-    { key: 'company', name: 'Company', type: 'text', width: 180 },
-    { key: 'status', name: 'Status', type: 'status', width: 150 },
-    { key: 'owner', name: 'Owner', type: 'member', width: 180 },
-    { key: 'email', name: 'Email', type: 'email', width: 230 },
-    { key: 'jobTitle', name: 'Job title', type: 'text', width: 180 },
-    { key: 'department', name: 'Department', type: 'text', width: 165 },
-    { key: 'phone', name: 'Phone', type: 'text', width: 180 },
-    { key: 'country', name: 'Country', type: 'text', width: 175 },
-    { key: 'tags', name: 'Tags', type: 'tags', width: 210 },
-    { key: 'lastContact', name: 'Last contact', type: 'date', width: 155 },
-    { key: 'createdAt', name: 'Created', type: 'date', width: 155 },
+    { key: 'company', name: 'Company', type: 'text', width: 175 },
+    { key: 'department', name: 'Department', type: 'text', width: 175 },
+    { key: 'title', name: 'Title', type: 'text', width: 175 },
+    { key: 'email', name: 'Email', type: 'email', width: 175 },
+    { key: 'phone', name: 'Phone', type: 'text', width: 175 },
+    { key: 'createdAt', name: 'Created', type: 'date', width: 170 },
+    { key: 'updatedAt', name: 'Updated', type: 'date', width: 170 },
   ],
 }
-
 export function PeopleList(props: ListRouteProps) {
   const [creating, setCreating] = useState(false)
   return (
@@ -48,91 +41,101 @@ export function PeopleList(props: ListRouteProps) {
         {...props}
         onCreate={() => setCreating(true)}
       />
-      {creating && <CreatePersonForm onClose={() => setCreating(false)} onCreate={props.onCreate} />}
+      {creating && <CreatePersonForm {...props} onClose={() => setCreating(false)} />}
     </>
   )
 }
-
 export const peopleFormSchema = z.object({
-  name: z.string().trim().min(1, 'Enter a name.').max(120, 'Use 120 characters or fewer.'),
-  company: z.string().trim(),
-  email: z.union([z.literal(''), z.email('Enter a valid email address.')]),
-  status: z.enum(examples.people.statuses),
-  owner: z.string().min(1),
+  name: z.string().trim().min(1, 'Name is required.').max(120),
+  companyId: z.string().trim().min(1, 'Company is required.'),
+  department: z.string().trim(),
+  title: z.string().trim(),
+  email: z.string().trim().refine((v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), 'Enter a valid email.'),
+  phone: z.string().trim(),
 })
-type FormValues = z.infer<typeof peopleFormSchema>
-
-function CreatePersonForm({ onClose, onCreate }: { onClose: () => void; onCreate: (values: FormValues) => void }) {
-  const { register, control, handleSubmit, formState: { errors } } = useForm<FormValues>({
+type Values = z.infer<typeof peopleFormSchema>
+function CreatePersonForm(
+  { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
+) {
+  const { register, control, handleSubmit, setError, formState: { errors } } = useForm<Values>({
     resolver: zodResolver(peopleFormSchema),
-    defaultValues: { name: '', company: '', email: '', status: examples.people.statuses[0], owner: owners[0] },
+    defaultValues: { name: '', companyId: '', department: '', title: '', email: '', phone: '' },
   })
   return (
     <Dialog
       open
+      title='Create Person'
       onOpenChange={(open) => {
         if (!open) onClose()
       }}
-      title='Create Person'
       footer={
-        <div className='flex items-center justify-end gap-2'>
-          <Button type='button' onClick={onClose}>Cancel</Button>
-          <Button variant='default' type='submit' form='create-people'>Create record</Button>
+        <div className='flex justify-end gap-2'>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant='default' type='submit' form='create-people'>Create person</Button>
         </div>
       }
     >
       <form
         id='create-people'
-        className="grid gap-5 p-6 [&_[role='combobox']]:w-full"
+        className='grid gap-4 p-5'
         noValidate
         onSubmit={handleSubmit((values) => {
-          onCreate(values)
-          onClose()
+          try {
+            onCreate(values)
+            onClose()
+          } catch (error) {
+            setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })
+          }
         })}
       >
-        <Field label='Name' required error={errors.name?.message}>
-          {(props) => <Input {...props} {...register('name')} placeholder='Enter person name' />}
-        </Field>
-        <Field label='Company'>
-          {(props) => <Input {...props} {...register('company')} placeholder='Company name' />}
-        </Field>
-        <Field label='Email' error={errors.email?.message}>
-          {(props) => <Input {...props} type='email' {...register('email')} placeholder='person@example.com' />}
-        </Field>
-        <Controller
-          name='status'
-          control={control}
-          render={({ field }) => (
-            <Field label='Status' required error={errors.status?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Status'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={examples.people.statuses.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+        <TextField
+          name='name'
+          label='Name'
+          register={register}
+          type='text'
+          required
+          error={errors.name?.message}
         />
-        <Controller
-          name='owner'
+        <ChoiceField
+          name='companyId'
+          label='Company'
           control={control}
-          render={({ field }) => (
-            <Field label='Owner' required error={errors.owner?.message}>
-              {(props) => (
-                <Select
-                  {...props}
-                  label='Owner'
-                  value={field.value}
-                  onChange={field.onChange}
-                  items={owners.map((value) => ({ value, label: value }))}
-                />
-              )}
-            </Field>
-          )}
+          items={recordChoices(state, 'companies')}
+          required
         />
+        <TextField
+          name='department'
+          label='Department'
+          register={register}
+          type='text'
+          required={false}
+          error={errors.department?.message}
+        />
+        <TextField
+          name='title'
+          label='Title'
+          register={register}
+          type='text'
+          required={false}
+          error={errors.title?.message}
+        />
+        <TextField
+          name='email'
+          label='Email'
+          register={register}
+          type='email'
+          required={false}
+          error={errors.email?.message}
+        />
+        <TextField
+          name='phone'
+          label='Phone'
+          register={register}
+          type='tel'
+          required={false}
+          error={errors.phone?.message}
+        />
+        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

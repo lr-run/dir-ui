@@ -18,7 +18,7 @@ Deno.test('report totals reconcile across stages, months and owners after combin
 Deno.test('report uses won probability, handles missing values and empty data without NaN', () => {
   const base = sampleRecords('deals', 1)[0]!
   const report = buildReport([
-    { ...base, status: 'Won', value: 100, probability: 25, closeDate: undefined },
+    { ...base, status: 'Signed', stageCategory: 'won', value: 100, probability: 25, closeDate: undefined },
     { ...base, value: 80, probability: 50 },
     { ...base, value: 20, probability: undefined },
   ])

@@ -111,7 +111,7 @@ export function searchRecords(
   count: number,
 ): RecordSearchResult[] {
   return (Object.keys(examples) as ExampleKind[]).flatMap((kind) =>
-    (collections[kind] ?? sampleRecords(kind, count)).map((record) => ({
+    (collections[kind] ?? sampleRecords(kind, count)).filter((record) => !record.archivedAt).map((record) => ({
       id: `${kind}:${record.id}`,
       kind,
       recordId: record.id,
@@ -129,7 +129,6 @@ export function searchRecords(
           : kind === 'people'
           ? [record.email, record.company]
           : [record.company]),
-        ...(record.tags ?? []),
       ],
     }))
   )
