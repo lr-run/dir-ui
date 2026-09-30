@@ -435,8 +435,8 @@ function ChoiceFooter(
   return (
     <div className='p-[4px_8px] text-[12px] text-muted-foreground [&:empty]:hidden'>
       {data.error && (
-        <div role='alert'>
-          {data.error}
+        <div role={data.errorNotified ? undefined : 'alert'}>
+          {!data.errorNotified && data.error}
           <Button variant='ghost' onClick={data.retry}>Retry</Button>
         </div>
       )}

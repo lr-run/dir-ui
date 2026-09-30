@@ -1,4 +1,4 @@
-import { Toasts } from '@/components/ui/toast.tsx'
+import { ErrorToastProvider, Toasts } from '@/components/ui/toast.tsx'
 import { I18n } from '@/lib/i18n.tsx'
 import { Toast } from '@base-ui/react/toast'
 import { Tooltip } from '@base-ui/react/tooltip'
@@ -10,7 +10,9 @@ export function CrmTemplate({ count = 100, basePath = '' }: { count?: number; ba
     <I18n>
       <Tooltip.Provider>
         <Toast.Provider>
-          <CrmApp count={count} basePath={basePath} />
+          <ErrorToastProvider>
+            <CrmApp count={count} basePath={basePath} />
+          </ErrorToastProvider>
           <Toasts />
         </Toast.Provider>
       </Tooltip.Provider>

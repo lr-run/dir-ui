@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { useEffect, useMemo, useState } from 'react'
 import { createRemoteSearch, type RemoteSearchState, type SearchLoader } from '@/lib/remote-search.ts'
 export function useRemoteSearch<T>(
@@ -7,8 +8,16 @@ export function useRemoteSearch<T>(
   debounceMs: number,
   minQueryLength: number,
 ) {
+  const notifyError = useErrorNotification()
   const [state, setState] = useState<RemoteSearchState<T>>(), [revision, setRevision] = useState(0)
-  const task = useMemo(() => createRemoteSearch<T>(setState), [])
+  const task = useMemo(
+    () =>
+      createRemoteSearch<T>(
+        setState,
+        notifyError ? (error) => notifyError(error, 'Search failed. Please try again.') : undefined,
+      ),
+    [notifyError],
+  )
   const ready = query.trim().length >= minQueryLength
   useEffect(() => {
     if (enabled && load && ready) task.search(query, load, debounceMs)

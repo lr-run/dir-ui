@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { type FocusEventHandler, type ReactNode, type Ref, useEffect, useMemo, useRef, useState } from 'react'
 import type { Choice } from '@/lib/choice-types.ts'
 export type ChoicePage = { items: Choice[]; cursor?: string }
@@ -24,6 +25,7 @@ export type ComboboxOptions = {
 }
 
 export function useChoices(props: ComboboxOptions, open: boolean, query: string) {
+  const notifyError = useErrorNotification()
   const [page, setPage] = useState<ChoicePage>({ items: [] }),
     [loading, setLoading] = useState(false),
     [error, setError] = useState(''),
@@ -45,7 +47,10 @@ export function useChoices(props: ComboboxOptions, open: boolean, query: string)
       loadOptions(query, { signal: controller.signal }).then((next) => {
         if (!controller.signal.aborted) setPage(next)
       }).catch((e) => {
-        if (!controller.signal.aborted) setError(e instanceof Error ? e.message : 'Unable to load options.')
+        if (!controller.signal.aborted) {
+          notifyError?.(e, 'Unable to load options.')
+          setError(e instanceof Error ? e.message : 'Unable to load options.')
+        }
       }).finally(() => {
         if (!controller.signal.aborted) {
           setLoading(false)
@@ -59,7 +64,7 @@ export function useChoices(props: ComboboxOptions, open: boolean, query: string)
       request.current?.abort()
       busy.current = false
     }
-  }, [open, query, loadOptions, debounceMs, revision])
+  }, [open, query, loadOptions, debounceMs, revision, notifyError])
   const more = async () => {
     if (!loadOptions || !page.cursor || busy.current) return
     const controller = new AbortController()
@@ -77,7 +82,10 @@ export function useChoices(props: ComboboxOptions, open: boolean, query: string)
         }))
       }
     } catch (e) {
-      if (!controller.signal.aborted) setError(e instanceof Error ? e.message : 'Unable to load options.')
+      if (!controller.signal.aborted) {
+        notifyError?.(e, 'Unable to load options.')
+        setError(e instanceof Error ? e.message : 'Unable to load options.')
+      }
     } finally {
       if (!controller.signal.aborted) {
         setLoading(false)
@@ -106,6 +114,7 @@ export function useChoices(props: ComboboxOptions, open: boolean, query: string)
     lookup,
     loading,
     error,
+    errorNotified: !!notifyError,
     more,
     hasMore: !!page.cursor,
     truncated: filtered.length > maxVisible,

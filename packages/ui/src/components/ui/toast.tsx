@@ -1,6 +1,17 @@
-import { CheckIcon, XIcon } from 'lucide-react'
+import { type ReactNode, useMemo } from 'react'
+import { ErrorNotificationProvider } from '@/lib/error-notifications.tsx'
+import { createErrorNotifier } from '@/lib/error-notifier.ts'
+import { CheckIcon, CircleAlertIcon, XIcon } from 'lucide-react'
 import { Toast } from '@base-ui/react/toast'
 export { Toast } from '@base-ui/react/toast'
+export function ErrorToastProvider({ children }: { children: ReactNode }) {
+  const { add } = Toast.useToastManager()
+  const notify = useMemo(() =>
+    createErrorNotifier((message) => {
+      add({ title: 'Request failed', description: message, type: 'error', priority: 'high', timeout: 8000 })
+    }), [add])
+  return <ErrorNotificationProvider onError={notify}>{children}</ErrorNotificationProvider>
+}
 export function Toasts() {
   const { toasts } = Toast.useToastManager()
   return (
@@ -10,10 +21,12 @@ export function Toasts() {
           <Toast.Root
             key={t.id}
             toast={t}
-            className='flex items-center gap-[9px] [background:var(--ui-raised)] text-foreground [border:1px_solid_var(--ui-border)] [box-shadow:var(--ui-shadow)] rounded-[9px] p-[11px_12px] text-[0.75rem] [transition:opacity_140ms,_transform_140ms] [&>svg]:text-[var(--ui-green)] [&_h2]:[font-size:inherit] [&_h2]:font-normal [&_h2]:m-0 [&_p]:m-0 [@media(prefers-reduced-motion:_reduce)]:[transition:none] [&[data-starting-style]]:opacity-0 [&[data-starting-style]]:[transform:translateY(8px)] [&[data-ending-style]]:opacity-0 [&[data-ending-style]]:[transform:translateY(8px)] [&[data-limited]]:hidden'
+            className='flex items-center gap-[9px] [background:var(--ui-raised)] text-foreground [border:1px_solid_var(--ui-border)] [box-shadow:var(--ui-shadow)] rounded-[9px] p-[11px_12px] text-[0.75rem] [transition:opacity_140ms,_transform_140ms] [&>svg]:text-[var(--ui-green)] [&_h2]:[font-size:inherit] [&_h2]:font-normal [&_h2]:m-0 [&_p]:m-0 [&_p]:mt-1 [&_p]:text-muted-foreground [&_p]:break-words [&[data-type=error]>svg]:text-destructive [@media(prefers-reduced-motion:_reduce)]:[transition:none] [&[data-starting-style]]:opacity-0 [&[data-starting-style]]:[transform:translateY(8px)] [&[data-ending-style]]:opacity-0 [&[data-ending-style]]:[transform:translateY(8px)] [&[data-limited]]:hidden'
           >
-            <CheckIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-            <Toast.Content>
+            {t.type === 'error'
+              ? <CircleAlertIcon size={16} strokeWidth={1.5} aria-hidden className='shrink-0' />
+              : <CheckIcon size={16} strokeWidth={1.5} aria-hidden className='shrink-0' />}
+            <Toast.Content className='min-w-0 flex-1'>
               <Toast.Title>{t.title}</Toast.Title>
               <Toast.Description>{t.description}</Toast.Description>
             </Toast.Content>

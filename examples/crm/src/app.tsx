@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { ReportSkeleton, SettingsSkeleton } from '@/components/crm/components/loading.tsx'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button.tsx'
@@ -43,13 +44,13 @@ export function resolveRoute(pathname: string, basePath = ''): AppRoute {
   }
 }
 export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePath?: string }) {
+  const notifyError = useErrorNotification()
   const [pathname, setPathname] = useState(() => location.pathname),
     [archived, setArchived] = useState(false),
     [searchOpen, setSearchOpen] = useState(false),
     [previewId, setPreviewId] = useState<string | null>(null),
     [previewOrder, setPreviewOrder] = useState<string[]>([]),
-    [archiveTarget, setArchiveTarget] = useState<ExampleRecord | null>(null),
-    [error, setError] = useState('')
+    [archiveTarget, setArchiveTarget] = useState<ExampleRecord | null>(null)
   const route = resolveRoute(pathname, basePath), kind = 'kind' in route ? route.kind : 'companies'
   const href = (path: string) => `${basePath}${path}${location.search}`
   const navigate = (path: string) => {
@@ -64,7 +65,6 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
   useEffect(() => {
     setPreviewId(null)
     setArchiveTarget(null)
-    setError('')
     setArchived(false)
   }, [pathname])
   const store = useExampleStore(count), records = store.collections[kind]
@@ -154,7 +154,6 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
               }}
             />
           )}
-        {error && <p role='alert' className='border-t border-border p-3 text-xs text-destructive'>{error}</p>}
       </Layout>
       <WorkspaceSearch
         open={searchOpen}
@@ -199,12 +198,10 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
           onConfirm={() => {
             try {
               store.archive(archiveTarget.id, !!archiveTarget.archivedAt)
-              setError('')
               setArchiveTarget(null)
               setPreviewId(null)
             } catch (e) {
-              setError(e instanceof Error ? e.message : 'Unable to update.')
-              setArchiveTarget(null)
+              notifyError?.(e, 'Unable to update.')
             }
           }}
         />

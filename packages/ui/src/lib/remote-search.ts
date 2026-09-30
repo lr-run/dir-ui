@@ -7,7 +7,10 @@ export type RemoteSearchState<T> = {
 }
 
 /** Cancels debounced/in-flight work and ignores late responses even if the adapter ignores AbortSignal. */
-export function createRemoteSearch<T>(publish: (state: RemoteSearchState<T>) => void) {
+export function createRemoteSearch<T>(
+  publish: (state: RemoteSearchState<T>) => void,
+  onError?: (error: unknown) => void,
+) {
   let generation = 0, timer: ReturnType<typeof setTimeout> | undefined, controller: AbortController | undefined
   const cancel = () => {
     generation++
@@ -26,7 +29,8 @@ export function createRemoteSearch<T>(publish: (state: RemoteSearchState<T>) => 
           const items = await load(query, { signal: request.signal })
           if (current === generation) publish({ query, items, status: 'ready' })
         } catch (error) {
-          if (current === generation) {
+          if (current === generation && !request.signal.aborted) {
+            onError?.(error)
             publish({
               query,
               items: [],

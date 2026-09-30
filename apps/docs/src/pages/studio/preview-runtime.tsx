@@ -1,3 +1,4 @@
+import { ErrorToastProvider, Toasts } from '@dir/ui/components/ui/toast.tsx'
 import '../../tailwind.css'
 import { initializeDocumentStyles } from '../../document-styles.ts'
 import { StrictMode } from 'react'
@@ -27,8 +28,11 @@ createRoot(root).render(
       <Tooltip.Provider>
         <Toast.Provider>
           <ErrorBoundary>
-            <CrmApp count={count} basePath={basePath} />
+            <ErrorToastProvider>
+              <CrmApp count={count} basePath={basePath} />
+            </ErrorToastProvider>
           </ErrorBoundary>
+          <Toasts />
         </Toast.Provider>
       </Tooltip.Provider>
     </I18n>

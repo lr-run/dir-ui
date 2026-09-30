@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -12,16 +13,15 @@ import { TextField } from '@/components/crm/components/record-fields.tsx'
 import { WorkspaceSidebarTrigger } from '@/components/crm/layout.tsx'
 import type { CrmStore, Stage } from '@/components/crm/types.ts'
 export default function Settings({ store }: { store: CrmStore }) {
+  const notifyError = useErrorNotification()
   const [creating, setCreating] = useState(false),
-    [deleting, setDeleting] = useState<Stage | null>(null),
-    [error, setError] = useState('')
+    [deleting, setDeleting] = useState<Stage | null>(null)
   const stages = [...store.state.stages].sort((a, b) => a.sortOrder - b.sortOrder)
   const act = (fn: () => void) => {
     try {
       fn()
-      setError('')
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Unable to save.')
+      notifyError?.(e, 'Unable to save.')
     }
   }
   const move = (i: number, to: number) => {
@@ -43,7 +43,7 @@ export default function Settings({ store }: { store: CrmStore }) {
               <TabsTrigger value='stages'>Deal stages</TabsTrigger>
               <TabsTrigger value='users'>Users</TabsTrigger>
             </TabsList>
-            {error && <p role='alert' className='mt-4 text-sm text-destructive'>{error}</p>}
+
             <TabsContent value='stages' className='pt-6'>
               <div className='mb-5 flex items-center justify-between gap-3'>
                 <div>
@@ -170,7 +170,8 @@ export default function Settings({ store }: { store: CrmStore }) {
   )
 }
 function CreateStage({ store, onClose }: { store: CrmStore; onClose: () => void }) {
-  const { register, handleSubmit, setError, formState: { errors } } = useForm<
+  const notifyError = useErrorNotification()
+  const { register, handleSubmit } = useForm<
     { name: string }
   >({ defaultValues: { name: '' } })
   return (
@@ -193,12 +194,12 @@ function CreateStage({ store, onClose }: { store: CrmStore; onClose: () => void 
             })
             onClose()
           } catch (e) {
-            setError('root', { message: e instanceof Error ? e.message : 'Unable to save.' })
+            notifyError?.(e, 'Unable to save.')
           }
         })}
       >
         <TextField name='name' label='Name' register={register} required />
-        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
+
         <div className='flex justify-end gap-2'>
           <Button type='button' onClick={onClose}>Cancel</Button>
           <Button variant='default' type='submit'>Add stage</Button>

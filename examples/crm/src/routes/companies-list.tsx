@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { Building2Icon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -53,7 +54,8 @@ type Values = z.infer<typeof companiesFormSchema>
 function CreateCompanyForm(
   { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
 ) {
-  const { register, control, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<Values>({
+  const notifyError = useErrorNotification()
+  const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(companiesFormSchema),
     defaultValues: { name: '', ownerId: state.users.find((u) => u.isActive)?.id ?? '', industry: '', website: '' },
   })
@@ -82,7 +84,7 @@ function CreateCompanyForm(
             await onCreate(values)
             onClose()
           } catch (error) {
-            setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })
+            notifyError?.(error, 'Unable to save.')
           }
         })}
       >
@@ -111,7 +113,6 @@ function CreateCompanyForm(
           required={false}
           error={errors.website?.message}
         />
-        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

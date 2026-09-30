@@ -1,7 +1,7 @@
 export const siteUrl = 'https://ui.usedir.com/'
 export const projectName = 'dir/ui'
 export const registryRepository = 'lr-run/dir-ui'
-export const releaseVersion = '0.1.5'
+export const releaseVersion = '0.1.6'
 export const registryAddress = (item: string) => `${registryRepository}/${item}#v${releaseVersion}`
 export const registryUrl = (_item: string) =>
   `https://github.com/${registryRepository}/blob/v${releaseVersion}/registry.json`

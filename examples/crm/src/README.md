@@ -40,3 +40,9 @@ keep their existing loading behavior.
 
 Create callbacks and detail field saves accept promises. Create forms wait for completion, prevent duplicate submits and
 keep validation errors visible. No Dir SDK or deployed API is required by this example.
+
+API and data-operation failures are reported through `ErrorToastProvider` inside the existing `Toast.Provider`. The
+provider also routes asynchronous inline edits, remote comboboxes, and search failures to error toasts. Keep form
+validation next to its field, retain the draft on save failure, and leave retry controls available. Cancelled requests
+do not notify. The CRM demo uses in-memory operations; replace its store with API calls without adding a second error
+banner. Mount `Toasts` once in each document (including iframe previews).

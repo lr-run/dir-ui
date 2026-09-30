@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { SquareCheckIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -60,7 +61,8 @@ type Values = z.infer<typeof tasksFormSchema>
 function CreateTaskForm(
   { state, onCreate, onClose }: Pick<ListRouteProps, 'state' | 'onCreate'> & { onClose: () => void },
 ) {
-  const { register, control, handleSubmit, watch, setError, formState: { errors, isSubmitting } } = useForm<Values>({
+  const notifyError = useErrorNotification()
+  const { register, control, handleSubmit, watch, formState: { errors, isSubmitting } } = useForm<Values>({
     resolver: zodResolver(tasksFormSchema),
     defaultValues: {
       name: '',
@@ -95,7 +97,7 @@ function CreateTaskForm(
             await onCreate({ ...values, dueAt: values.dueAt ? new Date(values.dueAt).toISOString() : '' })
             onClose()
           } catch (error) {
-            setError('root', { message: error instanceof Error ? error.message : 'Unable to save.' })
+            notifyError?.(error, 'Unable to save.')
           }
         })}
       >
@@ -138,7 +140,6 @@ function CreateTaskForm(
           error={errors.dueAt?.message}
         />
         <ChoiceField name='status' label='Status' control={control} items={[...taskStatuses]} required />
-        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

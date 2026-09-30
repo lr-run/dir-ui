@@ -807,5 +807,13 @@
       "@dir/theme",
       "@dir/licenses"
     ]
+  },
+  "error-notifications": {
+    "title": "Error notifications",
+    "type": "registry:lib",
+    "files": [
+      "packages/ui/src/lib/error-notifications.tsx",
+      "packages/ui/src/lib/error-notifier.ts"
+    ]
   }
 }

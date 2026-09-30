@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { AlignLeftIcon, InfoIcon, SearchIcon, XIcon } from 'lucide-react'
 import { Combobox } from '@base-ui/react/combobox'
 import { type ComponentProps, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
@@ -83,6 +84,10 @@ function SearchResults({
   onClose: () => void
   enabled: boolean
 }) {
+  const notifyError = useErrorNotification()
+  useEffect(() => {
+    if (enabled && externalError) notifyError?.(externalError)
+  }, [enabled, externalError, notifyError])
   const [localQuery, setQuery] = useState(''),
     [failure, setFailure] = useState(''),
     [busy, setBusy] = useState(false),
@@ -132,7 +137,8 @@ function SearchResults({
     try {
       await onSelect(item)
     } catch (e) {
-      setFailure(e instanceof Error ? e.message : 'Unable to select this result.')
+      if (notifyError) notifyError(e, 'Unable to select this result.')
+      else setFailure(e instanceof Error ? e.message : 'Unable to select this result.')
     } finally {
       lock.current = false
       setBusy(false)
@@ -286,11 +292,11 @@ function SearchResults({
             )}
             {error && (
               <div
-                role='alert'
+                role={notifyError ? undefined : 'alert'}
                 className='flex flex-col items-center justify-center gap-[9px] min-h-[170px] p-[24px] text-center text-muted-foreground text-[12px] [&_strong]:font-medium [&_strong]:text-foreground'
               >
                 <InfoIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-                <strong>{error}</strong>
+                {!notifyError && <strong>{error}</strong>}
                 {onRetry && <Button size='sm' onClick={onRetry}>Retry search</Button>}
               </div>
             )}

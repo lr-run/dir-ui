@@ -1,3 +1,4 @@
+import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import {
   ArchiveIcon,
   ArchiveRestoreIcon,
@@ -198,10 +199,10 @@ export function History({ entries }: { entries: ChangeEntry[] }) {
   )
 }
 export function Activities({ record, store }: { record: ExampleRecord; store: CrmStore }) {
+  const notifyError = useErrorNotification()
   const [editing, setEditing] = useState<Activity | 'new' | null>(null),
     [archived, setArchived] = useState(false),
-    [target, setTarget] = useState<Activity | null>(null),
-    [error, setError] = useState('')
+    [target, setTarget] = useState<Activity | null>(null)
   const data = record.data, companyId = data.kind === 'companies' ? data.id : data.companyId
   const all = useMemo(
     () =>
@@ -236,7 +237,7 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
           </>
         }
       />
-      {error && <p role='alert' className='mb-3 text-xs text-destructive'>{error}</p>}
+
       {!items.length && (
         <FeedEmpty>
           {archived ? 'No archived activities.' : 'No activities yet. Record a call, email, meeting, or note.'}
@@ -312,11 +313,10 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
           onConfirm={async () => {
             try {
               await store.archiveActivity(target.id, !!target.archivedAt)
-              setError('')
+
               setTarget(null)
             } catch (e) {
-              setError(e instanceof Error ? e.message : 'Unable to update.')
-              setTarget(null)
+              notifyError?.(e, 'Unable to update.')
             }
           }}
         />
@@ -335,7 +335,8 @@ function ActivityForm(
   },
 ) {
   const body = useRef<RichTextValue>({ notesDoc: document(activity?.body ?? ''), notes: '' })
-  const { register, control, watch, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<
+  const notifyError = useErrorNotification()
+  const { register, control, watch, handleSubmit, formState: { isSubmitting } } = useForm<
     ActivityDraft
   >({
     defaultValues: {
@@ -375,7 +376,7 @@ function ActivityForm(
             }, activity?.id)
             onClose()
           } catch (e) {
-            setError('root', { message: e instanceof Error ? e.message : 'Unable to save.' })
+            notifyError?.(e, 'Unable to save.')
           }
         })}
       >
@@ -408,7 +409,6 @@ function ActivityForm(
             body.current = value
           }}
         />
-        {errors.root && <p role='alert' className='text-sm text-destructive'>{errors.root.message}</p>}
       </form>
     </Dialog>
   )

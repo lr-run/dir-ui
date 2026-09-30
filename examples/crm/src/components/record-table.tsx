@@ -515,12 +515,14 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
       />
       {pagination && (
         <div className="flex items-center gap-[8px] min-h-[34px] p-[3px_10px] [border-top:1px_solid_var(--ui-border)] text-[12px] text-muted-foreground shrink-0 [&_[data-slot='button']]:h-[26px] [&_[data-slot='button']]:p-[0_8px]">
-          <span role={pagination?.error ? 'alert' : 'status'}>
-            {pagination?.error ?? (pagination?.loading
-              ? 'Loading records…'
-              : `${grid.rows.length.toLocaleString()}${
-                pagination?.total !== undefined ? ` of ${pagination.total.toLocaleString()}` : ''
-              } records`)}
+          <span role='status'>
+            {pagination?.error
+              ? ''
+              : (pagination?.loading
+                ? 'Loading records…'
+                : `${grid.rows.length.toLocaleString()}${
+                  pagination?.total !== undefined ? ` of ${pagination.total.toLocaleString()}` : ''
+                } records`)}
           </span>
           {pagination?.hasMore && (
             <Button
