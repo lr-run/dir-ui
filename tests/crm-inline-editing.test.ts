@@ -1,3 +1,4 @@
+import { taskStatusValues } from '../examples/crm/src/types.ts'
 import assert from 'node:assert/strict'
 import { createExampleState, saveRecord } from '../examples/crm/src/example/store.ts'
 import { createRecordChoiceLoader } from '../examples/crm/src/example/query.ts'
@@ -52,4 +53,13 @@ Deno.test('Example relation loader paginates beyond 100, searches, excludes disa
   const controller = new AbortController()
   controller.abort()
   await assert.rejects(() => load('', { signal: controller.signal }), { name: 'AbortError' })
+})
+
+Deno.test('related task filters treat Done and Cancelled as completed while preserving exact statuses', () => {
+  assert.deepEqual(taskStatusValues('all'), ['todo', 'in_progress', 'done', 'cancelled'])
+  assert.deepEqual(taskStatusValues('completed'), ['done', 'cancelled'])
+  assert.deepEqual(taskStatusValues('not_completed'), ['todo', 'in_progress'])
+  for (const status of ['todo', 'in_progress', 'done', 'cancelled'] as const) {
+    assert.deepEqual(taskStatusValues(status), [status])
+  }
 })

@@ -1,8 +1,11 @@
+import { Select } from '@/components/ui/select.tsx'
+import { useState } from 'react'
+import { type TaskStatusFilter, taskStatusValues } from '@/components/crm/types.ts'
 import { ArrowUpRightIcon, Building2Icon, CheckSquareIcon, HandshakeIcon, UsersIcon } from 'lucide-react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.tsx'
 import { DetailPage } from '@/components/crm/screens/detail-page.tsx'
 import { Activities, History } from '@/components/crm/components/record-activity.tsx'
-import { examples, taskStatuses } from '@/components/crm/example/data.ts'
+import { examples, taskStatuses, taskStatusFilters } from '@/components/crm/example/data.ts'
 import type { CrmRecord, CrmStore, DetailRouteProps, ExampleKind, RecordField } from '@/components/crm/types.ts'
 
 const icons = { companies: Building2Icon, people: UsersIcon, deals: HandshakeIcon, tasks: CheckSquareIcon }
@@ -33,6 +36,11 @@ export function relatedRecordGroups(record: CrmRecord, records: readonly CrmReco
 export function RecordDetail(
   { record, store, onChange, onArchive, onOpenRecord, fields }: DetailRouteProps & { fields: RecordField[] },
 ) {
+  const [taskFilter, setTaskFilter] = useState<{ recordId: string; value: TaskStatusFilter }>({
+    recordId: record.id,
+    value: 'all',
+  })
+  const taskStatus = taskFilter.recordId === record.id ? taskFilter.value : 'all'
   const data = record.data
   const changes = store.state.history.filter((h) => h.entity === data.kind && h.recordId === record.id)
   const related = relatedRecordGroups(data, store.state.records)
@@ -76,31 +84,52 @@ export function RecordDetail(
             {data.kind !== 'tasks' && <TabsTrigger value='activities'>Activities</TabsTrigger>}
             <TabsTrigger value='history'>History</TabsTrigger>
           </TabsList>
-          {related.map(({ kind, records }) => (
-            <TabsContent key={kind} value={kind}>
-              <section aria-label={`Related ${examples[kind].title.toLowerCase()}`}>
-                <header className='mb-4 flex min-h-7 items-center gap-2'>
-                  <h3 className='text-sm font-medium'>{examples[kind].title}</h3>
-                  <span className='text-xs text-muted-foreground'>{records.length}</span>
-                </header>
-                {records.length
-                  ? (
-                    <ul className='grid gap-3'>
-                      {records.map((r) => (
-                        <li key={r.id}>
-                          <RelatedRecordCard record={r} state={store.state} onOpen={() => onOpenRecord(r.kind, r.id)} />
-                        </li>
-                      ))}
-                    </ul>
-                  )
-                  : (
-                    <p className='rounded-lg border border-dashed border-border px-4 py-10 text-center text-sm text-muted-foreground'>
-                      No related {examples[kind].title.toLowerCase()}.
-                    </p>
-                  )}
-              </section>
-            </TabsContent>
-          ))}
+          {related.map(({ kind, records: allRecords }) => {
+            const records = kind === 'tasks'
+              ? allRecords.filter((r) => r.kind === 'tasks' && taskStatusValues(taskStatus).includes(r.status))
+              : allRecords
+            return (
+              <TabsContent key={kind} value={kind}>
+                <section aria-label={`Related ${examples[kind].title.toLowerCase()}`}>
+                  <header className='mb-4 flex min-h-7 items-center gap-2'>
+                    <h3 className='text-sm font-medium'>{examples[kind].title}</h3>
+                    <span className='text-xs text-muted-foreground'>{records.length}</span>
+                    {kind === 'tasks' && (
+                      <div className='ml-auto w-40 shrink-0'>
+                        <Select
+                          label='Filter tasks by status'
+                          value={taskStatus}
+                          items={[...taskStatusFilters]}
+                          onChange={(value) => setTaskFilter({ recordId: record.id, value: value as TaskStatusFilter })}
+                        />
+                      </div>
+                    )}
+                  </header>
+                  {records.length
+                    ? (
+                      <ul className='grid gap-3'>
+                        {records.map((r) => (
+                          <li key={r.id}>
+                            <RelatedRecordCard
+                              record={r}
+                              state={store.state}
+                              onOpen={() => onOpenRecord(r.kind, r.id)}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )
+                    : (
+                      <p className='rounded-lg border border-dashed border-border px-4 py-10 text-center text-sm text-muted-foreground'>
+                        {kind === 'tasks' && taskStatus !== 'all'
+                          ? 'No tasks match this status.'
+                          : `No related ${examples[kind].title.toLowerCase()}.`}
+                      </p>
+                    )}
+                </section>
+              </TabsContent>
+            )
+          })}
           {data.kind !== 'tasks' && (
             <TabsContent value='activities'>
               <Activities record={record} store={store} />

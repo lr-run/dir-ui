@@ -37,6 +37,13 @@ export type Deal = BaseRecord & {
   nextAction: string
 }
 export type TaskStatus = 'todo' | 'in_progress' | 'done' | 'cancelled'
+export type TaskStatusFilter = TaskStatus | 'all' | 'completed' | 'not_completed'
+export function taskStatusValues(filter: TaskStatusFilter): TaskStatus[] {
+  if (filter === 'all') return ['todo', 'in_progress', 'done', 'cancelled']
+  if (filter === 'completed') return ['done', 'cancelled']
+  if (filter === 'not_completed') return ['todo', 'in_progress']
+  return [filter]
+}
 export type Task = BaseRecord & {
   kind: 'tasks'
   companyId: string

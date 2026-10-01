@@ -17,6 +17,12 @@ export const taskStatuses = [{ value: 'todo', label: 'To do' }, { value: 'in_pro
   value: 'done',
   label: 'Done',
 }, { value: 'cancelled', label: 'Cancelled' }] as const
+export const taskStatusFilters = [
+  { value: 'all', label: 'All statuses' },
+  { value: 'completed', label: 'Completed' },
+  { value: 'not_completed', label: 'Not completed' },
+  ...taskStatuses,
+] as const
 export const examples = {
   companies: { title: 'Companies', singular: 'Company', statuses: [] },
   people: { title: 'People', singular: 'Person', statuses: [] },
