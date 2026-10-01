@@ -38,9 +38,9 @@ export function RecordDetail(
 ) {
   const [taskFilter, setTaskFilter] = useState<{ recordId: string; value: TaskStatusFilter }>({
     recordId: record.id,
-    value: 'all',
+    value: 'not_completed',
   })
-  const taskStatus = taskFilter.recordId === record.id ? taskFilter.value : 'all'
+  const taskStatus = taskFilter.recordId === record.id ? taskFilter.value : 'not_completed'
   const data = record.data
   const changes = store.state.history.filter((h) => h.entity === data.kind && h.recordId === record.id)
   const related = relatedRecordGroups(data, store.state.records)
