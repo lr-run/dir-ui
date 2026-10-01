@@ -40,7 +40,7 @@ export const inputApi = {
     rows: [...inputRows, ...typeRows],
     types: '',
     notes:
-      'Money and percent use the same numeric input with an adornment. Percent values are percentage points (60 = 60%). Dates use YYYY-MM-DD; local timestamps use YYYY-MM-DDTHH:mm. The disabled prop is the shared non-editable state. Other native input attributes are forwarded.',
+      'Money and percent use the same numeric input with an adornment. Percent values are percentage points (60 = 60%). Date and datetime-local compose a calendar popover with editable native inputs. Dates use YYYY-MM-DD; local timestamps use YYYY-MM-DDTHH:mm. Alt+ArrowDown opens the calendar. Picking a day preserves the time (09:00 for an empty timestamp). min/max constrain the calendar; required disables Clear date. The disabled prop is the shared non-editable state. Other native input attributes are forwarded.',
   },
   textarea: {
     names: 'Textarea',
@@ -67,7 +67,7 @@ export const inputApi = {
     ],
     types: '',
     notes:
-      'Input and InlineInput share the type options. Enter or an outside click saves; Escape cancels. Disabled values cannot open an editor. Pending saves prevent duplicate requests.',
+      'Input and InlineInput share the type options and calendar picker for date/datetime-local. Selecting a calendar day updates the draft; Enter or an outside click commits it. Escape cancels. Disabled values cannot open an editor. Pending saves prevent duplicate requests.',
   },
   'inline-textarea': {
     names: 'InlineTextarea',

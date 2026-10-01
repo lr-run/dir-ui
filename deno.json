@@ -33,7 +33,8 @@
     "@/components/": "./packages/ui/src/components/",
     "@/hooks/": "./packages/ui/src/hooks/",
     "@/lib/": "./packages/ui/src/lib/",
-    "postcss": "npm:postcss@8.5.19"
+    "postcss": "npm:postcss@8.5.19",
+    "react-day-picker": "npm:react-day-picker@10.0.1"
   },
   "compilerOptions": {
     "strict": true,

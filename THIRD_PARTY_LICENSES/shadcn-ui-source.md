@@ -53,3 +53,7 @@ Tabs copied on 2026-09-27 from:
 
 Nova styles and MIT license apply. Local adaptations: forward orientation to the Base UI root; use data-orientation
 selectors supported by Base UI 1.6.
+
+Calendar added from https://ui.shadcn.com/r/styles/base-nova/calendar.json on 2026-09-30 (MIT). Customized imports for
+Lucide, direct day-button focus ref, and a thin focus ring. Date inputs compose Base UI Popover with this Calendar;
+native input values and events remain intact.

@@ -818,5 +818,24 @@
       "packages/ui/src/lib/error-notifications.tsx",
       "packages/ui/src/lib/error-notifier.ts"
     ]
+  },
+  "calendar": {
+    "title": "Calendar",
+    "files": [
+      "packages/ui/src/components/ui/calendar.tsx"
+    ],
+    "registryDependencies": [
+      "@dir/theme"
+    ]
+  },
+  "date-input": {
+    "title": "Date Input",
+    "files": [
+      "packages/ui/src/components/ui/date-input.tsx",
+      "packages/ui/src/lib/date-input.ts"
+    ],
+    "registryDependencies": [
+      "@dir/theme"
+    ]
   }
 }

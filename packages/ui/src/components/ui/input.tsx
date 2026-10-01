@@ -1,3 +1,4 @@
+import { DateInput } from '@/components/ui/date-input.tsx'
 import type { ComponentProps } from 'react'
 import * as React from 'react'
 import { Input as InputPrimitive } from '@base-ui/react/input'
@@ -5,6 +6,9 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from 'cn'
 import { Button } from '@/components/ui/button.tsx'
 import { Textarea } from '@/components/ui/textarea.tsx'
+
+const inputStyles =
+  "[&[aria-invalid='true']]:[border-color:var(--ui-red)] [&[aria-invalid='true']]:[box-shadow:none] [&[aria-invalid='true']:focus]:[border-color:var(--ui-red)] [&[data-slot='input'][data-slot='input'][readonly]]:[background:var(--ui-subtle)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] dark:bg-input/30 border-input focus-visible:border-ring focus-visible:shadow-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-0 aria-invalid:ring-0 md:text-sm w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 
 export type InputType =
   | 'text'
@@ -38,16 +42,22 @@ export function Input(
       </InputGroup>
     )
   }
+  if (type === 'date' || type === 'datetime-local') {
+    return (
+      <DateInput
+        {...common}
+        type={type}
+        className={cn(inputStyles, className)}
+      />
+    )
+  }
   return (
     <InputPrimitive
       {...common}
       type={type}
       inputMode={props.inputMode ?? (type === 'number' ? 'decimal' : undefined)}
       data-slot='input'
-      className={cn(
-        "[&[aria-invalid='true']]:[border-color:var(--ui-red)] [&[aria-invalid='true']]:[box-shadow:none] [&[aria-invalid='true']:focus]:[border-color:var(--ui-red)] [&[data-slot='input'][data-slot='input'][readonly]]:[background:var(--ui-subtle)] [&:is(:focus,_:focus-visible)]:[border-color:var(--ui-ring)] [&:is(:focus,_:focus-visible)]:[outline:none] [&:is(:focus,_:focus-visible)]:outline-offset-0 [&:is(:focus,_:focus-visible)]:[box-shadow:none] dark:bg-input/30 border-input focus-visible:border-ring focus-visible:shadow-none aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 h-8 rounded-lg border bg-transparent px-2.5 py-1 text-base transition-colors file:h-6 file:text-sm file:font-medium focus-visible:ring-0 aria-invalid:ring-0 md:text-sm w-full min-w-0 outline-none file:inline-flex file:border-0 file:bg-transparent file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        className,
-      )}
+      className={cn(inputStyles, className)}
     />
   )
 }
