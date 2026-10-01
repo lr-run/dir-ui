@@ -1,4 +1,5 @@
-import { ArchiveIcon, ChevronDownIcon, Maximize2Icon, XIcon } from 'lucide-react'
+import { RecordArchiveAction } from '@/components/crm/components/record-archive-action.tsx'
+import { ChevronDownIcon, Maximize2Icon, XIcon } from 'lucide-react'
 import { IconButton } from '@/components/ui/icon-button.tsx'
 import { SheetBody, SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet.tsx'
 import { DetailFields } from '@/components/crm/screens/detail-page.tsx'
@@ -46,9 +47,7 @@ export function RecordPreview(
               {record.name[0]}
             </span>
             <h2 className='flex-1 text-base font-semibold'>{record.name}</h2>
-            <IconButton label={record.archivedAt ? 'Restore record' : 'Archive record'} onClick={onArchive}>
-              <ArchiveIcon size={16} />
-            </IconButton>
+            <RecordArchiveAction archived={!!record.archivedAt} onArchive={onArchive} />
           </div>
           {record.archivedAt && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore to edit.</p>}
           <DetailFields fields={fields} record={record} onChange={onChange} />

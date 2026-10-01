@@ -255,7 +255,6 @@ export function saveActivity(
   const previous = id ? state.activities.find((a) => a.id === id) : undefined
   if (id && !previous) throw new Error('Activity not found.')
   if (previous?.archivedAt) throw new Error('Restore this activity before editing.')
-  required(draft.name, 'Subject')
   required(draft.occurredAt, 'Occurrence time')
   date(draft.occurredAt, 'Occurrence time')
   if (!['call', 'email', 'meeting', 'note'].includes(draft.type)) throw new Error('Choose a valid activity type.')

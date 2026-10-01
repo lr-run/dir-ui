@@ -41,8 +41,10 @@
     "title": "Crm Example",
     "files": [
       "examples/crm/src/app.tsx",
+      "examples/crm/src/components/actions-menu.tsx",
       "examples/crm/src/components/loading.tsx",
       "examples/crm/src/components/record-activity.tsx",
+      "examples/crm/src/components/record-archive-action.tsx",
       "examples/crm/src/components/record-cell-editor.tsx",
       "examples/crm/src/components/record-detail.tsx",
       "examples/crm/src/components/record-editing.ts",

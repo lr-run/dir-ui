@@ -1,7 +1,9 @@
+import { ActionsMenu } from '@/components/crm/components/actions-menu.tsx'
 import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import {
   ArchiveIcon,
   ArchiveRestoreIcon,
+  ArrowLeftIcon,
   FileTextIcon,
   HistoryIcon,
   MailIcon,
@@ -13,7 +15,7 @@ import {
 import { type ReactNode, useMemo, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button.tsx'
-import { IconButton } from '@/components/ui/icon-button.tsx'
+import { Textarea } from '@/components/ui/textarea.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
 import { type Note, RichText, type RichTextValue } from '@/components/ui/rich-text.tsx'
 import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
@@ -38,12 +40,26 @@ function document(body: string): Note {
     const value = JSON.parse(body)
     if (value && value.type === 'doc' && Array.isArray(value.content)) return value
   } catch { /* Plain-text activities remain readable. */ }
-  return { type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: body }] }] }
+  return {
+    type: 'doc',
+    content: body.split('\n').map((text) => ({
+      type: 'paragraph',
+      content: text ? [{ type: 'text', text }] : [],
+    })),
+  }
 }
-function FeedHeader({ title, count, actions }: { title: string; count: number; actions?: ReactNode }) {
+function FeedHeader(
+  { title, count, actions, archived = false }: {
+    title: string
+    count: number
+    actions?: ReactNode
+    archived?: boolean
+  },
+) {
   return (
     <header className='mb-4 flex min-h-7 flex-wrap items-center gap-2'>
       <h3 className='text-sm font-medium'>{title}</h3>
+      {archived && <span className='rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground'>Archived</span>}
       <span className='text-xs text-muted-foreground'>{count}</span>
       {actions && <div className='ml-auto flex items-center gap-2'>{actions}</div>}
     </header>
@@ -200,7 +216,13 @@ export function History({ entries }: { entries: ChangeEntry[] }) {
 }
 export function Activities({ record, store }: { record: ExampleRecord; store: CrmStore }) {
   const notifyError = useErrorNotification()
-  const [editing, setEditing] = useState<Activity | 'new' | null>(null),
+  const [creating, setCreating] = useState<string | null>(null)
+  const createButton = useRef<HTMLButtonElement>(null)
+  const closeComposer = () => {
+    setCreating(null)
+    createButton.current?.focus()
+  }
+  const [editing, setEditing] = useState<Activity | null>(null),
     [archived, setArchived] = useState(false),
     [target, setTarget] = useState<Activity | null>(null)
   const data = record.data, companyId = data.kind === 'companies' ? data.id : data.companyId
@@ -220,24 +242,53 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
     <section aria-label='Activities'>
       <FeedHeader
         title='Activities'
+        archived={archived}
         count={items.length}
         actions={
           <>
-            <Button aria-pressed={archived} onClick={() => setArchived(!archived)} className='h-7 text-xs'>
-              <ArchiveIcon size={14} strokeWidth={1.5} aria-hidden />
-              {archived ? 'Archived' : 'Archive'}
-            </Button>
-            <Button
-              disabled={!!record.archivedAt}
-              onClick={() => setEditing('new')}
-              className='h-7 text-xs'
-            >
-              <PlusIcon size={14} strokeWidth={1.5} aria-hidden />Add activity
-            </Button>
+            {!archived && (
+              <Button
+                ref={createButton}
+                disabled={!!record.archivedAt}
+                aria-expanded={creating === record.id}
+                onClick={() => setCreating(record.id)}
+                className='h-7 text-xs'
+              >
+                <PlusIcon size={14} strokeWidth={1.5} aria-hidden />Create
+              </Button>
+            )}
+            {archived
+              ? (
+                <Button variant='ghost' onClick={() => setArchived(false)} className='h-7 text-xs'>
+                  <ArrowLeftIcon size={14} aria-hidden />Back to active activities
+                </Button>
+              )
+              : (
+                <>
+                  <ActionsMenu
+                    label='Activities options'
+                    items={[{
+                      label: 'View archived activities',
+                      icon: <ArchiveIcon size={14} aria-hidden />,
+                      onClick: () => setArchived(true),
+                    }]}
+                  />
+                </>
+              )}
           </>
         }
       />
 
+      {creating === record.id && !archived && !record.archivedAt && (
+        <ActivityComposer
+          key={record.id}
+          onClose={closeComposer}
+          companyId={companyId}
+          dealId={data.kind === 'deals' ? data.id : ''}
+          personId={data.kind === 'people' ? data.id : ''}
+          store={store}
+        />
+      )}
       {!items.length && (
         <FeedEmpty>
           {archived ? 'No archived activities.' : 'No activities yet. Record a call, email, meeting, or note.'}
@@ -250,32 +301,32 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
             <FeedEntry
               key={a.id}
               icon={<Icon size={16} strokeWidth={1.5} aria-hidden />}
-              title={a.name}
+              title={a.name || types.find((t) => t.value === a.type)!.label}
               actor={`${types.find((t) => t.value === a.type)?.label} · ${
                 store.state.users.find((u) => u.id === a.createdBy)?.name ?? 'System'
               }`}
               date={a.occurredAt}
               actions={
-                <>
-                  {!a.archivedAt && (
-                    <IconButton
-                      label={`Edit ${a.name}`}
-                      disabled={!!record.archivedAt}
-                      variant='ghost'
-                      onClick={() => setEditing(a)}
-                    >
-                      <PencilIcon size={14} />
-                    </IconButton>
-                  )}
-                  <IconButton
-                    label={`${a.archivedAt ? 'Restore' : 'Archive'} ${a.name}`}
-                    variant='ghost'
-                    disabled={!!record.archivedAt}
-                    onClick={() => setTarget(a)}
-                  >
-                    {a.archivedAt ? <ArchiveRestoreIcon size={14} /> : <ArchiveIcon size={14} />}
-                  </IconButton>
-                </>
+                <ActionsMenu
+                  label={`${a.name || 'activity'} options`}
+                  disabled={!!record.archivedAt}
+                  items={[
+                    ...(!a.archivedAt
+                      ? [{
+                        label: 'Edit activity',
+                        icon: <PencilIcon size={14} aria-hidden />,
+                        onClick: () => setEditing(a),
+                      }]
+                      : []),
+                    {
+                      label: a.archivedAt ? 'Restore activity' : 'Archive activity',
+                      icon: a.archivedAt
+                        ? <ArchiveRestoreIcon size={14} aria-hidden />
+                        : <ArchiveIcon size={14} aria-hidden />,
+                      onClick: () => setTarget(a),
+                    },
+                  ]}
+                />
               }
             >
               <div>
@@ -292,8 +343,8 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
       </div>
       {editing && (
         <ActivityForm
-          key={editing === 'new' ? 'new' : editing.id}
-          activity={editing === 'new' ? undefined : editing}
+          key={editing.id}
+          activity={editing}
           companyId={companyId}
           dealId={data.kind === 'deals' ? data.id : ''}
           personId={data.kind === 'people' ? data.id : ''}
@@ -324,9 +375,102 @@ export function Activities({ record, store }: { record: ExampleRecord; store: Cr
     </section>
   )
 }
+function ActivityComposer(
+  { companyId, dealId, personId, store, onClose }: {
+    onClose: () => void
+    companyId: string
+    dealId: string
+    personId: string
+    store: CrmStore
+  },
+) {
+  const [text, setText] = useState('')
+  const [details, setDetails] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const pending = useRef(false)
+  const notifyError = useErrorNotification()
+  const save = async () => {
+    if (pending.current || !text.trim()) return
+    pending.current = true
+    setSaving(true)
+    try {
+      await store.saveActivity({
+        name: '',
+        type: 'note',
+        body: JSON.stringify(document(text.trim())),
+        occurredAt: new Date().toISOString(),
+        companyId,
+        dealId,
+        personId,
+      })
+      setText('')
+      onClose()
+    } catch (error) {
+      notifyError?.(error, 'Unable to add activity.')
+    } finally {
+      pending.current = false
+      setSaving(false)
+    }
+  }
+  return (
+    <>
+      <form
+        aria-label='Add activity'
+        className='mb-4 grid gap-2 rounded-lg border border-border p-3'
+        onSubmit={(event) => {
+          event.preventDefault()
+          void save()
+        }}
+      >
+        <Textarea
+          autoFocus
+          aria-label='Activity text'
+          placeholder='Write an activity…'
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+          disabled={saving || details}
+          rows={3}
+          maxLength={20000}
+          className='min-h-20 resize-y'
+          onKeyDown={(event) => {
+            if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !event.nativeEvent.isComposing) {
+              event.preventDefault()
+              void save()
+            }
+          }}
+        />
+        <div className='flex items-center justify-between gap-2'>
+          <Button type='button' variant='ghost' size='sm' disabled={saving} onClick={() => setDetails(true)}>
+            Detailed form
+          </Button>
+          <div className='flex items-center gap-2'>
+            <Button type='button' variant='ghost' size='sm' disabled={saving} onClick={onClose}>Cancel</Button>
+            <Button type='submit' size='sm' disabled={saving || !text.trim()}>
+              <PlusIcon size={14} strokeWidth={1.5} aria-hidden />
+              {saving ? 'Adding…' : 'Add activity'}
+            </Button>
+          </div>
+        </div>
+      </form>
+      {details && (
+        <ActivityForm
+          companyId={companyId}
+          dealId={dealId}
+          personId={personId}
+          initialBody={text}
+          store={store}
+          onClose={() => setDetails(false)}
+          onSaved={onClose}
+        />
+      )}
+    </>
+  )
+}
 function ActivityForm(
-  { activity, companyId, dealId, personId, store, onClose }: {
+  { activity, initialBody = '', companyId, dealId, personId, store, onClose, onSaved }: {
     activity?: Activity
+    initialBody?: string
+    onSaved?: () => void
     companyId: string
     dealId: string
     personId: string
@@ -334,7 +478,7 @@ function ActivityForm(
     onClose: () => void
   },
 ) {
-  const body = useRef<RichTextValue>({ notesDoc: document(activity?.body ?? ''), notes: '' })
+  const body = useRef<RichTextValue>({ notesDoc: document(activity?.body ?? initialBody), notes: '' })
   const notifyError = useErrorNotification()
   const { register, control, watch, handleSubmit, formState: { isSubmitting } } = useForm<
     ActivityDraft
@@ -346,7 +490,7 @@ function ActivityForm(
       dealId: activity?.dealId ?? dealId,
       personId: activity?.personId ?? personId,
       occurredAt: localDateTime(activity?.occurredAt ?? new Date().toISOString()),
-      body: activity?.body ?? '',
+      body: activity?.body ?? initialBody,
     },
   })
   const company = watch('companyId')
@@ -355,11 +499,11 @@ function ActivityForm(
       open
       title={activity ? 'Edit activity' : 'Add activity'}
       onOpenChange={(open) => {
-        if (!open) onClose()
+        if (!open && !isSubmitting) onClose()
       }}
       footer={
         <div className='flex justify-end gap-2'>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button disabled={isSubmitting} onClick={onClose}>Cancel</Button>
           <Button variant='default' disabled={isSubmitting} form='activity-form' type='submit'>Save activity</Button>
         </div>
       }
@@ -374,13 +518,14 @@ function ActivityForm(
               body: JSON.stringify(body.current.notesDoc),
               occurredAt: utcDateTime(values.occurredAt),
             }, activity?.id)
+            onSaved?.()
             onClose()
           } catch (e) {
             notifyError?.(e, 'Unable to save.')
           }
         })}
       >
-        <TextField name='name' label='Subject' register={register} required />
+        <TextField name='name' label='Subject' register={register} />
         <ChoiceField name='type' label='Type' control={control} items={types} required />
         <TextField name='occurredAt' label='Occurred at' register={register} type='datetime-local' required />
         <ChoiceField

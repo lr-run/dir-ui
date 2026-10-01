@@ -1,4 +1,14 @@
-import { ArchiveIcon, ChevronDownIcon, Columns3Icon, CopyIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
+import { ActionsMenu } from '@/components/crm/components/actions-menu.tsx'
+import {
+  ArchiveIcon,
+  ArrowLeftIcon,
+  ChevronDownIcon,
+  Columns3Icon,
+  CopyIcon,
+  PencilIcon,
+  PlusIcon,
+  Trash2Icon,
+} from 'lucide-react'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { type RecordColumn, type RecordTableProps } from '@/components/crm/components/record-table.tsx'
 import { RecordList } from '@/components/crm/components/record-list.tsx'
@@ -91,6 +101,7 @@ export function ListPage<R>(
             {leading}
             {config.icon}
             <h1>{config.title}</h1>
+            {archived && <span className='rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground'>Archived</span>}
             <span className='mx-1 h-4 w-px shrink-0 bg-border @max-[520px]:hidden' />
             <div
               ref={viewButtons}
@@ -179,25 +190,38 @@ export function ListPage<R>(
         }
         actions={
           <>
-            {onArchivedChange && (
+            {archived && onArchivedChange && (
               <Button
-                aria-pressed={archived}
-                onClick={() => onArchivedChange(!archived)}
+                variant='ghost'
+                onClick={() => onArchivedChange(false)}
                 className='h-7 text-xs'
+                aria-label='Back to active records'
               >
-                <ArchiveIcon size={14} aria-hidden />
-                {archived ? 'Archived' : 'Archive'}
+                <ArrowLeftIcon size={14} aria-hidden />
+                <span className='@max-[700px]:hidden'>Back to active records</span>
               </Button>
             )}
-            <Button
-              className="h-[28px] text-[12px] whitespace-nowrap [@container(max-width:_420px)]:w-[28px] [@container(max-width:_420px)]:p-0 [@container(max-width:_420px)]:ml-auto [@container(max-width:_420px)]:[&_[class~='group/screen-create-label']]:hidden"
-              aria-label={`New ${config.singular}`}
-              variant='default'
-              onClick={onCreate}
-            >
-              <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-              <span className='group/screen-create-label'>New {config.singular}</span>
-            </Button>
+            {!archived && onCreate && (
+              <Button
+                className="h-[28px] text-[12px] whitespace-nowrap [@container(max-width:_420px)]:w-[28px] [@container(max-width:_420px)]:p-0 [@container(max-width:_420px)]:ml-auto [@container(max-width:_420px)]:[&_[class~='group/screen-create-label']]:hidden"
+                aria-label={`New ${config.singular}`}
+                variant='default'
+                onClick={onCreate}
+              >
+                <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
+                <span className='group/screen-create-label'>New {config.singular}</span>
+              </Button>
+            )}
+            {!archived && onArchivedChange && (
+              <ActionsMenu
+                label={`${config.title} options`}
+                items={[{
+                  label: 'View archived records',
+                  icon: <ArchiveIcon size={14} aria-hidden />,
+                  onClick: () => onArchivedChange(true),
+                }]}
+              />
+            )}
           </>
         }
         footer={
@@ -249,21 +273,35 @@ export function ListPage<R>(
           renderers: {
             noRowsFallback: (
               <div className='sticky left-0 [grid-column:1_/_-1] w-[100cqw] [align-self:start] p-[48px_20px] text-center text-muted-foreground [&_h3]:text-foreground [&_h3]:text-[15px] [&_p]:text-[13px] [&_p]:m-[12px_0_20px]'>
-                <h3>{records.length ? 'No matching records' : `No ${config.title.toLowerCase()} yet`}</h3>
+                <h3>
+                  {archived
+                    ? 'No archived records found'
+                    : records.length
+                    ? 'No matching records'
+                    : `No ${config.title.toLowerCase()} yet`}
+                </h3>
                 <p>
-                  {records.length
+                  {archived
+                    ? 'Archived records appear here. Try a different search or filter, or return to active records.'
+                    : records.length
                     ? 'Try a different search or filter.'
                     : `Create your first ${config.singular.toLowerCase()}.`}
                 </p>
                 <Button
                   onClick={() => {
-                    if (records.length) {
+                    if (archived && onArchivedChange) {
+                      onArchivedChange(false)
+                    } else if (records.length) {
                       setSearch('')
                       setFilter({ conjunction: 'and', conditions: [] })
                     } else onCreate()
                   }}
                 >
-                  {records.length ? 'Clear search and filters' : `New ${config.singular}`}
+                  {archived
+                    ? 'Back to active records'
+                    : records.length
+                    ? 'Clear search and filters'
+                    : `New ${config.singular}`}
                 </Button>
               </div>
             ),

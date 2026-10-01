@@ -1,5 +1,6 @@
+import { ActionsMenu } from '@/components/crm/components/actions-menu.tsx'
 import { useErrorNotification } from '@/lib/error-notifications.tsx'
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react'
+import { ArrowDownIcon, ArrowLeftIcon, ArrowUpIcon, PlusIcon, Trash2Icon, UserXIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button.tsx'
@@ -16,6 +17,8 @@ export default function Settings({ store }: { store: CrmStore }) {
   const notifyError = useErrorNotification()
   const [creating, setCreating] = useState(false),
     [deleting, setDeleting] = useState<Stage | null>(null)
+  const [inactive, setInactive] = useState(false)
+  const visibleUsers = store.state.users.filter((user) => user.isActive !== inactive)
   const stages = [...store.state.stages].sort((a, b) => a.sortOrder - b.sortOrder)
   const act = (fn: () => void) => {
     try {
@@ -46,7 +49,7 @@ export default function Settings({ store }: { store: CrmStore }) {
 
             <TabsContent value='stages' className='pt-6'>
               <div className='mb-5 flex items-center justify-between gap-3'>
-                <div>
+                <div className='pl-[10px]'>
                   <h1 className='text-base font-semibold'>Deal stages</h1>
                   <p className='mt-1 text-xs text-muted-foreground'>
                     Rename and reorder stages. Only unused stages can be deleted.
@@ -117,10 +120,34 @@ export default function Settings({ store }: { store: CrmStore }) {
               </div>
             </TabsContent>
             <TabsContent value='users' className='pt-6'>
-              <h1 className='text-base font-semibold'>Users</h1>
-              <p className='mb-5 mt-1 text-xs text-muted-foreground'>
-                Workspace members and their current status.
-              </p>
+              <div className='mb-5 flex flex-wrap items-start justify-between gap-3'>
+                <div className='pl-[10px]'>
+                  <div className='flex items-center gap-2'>
+                    <h1 className='text-base font-semibold'>Users</h1>
+                    {inactive && (
+                      <span className='rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground'>Inactive</span>
+                    )}
+                    <span className='text-xs tabular-nums text-muted-foreground'>{visibleUsers.length}</span>
+                  </div>
+                  <p className='mt-1 text-xs text-muted-foreground'>Workspace members and their current status.</p>
+                </div>
+                {inactive
+                  ? (
+                    <Button size='sm' variant='ghost' onClick={() => setInactive(false)}>
+                      <ArrowLeftIcon size={14} aria-hidden />Back to active users
+                    </Button>
+                  )
+                  : (
+                    <ActionsMenu
+                      label='Users options'
+                      items={[{
+                        label: 'View inactive users',
+                        icon: <UserXIcon size={14} aria-hidden />,
+                        onClick: () => setInactive(true),
+                      }]}
+                    />
+                  )}
+              </div>
               <div className='overflow-x-auto rounded-lg border border-border'>
                 <table className='w-full text-left text-sm'>
                   <thead className='bg-muted/50 text-xs text-muted-foreground'>
@@ -131,7 +158,14 @@ export default function Settings({ store }: { store: CrmStore }) {
                     </tr>
                   </thead>
                   <tbody>
-                    {store.state.users.map((u) => (
+                    {!visibleUsers.length && (
+                      <tr>
+                        <td colSpan={3} className='p-8 text-center text-sm text-muted-foreground'>
+                          {inactive ? 'No inactive users.' : 'No active users.'}
+                        </td>
+                      </tr>
+                    )}
+                    {visibleUsers.map((u) => (
                       <tr key={u.id} className='border-t border-border'>
                         <td className='min-w-40 p-3 font-medium'>{u.name}</td>
                         <td className='min-w-56 p-3 text-muted-foreground'>{u.email}</td>

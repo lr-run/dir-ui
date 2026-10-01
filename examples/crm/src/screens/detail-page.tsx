@@ -1,5 +1,4 @@
-import { ArchiveIcon } from 'lucide-react'
-import { IconButton } from '@/components/ui/icon-button.tsx'
+import { RecordArchiveAction } from '@/components/crm/components/record-archive-action.tsx'
 import type { ReactNode } from 'react'
 
 export type DetailContext<R, Change> = {
@@ -33,9 +32,7 @@ export function DetailPage<R, Change>(
             {title[0]}
           </span>
           <h2>{title}</h2>
-          <IconButton label={archived ? 'Restore record' : 'Archive record'} onClick={onArchive}>
-            <ArchiveIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-          </IconButton>
+          <RecordArchiveAction archived={archived} onArchive={onArchive} />
         </div>
         {archived && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore this record to edit.</p>}
         <h3>Record details</h3>

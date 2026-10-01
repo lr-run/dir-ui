@@ -129,3 +129,24 @@ Deno.test('independent examples start with separate records, settings, activitie
   assert.notEqual(a.views.tasks.views[0]!.filter, a.views.companies.views[0]!.filter)
   assert.equal(createExampleState(0).records.length, 0)
 })
+
+Deno.test('activities allow empty subjects without changing their content or links', () => {
+  const initial = createExampleState(2)
+  const draft = {
+    name: '',
+    type: 'note' as const,
+    body: 'Agreed next steps.',
+    occurredAt: stamp,
+    companyId: 'companies-1',
+    dealId: 'deals-1',
+    personId: 'people-1',
+  }
+  const state = saveActivity(initial, draft)
+  const activity = state.activities[0]!
+  assert.equal(activity.name, '')
+  assert.equal(activity.body, draft.body)
+  assert.equal(activity.dealId, 'deals-1')
+  const updated = saveActivity(state, { ...draft, name: '   ', body: 'Updated note' }, activity.id)
+  assert.equal(updated.activities[0]!.name, '')
+  assert.equal(updated.activities[0]!.body, 'Updated note')
+})
