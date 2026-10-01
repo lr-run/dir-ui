@@ -184,7 +184,7 @@ export const extendedApi: Record<string, Api> = {
         'columnSettings',
         'boolean | GridColumnSettings',
         'false',
-        'true creates internal column settings. Pass columns, value, onChange, optional onReset/disabled for controlled settings. Visibility, order, and freeze are applied by DataGrid.',
+        'true creates internal column settings. Pass columns, value, onChange, optional onReset/disabled for controlled settings. Visibility, order, and freeze are applied by DataGrid. Reorder using the drag handle or Alt + Up/Down; pointer drags emit onChange only on drop. Escape cancels. Search disables reordering.',
       ),
       row('toolbar', 'ReactNode', '—', 'Additional caller-defined grid actions.'),
       row(

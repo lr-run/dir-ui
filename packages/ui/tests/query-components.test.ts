@@ -1,3 +1,4 @@
+import { reorderColumn } from '../src/components/data-grid/internal/column-settings.tsx'
 import {
   conditionError,
   countConditions,
@@ -81,4 +82,20 @@ Deno.test('text demo evaluates deeply nested conditions and arbitrary field IDs'
     },
   })
   assert(result.length === 1 && result[0]?.label === 'Acme', 'Arbitrary nested field matches')
+})
+
+Deno.test('column drops use insertion edges, stable IDs and avoid no-op updates', () => {
+  const columns = ['a', 'b', 'c', 'd'].map((id) => ({ id, visible: id !== 'b', frozen: id === 'a' }))
+  const ids = (value: { id: string }[]) => value.map((column) => column.id).join('')
+  assert(ids(reorderColumn(columns, 'a', 'c', false)) === 'bacd', 'Drop before a lower row')
+  assert(ids(reorderColumn(columns, 'a', 'c', true)) === 'bcad', 'Drop after a lower row')
+  assert(ids(reorderColumn(columns, 'd', 'b', false)) === 'adbc', 'Drop before an upper row')
+  assert(ids(reorderColumn(columns, 'd', 'b', true)) === 'abdc', 'Drop after an upper row')
+  assert(reorderColumn(columns, 'a', 'b', false) === columns, 'Adjacent no-op keeps identity')
+  assert(reorderColumn(columns, 'b', 'a', true) === columns, 'Adjacent reverse no-op keeps identity')
+  assert(reorderColumn(columns, 'c', 'c', true) === columns, 'Self-drop keeps identity')
+  assert(reorderColumn(columns, 'removed', 'c', true) === columns, 'Stale drag ignored')
+  const result = reorderColumn(columns, 'a', 'd', true)
+  assert(result[3] === columns[0] && result[0] === columns[1], 'Preserve visibility, freeze and object identity')
+  assert(ids(columns) === 'abcd', 'Never mutate the input')
 })
