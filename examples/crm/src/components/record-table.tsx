@@ -15,6 +15,7 @@ import {
   HashIcon,
   LinkIcon,
   MailIcon,
+  Maximize2Icon,
   PanelRightOpenIcon,
   PercentIcon,
   PinIcon,
@@ -26,7 +27,7 @@ import {
 import { cn } from 'cn'
 import { ColumnHeader, columnMenuItem, ColumnPopup } from '@/components/data-grid/internal/column-header.tsx'
 import { type Key, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { type Column, type DataGridHandle } from 'react-data-grid'
+import { type Column, type DataGridHandle, type RenderEditCellProps } from 'react-data-grid'
 import { DataGrid, type DataGridProps } from '@/components/data-grid/data-grid.tsx'
 import { Menu } from '@base-ui/react/menu'
 import { Button } from '@/components/ui/button.tsx'
@@ -58,6 +59,14 @@ export type RecordTableProps<R, SR = unknown, K extends Key = Key> = Omit<DataGr
   columnState?: readonly TableColumnState[]
   onColumnStateChange?: (state: TableColumnState[]) => void
   pagination?: RecordPagination
+  showPaginationFooter?: boolean
+  inlineEditing?: {
+    canEdit: (row: R, column: string) => boolean
+    render: (props: RenderEditCellProps<R, SR>) => ReactNode
+    onRowsChange: NonNullable<DataGridProps<R, SR, K>['onRowsChange']>
+    resolveRow: (row: R) => R
+    status: (row: R, column: string) => 'saving' | 'failed' | undefined
+  }
   onOpenRecord?: (row: R) => void
   onPreviewRecord?: (row: R) => void
 }
@@ -121,27 +130,32 @@ function Value(
         >
           {text.slice(0, 1)}
         </span>
-        {onOpen
-          ? (
-            <button
-              type='button'
-              className='overflow-hidden text-ellipsis whitespace-nowrap [border:0] [background:none] p-0 [font:inherit] text-inherit text-left cursor-pointer [&:hover]:underline [&:focus-visible]:[outline:1px_solid_var(--ui-ring)] [&:focus-visible]:outline-offset-[2px]'
-              title={text}
-              onClick={onOpen}
-            >
-              {text}
-            </button>
-          )
-          : <span className='overflow-hidden text-ellipsis whitespace-nowrap' title={text}>{text}</span>}
+        <span className='min-w-0 flex-1 truncate' title={text}>{text}</span>
         {(onPreview || onOpen) && (
-          <button
-            className='group/record-cell-open inline-flex items-center justify-center ml-auto [border:1px_solid_var(--ui-border)] rounded-[4px] [background:var(--ui-raised)] w-[22px] h-[22px] leading-[20px] cursor-pointer opacity-0 [@media(pointer:_coarse)]:inline-flex [@media(pointer:_coarse)]:items-center [@media(pointer:_coarse)]:justify-center [@media(pointer:_coarse)]:opacity-100 [&:focus-visible]:opacity-100'
-            type='button'
-            onClick={onPreview ?? onOpen}
-            aria-label={`${onPreview ? 'Preview' : 'Open'} ${text}`}
-          >
-            <PanelRightOpenIcon size={15} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-          </button>
+          <span className='ml-auto flex shrink-0 gap-1'>
+            {onPreview && (
+              <button
+                type='button'
+                onClick={onPreview}
+                aria-label={`Preview ${text}`}
+                title='Open sidebar'
+                className='group/record-cell-open inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded border border-border bg-background opacity-0 hover:bg-accent focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100'
+              >
+                <PanelRightOpenIcon size={14} strokeWidth={1.5} aria-hidden />
+              </button>
+            )}
+            {onOpen && (
+              <button
+                type='button'
+                onClick={onOpen}
+                aria-label={`Open ${text}`}
+                title='Open detail page'
+                className='group/record-cell-open inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded border border-border bg-background opacity-0 hover:bg-accent focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100'
+              >
+                <Maximize2Icon size={14} strokeWidth={1.5} aria-hidden />
+              </button>
+            )}
+          </span>
         )}
       </span>
     )
@@ -149,7 +163,17 @@ function Value(
   return <span className='overflow-hidden text-ellipsis whitespace-nowrap' title={text}>{text}</span>
 }
 export function RecordTable<R, SR = unknown, K extends Key = Key>(
-  { columns, columnState, onColumnStateChange, pagination, onOpenRecord, onPreviewRecord, ...grid }: RecordTableProps<
+  {
+    columns,
+    columnState,
+    onColumnStateChange,
+    pagination,
+    showPaginationFooter = true,
+    inlineEditing,
+    onOpenRecord,
+    onPreviewRecord,
+    ...grid
+  }: RecordTableProps<
     R,
     SR,
     K
@@ -229,13 +253,19 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
         resizable: column.resizable ?? true,
         draggable: !locked.has(column.key),
         frozen: column.frozen,
-        editable: false,
+        editable: inlineEditing ? (row) => inlineEditing.canEdit(row, column.key) : column.editable,
+        renderEditCell: inlineEditing ? inlineEditing.render : column.renderEditCell,
+        editorOptions: inlineEditing
+          ? { ...column.editorOptions, closeOnExternalRowChange: false }
+          : column.editorOptions,
         // Sorting is performed only by the menu, never by the header cell's click handler.
         sortable: false,
         headerCellClass: 'record-table-heading',
         cellClass: (row) =>
           `${typeof column.cellClass === 'function' ? column.cellClass(row) : column.cellClass ?? ''} ${
             numeric(column.type) ? 'record-cell-numeric' : ''
+          } ${inlineEditing?.status(row, column.key) === 'failed' ? 'shadow-[inset_0_-2px_var(--ui-red)]' : ''} ${
+            inlineEditing?.status(row, column.key) === 'saving' ? 'opacity-60' : ''
           }`,
         renderHeaderCell: column.renderHeaderCell ??
           (({ tabIndex }) => (
@@ -388,7 +418,17 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
             />
           )),
       }
-    }), [visible, sortColumns, onSortColumnsChange, locked, patch, reorder, onOpenRecord, onPreviewRecord])
+    }), [
+    visible,
+    sortColumns,
+    onSortColumnsChange,
+    locked,
+    patch,
+    reorder,
+    onOpenRecord,
+    onPreviewRecord,
+    inlineEditing,
+  ])
   const loadIfNearEnd = useCallback(() => {
     const el = handle.current?.element
     if (
@@ -410,6 +450,8 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
     <>
       <DataGrid
         {...grid}
+        rows={inlineEditing ? grid.rows.map(inlineEditing.resolveRow) : grid.rows}
+        onRowsChange={inlineEditing?.onRowsChange ?? grid.onRowsChange}
         columnSettings={grid.columnSettings === true
           ? {
             columns: ordered.map((column) => ({
@@ -462,6 +504,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
         headerRowHeight={grid.headerRowHeight ?? 40}
         className={cn(
           "[--rdg-color:var(--ui-text)] [--rdg-background-color:var(--ui-raised)] [--rdg-row-hover-background-color:var(--ui-hover)] [--rdg-row-selected-background-color:#edf3ff] [--rdg-row-selected-hover-background-color:#e4edff] [--rdg-selection-color:var(--ui-accent)] [--rdg-selection-width:1px] flex-1 h-full min-h-0 min-w-0 [border:0] [font-family:inherit] [&_[role='gridcell']]:[border-bottom:1px_solid_var(--ui-border)] [&_[role='gridcell']]:[border-right:1px_solid_var(--ui-border)] [&_[role='gridcell']]:items-center [&_[role='columnheader']]:[border-bottom:1px_solid_var(--ui-border)] [&_[role='columnheader']]:[border-right:1px_solid_var(--ui-border)] [&_[role='columnheader']]:items-center [&_[role='columnheader']]:font-medium [&_[class~='group/record-title-actions']]:h-full [&_[class~='group/record-title-actions']]:w-full [&_[class~='group/record-link']]:overflow-hidden [&_[class~='group/record-link']]:flex-1 [&_[class~='group/record-link']]:min-w-0 [&_[class~='group/crm-record-identity']]:w-full [&_[class~='group/sidebar-open']]:shrink-0 [&_[class~='group/sidebar-open']]:opacity-0 [&_[class~='group/row-skeleton']]:inline-block [&_[class~='group/row-skeleton']]:w-[65%] [&_[class~='group/row-skeleton']]:h-[10px] [&_[class~='group/crm-empty']]:[grid-column:1_/_-1] [&_[class~='group/crm-empty']]:sticky [&_[class~='group/crm-empty']]:left-0 [&_[class~='group/crm-empty']]:w-full [@media(pointer:_coarse)]:[&_[class~='group/sidebar-open']]:opacity-100 [&_[class~='group/record-title-actions']]:flex [&_[class~='group/record-title-actions']]:items-center [&_[class~='group/record-title-actions']]:gap-[6px] [&_[class~='group/record-title-actions']]:min-w-0 [&_[class~='group/record-link']]:flex [&_[class~='group/record-link']]:items-center [&_[class~='group/record-link']]:h-full [&_[class~='group/record-link']]:no-underline [&_[class~='group/crm-record-name']]:overflow-hidden [&_[class~='group/crm-record-name']]:whitespace-nowrap [&_[class~='group/crm-record-name']]:text-ellipsis [&_[class~='group/crm-record-name']]:min-w-0 [&_[class~='group/crm-record-mark']]:shrink-0 [&_[class~='group/crm-record-identity'][class~='group/compact']]:text-[length:var(--dir-text-body)] [&_[class~='group/crm-record-identity'][class~='group/compact']]:leading-[1.4] [&_[role=\"gridcell\"][aria-selected=\"true\"]]:[outline:1px_solid_var(--ui-accent,_#3867ed)] [&_[role=\"gridcell\"][aria-selected=\"true\"]]:outline-offset-[-1px] [&_[role=\"columnheader\"][aria-selected=\"true\"]]:[outline:1px_solid_var(--ui-accent,_#3867ed)] [&_[role=\"columnheader\"][aria-selected=\"true\"]]:outline-offset-[-1px] [&_[role='row']:hover_[class~='group/sidebar-open']]:opacity-100 [&_[role='row']:focus-within_[class~='group/sidebar-open']]:opacity-100 [--rdg-font-size:13px] [--rdg-border-color:var(--ui-border)] [--rdg-header-background-color:var(--ui-raised)] [container-type:inline-size] [&_[role='gridcell']]:p-[0_12px] [&_[role='gridcell']]:flex [&_[role='gridcell']]:text-[13px] [&_[role='columnheader']]:p-0 [&_[role='columnheader']]:text-foreground [&_[role='columnheader']]:text-[13px] [&_[role='columnheader']]:[font-weight:450] [&>[class~='group/crm-record-list-empty']]:sticky [&>[class~='group/crm-record-list-empty']]:left-0 [&>[class~='group/crm-record-list-empty']]:w-[100cqw] [&>[class~='group/crm-record-list-empty']]:max-w-[100cqw] [&>[class~='group/crm-record-list-empty']]:whitespace-normal [&>[class~='group/crm-record-list-empty']]:[align-self:start] [&_[role='gridcell']:hover]:[background:var(--ui-hover)] [&_[role='row']:hover_[class~='group/record-cell-open']]:opacity-100",
+          '[&_[role=gridcell][aria-selected=true]:not(.rdg-editor-container)]:[background:color-mix(in_srgb,var(--ui-accent)_7%,var(--ui-raised))] [&_[role=gridcell][aria-selected=true]]:outline [&_[role=gridcell][aria-selected=true]]:outline-1 [&_[role=gridcell][aria-selected=true]]:outline-[var(--ui-accent)] [&_[role=gridcell][aria-selected=true]]:outline-offset-[-1px] [&_.rdg-editor-container]:p-0! [&_.rdg-editor-container]:bg-[var(--ui-raised)]',
           grid.className,
         )}
         onColumnsReorder={(source, target) => {
@@ -479,24 +522,17 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
         onCellClick={(args, event) => {
           grid.onCellClick?.(args, event)
           if (
-            !event.defaultPrevented && columns.find((column) => column.key === args.column.key)?.type === 'record' &&
-            !(event.target as HTMLElement).closest('a,button,input')
-          ) onOpenRecord?.(args.row)
+            !event.defaultPrevented && !event.isGridDefaultPrevented() &&
+            !(event.target as HTMLElement).closest('button,input,[role=combobox]') &&
+            inlineEditing?.canEdit(args.row, args.column.key)
+          ) {
+            event.preventDefault()
+            args.setActivePosition()
+          }
         }}
         onCellDoubleClick={(args, event) => {
           grid.onCellDoubleClick?.(args, event)
-          if (!(event.target as HTMLElement).closest('a,button,input')) onOpenRecord?.(args.row)
-        }}
-        onCellKeyDown={(args, event) => {
-          grid.onCellKeyDown?.(args, event)
-          if (
-            args.mode === 'ACTIVE' && args.row !== undefined && event.key === 'Enter' && onOpenRecord &&
-            !(event.target as HTMLElement).closest('button,a,input')
-          ) {
-            event.preventGridDefault()
-            event.preventDefault()
-            onOpenRecord(args.row)
-          }
+          if ((event.target as HTMLElement).closest('button,input,[role=combobox]')) event.preventGridDefault()
         }}
         onCellCopy={(args, event) => {
           if (grid.onCellCopy) {
@@ -513,7 +549,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
           }
         }}
       />
-      {pagination && (
+      {pagination && showPaginationFooter && (
         <div className="flex items-center gap-[8px] min-h-[34px] p-[3px_10px] [border-top:1px_solid_var(--ui-border)] text-[12px] text-muted-foreground shrink-0 [&_[data-slot='button']]:h-[26px] [&_[data-slot='button']]:p-[0_8px]">
           <span role='status'>
             {pagination?.error

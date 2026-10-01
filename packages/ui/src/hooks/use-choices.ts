@@ -7,6 +7,8 @@ export type ComboboxOptions = {
   items: Choice[]
   selectedItems?: Choice[]
   label: string
+  autoFocus?: boolean
+  modal?: boolean
   id?: string
   disabled?: boolean
   readOnly?: boolean
@@ -110,14 +112,15 @@ export function useChoices(props: ComboboxOptions, open: boolean, query: string)
     [remembered, selectedItems, items, page.items],
   )
   return {
-    options: filtered.slice(0, Math.max(1, maxVisible)),
+    // Remote results are already paginated; keep every explicitly loaded page visible.
+    options: loadOptions ? filtered : filtered.slice(0, Math.max(1, maxVisible)),
     lookup,
     loading,
     error,
     errorNotified: !!notifyError,
     more,
     hasMore: !!page.cursor,
-    truncated: filtered.length > maxVisible,
+    truncated: !loadOptions && filtered.length > maxVisible,
     retry: () => retry((n) => n + 1),
     remember,
   }

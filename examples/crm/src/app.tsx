@@ -1,3 +1,4 @@
+import { useRecordGridEditing } from '@/components/crm/components/use-record-grid-editing.tsx'
 import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { ReportSkeleton, SettingsSkeleton } from '@/components/crm/components/loading.tsx'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
@@ -88,6 +89,7 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
     openRecord(kind, r.id)
   }
   const { List, Detail, fields } = pages[kind]
+  const inlineEditing = useRecordGridEditing(store, kind, fields)
   const detailProps = selected
     ? {
       record: selected,
@@ -137,6 +139,7 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
           : (
             <List
               key={kind}
+              inlineEditing={inlineEditing}
               records={rows}
               state={store.state}
               archived={archived}

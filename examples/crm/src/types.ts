@@ -1,3 +1,7 @@
+import type { LoadChoices } from '@/hooks/use-choices.ts'
+import type { InputType } from '@/components/ui/input.tsx'
+import type { Choice } from '@/lib/choice-types.ts'
+import type { RecordTableProps } from '@/components/crm/components/record-table.tsx'
 import type { Dispatch, SetStateAction } from 'react'
 import type { RecordFilter, RecordSort } from '@/lib/query.ts'
 import type { TableColumnState } from '@/components/crm/components/record-table-model.ts'
@@ -113,8 +117,16 @@ export type RecordDraft = {
 }
 export type CrmStore = ReturnType<typeof useExampleStore>
 export type RecordContext = DetailContext<ExampleRecord, Partial<RecordDraft>>
-export type RecordField = DetailField<ExampleRecord, Partial<RecordDraft>>
+export type RecordFieldsContext = Pick<DetailRouteProps, 'record' | 'store'>
+export type RecordField = DetailField<ExampleRecord, Partial<RecordDraft>> & {
+  editor?:
+    & { required?: boolean }
+    & (
+      { type: 'text'; inputType: InputType } | { type: 'choice'; items: Choice[]; loadOptions?: LoadChoices }
+    )
+}
 export type ListRouteProps = ListViewProps & {
+  inlineEditing?: RecordTableProps<ExampleRecord>['inlineEditing']
   records: readonly ExampleRecord[]
   state: ExampleState
   archived: boolean

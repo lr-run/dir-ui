@@ -1,8 +1,8 @@
 import { choiceField, recordChoices, textField, userChoices } from '@/components/crm/components/record-fields.tsx'
 import { RecordDetail } from '@/components/crm/components/record-detail.tsx'
 
-import type { DetailRouteProps, RecordField } from '@/components/crm/types.ts'
-export function dealsFields({ store: { state } }: DetailRouteProps): RecordField[] {
+import type { DetailRouteProps, RecordField, RecordFieldsContext } from '@/components/crm/types.ts'
+export function dealsFields({ store: { state } }: RecordFieldsContext): RecordField[] {
   return [
     textField('name', 'Name', 'text', true),
     choiceField('companyId', 'Company', recordChoices(state, 'companies'), true),

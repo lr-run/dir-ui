@@ -57,7 +57,17 @@ import source26 from '../../../../../examples/crm/src/screens/list-page.tsx?raw'
 import source27 from '../../../../../examples/crm/src/template.tsx?raw'
 // @deno-types="./source-text.d.ts"
 import source28 from '../../../../../examples/crm/src/types.ts?raw'
+// @deno-types="./source-text.d.ts"
+import source29 from '../../../../../examples/crm/src/components/record-cell-editor.tsx?raw'
+// @deno-types="./source-text.d.ts"
+import source30 from '../../../../../examples/crm/src/components/record-editing.ts?raw'
+// @deno-types="./source-text.d.ts"
+import source31 from '../../../../../examples/crm/src/components/use-record-grid-editing.tsx?raw'
 export const sourceFiles = Object.fromEntries([
+  [installPath('examples/crm/src/components/record-cell-editor.tsx'), source29],
+  [installPath('examples/crm/src/components/record-editing.ts'), source30],
+  [installPath('examples/crm/src/components/use-record-grid-editing.tsx'), source31],
+
   [installPath('examples/crm/src/app.tsx'), source0],
   [installPath('examples/crm/src/components/loading.tsx'), source1],
   [installPath('examples/crm/src/components/record-activity.tsx'), source2],

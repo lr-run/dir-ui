@@ -240,10 +240,33 @@ export function DataGrid<R, SR = unknown, K extends Key = Key>(
         rowHeight={grid.rowHeight ?? 40}
         headerRowHeight={grid.headerRowHeight ?? 40}
         onColumnsReorder={grid.onColumnsReorder ?? moveColumn}
+        onCellKeyDown={(args, event) => {
+          grid.onCellKeyDown?.(args, event)
+          if (event.isGridDefaultPrevented()) return
+          if (args.mode === 'EDIT' && event.key === 'Tab') {
+            event.preventGridDefault()
+            args.navigate()
+          } else if (args.mode === 'ACTIVE') {
+            if (args.column?.key === SELECT_COLUMN_KEY) return
+            if ((event.target as HTMLElement).closest('button,a,input,[role=checkbox]')) {
+              event.preventGridDefault()
+            } else if (['Enter', 'F2'].includes(event.key) && args.row && args.column) {
+              event.preventGridDefault()
+              event.preventDefault()
+              args.setActivePosition({ rowIdx: args.rowIdx, idx: args.column.idx }, { enableEditor: true })
+            } else if (
+              !event.ctrlKey && !event.metaKey &&
+              (event.key.length === 1 || event.key === 'Backspace' || event.key === 'Delete')
+            ) {
+              event.preventGridDefault()
+            }
+          }
+        }}
         // RDG beta.61 renders frozen-edge shadows as role-less children with logical insets.
         // Keep its scroll-state visibility and RTL placement; only soften the edge.
         className={cn(
           "h-[var(--record-list-height,320px)] border border-border rounded-none [--rdg-background-color:var(--ui-raised)] [--rdg-header-background-color:var(--ui-raised)] [--rdg-color:var(--ui-text)] [--rdg-row-hover-background-color:var(--ui-hover)] [--rdg-border-color:var(--ui-border)] [--rdg-selection-color:var(--ui-accent)] [--rdg-selection-width:1px] [font-family:inherit] [--rdg-font-size:13px] [&_[role='columnheader']]:p-0 [&_[role='columnheader']]:font-medium [&_[role='gridcell']]:px-3 [&>div:not([role])[style*='inset-inline-']]:w-1! [&>div:not([role])[style*='inset-inline-']]:[filter:opacity(.4)]",
+          '[&_[role=gridcell][aria-selected=true]:not(.rdg-editor-container)]:[background:color-mix(in_srgb,var(--ui-accent)_7%,var(--ui-raised))] [&_.rdg-editor-container]:p-0! [&_.rdg-editor-container]:bg-[var(--ui-raised)]',
           grid.className,
         )}
         columns={columns}
@@ -267,7 +290,7 @@ function GridSearch(
           value={value}
           disabled={disabled}
           onChange={(event) => onChange(event.target.value)}
-          className='h-[30px] min-w-0 w-full border-transparent bg-transparent pl-0 text-xs shadow-none focus-visible:border-transparent focus-visible:ring-0 focus-visible:outline-none'
+          className='h-[30px] min-w-0 w-full rounded-none border-0 bg-transparent pl-0 text-xs shadow-none focus-visible:ring-0 focus-visible:outline-none'
         />
       </label>
       <div className='ml-auto shrink-0 @min-[521px]:hidden'>

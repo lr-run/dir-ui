@@ -1,3 +1,5 @@
+import type { Choice } from '@/lib/choice-types.ts'
+import type { LoadChoices } from '@/hooks/use-choices.ts'
 import type { ExampleKind, ExampleRecord } from '@/components/crm/types.ts'
 import type { FilterCondition, FilterGroup, QueryField, RecordFilter, RecordSort } from '@/lib/query.ts'
 import { examples, sampleRecords } from '@/components/crm/example/data.ts'
@@ -132,4 +134,21 @@ export function searchRecords(
       ],
     }))
   )
+}
+
+export function createRecordChoiceLoader(items: readonly Choice[]): LoadChoices {
+  return (query, { signal, cursor }) => {
+    if (signal.aborted) return Promise.reject(new DOMException('Aborted', 'AbortError'))
+    const matches = items.filter((item) =>
+      !item.disabled &&
+      [item.label, item.description ?? '', ...(item.keywords ?? [])].join(' ').toLocaleLowerCase().includes(
+        query.toLocaleLowerCase(),
+      )
+    )
+    const offset = Number(cursor ?? 0)
+    return Promise.resolve({
+      items: matches.slice(offset, offset + 50),
+      cursor: offset + 50 < matches.length ? String(offset + 50) : undefined,
+    })
+  }
 }

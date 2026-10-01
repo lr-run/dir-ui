@@ -253,7 +253,8 @@ export const componentApi = {
         'detail': 'Set only on editable columns.',
       },
     ],
-    'notes': 'Uses react-data-grid props directly. Editable columns require renderEditCell and onRowsChange.',
+    'notes':
+      'Uses react-data-grid props directly. Editable columns require renderEditCell and onRowsChange. Click selects; double-click or Enter/F2 edits. Tab saves and moves; Escape cancels.',
     'types': '',
   },
   'popover': {

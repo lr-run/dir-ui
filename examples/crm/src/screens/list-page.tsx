@@ -1,6 +1,6 @@
 import { ArchiveIcon, ChevronDownIcon, Columns3Icon, CopyIcon, PencilIcon, PlusIcon, Trash2Icon } from 'lucide-react'
 import { type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
-import { type RecordColumn } from '@/components/crm/components/record-table.tsx'
+import { type RecordColumn, type RecordTableProps } from '@/components/crm/components/record-table.tsx'
 import { RecordList } from '@/components/crm/components/record-list.tsx'
 import type { RecordFilter, RecordSort } from '@/components/data-grid/data-grid.tsx'
 import { Button } from '@/components/ui/button.tsx'
@@ -39,7 +39,9 @@ export function ListPage<R>(
     onOpenPreview,
     archived = false,
     onArchivedChange,
+    inlineEditing,
   }: ListViewProps & {
+    inlineEditing?: RecordTableProps<R>['inlineEditing']
     archived?: boolean
     onArchivedChange?: (value: boolean) => void
     definition: ListPageDefinition<R>
@@ -226,6 +228,7 @@ export function ListPage<R>(
           </>
         }
         grid={{
+          inlineEditing,
           containerClassName: 'contents',
           toolbarClassName:
             'col-start-1 row-start-2 min-w-0 flex-nowrap gap-1.5 border-b border-border px-3 py-0 [&>button]:shrink-0 @max-[520px]:[&>button:first-child]:max-w-[110px] @max-[520px]:[&>button]:px-2 @max-[520px]:[&>button:first-child_span]:truncate',

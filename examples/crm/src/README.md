@@ -46,3 +46,14 @@ provider also routes asynchronous inline edits, remote comboboxes, and search fa
 validation next to its field, retain the draft on save failure, and leave retry controls available. Cancelled requests
 do not notify. The CRM demo uses in-memory operations; replace its store with API calls without adding a second error
 banner. Mount `Toasts` once in each document (including iframe previews).
+
+Record tables use react-data-grid's native `editable`, `renderEditCell` and `onRowsChange` APIs. A single click selects
+a cell; Enter/F2 or double-click starts editing. Typing while selected does not edit. Enter or clicking outside commits;
+Tab commits and moves, and Escape cancels. Single choices use searchable comboboxes. Record names are editable; separate
+preview and expand icons open the sidebar and detail page.
+
+`components/record-cell-editor.tsx` renders the input described by route field metadata.
+`components/use-record-grid-editing.tsx` handles persistence separately from the native editor lifecycle. Failed saves
+show a Retry toast and keep the draft until corrected or retried; reload resets the in-memory example. Archived records
+and audit timestamps remain read-only. Changing a Task company clears its Deal and Person links together in both the
+table and detail page.

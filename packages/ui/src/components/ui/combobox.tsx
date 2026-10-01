@@ -20,6 +20,7 @@ function ComboboxTrigger({
   return (
     <ComboboxPrimitive.Trigger
       data-slot='combobox-trigger'
+      aria-label='Toggle options'
       className={cn('[&_svg:not([class*=size-])]:size-4', className)}
       {...props}
     >
@@ -37,6 +38,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
   return (
     <ComboboxPrimitive.Clear
       data-slot='combobox-clear'
+      aria-label='Clear selection'
       render={<InputGroupButton variant='ghost' size='icon-xs' />}
       className={cn('', className)}
       {...props}
@@ -307,10 +309,13 @@ import { type ComboboxOptions, useChoices } from '@/hooks/use-choices.ts'
 import { ChoiceContent } from '@/components/ui/choice-content.tsx'
 export function MultiCombobox(props: ComboboxOptions & { value: string[]; onValueChange: (value: string[]) => void }) {
   const { value, onValueChange, label, id, disabled, readOnly, invalid, ref, onBlur, renderOption, renderValue } = props
-  const anchor = useRef<HTMLDivElement>(null), [open, setOpen] = useState(false), [query, setQuery] = useState('')
+  const anchor = useRef<HTMLDivElement>(null),
+    [open, setOpen] = useState(!!props.autoFocus && !props.disabled && !props.readOnly),
+    [query, setQuery] = useState('')
   const data = useChoices(props, open, query), selected = value.map((v) => data.lookup.get(v) ?? { value: v, label: v })
   return (
     <Combobox<Choice, true>
+      modal={props.modal}
       multiple
       items={data.options}
       filter={null}
@@ -352,6 +357,7 @@ export function MultiCombobox(props: ComboboxOptions & { value: string[]; onValu
           id={id}
           ref={ref}
           onBlur={onBlur}
+          autoFocus={props.autoFocus}
           aria-label={label}
           aria-invalid={invalid}
           aria-describedby={props['aria-describedby']}
@@ -376,10 +382,13 @@ export function SingleCombobox(
   props: ComboboxOptions & { value: string | null; onValueChange: (value: string | null) => void },
 ) {
   const { value, onValueChange, label, id, disabled, readOnly, invalid, ref, onBlur, renderOption } = props
-  const [open, setOpen] = useState(false), [query, setQuery] = useState(''), data = useChoices(props, open, query)
+  const [open, setOpen] = useState(!!props.autoFocus && !props.disabled && !props.readOnly),
+    [query, setQuery] = useState(''),
+    data = useChoices(props, open, query)
   const selected = value === null ? null : data.lookup.get(value) ?? { value, label: value }
   return (
     <Combobox<Choice>
+      modal={props.modal}
       items={data.options}
       filter={null}
       value={selected}
@@ -407,6 +416,7 @@ export function SingleCombobox(
         id={id}
         ref={ref}
         onBlur={onBlur}
+        autoFocus={props.autoFocus}
         disabled={disabled || readOnly}
         aria-label={label}
         aria-invalid={invalid}

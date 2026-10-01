@@ -1,3 +1,6 @@
+import { useMemo } from 'react'
+import { createRecordChoiceLoader } from '@/components/crm/example/query.ts'
+import { recordFieldChange } from '@/components/crm/components/record-editing.ts'
 import { type Control, Controller, type FieldValues, type Path, type UseFormRegister } from 'react-hook-form'
 import { InlineEdit } from '@/components/ui/inline-edit.tsx'
 import { InlineCombobox } from '@/components/ui/inline-inputs.tsx'
@@ -44,6 +47,7 @@ export function textField(
   return {
     id,
     label,
+    editor: { type: 'text', inputType: type, required },
     render: ({ record, onChange }) => {
       const raw = Reflect.get(record.data, id)
       const value = type === 'datetime-local' ? localDateTime(String(raw ?? '')) : String(raw ?? '')
@@ -70,9 +74,11 @@ export function textField(
   }
 }
 export function choiceField(id: keyof RecordDraft, label: string, items: Choice[], required = false): RecordField {
+  const loadOptions = ['companyId', 'dealId', 'personId'].includes(id) ? createRecordChoiceLoader(items) : undefined
   return {
     id,
     label,
+    editor: { type: 'choice', items, required, loadOptions },
     render: ({ record, onChange }) => {
       const value = String(Reflect.get(record.data, id) ?? '')
       const options = [...items]
@@ -96,10 +102,11 @@ export function choiceField(id: keyof RecordDraft, label: string, items: Choice[
           label={label}
           value={value || null}
           items={options}
+          loadOptions={loadOptions}
           selectedItems={options}
           clearable={!required}
           disabled={!!record.archivedAt}
-          onValueChange={(v) => onChange({ [id]: v ?? '' }, label)}
+          onValueChange={(v) => onChange(recordFieldChange(record.data, id, v ?? ''), label)}
         />
       )
     },
@@ -138,6 +145,10 @@ export function ChoiceField<T extends FieldValues>(
     required?: boolean
   },
 ) {
+  const loadOptions = useMemo(
+    () => ['companyId', 'dealId', 'personId'].includes(name) ? createRecordChoiceLoader(items) : undefined,
+    [name, items],
+  )
   return (
     <Controller
       name={name}
@@ -150,6 +161,7 @@ export function ChoiceField<T extends FieldValues>(
               label={label}
               value={field.value || null}
               items={items}
+              loadOptions={loadOptions}
               selectedItems={items}
               clearable={!required}
               onValueChange={(v) => field.onChange(v ?? '')}
