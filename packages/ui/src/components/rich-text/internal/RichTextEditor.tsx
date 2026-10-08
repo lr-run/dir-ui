@@ -6,7 +6,8 @@ import { useEditorText } from '@/components/rich-text/internal/locale.ts'
 import { Modal } from '@/components/rich-text/internal/modal.tsx'
 import { markdownDocument } from '@/components/rich-text/internal/paste.ts'
 import { useEffect, useId, useRef, useState } from 'react'
-import { Editor } from '@tiptap/core'
+import { Editor, posToDOMRect } from '@tiptap/core'
+import { selectionToolbarSchedule } from '@/components/rich-text/internal/selection-toolbar.ts'
 import { Popover } from '@base-ui/react/popover'
 import { createExtensions } from '@/components/rich-text/internal/extensions.ts'
 import { plainDocument } from '@/components/rich-text/internal/commands.ts'
@@ -46,7 +47,31 @@ export default function RichTextEditor({
   useEffect(() => {
     if (!mount.current) return
     let ready = false
-    const editor = new Editor({
+    const selectionUI = selectionToolbarSchedule(() => {
+      const { from, to, empty } = editor.state.selection
+      if (
+        editor.isDestroyed || empty || !editor.isEditable || !editor.isFocused || editor.isActive('codeBlock') ||
+        !editor.state.doc.textBetween(from, to).trim()
+      ) {
+        setSelectionRect(null)
+        return
+      }
+      setSelectionRect({
+        getBoundingClientRect: () => {
+          if (editor.isDestroyed) return new DOMRect()
+          // A DOM Range includes every wrapped line, unlike the two endpoint carets.
+          const size = editor.state.doc.content.size
+          const start = editor.view.domAtPos(Math.min(from, size)), end = editor.view.domAtPos(Math.min(to, size))
+          const range = editor.view.dom.ownerDocument.createRange()
+          range.setStart(start.node, start.offset)
+          range.setEnd(end.node, end.offset)
+          const rect = range.getBoundingClientRect()
+          return rect.width || rect.height ? rect : posToDOMRect(editor.view, from, to)
+        },
+        contextElement: editor.view.dom,
+      })
+    }, () => setSelectionRect(null))
+    const editor: Editor = new Editor({
       element: mount.current,
       content: initialContent?.type === 'doc' ? initialContent : plainDocument(initialText),
       extensions: createExtensions({ onSlash: setSlash, language }),
@@ -93,7 +118,9 @@ export default function RichTextEditor({
           return false
         },
       },
-      onCreate: () => {
+      onCreate: ({ editor: e }) => {
+        // Settle plugin normalization before selection/focus can emit an onUpdate.
+        e.view.dispatch(e.state.tr.setMeta('addToHistory', false))
         ready = true
       },
       onUpdate: ({ editor: e }) => {
@@ -105,38 +132,24 @@ export default function RichTextEditor({
         }
       },
       onTransaction: () => setRevision((v) => v + 1),
-      onSelectionUpdate: ({ editor: e }) => {
-        const { from, to, empty } = e.state.selection
-        if (empty || !e.isEditable || e.isActive('codeBlock')) {
-          setSelectionRect(null)
-          return
-        }
-        setSelectionRect({
-          getBoundingClientRect: () => {
-            const a = e.view.coordsAtPos(
-              Math.min(from, e.state.doc.content.size),
-            )
-            const b = e.view.coordsAtPos(
-              Math.min(to, e.state.doc.content.size),
-            )
-            return {
-              x: Math.min(a.left, b.left),
-              y: a.top,
-              top: a.top,
-              bottom: b.bottom,
-              left: Math.min(a.left, b.left),
-              right: Math.max(a.right, b.right),
-              width: Math.max(1, Math.abs(b.right - a.left)),
-              height: b.bottom - a.top,
-            }
-          },
-          contextElement: e.view.dom,
-        })
-      },
+      onSelectionUpdate: () => selectionUI.change(),
     })
+    const ownerDocument = editor.view.dom.ownerDocument
+    const pointerDown = (event: PointerEvent) => {
+      if (event.button === 0) selectionUI.start()
+    }
+    editor.view.dom.addEventListener('pointerdown', pointerDown)
+    ownerDocument.addEventListener('pointerup', selectionUI.end)
+    ownerDocument.addEventListener('pointercancel', selectionUI.cancel)
+    ownerDocument.defaultView?.addEventListener('blur', selectionUI.cancel)
     instance.current = editor
     setRevision((v) => v + 1)
     return () => {
+      selectionUI.dispose()
+      editor.view.dom.removeEventListener('pointerdown', pointerDown)
+      ownerDocument.removeEventListener('pointerup', selectionUI.end)
+      ownerDocument.removeEventListener('pointercancel', selectionUI.cancel)
+      ownerDocument.defaultView?.removeEventListener('blur', selectionUI.cancel)
       editor.destroy()
       instance.current = null
     }
@@ -223,6 +236,7 @@ export default function RichTextEditor({
               collisionPadding={12}
             >
               <Popover.Popup
+                data-selection-toolbar
                 className='[border:1px_solid_var(--ui-border)] rounded-[9px] [box-shadow:var(--ui-shadow)] [outline:0] [transform-origin:var(--transform-origin)] [transition:opacity_120ms,_transform_120ms] [@media(prefers-reduced-motion:_reduce)]:[transition:none] box-border [font:inherit] text-inherit [&_input]:box-border [&_input]:[font:inherit] [&_input]:text-inherit [&_button]:box-border [&_button]:[font:inherit] [&_button]:text-inherit [&_button]:cursor-pointer [&_button]:[touch-action:manipulation] [&_button]:[border:0] [&_button]:[background:none] [background:var(--ui-raised)] [&[data-starting-style]]:opacity-0 [&[data-starting-style]]:[transform:translateY(-3px)] [&[data-ending-style]]:opacity-0 [&[data-ending-style]]:[transform:translateY(-3px)] [&_button:focus-visible]:[outline:2px_solid_var(--ui-focus)] [&_button:focus-visible]:outline-offset-[2px] p-[3px]'
                 initialFocus={false}
                 finalFocus={false}

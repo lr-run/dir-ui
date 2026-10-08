@@ -112,7 +112,6 @@
   "rich-text": {
     "title": "Rich Text",
     "files": [
-      "packages/ui/src/components/ui/rich-text.tsx",
       "packages/ui/src/components/rich-text/internal/BlockMenu.tsx",
       "packages/ui/src/components/rich-text/internal/FormattingToolbar.tsx",
       "packages/ui/src/components/rich-text/internal/LinkPopover.tsx",
@@ -121,7 +120,9 @@
       "packages/ui/src/components/rich-text/internal/extensions.ts",
       "packages/ui/src/components/rich-text/internal/locale.ts",
       "packages/ui/src/components/rich-text/internal/modal.tsx",
-      "packages/ui/src/components/rich-text/internal/paste.ts"
+      "packages/ui/src/components/rich-text/internal/paste.ts",
+      "packages/ui/src/components/rich-text/internal/selection-toolbar.ts",
+      "packages/ui/src/components/ui/rich-text.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [

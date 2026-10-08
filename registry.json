@@ -446,11 +446,6 @@
       ],
       "files": [
         {
-          "path": "packages/ui/src/components/ui/rich-text.tsx",
-          "type": "registry:ui",
-          "target": "@ui/rich-text.tsx"
-        },
-        {
           "path": "packages/ui/src/components/rich-text/internal/BlockMenu.tsx",
           "type": "registry:component",
           "target": "@components/rich-text/internal/BlockMenu.tsx"
@@ -494,6 +489,16 @@
           "path": "packages/ui/src/components/rich-text/internal/paste.ts",
           "type": "registry:component",
           "target": "@components/rich-text/internal/paste.ts"
+        },
+        {
+          "path": "packages/ui/src/components/rich-text/internal/selection-toolbar.ts",
+          "type": "registry:component",
+          "target": "@components/rich-text/internal/selection-toolbar.ts"
+        },
+        {
+          "path": "packages/ui/src/components/ui/rich-text.tsx",
+          "type": "registry:ui",
+          "target": "@ui/rich-text.tsx"
         }
       ]
     },
