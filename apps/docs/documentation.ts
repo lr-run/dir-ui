@@ -1,9 +1,23 @@
 import { installPath, installSnippet } from '../../registry/paths.ts'
 import { componentApi } from './src/pages/catalog/api-data.ts'
 import { specs } from './src/pages/catalog/playground/specs.ts'
-import { navigationGroups } from './src/pages/catalog/navigation.ts'
 import { templates } from '../../registry/templates.ts'
 import { installCommand, registryUrl, siteUrl } from '../../registry/catalog.ts'
+import { componentGroups, recipes } from './src/navigation.ts'
+export { pageMetadata, sitePages } from './src/page-metadata.ts'
+import { sitePages } from './src/page-metadata.ts'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+
+/** Skill documents are authored once in packages/skill and served to agents as plain text. */
+export const skillFiles = [
+  'SKILL.md',
+  'rules.md',
+  'api-digest.md',
+  ...recipes.map((recipe) => `recipes/${recipe.slug}.md`),
+]
+const skillRoot = new URL('../../packages/skill/', import.meta.url)
+export const skillDocument = (file: string) => readFileSync(fileURLToPath(new URL(file, skillRoot)), 'utf8')
 
 const code = (language: string, source: string) => `\`\`\`${language}\n${source}\n\`\`\``
 const cell = (value: string) => value.replaceAll('|', '\\|').replaceAll('\n', '<br>')
@@ -32,6 +46,19 @@ const constraints: Record<string, string> = {
   radio: 'The registry item installs Base UI and shared theme styles. Compose RadioGroup and Radio.Root directly.',
 }
 
+/** Component documents are listed by their group page; components outside a group follow at the end. */
+function componentGroupsWithSpecs() {
+  const grouped = new Set<string>()
+  const groups = componentGroups.map((group) => ({
+    label: group.title,
+    items: group.members.flatMap((member) => {
+      const spec = specs.find((s) => s.id === member)
+      if (spec) grouped.add(spec.id)
+      return spec ? [spec] : []
+    }),
+  }))
+  return [...groups, { label: 'More components', items: specs.filter((spec) => !grouped.has(spec.id)) }]
+}
 /** The UI and machine-readable docs share the same descriptions and API tables. */
 export function documentationFiles(): Map<string, string> {
   const files = new Map<string, string>()
@@ -69,23 +96,33 @@ export function documentationFiles(): Map<string, string> {
       }\n`,
     )
   }
+  for (const file of skillFiles) files.set(`skill/${file}`, skillDocument(file))
   files.set(
     'llms.txt',
     `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry items declare owned files, shared registry dependencies, and npm versions. The library has no Dir runtime dependency.\n\n${
-      navigationGroups.map((group) =>
+      componentGroupsWithSpecs().map((group) =>
         `## ${group.label}\n\n${
           group.items.map((spec) => `- [${spec.title}](${siteUrl}components/${spec.id}.md): ${spec.description}`).join(
             '\n',
           )
         }`
       ).join('\n\n')
+    }\n\n## System\n\n- [Layouts](${siteUrl}layouts): PageShell, AppShell and SuiteShell, chosen by how much navigation an app needs.\n- [Foundations](${siteUrl}foundations/color): tokens and the Light, Black and Paper themes; a theme overrides --ui-* only.\n- [UI rules](${siteUrl}skill/rules.md): the twelve rules every generated screen follows.\n- [API digest](${siteUrl}skill/api-digest.md): import paths and key props.\n- [Skill](${siteUrl}skill/SKILL.md): how to use the rules, recipes and digest.\n\n## Page recipes\n\n${
+      recipes.map((recipe) =>
+        `- [${recipe.title}](${siteUrl}skill/recipes/${recipe.slug}.md): ${recipe.system}, ${recipe.shell} shell.`
+      ).join('\n')
     }\n\n## Application templates\n\n${
       templates.map((template) =>
         `- [${template.title}](${siteUrl}examples/${template.id}.md): ${template.description}`
       ).join('\n')
     }\n`,
   )
-  const paths = ['', ...templates.map((t) => `examples/${t.id}`), ...specs.map((s) => `components/${s.id}`)]
+  const paths = [
+    '',
+    ...sitePages,
+    ...templates.map((t) => `examples/${t.id}`),
+    ...specs.map((s) => `components/${s.id}`),
+  ]
   files.set(
     'sitemap.xml',
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${
@@ -94,25 +131,4 @@ export function documentationFiles(): Map<string, string> {
   )
   files.set('robots.txt', `User-agent: *\nAllow: /\nDisallow: /preview/\nSitemap: ${siteUrl}sitemap.xml\n`)
   return files
-}
-
-export function pageMetadata(path: string) {
-  const spec = specs.find((s) => path === `/components/${s.id}`)
-  const template = templates.find((t) => path === `/examples/${t.id}` || path === `/examples/${t.id}/code`)
-  if (spec) {
-    return { title: `${spec.title} — dir/ui`, description: spec.description, markdown: `components/${spec.id}.md` }
-  }
-  if (template) {
-    return {
-      title: `${template.title} template — dir/ui`,
-      description: template.description,
-      markdown: `examples/${template.id}.md`,
-    }
-  }
-  return {
-    title: 'dir/ui — Components for internal tools',
-    description:
-      'React components and application templates for building internal tools with Base UI and Tailwind CSS.',
-    markdown: 'llms.txt',
-  }
 }

@@ -1,4 +1,5 @@
 import {
+  ArrowLeftIcon,
   Building2Icon,
   ChartNoAxesColumnIcon,
   MonitorIcon,
@@ -13,22 +14,11 @@ import {
 import { SearchDialog } from '@/components/collections/search-dialog.tsx'
 import type { ExampleRecord } from '@/components/crm/types.ts'
 import { searchRecords } from '@/components/crm/example/query.ts'
-import { SearchDialogTrigger } from '@/components/collections/search-dialog.tsx'
-import { type ReactNode, useEffect, useId, useLayoutEffect, useMemo, useState } from 'react'
-import { Header } from '@/components/header.tsx'
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarTrigger,
-  useSidebar,
-} from '@/components/ui/sidebar.tsx'
+import { type ReactNode, useId, useLayoutEffect, useMemo, useState } from 'react'
+import { AppShell } from '@/components/shells/app-shell.tsx'
+import { ShellMenuTrigger, type ShellNavGroup } from '@/components/shells/shell-parts.tsx'
+import { IconButton } from '@/components/ui/icon-button.tsx'
+import { useSidebar } from '@/components/ui/sidebar.tsx'
 import { examples } from '@/components/crm/example/data.ts'
 import type { ExampleKind } from '@/components/crm/types.ts'
 const recordIcons = {
@@ -47,7 +37,6 @@ export function Layout(
     recordName,
     onBack,
     onNavigate,
-    searchOpen,
     onSearch,
     href,
     children,
@@ -67,136 +56,79 @@ export function Layout(
   },
 ) {
   const [colorMode, setColorMode] = useColorMode()
-  const [openMobile, setOpenMobile] = useState(false)
-  useEffect(() => {
-    if (searchOpen) setOpenMobile(false)
-  }, [searchOpen])
+  const navigation: ShellNavGroup[] = [
+    {
+      items: [{
+        id: 'search',
+        label: 'Search records',
+        icon: <SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
+        shortcut: '⌘K',
+      }],
+    },
+    {
+      label: 'Records',
+      items: (Object.keys(examples) as ExampleKind[]).map((key) => ({
+        id: key,
+        label: examples[key].title,
+        icon: recordIcons[key],
+        href: href('/' + key),
+      })),
+    },
+    {
+      label: 'Insights',
+      items: [{
+        id: 'report',
+        label: 'Report',
+        icon: <ChartNoAxesColumnIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />,
+        href: href('/report'),
+      }],
+    },
+    {
+      label: 'Workspace',
+      items: [{
+        id: 'settings',
+        label: 'Settings',
+        icon: <SettingsIcon size={16} aria-hidden />,
+        href: href('/settings'),
+      }],
+    },
+  ]
   return (
-    <SidebarProvider
-      className="grid grid-cols-[208px_minmax(0,_1fr)] h-full min-w-0 [background:var(--ui-raised)] [@media(max-width:_1000px)]:grid-cols-[184px_minmax(0,_1fr)] [@media(max-width:_800px)]:grid-cols-[minmax(0,_1fr)] in-data-[preview-runtime=true]:h-full [&[data-sidebar-state='collapsed']]:grid-cols-[56px_minmax(0,_1fr)] [@media(max-width:_800px)]:[&[data-sidebar-state='collapsed']]:grid-cols-[minmax(0,_1fr)] [@media(max-width:_800px)]:[&>[class~='group/crm-sidebar-panel']]:hidden [&_[class~='group/crm-sidebar-menu-button']]:h-[30px] [&_[class~='group/crm-sidebar-menu-button']]:text-[12px]"
-      openMobile={openMobile}
-      setOpenMobile={setOpenMobile}
+    <AppShell
+      workspace={
+        <span className='flex min-w-0 items-center gap-2'>
+          <span className='inline-grid size-7 shrink-0 place-items-center rounded-lg bg-primary text-[13px] text-primary-foreground'>
+            S
+          </span>
+          <span className='truncate text-[15px] font-medium tracking-tight'>Studio workspace</span>
+        </span>
+      }
+      navigation={navigation}
+      active={report ? 'report' : settings ? 'settings' : kind}
+      onNavigate={(id) =>
+        id === 'search'
+          ? onSearch()
+          : id === 'report'
+          ? onReport()
+          : id === 'settings'
+          ? onSettings()
+          : onNavigate(id as ExampleKind)}
+      sidebarFooter={<ColorModeSwitcher mode={colorMode} onChange={setColorMode} />}
+      title={recordName}
+      leading={recordName && (
+        <IconButton label={`Back to ${examples[kind].title.toLowerCase()}`} onClick={onBack}>
+          <ArrowLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' />
+        </IconButton>
+      )}
     >
-      <Sidebar className='bg-[color-mix(in_srgb,var(--ui-raised)_97%,var(--ui-text))]'>
-        <SidebarHeader className='min-h-12 justify-center px-3.5 py-2.5'>
-          <div className="flex items-center gap-[8px] w-full min-w-0 [&_[class~='group/screen-workspace-name']]:flex-1 [&_[class~='group/screen-workspace-name']]:min-w-0 [&_[class~='group/crm-sidebar-trigger']]:shrink-0 [&_[class~='group/crm-sidebar-trigger']]:ml-auto">
-            <span className='group/screen-workspace-name flex items-center gap-[8px] text-[13px] [font-weight:550] whitespace-nowrap overflow-hidden'>
-              <span className='w-[23px] h-[23px] inline-grid [place-items:center] [background:#3b65e9] text-[white] rounded-[6px] shrink-0'>
-                S
-              </span>
-              <span className='group/screen-workspace-label overflow-hidden text-ellipsis'>Studio workspace</span>
-            </span>
-            <WorkspaceSidebarTrigger inside />
-          </div>
-        </SidebarHeader>
-        <div className='px-3 pb-1 [&_button]:h-7 [&_button]:text-xs'>
-          <WorkspaceSearchTrigger
-            open={searchOpen}
-            onClick={() => {
-              setOpenMobile(false)
-              onSearch()
-            }}
-          />
-        </div>
-        <SidebarContent className='pt-3'>
-          <SidebarGroup label='Records'>
-            <SidebarMenu>
-              {(Object.keys(examples) as ExampleKind[]).map((key) => (
-                <SidebarMenuItem key={key}>
-                  <SidebarMenuButton
-                    label={examples[key].title}
-                    href={href('/' + key)}
-                    icon={recordIcons[key]}
-                    active={!report && !settings && key === kind}
-                    onClick={() => {
-                      onNavigate(key)
-                      setOpenMobile(false)
-                    }}
-                  />
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroup>
-          <SidebarGroup label='Insights'>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  label='Report'
-                  href={href('/report')}
-                  icon={<ChartNoAxesColumnIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
-                  active={report}
-                  onClick={() => {
-                    onReport()
-                    setOpenMobile(false)
-                  }}
-                />
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
-          <SidebarGroup label='Workspace'>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  label='Settings'
-                  href={href('/settings')}
-                  icon={<SettingsIcon size={16} aria-hidden />}
-                  active={settings}
-                  onClick={() => {
-                    onSettings()
-                    setOpenMobile(false)
-                  }}
-                />
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter>
-          <ColorModeSwitcher mode={colorMode} onChange={setColorMode} />
-        </SidebarFooter>
-      </Sidebar>
-      <div className='flex flex-col min-w-0 min-h-0'>
-        {recordName && (
-          <Header
-            className='h-12 min-h-12 flex-[0_0_48px] box-border border-b border-border px-4 py-2'
-            leading={<WorkspaceSidebarTrigger />}
-            title={
-              <span className='flex items-center gap-[10px] min-w-0 text-[13px] [&_button]:[background:none] [&_button]:[border:none] [&_button]:p-0 [&_button]:cursor-pointer [&_button]:text-muted-foreground [&_strong]:overflow-hidden [&_strong]:whitespace-nowrap [&_strong]:text-ellipsis [&_strong]:font-medium'>
-                <button type='button' onClick={onBack}>{examples[kind].title}</button>
-                {recordName && (
-                  <>
-                    <span>/</span>
-                    <strong>{recordName}</strong>
-                  </>
-                )}
-              </span>
-            }
-          />
-        )}
-        {children}
-      </div>
-    </SidebarProvider>
+      <div className='flex h-full min-h-0 flex-col'>{children}</div>
+    </AppShell>
   )
 }
 
-// Keep the collapse control in the sidebar, and the reopen control in the page header.
-export function WorkspaceSidebarTrigger({ inside = false }: { inside?: boolean }) {
-  const { open, openMobile, isMobile } = useSidebar()
-  const expanded = isMobile ? openMobile : open
-  return inside === expanded ? <SidebarTrigger /> : null
-}
-
-function WorkspaceSearchTrigger({ open, onClick }: { open: boolean; onClick: () => void }) {
-  const sidebar = useSidebar()
-  if (!sidebar.open && !sidebar.isMobile) {
-    return (
-      <SidebarMenuButton
-        label='Search records'
-        icon={<SearchIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />}
-        onClick={onClick}
-      />
-    )
-  }
-  return <SearchDialogTrigger placeholder='Search records' shortcut aria-expanded={open} onClick={onClick} />
+/** Opens the sidebar sheet on phones; on wide screens the sidebar is always open. */
+export function WorkspaceSidebarTrigger() {
+  return <ShellMenuTrigger />
 }
 
 export function WorkspaceSearch({ open, onOpenChange, collections, count, onOpenRecord }: {

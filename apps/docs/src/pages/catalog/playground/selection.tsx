@@ -45,7 +45,7 @@ export function SelectionPreview({ id, values: v, update }: PreviewProps) {
   }
   const name = multiple ? 'MultiCombobox' : 'SingleCombobox'
   const imports =
-    `import { useCallback } from 'react'\nimport { ${name}, type Choice, type LoadChoices } from './components/ui/multi-select.tsx'`
+    `import { useCallback } from 'react'\nimport { ${name} } from './components/ui/combobox.tsx'\nimport type { Choice } from './lib/choice-types.ts'\nimport type { LoadChoices } from './hooks/use-choices.ts'`
   const setup = state('value', v.value, multiple ? 'string[]' : 'string | null') +
     `\nconst items: Choice[] = ${literal(items)}` +
     (remote

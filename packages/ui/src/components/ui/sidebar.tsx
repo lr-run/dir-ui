@@ -11,6 +11,7 @@ type SidebarState = {
   open: boolean
   openMobile: boolean
   isMobile: boolean
+  collapsible: boolean
   setOpenMobile: (open: boolean) => void
   toggleSidebar: () => void
 }
@@ -21,18 +22,20 @@ export function useSidebar() {
   if (!value) throw new Error('Sidebar components require SidebarProvider')
   return value
 }
-export function SidebarProvider({ children, className, openMobile, setOpenMobile }: {
+export function SidebarProvider({ children, className, openMobile, setOpenMobile, collapsible = true }: {
   children: ReactNode
   className: string
   openMobile: boolean
   setOpenMobile: (value: boolean) => void
+  /** `false` keeps the sidebar open on wide screens: no rail and no ⌘B; phones still open it as a sheet. */
+  collapsible?: boolean
 }) {
   const [isMobile, setIsMobile] = useState(() => matchMedia('(max-width: 800px)').matches)
   const [open, setOpen] = useState(true)
   const toggleSidebar = useCallback(() => {
     if (matchMedia('(max-width: 800px)').matches) setOpenMobile(!openMobile)
-    else setOpen((previous) => !previous)
-  }, [openMobile, setOpenMobile])
+    else if (collapsible) setOpen((previous) => !previous)
+  }, [openMobile, setOpenMobile, collapsible])
   useEffect(() => {
     const media = matchMedia('(max-width: 800px)')
     const resized = () => {
@@ -54,8 +57,9 @@ export function SidebarProvider({ children, className, openMobile, setOpenMobile
     globalThis.addEventListener('keydown', handle)
     return () => globalThis.removeEventListener('keydown', handle)
   }, [toggleSidebar])
-  const value = useMemo(() => ({ open, openMobile, isMobile, setOpenMobile, toggleSidebar }), [
+  const value = useMemo(() => ({ open, openMobile, isMobile, collapsible, setOpenMobile, toggleSidebar }), [
     open,
+    collapsible,
     openMobile,
     isMobile,
     setOpenMobile,
@@ -68,7 +72,7 @@ export function SidebarProvider({ children, className, openMobile, setOpenMobile
   )
 }
 export function Sidebar({ children, className }: { children: ReactNode; className?: string }) {
-  const { t } = useI18n(), { open, openMobile, setOpenMobile } = useSidebar()
+  const { t } = useI18n(), { open, openMobile, collapsible, setOpenMobile } = useSidebar()
   return (
     <>
       <aside
@@ -80,7 +84,7 @@ export function Sidebar({ children, className }: { children: ReactNode; classNam
         aria-label={t('ワークスペース')}
       >
         {children}
-        <SidebarRail />
+        {collapsible && <SidebarRail />}
       </aside>
       {openMobile && (
         <Sheet open onOpenChange={setOpenMobile}>

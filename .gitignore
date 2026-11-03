@@ -17,6 +17,7 @@ apps/docs/public/r/
 .standalone-dist/
 apps/docs/public/components/
 apps/docs/public/examples/
+apps/docs/public/skill/
 apps/docs/public/llms.txt
 apps/docs/public/sitemap.xml
 apps/docs/public/robots.txt

@@ -30,6 +30,7 @@
     "@tiptap/extension-table": "npm:@tiptap/extension-table@3.31.3",
     "lucide-react": "npm:lucide-react@1.48.0",
     "@/components/crm/": "./examples/crm/src/",
+    "@/components/systems/": "./examples/systems/src/",
     "@/components/": "./packages/ui/src/components/",
     "@/hooks/": "./packages/ui/src/hooks/",
     "@/lib/": "./packages/ui/src/lib/",
@@ -61,6 +62,7 @@
       "apps/docs/public/r/",
       "apps/docs/public/components/",
       "apps/docs/public/examples/",
+      "apps/docs/public/skill/",
       "apps/docs/public/llms.txt",
       "apps/docs/public/sitemap.xml",
       "apps/docs/public/robots.txt",
@@ -88,7 +90,8 @@
     "build:standalone": "deno task build",
     "registry:local": "deno run --allow-read --allow-env=CI --allow-write scripts/registry-local.ts",
     "dev:crm": "deno run -A npm:vite@^8 --config examples/crm/vite.config.ts --host 127.0.0.1",
-    "build:crm": "deno run -A npm:vite@^8 build --config examples/crm/vite.config.ts"
+    "build:crm": "deno run -A npm:vite@^8 build --config examples/crm/vite.config.ts",
+    "systems:sources": "deno run --allow-read --allow-write=apps/docs/src/pages/studio scripts/system-sources.ts && deno fmt apps/docs/src/pages/studio/system-source-files.ts"
   },
   "workspace": [
     "packages/ui",

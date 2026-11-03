@@ -22,8 +22,8 @@ const monthName = (value: string) =>
     })
     : value
 const config = {
-  value: { label: 'Deal value', color: '#6875d9' },
-  weighted: { label: 'Weighted value', color: '#3a9d8a' },
+  value: { label: 'Deal value', color: 'var(--chart-primary)' },
+  weighted: { label: 'Weighted value', color: 'var(--chart-secondary)' },
 }
 const axis = { fontSize: 11, fill: 'var(--ui-muted)' }
 

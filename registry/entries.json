@@ -143,6 +143,13 @@
   },
   "combobox": {
     "title": "Combobox",
+    "files": [],
+    "registryDependencies": [
+      "@dir/components-combobox"
+    ]
+  },
+  "multi-select": {
+    "title": "Multi Select",
     "files": [
       "packages/ui/src/components/ui/multi-select.tsx"
     ],
@@ -152,18 +159,11 @@
       "@dir/theme"
     ]
   },
-  "multi-select": {
-    "title": "Multi Select",
-    "files": [],
-    "registryDependencies": [
-      "@dir/combobox"
-    ]
-  },
   "multi-combobox": {
     "title": "Multi Combobox",
     "files": [],
     "registryDependencies": [
-      "@dir/combobox"
+      "@dir/components-combobox"
     ]
   },
   "checkbox": {
@@ -270,6 +270,17 @@
     "title": "Tabs",
     "files": [
       "packages/ui/src/components/ui/tabs.tsx"
+    ],
+    "type": "registry:ui",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "tab-bar": {
+    "title": "Tab Bar",
+    "files": [
+      "packages/ui/src/components/ui/tab-bar.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -838,6 +849,71 @@
       "packages/ui/src/lib/date-input.ts"
     ],
     "registryDependencies": [
+      "@dir/theme"
+    ]
+  },
+  "skill": {
+    "title": "Skill",
+    "files": [
+      "packages/skill/SKILL.md",
+      "packages/skill/rules.md",
+      "packages/skill/api-digest.md",
+      "packages/skill/recipes/crm.md",
+      "packages/skill/recipes/sales-report.md",
+      "packages/skill/recipes/customer-portal.md",
+      "packages/skill/recipes/inventory.md",
+      "packages/skill/recipes/expense.md",
+      "packages/skill/recipes/daily-report.md",
+      "packages/skill/recipes/recruiting.md",
+      "packages/skill/recipes/inquiry.md",
+      "packages/skill/recipes/contract.md"
+    ],
+    "type": "registry:item",
+    "registryDependencies": [
+      "@dir/licenses"
+    ]
+  },
+  "shell-parts": {
+    "title": "Shell Parts",
+    "files": [
+      "packages/ui/src/components/shells/shell-parts.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "page-shell": {
+    "title": "Page Shell",
+    "files": [
+      "packages/ui/src/components/shells/page-shell.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "app-shell": {
+    "title": "App Shell",
+    "files": [
+      "packages/ui/src/components/shells/app-shell.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses",
+      "@dir/theme"
+    ]
+  },
+  "suite-shell": {
+    "title": "Suite Shell",
+    "files": [
+      "packages/ui/src/components/shells/suite-shell.tsx"
+    ],
+    "type": "registry:component",
+    "registryDependencies": [
+      "@dir/licenses",
       "@dir/theme"
     ]
   }

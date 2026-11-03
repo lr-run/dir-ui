@@ -11,7 +11,7 @@ Deno.test('registry gives every shared source exactly one owner and uses consume
       await Deno.stat(resolve(root, file.path))
       assert.ok(!owners.has(file.target), `Target collision: ${file.target}`)
       owners.set(file.target, item.name)
-      assert.match(file.target, /^(@ui\/|@components\/|@hooks\/|@lib\/|~\/licenses\/)/)
+      assert.match(file.target, /^(@ui\/|@components\/|@hooks\/|@lib\/|~\/licenses\/|~\/skills\/)/)
       assert.ok(!/dir-components|components\/dir-ui|\/shadcn\//.test(file.path))
       if (item.name !== 'crm-example') assert.ok(!file.target.startsWith('@components/crm/'))
     }

@@ -123,7 +123,6 @@ for (
   const [id, title, description] of [
     ['select', 'Select', 'Select one value from a fixed list of options.'],
     ['combobox', 'Combobox', 'Search a list of options and select a single value.'],
-    ['multi-select', 'Multi select', 'Select multiple values from a fixed list of options.'],
     ['multi-combobox', 'Multi combobox', 'Search and select multiple values with removable chips.'],
   ]
 ) {
@@ -191,7 +190,7 @@ add('inline-textarea', 'Inline textarea', 'Edit multiline text in place with sav
   rows: 4,
   disabled: false,
 }, [text('label'), text('value'), text('placeholder'), number('rows', 2, 12), toggle('disabled')])
-for (const [id, title] of [['inline-select', 'Inline select'], ['inline-multi-select', 'Inline multi select']]) {
+for (const [id, title] of [['inline-select', 'Inline select']]) {
   const multi = id === 'inline-multi-select'
   add(id!, title!, 'Select and save choices directly in a record property.', {
     label: 'Team',

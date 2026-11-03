@@ -6,7 +6,7 @@ import { resolve } from 'node:path'
 import { documentationFiles } from './documentation.ts'
 
 const previewDocument = (entry: string) =>
-  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRM example</title></head><body><div id="screen-root"></div><script type="module" src="${entry}"></script></body></html>`
+  `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Example app</title></head><body><div id="screen-root"></div><script type="module" src="${entry}"></script></body></html>`
 
 export default defineConfig({
   root: 'apps/docs',
@@ -14,6 +14,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@/components/crm': resolve('examples/crm/src'),
+      '@/components/systems': resolve('examples/systems/src'),
       '@/components': resolve('packages/ui/src/components'),
       '@/hooks': resolve('packages/ui/src/hooks'),
       '@/lib': resolve('packages/ui/src/lib'),
@@ -25,7 +26,7 @@ export default defineConfig({
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const path = new URL(req.url ?? '/', 'http://localhost').pathname
-        if (path.startsWith('/preview/crm/')) {
+        if (path.startsWith('/preview/')) {
           res.setHeader('Content-Type', 'text/html; charset=utf-8')
           res.end(previewDocument('/src/pages/studio/preview-boot.ts'))
         } else if (path.endsWith('.md')) {
@@ -39,7 +40,7 @@ export default defineConfig({
     configurePreviewServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const path = new URL(req.url ?? '/', 'http://localhost').pathname
-        if (path.startsWith('/preview/crm/')) {
+        if (path.startsWith('/preview/')) {
           res.setHeader('Content-Type', 'text/html; charset=utf-8')
           res.end(await readFile(resolve('dist/preview.html'), 'utf8'))
         } else next()

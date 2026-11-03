@@ -1,11 +1,12 @@
 import { resolve } from 'node:path'
-import { documentationFiles, pageMetadata } from '../apps/docs/documentation.ts'
+import { documentationFiles, pageMetadata, sitePages } from '../apps/docs/documentation.ts'
 import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
 import { templates } from '../registry/templates.ts'
 import { siteUrl } from '../registry/catalog.ts'
 
 export const siteRoutes = [
   '/',
+  ...sitePages.map((page) => `/${page}`),
   ...specs.map((s) => `/components/${s.id}`),
   ...templates.flatMap((t) => [`/examples/${t.id}`, `/examples/${t.id}/code`]),
 ]
@@ -22,7 +23,7 @@ export function staticPage(html: string, route: string, production: boolean) {
       route.slice(1)
     }"><meta name="robots" content="${production ? 'index,follow' : 'noindex,nofollow'}">`
   const fallback =
-    `<main><h1>${title}</h1><p>${description}</p><nav><a href="/components/button">Components</a> <a href="/examples/crm">CRM Example</a> <a href="/${meta.markdown}">Markdown</a></nav><pre style="white-space:pre-wrap">${
+    `<main><h1>${title}</h1><p>${description}</p><nav><a href="/concept">Concept</a> <a href="/components/button">Components</a> <a href="/layouts">Layouts</a> <a href="/rules">UI rules</a> <a href="/examples/crm">CRM Example</a> <a href="/${meta.markdown}">Markdown</a></nav><pre style="white-space:pre-wrap">${
       escapeHtml(markdown)
     }</pre></main>`
   return html.replace(/<title>.*?<\/title>/s, '').replace(/<meta\s+(?:name="description"|name="robots")[^>]*>/g, '')

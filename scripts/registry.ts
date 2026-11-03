@@ -35,6 +35,8 @@ export async function makeRegistry() {
     const packages = new Set(entry.dependencies ?? []), dependencies = new Set(entry.registryDependencies ?? [])
     for (const path of entry.files) {
       const content = await Deno.readTextFile(resolve(root, path))
+      // Markdown documents quote import examples; only source files declare dependencies.
+      if (path.endsWith('.md')) continue
       for (const specifier of imports(content)) {
         if (specifier.startsWith('.') || specifier.startsWith('@/')) {
           const dependency = specifier.startsWith('@/')

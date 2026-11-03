@@ -7,6 +7,7 @@ export function installPath(path: string): string {
   if (example) return `components/${example[1]}${example[2] ? '/' + example[2] : ''}`
   if (/^(components|hooks|lib)\//.test(path)) return path
   if (path === 'LICENSE' || path.startsWith('THIRD_PARTY_LICENSES/')) return `licenses/dir-ui/${path}`
+  if (path.startsWith('packages/skill/')) return `skills/dir-ui/${path.slice('packages/skill/'.length)}`
   throw new Error(`No installation path for ${path}`)
 }
 export function targetPath(path: string): string {

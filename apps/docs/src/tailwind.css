@@ -7,6 +7,7 @@
 @import 'tw-animate-css';
 @import './reference-styles/fonts.css';
 @source '../../../examples/crm/src';
+@source '../../../examples/systems/src';
 @source '../../../packages/ui/src';
 @import '@dir/ui/styles/theme.css';
 

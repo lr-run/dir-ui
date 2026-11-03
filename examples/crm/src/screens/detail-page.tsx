@@ -15,7 +15,8 @@ export function DetailPage<R, Change>(
   { title, fields, record, onChange, onArchive, children, archived = false }: DetailContext<R, Change> & {
     title: string
     fields: readonly DetailField<R, Change>[]
-    onArchive: () => void
+    /** Omit for read-only records; the archive menu disappears. */
+    onArchive?: () => void
     archived?: boolean
     children?: ReactNode
   },
@@ -32,7 +33,7 @@ export function DetailPage<R, Change>(
             {title[0]}
           </span>
           <h2>{title}</h2>
-          <RecordArchiveAction archived={archived} onArchive={onArchive} />
+          {onArchive && <RecordArchiveAction archived={archived} onArchive={onArchive} />}
         </div>
         {archived && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore this record to edit.</p>}
         <h3>Record details</h3>

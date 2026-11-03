@@ -9,6 +9,15 @@ Deno.test('landing routes support direct entry, trailing slashes and legacy alia
       ['/examples/crm', 'studio', '/examples/crm'],
       ['/components', 'button', '/components/button'],
       ['/components/', 'button', '/components/button'],
+      ['/components/toolbar-button/', 'toolbar-button', '/components/toolbar-button'],
+      ['/concept', 'concept', '/concept'],
+      ['/foundations', 'foundations/color', '/foundations/color'],
+      ['/foundations/themes', 'foundations/themes', '/foundations/themes'],
+      ['/layouts', 'layouts', '/layouts'],
+      ['/layouts/app-shell', 'app-shell', '/layouts/app-shell'],
+      ['/rules/', 'rules/components', '/rules/components'],
+      ['/examples/inventory', 'examples/inventory', '/examples/inventory'],
+      ['/examples/inventory/code/', 'examples/inventory/code', '/examples/inventory/code'],
       ['/components/input/', 'input', '/components/input'],
       ['/examples/code', 'studio-code', '/examples/crm/code'],
       ['/?panel=code', 'studio-code', '/examples/crm/code'],
@@ -29,7 +38,15 @@ Deno.test('landing links retain the supplied mount base, including code and comp
   if (landingHref('studio-code', mount) !== mount + 'examples/crm/code') throw new Error('Code route failed')
 })
 Deno.test('unrecognized landing paths are not silently redirected to examples', () => {
-  for (const path of ['/api/preview/companies', '/examples/missing', '/components/input/missing', '/components/%zz']) {
+  for (
+    const path of [
+      '/api/preview/companies',
+      '/examples/missing',
+      '/components/input/missing',
+      '/components/%zz',
+      '/examples/missing',
+    ]
+  ) {
     const result = resolveLandingRoute(new URL(path, base).href, base)
     if (result.id !== 'not-found' || result.canonical) throw new Error(path)
   }

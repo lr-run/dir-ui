@@ -1,0 +1,27 @@
+/* Paper theme: warm off-white surfaces and ink text, as in the dir console. Overrides --ui-* only; load after theme.css. */
+:root {
+  color-scheme: light;
+  --ui-canvas: #f7f7f4;
+  --ui-sidebar: #f2f1ed;
+  --ui-surface: #fcfbf8;
+  --ui-raised: #fcfbf8;
+  --ui-subtle: #eeede8;
+  --ui-hover: rgb(38 37 30 / 0.06);
+  --ui-selected: rgb(38 37 30 / 0.11);
+  --ui-text: #26251e;
+  --ui-muted: #6f6d64;
+  --ui-border: rgb(38 37 30 / 0.1);
+  --ui-control-border: rgb(38 37 30 / 0.32);
+  --ui-primary: #26251e;
+  --ui-on-primary: #fcfbf8;
+  --ui-ring: rgb(38 37 30 / 0.45);
+  --ui-focus: rgb(38 37 30 / 0.3);
+  --ui-green: #2d7a3d;
+  --ui-green-bg: #e4eddf;
+  --ui-blue: #2f6aa8;
+  --ui-blue-bg: #e3e9ef;
+  --ui-amber: #9a5216;
+  --ui-amber-bg: #f4ead7;
+  --ui-red: #9d3028;
+  --ui-red-bg: #f3e4df;
+}

@@ -1,11 +1,22 @@
-import { landingBaseUrl } from '../../routes.ts'
+import { examplePreviewUrl } from './preview-url.ts'
 import { type CSSProperties, useEffect, useMemo, useState } from 'react'
 import { Button } from '@dir/ui/components/ui/button.tsx'
 import { SourceViewer } from './source-viewer.tsx'
 import { FileTree } from './file-tree.tsx'
 import { sourceFiles } from './source-files.ts'
-export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
-  dark: boolean
+import { kitSources, systemSources } from './system-source-files.ts'
+
+/** CRM compositions the system kit builds on: the list page, record table and detail page. */
+const sharedCrm = Object.fromEntries(
+  Object.entries(sourceFiles).filter(([path]) =>
+    /components\/crm\/(screens|types\.ts|components\/(record-(list|table|table-model|archive-action)|table-skeleton|actions-menu))/
+      .test(path)
+  ),
+)
+const appName = (slug: string) => slug.replace(/(^|-)(\w)/g, (_, _dash, letter: string) => letter.toUpperCase()) + 'App'
+export function PreviewStudio({ example, theme, codeView, count, viewport, revision }: {
+  example: string
+  theme: string
   codeView: boolean
   count: number
   viewport: string
@@ -14,16 +25,19 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
   const [file, setFile] = useState('Example.tsx')
   const [copied, setCopied] = useState(''), [copyError, setCopyError] = useState('')
   useEffect(() => setCopied(''), [count])
-  const usage =
-    `import { CrmTemplate } from '@/components/crm/template.tsx'\n\nexport default function Example() {\n  return <div className="h-dvh"><CrmTemplate count={${count}} /></div>\n}\n`
-  const files: Record<string, string> = { 'Example.tsx': usage, ...sourceFiles }
+  const crm = example === 'crm'
+  const usage = crm
+    ? `import { CrmTemplate } from '@/components/crm/template.tsx'\n\nexport default function Example() {\n  return <div className="h-dvh"><CrmTemplate count={${count}} /></div>\n}\n`
+    : `import { ${
+      appName(example)
+    } } from '@/components/systems/${example}/app.tsx'\n\nexport default function Example() {\n  return <div className="h-dvh"><${
+      appName(example)
+    } count={${count}} /></div>\n}\n`
+  const files: Record<string, string> = crm
+    ? { 'Example.tsx': usage, ...sourceFiles }
+    : { 'Example.tsx': usage, ...systemSources[example], ...kitSources, ...sharedCrm }
   const source = files[file] ?? usage
-  const previewUrl = useMemo(() => {
-    const url = new URL('preview/crm/companies', landingBaseUrl())
-    url.searchParams.set('count', String(count))
-    url.searchParams.set('theme', dark ? 'dark' : 'light')
-    return url.href
-  }, [count, dark])
+  const previewUrl = useMemo(() => examplePreviewUrl(example, count, theme), [count, theme, example])
   const copy = async (all: boolean) => {
     try {
       await navigator.clipboard.writeText(
@@ -42,19 +56,19 @@ export function PreviewStudio({ dark, codeView, count, viewport, revision }: {
     >
       <main
         className='grid grid-cols-[minmax(0,_1fr)] flex-1 min-h-0 text-foreground [&[hidden]]:hidden'
-        aria-label='CRM app playground'
+        aria-label='Example app playground'
         hidden={codeView}
       >
         <section className='flex flex-col min-w-0 min-h-0' aria-label='Interactive app preview'>
-          <div className='flex-1 min-h-0 overflow-clip p-[16px] [background-color:color-mix(in_srgb,_var(--ui-canvas)_96%,_var(--ui-text))] [background-image:radial-gradient(color-mix(in_srgb,_var(--ui-text)_15%,_transparent)_.6px,_transparent_.6px)] [background-size:12px_12px] [@media(max-width:_600px)]:p-[10px]'>
+          <div className='flex-1 min-h-0 overflow-clip bg-background p-4 max-[600px]:p-2'>
             <div
               className='m-[0_auto] h-full min-h-0 max-w-full flex flex-col w-(--preview-width)'
               style={{ '--preview-width': viewport === 'responsive' ? '100%' : `${viewport}px` } as CSSProperties}
             >
               <iframe
                 key={revision}
-                className='block w-full flex-1 min-h-0 [border:1px_solid_var(--ui-border)] [background:var(--ui-canvas)] rounded-[8px] [box-shadow:0_3px_16px_#00000008]'
-                title='CRM app preview'
+                className='block w-full flex-1 min-h-0 rounded-lg border border-border bg-background'
+                title='Example app preview'
                 src={previewUrl}
                 sandbox='allow-scripts allow-same-origin allow-forms'
               />

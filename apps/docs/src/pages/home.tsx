@@ -67,7 +67,8 @@ export function Home({ onNavigate }: { onNavigate: (id: string) => void }) {
             <span className='text-muted-foreground'>Built beautifully.</span>
           </h1>
           <p className='mt-7 mb-0 max-w-[410px] text-[16px] leading-7 text-muted-foreground max-[600px]:text-[15px]'>
-            Components for the software your team uses every day. Tables, forms, search, and everything in between.
+            Components, layout shells, UI rules and themes as one system, so every tool your team builds clears the same
+            bar.
           </p>
           <div className='mt-9 flex flex-wrap items-center gap-3'>
             <a
@@ -79,11 +80,11 @@ export function Home({ onNavigate }: { onNavigate: (id: string) => void }) {
               <ArrowRightIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </a>
             <a
-              href={landingHref('studio')}
-              onClick={(event) => navigate(event, 'studio')}
+              href={landingHref('concept')}
+              onClick={(event) => navigate(event, 'concept')}
               className='inline-flex h-11 items-center justify-center rounded-lg max-[600px]:px-4 border border-border px-5 text-[13px] font-medium text-foreground no-underline transition-colors hover:bg-muted focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring'
             >
-              Explore CRM Example
+              Read the concept
             </a>
           </div>
           <p className='mt-9 mb-0 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground'>

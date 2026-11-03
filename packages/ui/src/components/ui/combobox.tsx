@@ -361,7 +361,7 @@ export function MultiCombobox(props: ComboboxOptions & { value: string[]; onValu
           aria-label={label}
           aria-invalid={invalid}
           aria-describedby={props['aria-describedby']}
-          placeholder={readOnly ? '' : props.placeholder ?? 'Search to add…'}
+          placeholder={readOnly || value.length ? '' : props.placeholder ?? 'Search to add…'}
         />
       </ComboboxChips>
       <ComboboxContent anchor={anchor}>

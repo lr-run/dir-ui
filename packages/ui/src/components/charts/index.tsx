@@ -8,6 +8,9 @@ import { ChartFrame } from '@/components/charts/chart-frame.tsx'
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, XAxis, YAxis } from 'recharts'
 import { useI18n } from '@/lib/i18n.tsx'
 const yen = (value: number) => '¥' + value.toLocaleString('ja-JP')
+/** Bars show yen by default; `number` charts counts such as tickets or candidates. */
+export type ChartFormat = 'money' | 'number'
+const plain = (value: number) => value.toLocaleString('ja-JP')
 
 export type ChartPoint = { label: string; value: number; secondary?: number }
 const axis = { fill: 'var(--chart-muted, var(--ui-muted))', fontSize: 12 }
@@ -27,12 +30,13 @@ export function useCompactMoney() {
       ? `${(value / 10000).toLocaleString('ja-JP', { maximumFractionDigits: 1 })}万`
       : `${(value / 1000000).toLocaleString('en-US', { maximumFractionDigits: 2 })}m`
 }
-export function RevenueBars({ values }: { values: ChartPoint[] }) {
-  const compact = useCompactMoney()
+export function RevenueBars({ values, format = 'money' }: { values: ChartPoint[]; format?: ChartFormat }) {
+  const money = useCompactMoney(), compact = format === 'money' ? money : plain
+  const text = format === 'money' ? yen : plain
   return (
     <ChartFrame
-      config={{ value: { label: 'JPY', color: primary } }}
-      label={values.map((v) => `${v.label}: ${yen(v.value)}`).join(', ')}
+      config={{ value: { label: format === 'money' ? 'JPY' : 'Count', color: primary } }}
+      label={values.map((v) => `${v.label}: ${text(v.value)}`).join(', ')}
       empty={!values.length}
     >
       <BarChart data={values} margin={{ top: 20, right: 16, bottom: 0, left: 0 }}>
@@ -96,15 +100,21 @@ export function TrendChart(
   )
 }
 export function HorizontalBars(
-  { values, height = 220, labelWidth = 80 }: { values: ChartPoint[]; height?: number; labelWidth?: number },
+  { values, height = 220, labelWidth = 80, format = 'money' }: {
+    values: ChartPoint[]
+    height?: number
+    labelWidth?: number
+    format?: ChartFormat
+  },
 ) {
-  const compact = useCompactMoney()
+  const money = useCompactMoney(), compact = format === 'money' ? money : plain
+  const text = format === 'money' ? yen : plain
   return (
     <ChartFrame
-      config={{ value: { label: 'JPY', color: primary } }}
+      config={{ value: { label: format === 'money' ? 'JPY' : 'Count', color: primary } }}
       height={height}
       empty={!values.length}
-      label={values.map((v) => `${v.label}: ${yen(v.value)}`).join(', ')}
+      label={values.map((v) => `${v.label}: ${text(v.value)}`).join(', ')}
     >
       <BarChart
         data={values}
