@@ -1,5 +1,15 @@
 import { lazy, type ReactNode, Suspense, useEffect, useRef, useState } from 'react'
-import { AppWindowIcon, BlocksIcon, LayoutTemplateIcon, LightbulbIcon, ListChecksIcon, PaletteIcon } from 'lucide-react'
+import {
+  AppWindowIcon,
+  BlocksIcon,
+  LayoutTemplateIcon,
+  LightbulbIcon,
+  ListChecksIcon,
+  MoonIcon,
+  PaletteIcon,
+  ScrollTextIcon,
+  SunIcon,
+} from 'lucide-react'
 import { ShellMenuTrigger } from '@dir/ui/components/shells/shell-parts.tsx'
 import { type ShellSection, SuiteShell } from '@dir/ui/components/shells/suite-shell.tsx'
 import { LoadingState } from '@dir/ui/components/ui/loading-state.tsx'
@@ -18,6 +28,11 @@ const FoundationPage = lazy(() => import('./foundations.tsx'))
 const RulePage = lazy(() => import('./rules.tsx').then((m) => ({ default: m.RulePage })))
 
 const icon = { size: 16, strokeWidth: 1.5, 'aria-hidden': true } as const
+const themeIcons: Record<Theme, ReactNode> = {
+  light: <SunIcon {...icon} />,
+  black: <MoonIcon {...icon} />,
+  paper: <ScrollTextIcon {...icon} />,
+}
 const tabIcons: Record<string, ReactNode> = {
   concept: <LightbulbIcon {...icon} />,
   foundations: <PaletteIcon {...icon} />,
@@ -163,10 +178,10 @@ export function DocsApp() {
         active={active}
         onNavigate={navigate}
         trailing={
-          <div className='w-[112px] [&_[data-slot=select-trigger]]:h-8 [&_[data-slot=select-trigger]]:w-full [&_[data-slot=select-trigger]]:text-[12px]'>
+          <div className='w-[120px] [&_[data-slot=select-trigger]]:h-8 [&_[data-slot=select-trigger]]:w-full [&_[data-slot=select-trigger]]:text-[12px]'>
             <Select
               label='Theme'
-              items={themes.map((item) => ({ value: item.id, label: item.label }))}
+              items={themes.map((item) => ({ value: item.id, label: item.label, icon: themeIcons[item.id] }))}
               value={theme}
               onChange={(value) => setTheme(value as Theme)}
             />

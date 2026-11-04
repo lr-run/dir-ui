@@ -3,10 +3,18 @@ import { Input } from '@dir/ui/components/ui/input.tsx'
 import type { ComponentDoc } from './index.ts'
 
 export function DateInputDemo() {
-  return <Input type='date' defaultValue='2026-11-14' aria-label='Close date' className='max-w-xs' />
+  return (
+    <div className='w-full max-w-xs'>
+      <Input type='date' defaultValue='2026-11-14' aria-label='Close date' />
+    </div>
+  )
 }
 export function DateInputDateTime() {
-  return <Input type='datetime-local' defaultValue='2026-11-14T10:00' aria-label='Next call' className='max-w-xs' />
+  return (
+    <div className='w-full max-w-xs'>
+      <Input type='datetime-local' defaultValue='2026-11-14T10:00' aria-label='Next call' />
+    </div>
+  )
 }
 export function CalendarDemo() {
   return (

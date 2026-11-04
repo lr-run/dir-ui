@@ -206,7 +206,7 @@ export {
 export function Select({ value, onChange, items, label, disabled, id, invalid }: {
   value: string
   onChange: (value: string) => void
-  items: { value: string; label: string }[]
+  items: { value: string; label: string; icon?: React.ReactNode }[]
   label: string
   disabled?: boolean
   id?: string
@@ -220,11 +220,30 @@ export function Select({ value, onChange, items, label, disabled, id, invalid }:
         aria-invalid={invalid}
         className='group/crm-select flex items-center justify-between gap-[12px] text-left [&_svg]:w-[14px] [&_svg]:h-[14px] [&_svg]:shrink-0 [&>span:first-child]:overflow-hidden [&>span:first-child]:text-ellipsis [&>span:first-child]:whitespace-nowrap w-full'
       >
-        <SelectValue />
+        <SelectValue>
+          {items.some((item) => item.icon)
+            ? (selected: string) => <SelectLabelWithIcon item={items.find((item) => item.value === selected)} />
+            : undefined}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent alignItemWithTrigger={false}>
-        {items.map((item) => <SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>)}
+        {items.map((item) => (
+          <SelectItem key={item.value} value={item.value}>
+            {item.icon ? <SelectLabelWithIcon item={item} /> : item.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </SelectRoot>
+  )
+}
+
+/** An item's icon before its label, in the trigger and in the list. */
+function SelectLabelWithIcon({ item }: { item?: { label: string; icon?: React.ReactNode } }) {
+  if (!item) return null
+  return (
+    <span className='flex min-w-0 items-center gap-2 [&_svg]:size-3.5 [&_svg]:shrink-0 [&_svg]:text-muted-foreground'>
+      {item.icon}
+      <span className='truncate'>{item.label}</span>
+    </span>
   )
 }

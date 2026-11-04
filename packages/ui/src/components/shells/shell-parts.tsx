@@ -116,7 +116,7 @@ export function ShellPage(
 
 /** Pill tabs in the top bar: the shell's top-level sections or a page tool's views. */
 export const shellPillTabsClass =
-  'h-9 gap-0.5 rounded-full border border-border bg-(--ui-surface) p-1 [&_[data-slot=tabs-trigger]]:h-7 [&_[data-slot=tabs-trigger]]:rounded-full [&_[data-slot=tabs-trigger]]:border-0 [&_[data-slot=tabs-trigger]]:px-3.5 [&_[data-slot=tabs-trigger]]:text-[13px] [&_[data-slot=tabs-trigger]]:data-active:bg-primary [&_[data-slot=tabs-trigger]]:data-active:text-primary-foreground'
+  'group-data-[orientation=horizontal]/tabs:h-9 gap-0.5 rounded-full border border-border bg-(--ui-surface) p-[3px] [&_[data-slot=tabs-trigger]]:h-7 [&_[data-slot=tabs-trigger]]:rounded-full [&_[data-slot=tabs-trigger]]:border-0 [&_[data-slot=tabs-trigger]]:px-3.5 [&_[data-slot=tabs-trigger]]:text-[13px] [&_[data-slot=tabs-trigger]]:data-active:bg-primary [&_[data-slot=tabs-trigger]]:data-active:text-primary-foreground'
 
 /** Brand at the left and account or actions at the right, on the canvas above the page panel. */
 export function ShellTopBar(
