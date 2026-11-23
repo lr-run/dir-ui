@@ -105,7 +105,7 @@ function ComboboxContent({
         align={align}
         alignOffset={alignOffset}
         anchor={anchor}
-        className="z-2147483140 [&_[class~='group/query-action-menu']]:min-w-[240px] isolate"
+        className='z-50 isolate'
       >
         <ComboboxPrimitive.Popup
           data-slot='combobox-content'

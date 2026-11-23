@@ -16,7 +16,6 @@ import {
   LinkIcon,
   MailIcon,
   Maximize2Icon,
-  PanelRightOpenIcon,
   PercentIcon,
   PinIcon,
   Settings2Icon,
@@ -44,6 +43,8 @@ export type RecordColumn<R, SR = unknown> = Column<R, SR> & {
   getValue?: (row: R) => unknown
   icon?: ReactNode
   required?: boolean
+  hiddenByDefault?: boolean
+  detailFieldId?: string
   format?: ColumnFormat
 }
 export type RecordPagination = {
@@ -68,7 +69,8 @@ export type RecordTableProps<R, SR = unknown, K extends Key = Key> = Omit<DataGr
     status: (row: R, column: string) => 'saving' | 'failed' | undefined
   }
   onOpenRecord?: (row: R) => void
-  onPreviewRecord?: (row: R) => void
+  previewKey?: K
+  onPreviewRecord?: (row: R, fieldId?: string) => void
 }
 const freezeGroup = (frozen: boolean | 'start' | 'end') => frozen === 'end' ? 2 : frozen ? 0 : 1
 const numeric = (type?: RecordCellType) => type === 'number' || type === 'money' || type === 'percent'
@@ -79,12 +81,13 @@ const readValue = <R,>(row: R, column: { key: string; getValue?: (row: R) => unk
     ? Reflect.get(row, column.key)
     : undefined
 function Value(
-  { value, type = 'text', format, onOpen, onPreview }: {
+  { value, type = 'text', format, onOpen, onPreview, previewing }: {
     value: unknown
     type?: RecordCellType
     format?: ColumnFormat
     onOpen?: () => void
     onPreview?: () => void
+    previewing?: boolean
   },
 ) {
   const text = cellText(value, type, format)
@@ -130,31 +133,31 @@ function Value(
         >
           {text.slice(0, 1)}
         </span>
-        <span className='min-w-0 flex-1 truncate' title={text}>{text}</span>
-        {(onPreview || onOpen) && (
+        {onPreview
+          ? (
+            <button
+              type='button'
+              onClick={onPreview}
+              aria-label={`Preview ${text}`}
+              aria-expanded={previewing}
+              className='min-w-0 flex-1 cursor-pointer truncate text-start hover:underline focus-visible:underline'
+              title={text}
+            >
+              {text}
+            </button>
+          )
+          : <span className='min-w-0 flex-1 truncate' title={text}>{text}</span>}
+        {onOpen && (
           <span className='ml-auto flex shrink-0 gap-1'>
-            {onPreview && (
-              <button
-                type='button'
-                onClick={onPreview}
-                aria-label={`Preview ${text}`}
-                title='Open sidebar'
-                className='group/record-cell-open inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded border border-border bg-background opacity-0 hover:bg-accent focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100'
-              >
-                <PanelRightOpenIcon size={14} strokeWidth={1.5} aria-hidden />
-              </button>
-            )}
-            {onOpen && (
-              <button
-                type='button'
-                onClick={onOpen}
-                aria-label={`Open ${text}`}
-                title='Open detail page'
-                className='group/record-cell-open inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded border border-border bg-background opacity-0 hover:bg-accent focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100'
-              >
-                <Maximize2Icon size={14} strokeWidth={1.5} aria-hidden />
-              </button>
-            )}
+            <button
+              type='button'
+              onClick={onOpen}
+              aria-label={`Open ${text}`}
+              title='Open detail page'
+              className='group/record-cell-open inline-flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded border border-border bg-background opacity-0 hover:bg-accent focus-visible:opacity-100 [@media(pointer:coarse)]:opacity-100'
+            >
+              <Maximize2Icon size={14} strokeWidth={1.5} aria-hidden />
+            </button>
           </span>
         )}
       </span>
@@ -172,6 +175,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
     inlineEditing,
     onOpenRecord,
     onPreviewRecord,
+    previewKey,
     ...grid
   }: RecordTableProps<
     R,
@@ -204,7 +208,8 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
       const source = byKey.get(c.key)
       if (!source || seen.has(c.key)) return []
       seen.add(c.key)
-      const state = layout.find((s) => s.key === c.key)
+      const state = layout.find((s) => s.key === c.key) ??
+        (source.hiddenByDefault ? { key: source.key, hidden: true } : undefined)
       return [{ ...source, state, frozen: state?.frozen ?? source.frozen ?? (source.type === 'record') }]
     })
   }, [columns, layout])
@@ -414,6 +419,7 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
               type={column.type}
               format={format}
               onOpen={column.type === 'record' && onOpenRecord ? () => onOpenRecord(row) : undefined}
+              previewing={previewKey !== undefined && grid.rowKeyGetter?.(row) === previewKey}
               onPreview={column.type === 'record' && onPreviewRecord ? () => onPreviewRecord(row) : undefined}
             />
           )),
@@ -427,6 +433,8 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
     reorder,
     onOpenRecord,
     onPreviewRecord,
+    previewKey,
+    grid.rowKeyGetter,
     inlineEditing,
   ])
   const loadIfNearEnd = useCallback(() => {
@@ -450,6 +458,16 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
     <>
       <DataGrid
         {...grid}
+        rowClass={(row, index) =>
+          cn(
+            grid.rowClass?.(row, index),
+            previewKey !== undefined && grid.rowKeyGetter?.(row) === previewKey &&
+              [
+                '[--rdg-background-color:var(--ui-selected)] bg-[var(--ui-selected)] [--rdg-row-hover-background-color:var(--ui-selected)]',
+                // Keep the selection tint over a solid surface so scrolled cells cannot show through.
+                '[&>.rdg-cell-frozen:not(.rdg-editor-container)]:[background:linear-gradient(var(--ui-selected),var(--ui-selected)),var(--ui-raised)]!',
+              ],
+          )}
         rows={inlineEditing ? grid.rows.map(inlineEditing.resolveRow) : grid.rows}
         onRowsChange={inlineEditing?.onRowsChange ?? grid.onRowsChange}
         columnSettings={grid.columnSettings === true
@@ -521,11 +539,19 @@ export function RecordTable<R, SR = unknown, K extends Key = Key>(
         }}
         onCellClick={(args, event) => {
           grid.onCellClick?.(args, event)
-          if (
-            !event.defaultPrevented && !event.isGridDefaultPrevented() &&
-            !(event.target as HTMLElement).closest('button,input,[role=combobox]') &&
-            inlineEditing?.canEdit(args.row, args.column.key)
-          ) {
+          if (event.defaultPrevented || event.isGridDefaultPrevented()) return
+          const target = event.target as HTMLElement
+          if (target.closest('button,a,input,textarea,select,[role=combobox],[contenteditable]')) return
+          const column = visible.find((item) => item.key === args.column.key)
+          if (onPreviewRecord && column?.type === 'record' && !column.renderCell) {
+            event.preventGridDefault()
+            onPreviewRecord(args.row)
+            return
+          }
+          if (onPreviewRecord && previewKey !== undefined) {
+            onPreviewRecord(args.row, column?.detailFieldId ?? args.column.key)
+          }
+          if (inlineEditing?.canEdit(args.row, args.column.key)) {
             event.preventDefault()
             args.setActivePosition()
           }

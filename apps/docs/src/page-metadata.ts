@@ -1,4 +1,3 @@
-import { specs } from './pages/catalog/playground/specs.ts'
 import { templates } from '../../../registry/templates.ts'
 import {
   componentDescriptions,
@@ -15,7 +14,7 @@ import {
 export const sitePages = [
   'concept',
   ...foundationPages.map((page) => `foundations/${page.slug}`),
-  ...componentIds.filter((id) => !specs.some((spec) => spec.id === id)).map((id) => `components/${id}`),
+  ...componentIds.map((id) => `components/${id}`),
   'layouts',
   ...layoutIds.map((id) => `layouts/${id}`),
   ...uiRules.map((rule) => `rules/${rule.slug}`),
@@ -32,18 +31,13 @@ export function pageMetadata(path: string) {
     ? path.slice('/layouts/'.length)
     : ''
   if (componentIds.includes(component) || layoutIds.includes(component)) {
-    const spec = specs.find((s) => s.id === component)
     return {
       title: `${componentTitles[component]} — dir/ui`,
       description: componentDescriptions[component]!,
-      markdown: spec ? `components/${spec.id}.md` : 'llms.txt',
+      markdown: componentIds.includes(component) ? `components/${component}.md` : 'llms.txt',
     }
   }
-  const spec = specs.find((s) => path === `/components/${s.id}`)
   const template = templates.find((t) => path === `/examples/${t.id}` || path === `/examples/${t.id}/code`)
-  if (spec) {
-    return { title: `${spec.title} — dir/ui`, description: spec.description, markdown: `components/${spec.id}.md` }
-  }
   if (template) {
     return {
       title: `${template.title} template — dir/ui`,

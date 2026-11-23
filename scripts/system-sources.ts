@@ -7,7 +7,7 @@ const walk = (dir: string) => {
   for (const entry of Deno.readDirSync(dir)) {
     const path = resolve(dir, entry.name)
     if (entry.isDirectory) walk(path)
-    else if (/\.tsx?$/.test(entry.name) && entry.name !== 'index.ts') files.push(relative(src, path))
+    else if (/\.(tsx?|css)$/.test(entry.name) && entry.name !== 'index.ts') files.push(relative(src, path))
   }
 }
 walk(src)

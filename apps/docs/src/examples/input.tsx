@@ -8,7 +8,6 @@ import {
   InputGroupText,
   InputGroupTextarea,
 } from '@dir/ui/components/ui/input.tsx'
-import { Textarea } from '@dir/ui/components/ui/textarea.tsx'
 import type { ComponentDoc } from './index.ts'
 
 export function InputDemo() {
@@ -41,18 +40,6 @@ export function InputGroupDemo() {
         </InputGroupAddon>
         <InputGroupTextarea defaultValue='Propose the upper plan at renewal.' aria-label='Notes' rows={2} />
       </InputGroup>
-    </div>
-  )
-}
-export function TextareaDemo() {
-  return (
-    <div className='grid w-full max-w-md gap-3'>
-      <Textarea
-        defaultValue='Hokuto Manufacturing responded well on site; the PoC can grow to two production lines.'
-        aria-label='Notes'
-      />
-      <Textarea invalid placeholder='Required' aria-label='Invalid' />
-      <Textarea defaultValue='—' disabled aria-label='Disabled' />
     </div>
   )
 }
@@ -97,12 +84,6 @@ export const doc: ComponentDoc = {
       title: 'Input Group',
       description: 'Add text, a button or a keyboard hint inside the input with `InputGroup` and `InputGroupAddon`.',
       example: InputGroupDemo,
-    },
-    {
-      id: 'textarea',
-      title: 'Textarea',
-      description: '`Textarea` grows with its content from 64px.',
-      example: TextareaDemo,
     },
   ],
 }

@@ -1,3 +1,4 @@
+import { themeColorStyles } from './theme-colors.ts'
 import { readPreference, writePreference } from './preferences.ts'
 // @deno-types="./pages/studio/source-text.d.ts"
 import light from '../../../packages/ui/src/styles/theme.css?raw'
@@ -6,10 +7,10 @@ import black from '../../../packages/ui/src/styles/black.css?raw'
 // @deno-types="./pages/studio/source-text.d.ts"
 import paper from '../../../packages/ui/src/styles/paper.css?raw'
 
-/** The three themes of the dir console. Black is the dark side of theme.css; Paper overrides it with warm tokens. */
+/** The three themes of the dir console. Dark is the dark side of theme.css; Paper overrides it with warm tokens. */
 export const themes = [
   { id: 'light', label: 'Light', note: 'theme.css · default', css: '', scheme: 'light' },
-  { id: 'black', label: 'Black', note: 'black.css · dark', css: black, scheme: 'dark' },
+  { id: 'black', label: 'Dark', note: 'black.css · dark', css: black, scheme: 'dark' },
   { id: 'paper', label: 'Paper', note: 'paper.css · warm', css: paper, scheme: 'light' },
 ] as const
 export type Theme = (typeof themes)[number]['id']
@@ -29,6 +30,7 @@ export function installThemes(doc: Document = document) {
   style.textContent = themes.map((theme) =>
     scoped(theme.id, `${lightTokens}\n${theme.css || ':root { color-scheme: light; }'}`)
   ).join('\n')
+  style.textContent += themeColorStyles
   doc.head.appendChild(style)
 }
 export function readTheme(): Theme {

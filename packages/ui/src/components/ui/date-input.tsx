@@ -72,7 +72,7 @@ export function DateInput(
         </Popover.Trigger>
       </div>
       <Popover.Portal>
-        <Popover.Positioner align='start' sideOffset={4} collisionPadding={12} className='z-2147483141'>
+        <Popover.Positioner align='start' sideOffset={4} collisionPadding={12} className='z-50'>
           <Popover.Popup
             data-slot='date-picker-content'
             aria-labelledby={titleId}

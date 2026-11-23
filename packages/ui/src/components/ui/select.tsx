@@ -82,7 +82,7 @@ function SelectContent({
         align={align}
         alignOffset={alignOffset}
         alignItemWithTrigger={alignItemWithTrigger}
-        className="z-2147483140 [&_[class~='group/query-action-menu']]:min-w-[240px] isolate"
+        className='z-50 isolate'
       >
         <SelectPrimitive.Popup
           data-slot='select-content'
@@ -203,15 +203,21 @@ export {
   SelectValue,
 }
 
-export function Select({ value, onChange, items, label, disabled, id, invalid }: {
+export function Select({ value, onChange, items, label, menuLabel, disabled, id, invalid }: {
   value: string
   onChange: (value: string) => void
   items: { value: string; label: string; icon?: React.ReactNode }[]
   label: string
+  menuLabel?: string
   disabled?: boolean
   id?: string
   invalid?: boolean
 }) {
+  const options = items.map((item) => (
+    <SelectItem key={item.value} value={item.value}>
+      {item.icon ? <SelectLabelWithIcon item={item} /> : item.label}
+    </SelectItem>
+  ))
   return (
     <SelectRoot value={value} onValueChange={(v) => v !== null && onChange(v)} items={items} disabled={disabled}>
       <SelectTrigger
@@ -227,11 +233,14 @@ export function Select({ value, onChange, items, label, disabled, id, invalid }:
         </SelectValue>
       </SelectTrigger>
       <SelectContent alignItemWithTrigger={false}>
-        {items.map((item) => (
-          <SelectItem key={item.value} value={item.value}>
-            {item.icon ? <SelectLabelWithIcon item={item} /> : item.label}
-          </SelectItem>
-        ))}
+        {menuLabel
+          ? (
+            <SelectGroup>
+              <SelectLabel>{menuLabel}</SelectLabel>
+              {options}
+            </SelectGroup>
+          )
+          : options}
       </SelectContent>
     </SelectRoot>
   )

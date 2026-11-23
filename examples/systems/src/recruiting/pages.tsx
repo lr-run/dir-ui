@@ -103,11 +103,13 @@ function Pipeline({ store, openRecord }: KitPageContext) {
           description={`No contact for ${STALLED_DAYS} days or more, oldest first`}
         >
           <DashboardList
-            empty='Every active candidate was contacted in the last two weeks.'
+            empty='No candidates need follow-up.'
             rows={stalled.slice(0, 6).map((row) => ({
               id: row.id,
               title: row.name,
-              detail: `${row.position} · ${daysSince(values(row).lastContactAt)} days · ${row.recruiter}`,
+              detail: `Last contact ${
+                daysSince(values(row).lastContactAt)
+              } days ago · ${row.recruiter} · ${row.position}`,
               trailing: <ChoiceContent item={stageOf(row)} compact />,
               onOpen: () => openRecord('candidates', row.id),
             }))}

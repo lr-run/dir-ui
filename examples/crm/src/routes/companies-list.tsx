@@ -23,9 +23,9 @@ const definition: ListPageDefinition<ExampleRecord> = {
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Company', type: 'record', width: 235, required: true },
-    { key: 'owner', name: 'Owner', type: 'member', width: 175 },
+    { key: 'owner', detailFieldId: 'ownerId', name: 'Owner', type: 'member', width: 175 },
     { key: 'industry', name: 'Industry', type: 'text', width: 175 },
-    { key: 'domain', name: 'Website', type: 'url', width: 175 },
+    { key: 'domain', detailFieldId: 'website', name: 'Website', type: 'url', width: 175 },
     { key: 'createdAt', name: 'Created', type: 'date', width: 170 },
     { key: 'updatedAt', name: 'Updated', type: 'date', width: 170 },
   ],

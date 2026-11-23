@@ -135,6 +135,7 @@ export const interviews: KitObject = {
   title: 'Interviews',
   singular: 'Interview',
   nameLabel: 'Interview',
+  detail: { compactHeader: true },
   icon: <CalendarCheckIcon {...icon} />,
   fields: [
     { key: 'candidate', label: 'Candidate', type: 'reference', reference: 'candidates', width: 190, required: true },

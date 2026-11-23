@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { ConfirmDialog } from '@dir/ui/components/ui/alert-dialog.tsx'
 import { Button } from '@dir/ui/components/ui/button.tsx'
 import { Dialog, Drawer } from '@dir/ui/components/ui/dialog.tsx'
 import { Field } from '@dir/ui/components/ui/field.tsx'
@@ -62,30 +61,6 @@ export function DrawerDemo() {
     </>
   )
 }
-export function AlertDialogDemo() {
-  const [open, setOpen] = useState(false)
-  const [busy, setBusy] = useState(false)
-  return (
-    <>
-      <Button variant='destructive' onClick={() => setOpen(true)}>Delete deal</Button>
-      <ConfirmDialog
-        open={open}
-        onOpenChange={setOpen}
-        title='Delete deal'
-        description='"ABC Trading — Core system renewal" and 3 activities will be deleted. This cannot be undone.'
-        action='Delete'
-        busy={busy}
-        onConfirm={() => {
-          setBusy(true)
-          setTimeout(() => {
-            setBusy(false)
-            setOpen(false)
-          }, 1200)
-        }}
-      />
-    </>
-  )
-}
 export const doc: ComponentDoc = {
   hero: DialogDemo,
   sections: [
@@ -94,13 +69,6 @@ export const doc: ComponentDoc = {
       title: 'Drawer',
       description: '`Drawer` docks to the right edge at 760px for wide editing.',
       example: DrawerDemo,
-    },
-    {
-      id: 'alert-dialog',
-      title: 'Alert Dialog',
-      description:
-        '`ConfirmDialog` confirms destructive actions; initial focus is Cancel. `busy` disables both buttons while the action runs.',
-      example: AlertDialogDemo,
     },
   ],
 }

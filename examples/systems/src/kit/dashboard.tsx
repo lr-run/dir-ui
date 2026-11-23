@@ -65,11 +65,11 @@ export function DashboardList({ rows, empty }: {
 }) {
   if (!rows.length) return <p className='m-0 px-5 pb-5 text-[13px] text-muted-foreground'>{empty}</p>
   return (
-    <List>
+    <List separators='start'>
       {rows.map((row) => (
         <ListItem
           key={row.id}
-          className='min-h-11 border-t border-border px-5 py-2.5 [border-bottom:0]'
+          className='min-h-11 px-5 py-2.5'
           onOpen={row.onOpen}
           title={<span className='block truncate'>{row.title}</span>}
           description={row.detail && <span className='block truncate text-[12px]'>{row.detail}</span>}

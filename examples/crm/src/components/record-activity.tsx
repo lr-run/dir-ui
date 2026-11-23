@@ -18,7 +18,7 @@ import { Button } from '@/components/ui/button.tsx'
 import { Textarea } from '@/components/ui/textarea.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
 import { type Note, RichText, type RichTextValue } from '@/components/ui/rich-text.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { NoteContent } from '@/components/crm/components/record-notes.tsx'
 import {
   ChoiceField,

@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, CodeXmlIcon, RectangleEllipsisIcon, SmartphoneIcon, TabletIcon } from 'lucide-react'
 import { TemplateInstall } from './install-command.tsx'
 import { Button } from '@dir/ui/components/ui/button.tsx'
-import { Hint } from '@dir/ui/components/ui/tooltip.tsx'
+import { Hint } from '@dir/ui/components/ui/hint.tsx'
 
 type ViewportItem = { value: string; label: string; Icon: typeof TabletIcon }
 const viewports: ViewportItem[] = [

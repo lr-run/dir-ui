@@ -5,7 +5,7 @@ import { type ReactNode, useEffect, useMemo, useState } from 'react'
 import { AppShell } from '@/components/shells/app-shell.tsx'
 import { PageShell } from '@/components/shells/page-shell.tsx'
 import { ShellMenuTrigger } from '@/components/shells/shell-parts.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { EmptyState } from '@/components/ui/empty-state.tsx'
 import { IconButton } from '@/components/ui/icon-button.tsx'
 import { Sheet } from '@/components/ui/sheet.tsx'
@@ -40,7 +40,10 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
   const store = useKitStore(config, count)
   const [pathname, setPathname] = useState(() => location.pathname)
   const [views, setViews] = useState<Record<string, ListViews>>({})
-  const [preview, setPreview] = useState<{ objectId: string; id: string; order: string[] } | null>(null)
+  const [preview, setPreview] = useState<{ objectId: string; id: string; order: string[]; fieldId: string } | null>(
+    null,
+  )
+  const [previewOpen, setPreviewOpen] = useState(false)
   const [archiving, setArchiving] = useState<{ objectId: string; id: string } | null>(null)
   const route = resolve(config, pathname, basePath)
   const navigate = (path: string) => {
@@ -52,7 +55,7 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
     addEventListener('popstate', pop)
     return () => removeEventListener('popstate', pop)
   }, [])
-  useEffect(() => setPreview(null), [pathname])
+  useEffect(() => setPreviewOpen(false), [pathname])
   const openRecord = (objectId: string, id: string) => navigate(`/${objectId}/${encodeURIComponent(id)}`)
   const active = route.kind === 'page' ? route.pageId : 'objectId' in route ? route.objectId : ''
   const items = useMemo(() =>
@@ -80,7 +83,15 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
           }))}
         onOpen={(id) => openRecord(object.id, id)}
         onNavigate={navigate}
-        onOpenPreview={(row, rows) => setPreview({ objectId: object.id, id: row.id, order: rows.map((r) => r.id) })}
+        previewId={previewOpen && preview?.objectId === object.id ? preview.id : undefined}
+        onOpenPreview={(row, rows, fieldId) => {
+          if (fieldId === undefined && previewOpen && preview?.objectId === object.id && preview.id === row.id) {
+            setPreviewOpen(false)
+            return
+          }
+          setPreview({ objectId: object.id, id: row.id, order: rows.map((r) => r.id), fieldId: fieldId ?? 'name' })
+          setPreviewOpen(true)
+        }}
       />
     )
   } else if (route.kind === 'detail') {
@@ -127,6 +138,7 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
   }
   const page = {
     title,
+    compactHeader: route.kind === 'detail' && store.object(route.objectId).detail?.compactHeader,
     leading: back,
     actions,
     children: <div className='flex h-full min-h-0 flex-col'>{content}</div>,
@@ -176,10 +188,11 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
           />
         )}
       <Sheet
-        open={!!previewRecord}
+        open={previewOpen && !!previewRecord}
         modal={false}
         disablePointerDismissal
-        onOpenChange={(open) => !open && setPreview(null)}
+        onOpenChange={setPreviewOpen}
+        onOpenChangeComplete={(open) => !open && setPreview(null)}
       >
         {previewRecord && previewObject && preview && (
           <KitPreview
@@ -189,6 +202,7 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
             users={config.users}
             position={position + 1}
             total={preview.order.length}
+            highlightedFieldId={preview.fieldId}
             onPrevious={position > 0 ? () => setPreview({ ...preview, id: preview.order[position - 1]! }) : undefined}
             onNext={position < preview.order.length - 1
               ? () => setPreview({ ...preview, id: preview.order[position + 1]! })
@@ -213,7 +227,7 @@ export function KitApp({ config, count = 60, basePath = '', layout = 'app' }: {
           onConfirm={() => {
             store.setArchived(archiving.objectId, archiving.id, true)
             setArchiving(null)
-            setPreview(null)
+            setPreviewOpen(false)
           }}
         />
       )}

@@ -23,15 +23,15 @@ const definition: ListPageDefinition<ExampleRecord> = {
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Deal', type: 'record', width: 235, required: true },
-    { key: 'company', name: 'Company', type: 'text', width: 175 },
-    { key: 'owner', name: 'Owner', type: 'member', width: 175 },
-    { key: 'status', name: 'Stage', type: 'status', width: 175 },
+    { key: 'company', detailFieldId: 'companyId', name: 'Company', type: 'text', width: 175 },
+    { key: 'owner', detailFieldId: 'ownerId', name: 'Owner', type: 'member', width: 175 },
+    { key: 'status', detailFieldId: 'stageId', name: 'Stage', type: 'status', width: 175 },
+    { key: 'nextAction', name: 'Next action', type: 'text', width: 175 },
     { key: 'amount', name: 'Amount', type: 'number', width: 175 },
     { key: 'currency', name: 'Currency', type: 'text', width: 175 },
-    { key: 'closeDate', name: 'Expected close', type: 'date', width: 175 },
-    { key: 'nextAction', name: 'Next action', type: 'text', width: 175 },
-    { key: 'createdAt', name: 'Created', type: 'date', width: 170 },
-    { key: 'updatedAt', name: 'Updated', type: 'date', width: 170 },
+    { key: 'closeDate', detailFieldId: 'expectedCloseDate', name: 'Expected close', type: 'date', width: 175 },
+    { key: 'createdAt', name: 'Created', type: 'date', width: 170, hiddenByDefault: true },
+    { key: 'updatedAt', name: 'Updated', type: 'date', width: 170, hiddenByDefault: true },
   ],
 }
 export function DealsList(props: ListRouteProps) {

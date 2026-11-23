@@ -1,21 +1,26 @@
 import { sourcePath } from '../registry/paths.ts'
 import { documentationFiles } from '../apps/docs/documentation.ts'
-import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
 import { componentApi } from '../apps/docs/src/pages/catalog/api-data.ts'
 import { templates } from '../registry/templates.ts'
 import { installCommand, registryAddress } from '../registry/catalog.ts'
-import { makeRegistry } from '../scripts/registry.ts'
-import { recipes } from '../apps/docs/src/navigation.ts'
+import { makeRegistry, official } from '../scripts/registry.ts'
+import {
+  apiIdsFor,
+  componentDescriptions,
+  componentIds,
+  componentTitles,
+  recipes,
+} from '../apps/docs/src/navigation.ts'
 import { sitePages } from '../apps/docs/documentation.ts'
 import { pageMetadata } from '../apps/docs/documentation.ts'
 
 Deno.test('every component command installs its documented API source', async () => {
   const registry = await makeRegistry()
   const docs = documentationFiles()
-  for (const spec of specs) {
-    const item = registry.items.find((item) => item.name === spec.id)
-    if (!item) throw new Error(`Missing install item: ${spec.id}`)
-    const api = componentApi[spec.id as keyof typeof componentApi]
+  for (const id of componentIds) {
+    if (!componentTitles[id] || !componentDescriptions[id]) throw new Error(`Missing title or description: ${id}`)
+    const item = registry.items.find((item) => item.name === id)
+    if (!item) throw new Error(`Missing install item: ${id}`)
     const installed = new Set<string>()
     const collect = (current: (typeof registry.items)[number] | undefined) => {
       if (!current || installed.has(current.name)) return
@@ -25,20 +30,29 @@ Deno.test('every component command installs its documented API source', async ()
       }
     }
     collect(item)
-    if (
-      api.path.startsWith('components/') && api.path !== 'components/ui/skeleton.tsx' &&
-      !registry.items.filter((i) => installed.has(i.name)).some((i) =>
-        i.files.some((f) => f.path === sourcePath(api.path))
-      )
-    ) {
-      throw new Error(`Missing API source: ${spec.id}: ${api.path}`)
+    const markdown = docs.get(`components/${id}.md`)
+    if (!markdown?.includes(installCommand(id))) throw new Error(`Missing install command: ${id}`)
+    for (const key of apiIdsFor(id)) {
+      const api = componentApi[key as keyof typeof componentApi]
+      if (!api) throw new Error(`Missing API reference: ${id} -> ${key}`)
+      if (
+        api.path.startsWith('components/') && !official[sourcePath(api.path)] &&
+        !registry.items.filter((i) => installed.has(i.name)).some((i) =>
+          i.files.some((f) => f.path === sourcePath(api.path))
+        )
+      ) {
+        throw new Error(`Missing API source: ${id}: ${api.path}`)
+      }
+      if (!markdown.includes(api.names)) throw new Error(`Missing API in Markdown: ${id} -> ${key}`)
     }
-    const markdown = docs.get(`components/${spec.id}.md`)
-    if (!markdown?.includes(installCommand(spec.id)) || !markdown.includes(api.names)) {
-      throw new Error(`Missing install or API: ${spec.id}`)
-    }
-    if (!docs.get('llms.txt')?.includes(`/components/${spec.id}.md`)) throw new Error(`Unindexed: ${spec.id}`)
+    if (!docs.get('llms.txt')?.includes(`/components/${id}.md`)) throw new Error(`Unindexed: ${id}`)
   }
+  if (/[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(JSON.stringify(componentApi))) {
+    throw new Error('Documentation must be English')
+  }
+  const documented = new Set(componentIds.flatMap(apiIdsFor))
+  const orphans = Object.keys(componentApi).filter((key) => !documented.has(key))
+  if (orphans.length) throw new Error(`API references without a page: ${orphans.join(', ')}`)
   for (const template of templates) {
     const item = registry.items.find((item) => item.name === template.registryItem)
     if (

@@ -110,7 +110,7 @@ export function DashboardBody() {
               ))}
             </tbody>
           </table>
-          <List className='hidden max-[600px]:block [&>li]:border-t [&>li]:border-border [&>li]:px-4'>
+          <List separators='start' className='hidden max-[600px]:block [&>li]:px-4'>
             {clients.slice(0, 5).map((client) => (
               <ListItem
                 key={client.name}
@@ -197,7 +197,7 @@ export function ClientListBody({ status: fixed }: { status?: string }) {
             ))}
           </tbody>
         </table>
-        <List className='hidden max-[600px]:block [&>li]:border-t [&>li]:border-border [&>li:first-child]:border-t-0 [&>li]:px-4'>
+        <List className='hidden max-[600px]:block [&>li]:px-4'>
           {rows.map((client) => (
             <ListItem
               key={client.name}

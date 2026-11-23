@@ -123,7 +123,8 @@ export const doc: ComponentDoc = {
     {
       id: 'inline',
       title: 'Inline',
-      description: '`InlineCombobox` and `InlineMultiCombobox` edit a record property in place and save on change.',
+      description:
+        '`InlineCombobox` and `InlineMultiCombobox` edit a record property in place and save on change. They install with InlineField.',
       example: ComboboxInline,
     },
   ],

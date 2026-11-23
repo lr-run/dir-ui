@@ -2,7 +2,8 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
 import { readFile } from 'node:fs/promises'
-import { resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { createRequire } from 'node:module'
 import { documentationFiles } from './documentation.ts'
 
 const previewDocument = (entry: string) =>
@@ -13,6 +14,12 @@ export default defineConfig({
   base: '/',
   resolve: {
     alias: {
+      // Providers and controls must share the library's Base UI instance even when another example uses a newer version.
+      '@base-ui/react': dirname(
+        createRequire(new URL('../../packages/ui/package.json', import.meta.url)).resolve(
+          '@base-ui/react/package.json',
+        ),
+      ),
       '@/components/crm': resolve('examples/crm/src'),
       '@/components/systems': resolve('examples/systems/src'),
       '@/components': resolve('packages/ui/src/components'),

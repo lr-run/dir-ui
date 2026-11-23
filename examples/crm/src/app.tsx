@@ -3,7 +3,7 @@ import { useErrorNotification } from '@/lib/error-notifications.tsx'
 import { ReportSkeleton, SettingsSkeleton } from '@/components/crm/components/loading.tsx'
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { Sheet } from '@/components/ui/sheet.tsx'
 import { Layout, WorkspaceSearch } from '@/components/crm/layout.tsx'
 import { RecordPreview } from '@/components/crm/components/record-preview.tsx'
@@ -49,10 +49,17 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
   const [pathname, setPathname] = useState(() => location.pathname),
     [archived, setArchived] = useState(false),
     [searchOpen, setSearchOpen] = useState(false),
-    [previewId, setPreviewId] = useState<string | null>(null),
+    [previewRecordId, setPreviewRecordId] = useState<string | null>(null),
+    [previewFieldId, setPreviewFieldId] = useState<string>(),
+    [previewOpen, setPreviewOpen] = useState(false),
     [previewOrder, setPreviewOrder] = useState<string[]>([]),
     [archiveTarget, setArchiveTarget] = useState<ExampleRecord | null>(null)
   const route = resolveRoute(pathname, basePath), kind = 'kind' in route ? route.kind : 'companies'
+  const previewId = previewOpen ? previewRecordId : null
+  const setPreviewId = (id: string | null) => {
+    if (id !== null) setPreviewRecordId(id)
+    setPreviewOpen(id !== null)
+  }
   const href = (path: string) => `${basePath}${path}${location.search}`
   const navigate = (path: string) => {
     history.pushState(null, '', href(path))
@@ -64,7 +71,7 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
     return () => removeEventListener('popstate', pop)
   }, [])
   useEffect(() => {
-    setPreviewId(null)
+    setPreviewOpen(false)
     setArchiveTarget(null)
     setArchived(false)
   }, [pathname])
@@ -74,9 +81,9 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
     const ids = new Set(rows.map((r) => r.id))
     return previewOrder.filter((id) => ids.has(id))
   }, [rows, previewOrder])
-  const previewIndex = previewRows.indexOf(previewId ?? '')
+  const previewIndex = previewRows.indexOf(previewRecordId ?? '')
   const record = route.page === 'detail' ? records.find((r) => r.id === route.id) : undefined
-  const selected = previewId ? records.find((r) => r.id === previewId) : record
+  const selected = record ?? records.find((r) => r.id === previewRecordId)
   const patch = (change: RecordChange, _label: string) => {
     if (selected) store.update(kind, selected.id, change)
   }
@@ -141,6 +148,7 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
               key={kind}
               inlineEditing={inlineEditing}
               records={rows}
+              previewId={previewId ?? undefined}
               state={store.state}
               archived={archived}
               onArchivedChange={(next) => {
@@ -151,7 +159,12 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
               onViewsChange={(value) => store.setViews(kind, value)}
               onCreate={create}
               onOpenDetail={(row) => openRecord(kind, row.id)}
-              onOpenPreview={(row, visible) => {
+              onOpenPreview={(row, visible, fieldId) => {
+                if (fieldId === undefined && previewId === row.id) {
+                  setPreviewId(null)
+                  return
+                }
+                setPreviewFieldId(fieldId ?? 'name')
                 setPreviewOrder(visible.map((r) => r.id))
                 setPreviewId(row.id)
               }}
@@ -172,11 +185,15 @@ export function CrmApp({ count = 100, basePath = '' }: { count?: number; basePat
         onOpenChange={(open) => {
           if (!open) setPreviewId(null)
         }}
+        onOpenChangeComplete={(open) => {
+          if (!open) setPreviewRecordId(null)
+        }}
       >
-        {previewId && detailProps && (
+        {previewRecordId && !record && detailProps && (
           <RecordPreview
             {...detailProps}
             fields={fields(detailProps)}
+            highlightedFieldId={previewFieldId}
             position={previewIndex + 1}
             total={previewRows.length}
             onPrevious={previewIndex > 0 ? () => setPreviewId(previewRows[previewIndex - 1]!) : undefined}

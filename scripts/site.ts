@@ -1,13 +1,11 @@
 import { resolve } from 'node:path'
 import { documentationFiles, pageMetadata, sitePages } from '../apps/docs/documentation.ts'
-import { specs } from '../apps/docs/src/pages/catalog/playground/specs.ts'
 import { templates } from '../registry/templates.ts'
 import { siteUrl } from '../registry/catalog.ts'
 
 export const siteRoutes = [
   '/',
   ...sitePages.map((page) => `/${page}`),
-  ...specs.map((s) => `/components/${s.id}`),
   ...templates.flatMap((t) => [`/examples/${t.id}`, `/examples/${t.id}/code`]),
 ]
 export const escapeHtml = (s: string) =>

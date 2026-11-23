@@ -1,5 +1,5 @@
 import { RecordArchiveAction } from '@/components/crm/components/record-archive-action.tsx'
-import type { ReactNode } from 'react'
+import { type ReactNode, useEffect, useRef } from 'react'
 
 export type DetailContext<R, Change> = {
   record: R
@@ -49,13 +49,23 @@ export function DetailPage<R, Change>(
   )
 }
 
-export function DetailFields<R, Change>({ fields, ...context }: DetailContext<R, Change> & {
+export function DetailFields<R, Change>({ fields, highlightedFieldId, ...context }: DetailContext<R, Change> & {
   fields: readonly DetailField<R, Change>[]
+  highlightedFieldId?: string
 }) {
+  const highlightedField = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    highlightedField.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+  }, [highlightedFieldId])
   return (
     <dl className='group/screen-field-list grid gap-[10px] m-0 [&>div]:grid [&>div]:grid-cols-[76px_minmax(0,_1fr)] [&>div]:items-center [&>div]:gap-[8px] [&>div]:min-h-[32px] [&_dt]:text-muted-foreground [&_dt]:text-[12px] [&_dd]:min-w-0 [&_dd]:m-0 [&_dd]:text-[13px]'>
       {fields.map((field) => (
-        <div key={field.id}>
+        <div
+          key={field.id}
+          ref={field.id === highlightedFieldId ? highlightedField : undefined}
+          data-highlighted={field.id === highlightedFieldId || undefined}
+          className='data-[highlighted]:relative data-[highlighted]:isolate data-[highlighted]:before:pointer-events-none data-[highlighted]:before:absolute data-[highlighted]:before:-inset-x-2 data-[highlighted]:before:-inset-y-0.5 data-[highlighted]:before:-z-10 data-[highlighted]:before:rounded-md data-[highlighted]:before:bg-(--ui-selected)'
+        >
           <dt>{field.label}</dt>
           <dd>{field.render(context)}</dd>
         </div>

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button.tsx'
 import { EmptyState } from '@/components/ui/empty-state.tsx'
 import { Field } from '@/components/ui/field.tsx'
 import { IconButton } from '@/components/ui/icon-button.tsx'
-import { InlineEdit } from '@/components/ui/inline-edit.tsx'
+import { InlineField } from '@/components/ui/inline-field.tsx'
 import { SheetBody, SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet.tsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.tsx'
 import { Textarea } from '@/components/ui/textarea.tsx'
@@ -14,7 +14,7 @@ import { List, ListItem } from '@/components/ui/list.tsx'
 import type { Choice } from '@/lib/choice-types.ts'
 import { RecordArchiveAction } from '@/components/crm/components/record-archive-action.tsx'
 import { type DetailField, DetailFields, DetailPage } from '@/components/crm/screens/detail-page.tsx'
-import { InlineField } from '@/components/systems/kit/fields.tsx'
+import { RecordField } from '@/components/systems/kit/fields.tsx'
 import type { KitStore } from '@/components/systems/kit/store.ts'
 import type { KitDetailContext, KitObject, KitRecord } from '@/components/systems/kit/types.ts'
 
@@ -32,7 +32,7 @@ export function recordFields(object: KitObject, store: KitStore, users: Choice[]
         record.archivedAt || object.readOnly
           ? <span className='block px-2 py-1 text-[13px]'>{record.name}</span>
           : (
-            <InlineEdit
+            <InlineField
               label={object.nameLabel ?? 'Name'}
               value={record.name}
               validate={(value) => value.trim() ? undefined : 'Enter a name.'}
@@ -44,7 +44,7 @@ export function recordFields(object: KitObject, store: KitStore, users: Choice[]
       id: field.key,
       label: field.label,
       render: ({ record, onChange }) => (
-        <InlineField
+        <RecordField
           field={field}
           record={record}
           store={store}
@@ -194,18 +194,21 @@ export function KitDetail({ object, record, store, users, context, onArchive, on
 }
 
 /** The right-hand sheet a list row opens; the arrows move through the rows in their current order. */
-export function KitPreview({ object, record, store, users, position, total, onPrevious, onNext, onOpen, onArchive }: {
-  object: KitObject
-  record: KitRecord
-  store: KitStore
-  users: Choice[]
-  position: number
-  total: number
-  onPrevious?: () => void
-  onNext?: () => void
-  onOpen: () => void
-  onArchive: () => void
-}) {
+export function KitPreview(
+  { object, record, store, users, highlightedFieldId, position, total, onPrevious, onNext, onOpen, onArchive }: {
+    object: KitObject
+    record: KitRecord
+    store: KitStore
+    users: Choice[]
+    highlightedFieldId?: string
+    position: number
+    total: number
+    onPrevious?: () => void
+    onNext?: () => void
+    onOpen: () => void
+    onArchive: () => void
+  },
+) {
   return (
     <SheetContent backdrop={false} className='group/screen-record-sheet group/record-preview'>
       <SheetHeader>
@@ -242,6 +245,7 @@ export function KitPreview({ object, record, store, users, position, total, onPr
           {record.archivedAt && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore to edit.</p>}
           <DetailFields
             fields={recordFields(object, store, users)}
+            highlightedFieldId={highlightedFieldId}
             record={record}
             onChange={(change) => store.update(object.id, record.id, change)}
           />

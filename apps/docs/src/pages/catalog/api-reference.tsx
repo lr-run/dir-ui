@@ -67,24 +67,18 @@ function Reference({ id, showImport = false }: { id: string; showImport?: boolea
   )
 }
 
-export function ApiReference({ id }: { id: string }) {
+export function ApiReference({ ids }: { ids: string[] }) {
   return (
     <section
       id='api'
       className='scroll-mt-[calc(var(--docs-header-height)+24px)] mt-[48px] pt-[24px] [border-top:1px_solid_var(--ui-border)] min-w-0 [&_h2]:text-[22px] [&_h2]:tracking-tight [&_h2]:font-semibold [&_h2]:m-[0_0_24px] [&_h3]:text-[15px] [&_h3]:font-semibold [&_h3]:m-[24px_0_12px] [&_table]:w-full [&_table]:[border-collapse:collapse] [&_table]:text-[13px] [&_table]:leading-6 [&_table]:text-left [&_th]:p-[12px] [&_th]:[border-bottom:1px_solid_var(--ui-border)] [&_th]:align-top [&_td]:p-[12px] [&_td]:[border-bottom:1px_solid_var(--ui-border)] [&_td]:align-top [&_th]:text-muted-foreground [&_th]:font-medium [&_td_code]:text-xs [&_thead]:bg-muted/40 [&_tbody_tr:last-child_td]:border-b-0 [&_td_code]:whitespace-normal [&_td_code]:[overflow-wrap:anywhere]'
     >
       <h2>API Reference</h2>
-      <Reference id={id} />
-      {id === 'chart' && [
-        ['chart-frame', 'ChartFrame'],
-        ['revenue-bars', 'RevenueBars'],
-        ['line-chart', 'TrendChart'],
-        ['horizontal-bars', 'HorizontalBars'],
-        ['spark-chart', 'SparkChart'],
-      ].map(([key, title]) => (
+      <Reference id={ids[0]!} />
+      {ids.slice(1).map((key) => (
         <section key={key}>
-          <h2>{title}</h2>
-          <Reference id={key!} showImport />
+          <h2>{componentApi[key as keyof typeof componentApi]?.names}</h2>
+          <Reference id={key} showImport />
         </section>
       ))}
     </section>

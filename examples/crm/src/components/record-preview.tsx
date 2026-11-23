@@ -5,10 +5,11 @@ import { SheetBody, SheetClose, SheetContent, SheetHeader, SheetTitle } from '@/
 import { DetailFields } from '@/components/crm/screens/detail-page.tsx'
 import type { DetailRouteProps, RecordField } from '@/components/crm/types.ts'
 export function RecordPreview(
-  { record, fields, onChange, onArchive, position, total, onPrevious, onNext, onOpen }:
+  { record, fields, highlightedFieldId, onChange, onArchive, position, total, onPrevious, onNext, onOpen }:
     & Pick<DetailRouteProps, 'record' | 'onChange' | 'onArchive'>
     & {
       fields: RecordField[]
+      highlightedFieldId?: string
       position: number
       total: number
       onPrevious?: () => void
@@ -17,7 +18,10 @@ export function RecordPreview(
     },
 ) {
   return (
-    <SheetContent backdrop={false} className='group/screen-record-sheet group/record-preview'>
+    <SheetContent
+      backdrop={false}
+      className='group/screen-record-sheet group/record-preview'
+    >
       <SheetHeader>
         <div className='flex w-full items-center gap-1'>
           <SheetClose
@@ -50,7 +54,7 @@ export function RecordPreview(
             <RecordArchiveAction archived={!!record.archivedAt} onArchive={onArchive} />
           </div>
           {record.archivedAt && <p className='mb-4 text-xs text-muted-foreground'>Archived · Restore to edit.</p>}
-          <DetailFields fields={fields} record={record} onChange={onChange} />
+          <DetailFields fields={fields} record={record} onChange={onChange} highlightedFieldId={highlightedFieldId} />
         </div>
       </SheetBody>
     </SheetContent>

@@ -1,12 +1,12 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { landingHref } from '../routes.ts'
-import { specById } from '../navigation.ts'
+import { componentIds } from '../navigation.ts'
 
 /** One component: name, one line of dimensions, rows of variants, sizes and states. */
 export function Section(
   { id, title, spec, children }: { id: string; title: string; spec: string; children: ReactNode },
 ) {
-  const detail = specById.has(id) ? landingHref(id) : undefined
+  const detail = componentIds.includes(id) ? landingHref(id) : undefined
   return (
     <section
       id={id}

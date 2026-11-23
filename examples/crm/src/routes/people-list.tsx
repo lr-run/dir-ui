@@ -23,7 +23,7 @@ const definition: ListPageDefinition<ExampleRecord> = {
   query: (records, query) => queryExampleRecords(records, fields, query),
   columns: [
     { key: 'name', name: 'Person', type: 'record', width: 235, required: true },
-    { key: 'company', name: 'Company', type: 'text', width: 175 },
+    { key: 'company', detailFieldId: 'companyId', name: 'Company', type: 'text', width: 175 },
     { key: 'department', name: 'Department', type: 'text', width: 175 },
     { key: 'title', name: 'Title', type: 'text', width: 175 },
     { key: 'email', name: 'Email', type: 'email', width: 175 },

@@ -162,7 +162,7 @@ function RuleActions({ label, remove, duplicate, wrap, disabled }: {
           </IconButton>
         }
       />
-      <DropdownMenuContent className='group/query-action-menu min-w-[185px] text-[13px]'>
+      <DropdownMenuContent className='min-w-[240px] text-[13px]'>
         <DropdownMenuItem variant='destructive' onClick={remove}>
           <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Remove
         </DropdownMenuItem>
@@ -575,7 +575,7 @@ function FilterEditor(
                 </Button>
               }
             />
-            <DropdownMenuContent className='group/query-action-menu min-w-[185px] text-[13px]'>
+            <DropdownMenuContent className='min-w-[240px] text-[13px]'>
               <DropdownMenuItem onClick={addRule}>
                 <PlusIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Add filter rule
               </DropdownMenuItem>

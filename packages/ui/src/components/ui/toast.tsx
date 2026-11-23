@@ -16,7 +16,7 @@ export function Toasts() {
   const { toasts } = Toast.useToastManager()
   return (
     <Toast.Portal>
-      <Toast.Viewport className='fixed bottom-[50px] right-[20px] w-[380px] max-w-[calc(100vw_-_32px)] flex flex-col gap-[8px] [outline:0] [@media(max-width:_680px)]:right-[16px] z-2147483160'>
+      <Toast.Viewport className='fixed bottom-[50px] right-[20px] w-[380px] max-w-[calc(100vw_-_32px)] flex flex-col gap-[8px] [outline:0] [@media(max-width:_680px)]:right-[16px] z-50'>
         {toasts.map((t) => (
           <Toast.Root
             key={t.id}

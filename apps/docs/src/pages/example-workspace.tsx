@@ -11,10 +11,11 @@ const PreviewStudio = lazy(() => import('./studio/studio-page.tsx').then((m) => 
 
 /** Examples tab, arranged like Layouts: example tabs on the left, preview controls on the right, the app below. */
 export function ExampleWorkspace(
-  { example, code, theme, count, viewport, revision, onNavigate, onCountChange, onViewportChange, onReset }: {
+  { example, code, theme, color, count, viewport, revision, onNavigate, onCountChange, onViewportChange, onReset }: {
     example: string
     code: boolean
     theme: string
+    color: string
     count: number
     viewport: string
     revision: number
@@ -51,7 +52,7 @@ export function ExampleWorkspace(
                 <IconButton label='Reset preview' variant='ghost' onClick={onReset}>
                   <RefreshCwIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 </IconButton>
-                <FullScreenLink href={examplePreviewUrl(example, count, theme)} />
+                <FullScreenLink href={examplePreviewUrl(example, count, theme, color)} />
               </>
             )}
             <StudioActions
@@ -67,6 +68,7 @@ export function ExampleWorkspace(
           key={example}
           example={example}
           theme={theme}
+          color={color}
           codeView={code}
           count={count}
           viewport={viewport}

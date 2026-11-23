@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { createRecordChoiceLoader } from '@/components/crm/example/query.ts'
 import { recordFieldChange } from '@/components/crm/components/record-editing.ts'
 import { type Control, Controller, type FieldValues, type Path, type UseFormRegister } from 'react-hook-form'
-import { InlineEdit } from '@/components/ui/inline-edit.tsx'
+import { InlineField } from '@/components/ui/inline-field.tsx'
 import { InlineCombobox } from '@/components/ui/inline-inputs.tsx'
 import { SingleCombobox } from '@/components/ui/combobox.tsx'
 import { Input, type InputType } from '@/components/ui/input.tsx'
@@ -52,7 +52,7 @@ export function textField(
       const raw = Reflect.get(record.data, id)
       const value = type === 'datetime-local' ? localDateTime(String(raw ?? '')) : String(raw ?? '')
       return (
-        <InlineEdit
+        <InlineField
           label={label}
           value={value}
           type={type}

@@ -77,7 +77,7 @@ function ChoiceCell({ field, label }: { field: KitField; label: unknown }) {
 }
 
 export function KitList(
-  { object, store, users, leading, views, onViewsChange, onOpen, onOpenPreview, onNavigate }: {
+  { object, store, users, leading, views, onViewsChange, onOpen, onOpenPreview, previewId, onNavigate }: {
     object: KitObject
     store: KitStore
     users: Choice[]
@@ -86,7 +86,8 @@ export function KitList(
     onViewsChange: (views: ListViews | ((previous: ListViews) => ListViews)) => void
     onOpen: (id: string) => void
     onNavigate: (path: string) => void
-    onOpenPreview: (row: KitRow, rows: readonly KitRow[]) => void
+    previewId?: string
+    onOpenPreview: (row: KitRow, rows: readonly KitRow[], fieldId?: string) => void
   },
 ) {
   const [archived, setArchived] = useState(false)
@@ -112,6 +113,7 @@ export function KitList(
           ? undefined
           : () => object.createPath ? onNavigate(object.createPath) : setCreating(true)}
         onOpenDetail={(row) => onOpen(row.id)}
+        previewId={previewId}
         onOpenPreview={onOpenPreview}
       />
       {creating && (

@@ -1,6 +1,3 @@
-import { Button } from '@dir/ui/components/ui/button.tsx'
-import { EmptyState } from '@dir/ui/components/ui/empty-state.tsx'
-import { ErrorState } from '@dir/ui/components/ui/error-state.tsx'
 import { LoadingState } from '@dir/ui/components/ui/loading-state.tsx'
 import { Skeleton } from '@dir/ui/components/ui/skeleton.tsx'
 import { TableSkeleton } from '@dir/crm/components/table-skeleton.tsx'
@@ -35,29 +32,6 @@ export function TableSkeletonDemo() {
     </div>
   )
 }
-export function ErrorStateDemo() {
-  return (
-    <div className='w-full max-w-sm rounded-lg border border-border'>
-      <ErrorState message='Failed to load.' retry={() => {}} />
-    </div>
-  )
-}
-export function EmptyStateDemo() {
-  return (
-    <div className='grid w-full grid-cols-2 gap-3 max-[600px]:grid-cols-1'>
-      <div className='rounded-lg border border-border'>
-        <EmptyState title='No deals yet'>
-          <Button variant='default'>Add a deal</Button>
-        </EmptyState>
-      </div>
-      <div className='rounded-lg border border-border'>
-        <EmptyState title='No deals match these filters'>
-          <Button>Clear filters</Button>
-        </EmptyState>
-      </div>
-    </div>
-  )
-}
 export const doc: ComponentDoc = {
   hero: SkeletonDemo,
   sections: [
@@ -73,19 +47,6 @@ export const doc: ComponentDoc = {
       description: 'Match the grid row height and column count so nothing shifts when data arrives.',
       example: TableSkeletonDemo,
       align: 'stretch',
-    },
-    {
-      id: 'empty-state',
-      title: 'Empty State',
-      description: 'A one-sentence `title` and one action. Zero search results offer to clear the filters.',
-      example: EmptyStateDemo,
-      align: 'stretch',
-    },
-    {
-      id: 'error-state',
-      title: 'Error State',
-      description: 'The message with an optional `retry`.',
-      example: ErrorStateDemo,
     },
   ],
 }

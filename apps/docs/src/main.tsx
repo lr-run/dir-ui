@@ -1,4 +1,5 @@
 import './tailwind.css'
+import { readThemeColor, setThemeColor } from './theme-colors.ts'
 import { initializeDocumentStyles } from './document-styles.ts'
 import { applyTheme, installThemes, readTheme } from './theme-presets.ts'
 import { StrictMode } from 'react'
@@ -8,6 +9,7 @@ import { ErrorBoundary } from '@dir/ui/components/ui/error-boundary.tsx'
 initializeDocumentStyles(false)
 installThemes()
 applyTheme(readTheme())
+setThemeColor(readThemeColor())
 const root = document.getElementById('root')
 if (!root) throw new Error('Missing #root element')
 createRoot(root).render(

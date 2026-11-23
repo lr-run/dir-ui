@@ -23,20 +23,6 @@
       "packages/ui/src/styles/theme.css"
     ]
   },
-  "data-grid-styles": {
-    "title": "Data Grid Styles",
-    "files": [],
-    "type": "registry:style",
-    "dependencies": [
-      "react-data-grid"
-    ],
-    "registryDependencies": [
-      "@dir/licenses"
-    ],
-    "styles": [
-      "packages/ui/src/styles/data-grid.css"
-    ]
-  },
   "crm-example": {
     "title": "Crm Example",
     "files": [
@@ -83,7 +69,8 @@
   "button": {
     "title": "Button",
     "files": [
-      "packages/ui/src/components/ui/button.tsx"
+      "packages/ui/src/components/ui/button.tsx",
+      "packages/ui/src/components/ui/icon-button.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -104,9 +91,13 @@
   },
   "textarea": {
     "title": "Textarea",
-    "files": [],
+    "files": [
+      "packages/ui/src/components/ui/textarea.tsx"
+    ],
+    "type": "registry:ui",
     "registryDependencies": [
-      "@dir/input"
+      "@dir/licenses",
+      "@dir/theme"
     ]
   },
   "rich-text": {
@@ -143,27 +134,13 @@
   },
   "combobox": {
     "title": "Combobox",
-    "files": [],
-    "registryDependencies": [
-      "@dir/components-combobox"
-    ]
-  },
-  "multi-select": {
-    "title": "Multi Select",
     "files": [
-      "packages/ui/src/components/ui/multi-select.tsx"
+      "packages/ui/src/components/ui/combobox.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
       "@dir/licenses",
       "@dir/theme"
-    ]
-  },
-  "multi-combobox": {
-    "title": "Multi Combobox",
-    "files": [],
-    "registryDependencies": [
-      "@dir/components-combobox"
     ]
   },
   "checkbox": {
@@ -177,22 +154,6 @@
       "@dir/theme"
     ]
   },
-  "switch": {
-    "title": "Switch",
-    "files": [],
-    "type": "registry:item",
-    "dependencies": [
-      "@base-ui/react"
-    ]
-  },
-  "radio": {
-    "title": "Radio",
-    "files": [],
-    "type": "registry:item",
-    "dependencies": [
-      "@base-ui/react"
-    ]
-  },
   "field": {
     "title": "Field",
     "files": [
@@ -204,66 +165,39 @@
       "@dir/theme"
     ]
   },
-  "inline-edit": {
-    "title": "Inline Edit",
+  "inline-field": {
+    "title": "Inline Field",
     "files": [
-      "packages/ui/src/components/ui/inline-edit.tsx"
+      "packages/ui/src/components/ui/inline-field.tsx",
+      "packages/ui/src/components/ui/inline-choice.tsx",
+      "packages/ui/src/components/ui/inline-inputs.tsx",
+      "packages/ui/src/components/ui/inline-rich-text.tsx",
+      "packages/ui/src/components/ui/inline-save-feedback.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
       "@dir/licenses",
       "@dir/theme"
     ]
-  },
-  "inline-textarea": {
-    "title": "Inline Textarea",
-    "files": [],
-    "registryDependencies": [
-      "@dir/inline-edit"
-    ]
-  },
-  "inline-select": {
-    "title": "Inline Select",
-    "files": [
-      "packages/ui/src/components/ui/inline-choice.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "inline-multi-select": {
-    "title": "Inline Multi Select",
-    "files": [],
-    "registryDependencies": [
-      "@dir/inline-select"
-    ]
-  },
-  "inline-rich-text": {
-    "title": "Inline Rich Text",
-    "files": [
-      "packages/ui/src/components/ui/inline-rich-text.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "table": {
-    "title": "Table",
-    "files": [],
-    "type": "registry:item"
   },
   "data-grid": {
     "title": "Data Grid",
     "files": [
-      "packages/ui/src/components/data-grid/data-grid.tsx"
+      "packages/ui/src/components/data-grid/data-grid.tsx",
+      "packages/ui/src/components/data-grid/internal/column-header.tsx",
+      "packages/ui/src/components/data-grid/internal/column-settings.tsx",
+      "packages/ui/src/components/data-grid/internal/query-controls.tsx",
+      "packages/ui/src/lib/record-list-query.ts"
     ],
     "type": "registry:component",
     "registryDependencies": [
       "@dir/licenses"
+    ],
+    "styles": [
+      "packages/ui/src/styles/data-grid.css"
+    ],
+    "dependencies": [
+      "react-data-grid"
     ]
   },
   "tabs": {
@@ -312,20 +246,14 @@
   "chart": {
     "title": "Chart",
     "files": [
-      "packages/ui/src/components/ui/chart.tsx"
+      "packages/ui/src/components/ui/chart.tsx",
+      "packages/ui/src/components/charts/chart-frame.tsx",
+      "packages/ui/src/components/charts/index.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
       "@dir/licenses",
       "@dir/theme"
-    ]
-  },
-  "icons": {
-    "title": "Icons",
-    "files": [],
-    "type": "registry:item",
-    "dependencies": [
-      "lucide-react"
     ]
   },
   "popover": {
@@ -341,13 +269,12 @@
   },
   "dropdown-menu": {
     "title": "Dropdown Menu",
-    "files": [
-      "packages/ui/src/components/ui/dropdown-menu.tsx"
-    ],
+    "files": [],
     "type": "registry:ui",
     "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
+      "dropdown-menu",
+      "@dir/theme",
+      "@dir/licenses"
     ]
   },
   "dialog": {
@@ -372,10 +299,10 @@
       "@dir/theme"
     ]
   },
-  "alert-dialog": {
-    "title": "Alert Dialog",
+  "confirm-dialog": {
+    "title": "Confirm Dialog",
     "files": [
-      "packages/ui/src/components/ui/alert-dialog.tsx"
+      "packages/ui/src/components/ui/confirm-dialog.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -386,7 +313,7 @@
   "tooltip": {
     "title": "Tooltip",
     "files": [
-      "packages/ui/src/components/ui/tooltip.tsx"
+      "packages/ui/src/components/ui/hint.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -419,7 +346,8 @@
   "error-state": {
     "title": "Error State",
     "files": [
-      "packages/ui/src/components/ui/error-state.tsx"
+      "packages/ui/src/components/ui/error-state.tsx",
+      "packages/ui/src/components/ui/error-boundary.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -429,52 +357,24 @@
   },
   "skeleton": {
     "title": "Skeleton",
-    "files": [],
+    "files": [
+      "packages/ui/src/components/ui/loading-state.tsx"
+    ],
     "registryDependencies": [
       "skeleton"
-    ]
+    ],
+    "type": "registry:ui"
   },
-  "number-value": {
-    "title": "Number Value",
+  "value": {
+    "title": "Value",
     "files": [
-      "packages/ui/src/components/ui/value.tsx"
+      "packages/ui/src/components/ui/value.tsx",
+      "packages/ui/src/components/ui/choice-content.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
       "@dir/licenses",
       "@dir/theme"
-    ]
-  },
-  "date-value": {
-    "title": "Date Value",
-    "files": [],
-    "registryDependencies": [
-      "@dir/number-value"
-    ]
-  },
-  "choice-value": {
-    "title": "Choice Value",
-    "files": [],
-    "registryDependencies": [
-      "@dir/number-value"
-    ]
-  },
-  "inline-combobox": {
-    "title": "Inline Combobox",
-    "files": [
-      "packages/ui/src/components/ui/inline-inputs.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "inline-multi-combobox": {
-    "title": "Inline Multi Combobox",
-    "files": [],
-    "registryDependencies": [
-      "@dir/inline-combobox"
     ]
   },
   "list": {
@@ -486,13 +386,6 @@
     "registryDependencies": [
       "@dir/licenses",
       "@dir/theme"
-    ]
-  },
-  "list-item": {
-    "title": "List Item",
-    "files": [],
-    "registryDependencies": [
-      "@dir/list"
     ]
   },
   "search-dialog": {
@@ -515,148 +408,10 @@
       "@dir/licenses"
     ]
   },
-  "chart-frame": {
-    "title": "Chart Frame",
-    "files": [
-      "packages/ui/src/components/charts/chart-frame.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "charts": {
-    "title": "Charts",
-    "files": [
-      "packages/ui/src/components/charts/index.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "column-header": {
-    "title": "Column Header",
-    "files": [
-      "packages/ui/src/components/data-grid/internal/column-header.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "column-settings": {
-    "title": "Column Settings",
-    "files": [
-      "packages/ui/src/components/data-grid/internal/column-settings.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "query-controls": {
-    "title": "Query Controls",
-    "files": [
-      "packages/ui/src/components/data-grid/internal/query-controls.tsx"
-    ],
-    "type": "registry:component",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
   "badge": {
     "title": "Badge",
     "files": [
       "packages/ui/src/components/ui/badge.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "choice-content": {
-    "title": "Choice Content",
-    "files": [
-      "packages/ui/src/components/ui/choice-content.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "components-combobox": {
-    "title": "Components Combobox",
-    "files": [
-      "packages/ui/src/components/ui/combobox.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "error-boundary": {
-    "title": "Error Boundary",
-    "files": [
-      "packages/ui/src/components/ui/error-boundary.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "inline-save-feedback": {
-    "title": "Inline Save Feedback",
-    "files": [
-      "packages/ui/src/components/ui/inline-save-feedback.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "loading-state": {
-    "title": "Loading State",
-    "files": [
-      "packages/ui/src/components/ui/loading-state.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "menu-popup": {
-    "title": "Menu Popup",
-    "files": [
-      "packages/ui/src/components/ui/menu-popup.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "components-popover": {
-    "title": "Components Popover",
-    "files": [
-      "packages/ui/src/components/ui/popover.tsx"
-    ],
-    "type": "registry:ui",
-    "registryDependencies": [
-      "@dir/licenses",
-      "@dir/theme"
-    ]
-  },
-  "components-textarea": {
-    "title": "Components Textarea",
-    "files": [
-      "packages/ui/src/components/ui/textarea.tsx"
     ],
     "type": "registry:ui",
     "registryDependencies": [
@@ -679,16 +434,6 @@
     "title": "Use Choices",
     "files": [
       "packages/ui/src/hooks/use-choices.ts"
-    ],
-    "type": "registry:hook",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "use-infinite-records": {
-    "title": "Use Infinite Records",
-    "files": [
-      "packages/ui/src/hooks/use-infinite-records.ts"
     ],
     "type": "registry:hook",
     "registryDependencies": [
@@ -755,16 +500,6 @@
       "@dir/licenses"
     ]
   },
-  "infinite-records": {
-    "title": "Infinite Records",
-    "files": [
-      "packages/ui/src/lib/infinite-records.ts"
-    ],
-    "type": "registry:lib",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
   "inline-save-task": {
     "title": "Inline Save Task",
     "files": [
@@ -779,16 +514,6 @@
     "title": "Query",
     "files": [
       "packages/ui/src/lib/query.ts"
-    ],
-    "type": "registry:lib",
-    "registryDependencies": [
-      "@dir/licenses"
-    ]
-  },
-  "record-list-query": {
-    "title": "Record List Query",
-    "files": [
-      "packages/ui/src/lib/record-list-query.ts"
     ],
     "type": "registry:lib",
     "registryDependencies": [
@@ -815,16 +540,6 @@
       "@dir/licenses"
     ]
   },
-  "icon-button": {
-    "title": "Icon Button",
-    "files": [
-      "packages/ui/src/components/ui/icon-button.tsx"
-    ],
-    "registryDependencies": [
-      "@dir/theme",
-      "@dir/licenses"
-    ]
-  },
   "error-notifications": {
     "title": "Error notifications",
     "type": "registry:lib",
@@ -833,24 +548,17 @@
       "packages/ui/src/lib/error-notifier.ts"
     ]
   },
-  "calendar": {
-    "title": "Calendar",
-    "files": [
-      "packages/ui/src/components/ui/calendar.tsx"
-    ],
-    "registryDependencies": [
-      "@dir/theme"
-    ]
-  },
   "date-input": {
     "title": "Date Input",
     "files": [
       "packages/ui/src/components/ui/date-input.tsx",
-      "packages/ui/src/lib/date-input.ts"
+      "packages/ui/src/lib/date-input.ts",
+      "packages/ui/src/components/ui/calendar.tsx"
     ],
     "registryDependencies": [
       "@dir/theme"
-    ]
+    ],
+    "type": "registry:ui"
   },
   "skill": {
     "title": "Skill",
@@ -865,6 +573,7 @@
       "packages/skill/recipes/expense.md",
       "packages/skill/recipes/daily-report.md",
       "packages/skill/recipes/recruiting.md",
+      "packages/skill/recipes/task-board.md",
       "packages/skill/recipes/inquiry.md",
       "packages/skill/recipes/contract.md"
     ],

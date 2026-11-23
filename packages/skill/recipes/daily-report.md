@@ -8,11 +8,11 @@ Report (date, author, body, mood), Comment, Weekly summary.
 
 ## Screens
 
-| Screen         | Composition                                                                                                 | Primary action       |
-| -------------- | ----------------------------------------------------------------------------------------------------------- | -------------------- |
-| Write          | `width="narrow"` page: `Input type="date"`, `RichText` body, `Select` mood                                  | Post (sticky footer) |
-| Team feed      | `List` of `ListItem`s (author avatar `ChoiceContent`, excerpt, relative time in meta); `useInfiniteRecords` | Write                |
-| Weekly summary | `Tabs` by week; `HorizontalBars` reports per member                                                         | none                 |
+| Screen         | Composition                                                                                                                | Primary action       |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Write          | `width="narrow"` page: `Input type="date"`, `RichText` body, `Select` mood                                                 | Post (sticky footer) |
+| Team feed      | `List` of `ListItem`s (author avatar `ChoiceContent`, excerpt, relative time in meta); a Show more button adds the next 30 | Write                |
+| Weekly summary | `Tabs` by week; `HorizontalBars` reports per member                                                                        | none                 |
 
 ## Rules most at risk
 

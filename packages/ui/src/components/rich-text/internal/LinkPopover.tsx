@@ -79,7 +79,7 @@ export default function LinkPopover({ editor, disabled }: { editor: Editor | nul
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner
-          className='[outline:0] z-2147483140'
+          className='[outline:0] z-50'
           sideOffset={8}
           collisionPadding={12}
         >

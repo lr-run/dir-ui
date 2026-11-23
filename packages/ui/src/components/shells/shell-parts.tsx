@@ -21,6 +21,8 @@ export type ShellPageProps = {
   actions?: ReactNode
   /** `full` for lists and grids, `narrow` (640px) for forms. */
   width?: 'full' | 'narrow'
+  /** Use the phone header inset at every width. */
+  compactHeader?: boolean
   /** Sticky bar at the bottom, such as the submit button of a form. */
   bottomBar?: ReactNode
   children: ReactNode
@@ -67,7 +69,7 @@ export const sidebarGridClass =
 
 /** Page header, scrolling content and the optional sticky bottom bar, in a rounded panel on the canvas. */
 export function ShellPage(
-  { title, leading, actions, width = 'full', bottomBar, children, trigger, className = '' }:
+  { title, leading, actions, width = 'full', compactHeader, bottomBar, children, trigger, className = '' }:
     & ShellPageProps
     & { trigger?: ReactNode; className?: string },
 ) {
@@ -79,7 +81,11 @@ export function ShellPage(
     >
       {/* The menu button alone does not make a header: screens with their own header place it themselves. */}
       {(title !== undefined || leading || actions) && (
-        <header className='flex h-14 shrink-0 items-center border-b border-border px-6 max-[600px]:h-12 max-[600px]:px-4'>
+        <header
+          className={`flex h-14 shrink-0 items-center border-b border-border max-[600px]:h-12 ${
+            compactHeader ? 'px-4' : 'px-6 max-[600px]:px-4'
+          }`}
+        >
           <div className={`flex min-w-0 flex-1 items-center gap-2 ${column}`}>
             {trigger}
             {leading}

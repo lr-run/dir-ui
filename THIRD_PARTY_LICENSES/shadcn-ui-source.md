@@ -8,6 +8,8 @@ Copied from the official shadcn/ui Base UI registry on 2026-09-27 under the MIT 
   8fc7ae799f00cec1cf4efa6ab8509717f64a7a91)
 - field.tsx: https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/ui/field.tsx (blob
   d58e0d29dbfe52053a21eff0b837f571b278f1ef)
+- dropdown-menu.tsx: https://ui.shadcn.com/r/styles/base-nova/dropdown-menu.json (2026-11-06)
+- popover.tsx: https://ui.shadcn.com/r/styles/base-nova/popover.json (2026-11-06)
 - input-group.tsx: https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/ui/input-group.tsx (blob
   cb328462c7c372f1b22342b25d396704d87247c1)
 - input.tsx: https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/ui/input.tsx (blob
@@ -22,8 +24,7 @@ Copied from the official shadcn/ui Base UI registry on 2026-09-27 under the MIT 
   0439455a951949f8a75be48fa2c8b8e9f3d8b0f2)
 - textarea.tsx: https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/ui/textarea.tsx (blob
   8b8d3f1c6cc7c66c2fab2e050164f355a655b6c9)
-- tooltip.tsx: https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/bases/base/ui/tooltip.tsx (blob
-  8fbd22dacb65913e7e31cde7ad800dce6f889116)
+- tooltip.tsx: https://ui.shadcn.com/r/styles/base-nova/tooltip.json (2026-11-06)
 
 Nova CSS rules were copied from https://github.com/shadcn-ui/ui/blob/main/apps/v4/registry/styles/style-nova.css for the
 installed controls. On 2026-09-28 those utility recipes were inlined into the TSX class strings and CVA variants; no
@@ -35,9 +36,9 @@ Lucide imports, typed input formats, inline editing, and form/selection composit
 components/ui, organized by purpose rather than provenance. Input Group is consolidated into input.tsx, Field includes
 its form composition, and Select/Combobox recipes include their value-oriented APIs.
 
-Unmodified Label, Separator and Skeleton are kept locally for documentation development. Registry installations
-reference the official shadcn items instead of distributing these local copies. All original source references and MIT
-notices remain applicable.
+Unmodified DropdownMenu, Label, Popover, Separator, Skeleton and Tooltip (base-nova, with lucide icons) are kept locally
+for documentation development. Registry installations reference the official shadcn items instead of distributing these
+local copies. All original source references and MIT notices remain applicable.
 
 License: /THIRD_PARTY_LICENSES/shadcn-ui.txt
 

@@ -77,6 +77,16 @@ import s36 from '../../../../../examples/systems/src/recruiting/seed.ts?raw'
 import s37 from '../../../../../examples/systems/src/sales-report/app.tsx?raw'
 // @deno-types="./source-text.d.ts"
 import s38 from '../../../../../examples/systems/src/sales-report/report.ts?raw'
+// @deno-types="./source-text.d.ts"
+import s39 from '../../../../../examples/systems/src/task-board/app.tsx?raw'
+// @deno-types="./source-text.d.ts"
+import s40 from '../../../../../examples/systems/src/task-board/board.css?raw'
+// @deno-types="./source-text.d.ts"
+import s41 from '../../../../../examples/systems/src/task-board/editor.tsx?raw'
+// @deno-types="./source-text.d.ts"
+import s42 from '../../../../../examples/systems/src/task-board/model.ts?raw'
+// @deno-types="./source-text.d.ts"
+import s43 from '../../../../../examples/systems/src/task-board/parts.tsx?raw'
 
 /** Shared kit files, shown with every system example. */
 export const kitSources: Record<string, string> = {
@@ -136,5 +146,12 @@ export const systemSources: Record<string, Record<string, string>> = {
   'sales-report': {
     'components/systems/sales-report/app.tsx': s37,
     'components/systems/sales-report/report.ts': s38,
+  },
+  'task-board': {
+    'components/systems/task-board/app.tsx': s39,
+    'components/systems/task-board/board.css': s40,
+    'components/systems/task-board/editor.tsx': s41,
+    'components/systems/task-board/model.ts': s42,
+    'components/systems/task-board/parts.tsx': s43,
   },
 }

@@ -1,9 +1,15 @@
 import { installPath, installSnippet } from '../../registry/paths.ts'
 import { componentApi } from './src/pages/catalog/api-data.ts'
-import { specs } from './src/pages/catalog/playground/specs.ts'
 import { templates } from '../../registry/templates.ts'
 import { installCommand, registryUrl, siteUrl } from '../../registry/catalog.ts'
-import { componentGroups, recipes } from './src/navigation.ts'
+import {
+  apiIdsFor,
+  componentDescriptions,
+  componentGroups,
+  componentIds,
+  componentTitles,
+  recipes,
+} from './src/navigation.ts'
 export { pageMetadata, sitePages } from './src/page-metadata.ts'
 import { sitePages } from './src/page-metadata.ts'
 import { readFileSync } from 'node:fs'
@@ -41,38 +47,19 @@ const constraints: Record<string, string> = {
   toast: 'Wrap toast consumers in Toast.Provider.',
   'data-grid':
     'The installer adds the grid stylesheet import to your configured CSS file. Give the grid a bounded height. Sorting and filtering emit query state; the caller supplies the resulting rows. Apply remote queries to the complete dataset before pagination.',
-  table:
-    'The registry item installs shared theme styles; Table is a native HTML recipe, not an exported React component.',
-  radio: 'The registry item installs Base UI and shared theme styles. Compose RadioGroup and Radio.Root directly.',
 }
 
-/** Component documents are listed by their group page; components outside a group follow at the end. */
-function componentGroupsWithSpecs() {
-  const grouped = new Set<string>()
-  const groups = componentGroups.map((group) => ({
-    label: group.title,
-    items: group.members.flatMap((member) => {
-      const spec = specs.find((s) => s.id === member)
-      if (spec) grouped.add(spec.id)
-      return spec ? [spec] : []
-    }),
-  }))
-  return [...groups, { label: 'More components', items: specs.filter((spec) => !grouped.has(spec.id)) }]
-}
 /** The UI and machine-readable docs share the same descriptions and API tables. */
 export function documentationFiles(): Map<string, string> {
   const files = new Map<string, string>()
-  for (const spec of specs) {
-    const related = spec.id === 'chart'
-      ? ['chart-frame', 'revenue-bars', 'line-chart', 'horizontal-bars', 'spark-chart', 'chart-tooltip', 'chart-legend']
-      : []
+  for (const id of componentIds) {
     files.set(
-      `components/${spec.id}.md`,
-      `# ${spec.title}\n\n${spec.description}\n\n## Install\n\n${
-        code('sh', installCommand(spec.id))
-      }\n\n[Registry item with source and dependencies](${registryUrl(spec.id)})\n\n${setup}\n${
-        constraints[spec.id] ? '\n' + constraints[spec.id] + '\n' : ''
-      }\n${[spec.id, ...related].map(reference).join('\n')}\n`,
+      `components/${id}.md`,
+      `# ${componentTitles[id]}\n\n${componentDescriptions[id]}\n\n## Install\n\n${
+        code('sh', installCommand(id))
+      }\n\n[Registry item with source and dependencies](${registryUrl(id)})\n\n${setup}\n${
+        constraints[id] ? '\n' + constraints[id] + '\n' : ''
+      }\n${apiIdsFor(id).map(reference).join('\n')}\n`,
     )
   }
   for (const template of templates) {
@@ -100,11 +87,11 @@ export function documentationFiles(): Map<string, string> {
   files.set(
     'llms.txt',
     `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry items declare owned files, shared registry dependencies, and npm versions. The library has no Dir runtime dependency.\n\n${
-      componentGroupsWithSpecs().map((group) =>
-        `## ${group.label}\n\n${
-          group.items.map((spec) => `- [${spec.title}](${siteUrl}components/${spec.id}.md): ${spec.description}`).join(
-            '\n',
-          )
+      componentGroups.map((group) =>
+        `## ${group.title}\n\n${
+          group.members.map((id) =>
+            `- [${componentTitles[id]}](${siteUrl}components/${id}.md): ${componentDescriptions[id]}`
+          ).join('\n')
         }`
       ).join('\n\n')
     }\n\n## System\n\n- [Layouts](${siteUrl}layouts): PageShell, AppShell and SuiteShell, chosen by how much navigation an app needs.\n- [Foundations](${siteUrl}foundations/color): tokens and the Light, Black and Paper themes; a theme overrides --ui-* only.\n- [UI rules](${siteUrl}skill/rules.md): the twelve rules every generated screen follows.\n- [API digest](${siteUrl}skill/api-digest.md): import paths and key props.\n- [Skill](${siteUrl}skill/SKILL.md): how to use the rules, recipes and digest.\n\n## Page recipes\n\n${
@@ -121,7 +108,6 @@ export function documentationFiles(): Map<string, string> {
     '',
     ...sitePages,
     ...templates.map((t) => `examples/${t.id}`),
-    ...specs.map((s) => `components/${s.id}`),
   ]
   files.set(
     'sitemap.xml',

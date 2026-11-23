@@ -115,6 +115,7 @@ export function Layout(
           : onNavigate(id as ExampleKind)}
       sidebarFooter={<ColorModeSwitcher mode={colorMode} onChange={setColorMode} />}
       title={recordName}
+      compactHeader={Boolean(recordName)}
       leading={recordName && (
         <IconButton label={`Back to ${examples[kind].title.toLowerCase()}`} onClick={onBack}>
           <ArrowLeftIcon size={16} strokeWidth={1.5} aria-hidden='true' />

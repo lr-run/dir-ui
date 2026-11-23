@@ -2,11 +2,12 @@ import { MaximizeIcon } from 'lucide-react'
 import { type ComponentType, lazy, type ReactNode, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '@dir/ui/components/ui/button.tsx'
 import { LoadingState } from '@dir/ui/components/ui/loading-state.tsx'
-import { componentDescriptions, componentTitles, specById } from '../navigation.ts'
+import { apiIdsFor, componentDescriptions, componentTitles } from '../navigation.ts'
 import { landingHref } from '../routes.ts'
 import { type ComponentApi, type ComponentDoc, exampleModules } from '../examples/index.ts'
 import { exampleSources } from '../examples/sources.ts'
 import { ApiReference, Usage } from './catalog/api-reference.tsx'
+import { CodeLines, CopyCodeButton, PreviewCode } from './catalog/code-block.tsx'
 import { InstallCommand, MarkdownLink } from './catalog/install-command.tsx'
 import { frameViewports, ViewportSwitcher } from './catalog/studio-controls.tsx'
 
@@ -27,7 +28,8 @@ export function exampleSource(source: string, name: string) {
       if (picked.some((other) => other !== block && uses(other.text, block.name))) picked.unshift(block)
     }
   }
-  const code = picked.map((block) => block.text.replace(/^export /, '').trimEnd()).join('\n\n')
+  const code = picked.map((block) => (block === main ? block.text : block.text.replace(/^export /, '')).trimEnd())
+    .join('\n\n')
   const imports = blocks.filter((block) => block.kind === 'import').map((block) =>
     block.text.replace(/'@dir\/ui\/(components|hooks|lib)\//, "'@/$1/").replace("'@dir/crm/", "'@/components/crm/")
       .trimEnd()
@@ -53,18 +55,29 @@ function Code({ children }: { children: ReactNode }) {
 }
 /** Theme and dark mode of the docs page, so a framed example reloads with the same look. */
 export function useDocumentTheme() {
-  const read = () => document.documentElement.dataset.uiTheme ?? 'light'
+  const read = () => {
+    const { uiTheme = 'light', uiThemeColor = 'neutral' } = document.documentElement.dataset
+    return { theme: uiTheme, color: uiThemeColor }
+  }
   const [theme, setTheme] = useState(read)
   useEffect(() => {
     const observer = new MutationObserver(() => setTheme(read()))
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-ui-theme'] })
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-ui-theme', 'data-ui-theme-color'],
+    })
     return () => observer.disconnect()
   }, [])
   return theme
 }
 /** URL that renders one example alone at the full window size, in the given theme. */
-export const embedHref = (id: string, name: string, theme: string) =>
-  `${landingHref(id)}?embed=${encodeURIComponent(name)}&theme=${theme}`
+export function embedHref(id: string, name: string, { theme, color }: { theme: string; color: string }) {
+  const url = new URL(landingHref(id))
+  url.searchParams.set('embed', name)
+  url.searchParams.set('theme', theme)
+  url.searchParams.set('color', color)
+  return url.href
+}
 /** Renders the example in an iframe at a real viewport width, so phone breakpoints apply; `fill` stretches it to the stage height. */
 export function FrameCanvas(
   { id, name, viewport, fill }: { id: string; name: string; viewport: string; fill?: boolean },
@@ -144,7 +157,6 @@ function Preview(
     frame?: { id: string; name: string }
   },
 ) {
-  const [open, setOpen] = useState(false), [copied, setCopied] = useState(false)
   return (
     <div className='overflow-hidden rounded-lg border border-border'>
       {frame ? <FrameStage {...frame} /> : (
@@ -156,31 +168,7 @@ function Preview(
           {children}
         </div>
       )}
-      {code && (
-        <div className='border-t border-border bg-muted/30'>
-          <div className='flex items-center justify-between px-3 py-1.5'>
-            <Button size='sm' variant='ghost' onClick={() => setOpen(!open)}>{open ? 'Hide code' : 'View code'}</Button>
-            {open && (
-              <Button
-                size='sm'
-                variant='ghost'
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(code)
-                    setCopied(true)
-                  } catch { /* clipboard unavailable */ }
-                }}
-                onBlur={() => setCopied(false)}
-              >
-                {copied ? 'Copied' : 'Copy'}
-              </Button>
-            )}
-          </div>
-          {open && (
-            <pre className='m-0 max-h-[460px] overflow-auto border-t border-border px-4 py-3 text-[12px] leading-6'><code>{code}</code></pre>
-          )}
-        </div>
-      )}
+      {code && <PreviewCode code={code} />}
     </div>
   )
 }
@@ -198,11 +186,12 @@ function pageFor(id: string) {
 /** `docsOnly` drops the hero preview and the page outline, for layouts whose preview has its own view. */
 function Body({ id, doc, source, docsOnly }: { id: string; doc: ComponentDoc; source: string; docsOnly?: boolean }) {
   const Hero = doc.hero
+  const apis = apiIdsFor(id)
   const sections = [
     { id: 'installation', title: 'Installation' },
-    ...(specById.has(id) || doc.api ? [{ id: 'usage', title: 'Usage' }] : []),
+    ...(apis.length || doc.api ? [{ id: 'usage', title: 'Usage' }] : []),
     ...doc.sections.map((section) => ({ id: section.id, title: section.title })),
-    ...(specById.has(id) || doc.api ? [{ id: 'api', title: 'API Reference' }] : []),
+    ...(apis.length || doc.api ? [{ id: 'api', title: 'API Reference' }] : []),
   ]
   return (
     <div
@@ -214,7 +203,7 @@ function Body({ id, doc, source, docsOnly }: { id: string; doc: ComponentDoc; so
             <h1 className='m-0 text-[28px] leading-tight font-semibold tracking-tight max-[700px]:text-[24px]'>
               {componentTitles[id]}
             </h1>
-            {specById.has(id) && <MarkdownLink markdown={landingHref(id) + '.md'} />}
+            <MarkdownLink markdown={landingHref(id) + '.md'} />
           </div>
           <p className='m-0 text-[15px] leading-6 text-muted-foreground'>{componentDescriptions[id]}</p>
         </header>
@@ -231,15 +220,19 @@ function Body({ id, doc, source, docsOnly }: { id: string; doc: ComponentDoc; so
           <h2>Installation</h2>
           <InstallCommand item={id} />
         </section>
-        {specById.has(id) && (
+        {apis.length > 0 && (
           <div className='[&_section]:mt-0 [&_h2]:mb-4 [&_h2]:text-[18px]!'>
-            <Usage id={id} />
+            <Usage id={apis[0]!} />
           </div>
         )}
         {doc.api && (
           <section id='usage' className='flex flex-col gap-4'>
             <h2>Usage</h2>
-            <pre className='m-0 overflow-auto rounded-md border border-border bg-(--ui-hover) px-6 py-5 text-[12px] leading-[1.7] text-muted-foreground'><code>{doc.api.usage}</code></pre>
+            <CodeLines
+              code={doc.api.usage}
+              numbers={false}
+              className='overflow-auto rounded-lg border border-border bg-(--ui-hover)'
+            />
           </section>
         )}
         {doc.sections.map((section) => {
@@ -256,7 +249,13 @@ function Body({ id, doc, source, docsOnly }: { id: string; doc: ComponentDoc; so
                 ? <Example />
                 : docsOnly
                 ? (
-                  <pre className='m-0 max-h-[460px] overflow-auto rounded-md border border-border bg-(--ui-hover) px-6 py-5 text-[12px] leading-[1.7]'><code>{exampleSource(source, Example.name)}</code></pre>
+                  <div className='relative max-h-[480px] overflow-auto rounded-lg border border-border bg-(--ui-hover)'>
+                    <CodeLines code={exampleSource(source, Example.name)} />
+                    <CopyCodeButton
+                      code={exampleSource(source, Example.name)}
+                      className='absolute top-2.5 right-2.5 bg-(--ui-hover)'
+                    />
+                  </div>
                 )
                 : (
                   <Preview
@@ -270,9 +269,9 @@ function Body({ id, doc, source, docsOnly }: { id: string; doc: ComponentDoc; so
             </section>
           )
         })}
-        {specById.has(id) && (
+        {apis.length > 0 && (
           <div className='[&_section]:mt-0 [&_section]:border-t-0 [&_section]:pt-0 [&_h2]:mb-4 [&_h2]:text-[18px]!'>
-            <ApiReference id={id} />
+            <ApiReference ids={apis} />
           </div>
         )}
         {doc.api && <PropsTable api={doc.api} />}

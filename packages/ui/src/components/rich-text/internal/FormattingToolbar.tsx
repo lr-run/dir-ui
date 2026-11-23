@@ -4,7 +4,7 @@ import type { CSSProperties, Ref } from 'react'
 import type { ChainedCommands, Editor } from '@tiptap/core'
 import { Toolbar } from '@base-ui/react/toolbar'
 import { Menu } from '@base-ui/react/menu'
-import { Hint } from '@/components/ui/tooltip.tsx'
+import { Hint } from '@/components/ui/hint.tsx'
 import { marks } from '@/components/rich-text/internal/commands.ts'
 import { BlockMenu } from '@/components/rich-text/internal/BlockMenu.tsx'
 import LinkPopover from '@/components/rich-text/internal/LinkPopover.tsx'
@@ -63,7 +63,7 @@ export default function FormattingToolbar({
             </Menu.Trigger>
             <Menu.Portal>
               <Menu.Positioner
-                className='[outline:0] z-2147483140'
+                className='[outline:0] z-50'
                 sideOffset={7}
                 collisionPadding={8}
               >

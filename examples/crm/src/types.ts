@@ -133,6 +133,7 @@ export type RecordField = DetailField<ExampleRecord, Partial<RecordDraft>> & {
     )
 }
 export type ListRouteProps = ListViewProps & {
+  previewId?: string
   inlineEditing?: RecordTableProps<ExampleRecord>['inlineEditing']
   records: readonly ExampleRecord[]
   state: ExampleState
@@ -140,7 +141,7 @@ export type ListRouteProps = ListViewProps & {
   onArchivedChange: (value: boolean) => void
   onCreate: (values: RecordDraft) => void | Promise<void>
   onOpenDetail: (record: ExampleRecord) => void
-  onOpenPreview: (record: ExampleRecord, rows: readonly ExampleRecord[]) => void
+  onOpenPreview: (record: ExampleRecord, rows: readonly ExampleRecord[], fieldId?: string) => void
 }
 export type DetailRouteProps = {
   onOpenRecord: (kind: ExampleKind, id: string) => void

@@ -1,5 +1,6 @@
 import { type ComponentType, lazy, Suspense } from 'react'
 import { exampleModules } from '../examples/index.ts'
+import { setThemeColor } from '../theme-colors.ts'
 import { isTheme, setThemeAttributes } from '../theme-presets.ts'
 
 /** Renders one example alone and full screen; the frame previews load this inside an iframe. */
@@ -10,6 +11,7 @@ export function embeddedExample(): { id: string; name: string } | undefined {
   if (!name || !id || !exampleModules[id]) return undefined
   const theme = params.get('theme')
   if (isTheme(theme)) setThemeAttributes(theme)
+  if (params.has('color')) setThemeColor(params.get('color'))
   return { id, name }
 }
 const cache = new Map<string, ComponentType>()

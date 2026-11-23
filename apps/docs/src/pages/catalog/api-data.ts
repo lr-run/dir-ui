@@ -180,32 +180,6 @@ export const componentApi = {
     'types':
       'type FieldControlProps = { id: string; "aria-describedby"?: string; "aria-required"?: boolean; invalid: boolean }',
   },
-  'table': {
-    'names': 'table',
-    'path': 'HTML',
-    'rows': [
-      {
-        'name': 'children',
-        'type': 'caption / thead / tbody / tfoot',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'className',
-        'type': 'string',
-        'default': "''",
-        'detail': '',
-      },
-      {
-        'name': 'scope',
-        'type': "'col' | 'row'",
-        'default': '—',
-        'detail': 'Set on th elements.',
-      },
-    ],
-    'notes': 'Uses a native HTML table. Use DataGrid for row selection, virtualization, or editing.',
-    'types': '',
-  },
   'data-grid': {
     'names': 'DataGrid, type Column, renderTextEditor',
     'path': 'react-data-grid',
@@ -543,30 +517,6 @@ export const componentApi = {
     notes: 'Amounts use JPY.',
     types: 'type ChartPoint = { label: string; value: number; secondary?: number }',
   },
-  'icons': {
-    names: 'SearchIcon',
-    path: 'lucide-react',
-    rows: [
-      {
-        name: 'size',
-        type: 'number | string',
-        default: '24 (use 16 in dir/ui)',
-        detail: 'Width and height in pixels.',
-      },
-      { name: 'strokeWidth', type: 'number', default: '2 (use 1.5 in dir/ui)', detail: 'SVG stroke width.' },
-      { name: 'className', type: 'string', default: '—', detail: 'Tailwind classes for layout and color.' },
-      {
-        name: 'aria-hidden',
-        type: 'boolean',
-        default: 'true for decorative icons',
-        detail:
-          'Give the containing button an accessible name. For a meaningful standalone icon, set aria-hidden={false}, role="img", and aria-label.',
-      },
-    ],
-    notes:
-      'Import named React components directly from lucide-react. No dir/ui icon wrapper or string-based icon names. The preview example selector only chooses which direct import to demonstrate.',
-    types: '',
-  },
 
   'dialog': {
     'names': 'Dialog',
@@ -656,9 +606,9 @@ export const componentApi = {
     'notes': 'Sheet inherits Base UI Dialog.Root props; SheetContent inherits Dialog.Popup props.',
     'types': '',
   },
-  'alert-dialog': {
+  'confirm-dialog': {
     'names': 'ConfirmDialog',
-    'path': 'components/ui/alert-dialog.tsx',
+    'path': 'components/ui/confirm-dialog.tsx',
     'rows': [
       {
         'name': 'open / onOpenChange',
@@ -938,74 +888,6 @@ export const componentApi = {
     'notes': 'Clearing the selection returns null.',
     'types': 'type Choice = { value: string; label: string }',
   },
-  'multi-select': {
-    'names': 'MultiSelect',
-    'path': 'components/ui/multi-select.tsx',
-    'rows': [
-      {
-        'name': 'items',
-        'type': 'Choice[]',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'value',
-        'type': 'string[]',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'onValueChange',
-        'type': '(value: string[]) => void',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'label',
-        'type': 'string',
-        'default': 'Required',
-        'detail': 'Accessible input name.',
-      },
-      {
-        'name': 'id',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'disabled / invalid',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'disabled',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'aria-describedby',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'open',
-        'type': 'boolean',
-        'default': 'Internal state',
-        'detail': 'Control whether the option menu is open.',
-      },
-      {
-        'name': 'onOpenChange',
-        'type': '(open: boolean) => void',
-        'default': '—',
-        'detail': '',
-      },
-    ],
-    'notes': '',
-    'types': 'type Choice = { value: string; label: string }',
-  },
   'multi-combobox': {
     'names': 'MultiCombobox',
     'path': 'components/ui/combobox.tsx',
@@ -1118,100 +1000,6 @@ export const componentApi = {
     'notes': 'Inherits Base UI Checkbox.Root props.',
     'types': '',
   },
-  'switch': {
-    'names': 'Switch',
-    'path': '@base-ui/react/switch',
-    'rows': [
-      {
-        'name': 'Root.checked / Root.defaultChecked',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'Root.onCheckedChange',
-        'type': '(checked: boolean, details) => void',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'Root.disabled / Root.required',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'Root.name / Root.value',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'Root.aria-label',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'Root.className / Thumb.className',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-    ],
-    'notes': 'Uses Base UI Switch.Root and Switch.Thumb.',
-    'types': '',
-  },
-  'radio': {
-    'names': 'Radio',
-    'path': '@base-ui/react/radio',
-    'rows': [
-      {
-        'name': 'RadioGroup.value / defaultValue',
-        'type': 'unknown',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'RadioGroup.onValueChange',
-        'type': '(value, details) => void',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'RadioGroup.name',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-      {
-        'name': 'RadioGroup.disabled / required',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'Radio.Root.value',
-        'type': 'unknown',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'Radio.Root.disabled',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'Radio.Root.className / Radio.Indicator.className',
-        'type': 'string',
-        'default': '—',
-        'detail': '',
-      },
-    ],
-    'notes': '',
-    'types': "import { RadioGroup } from '@base-ui/react/radio-group'\n// RadioGroup > Radio.Root > Radio.Indicator",
-  },
   'inline-select': {
     'names': 'InlineSelect',
     'path': 'components/ui/inline-choice.tsx',
@@ -1231,46 +1019,6 @@ export const componentApi = {
       {
         'name': 'onValueChange',
         'type': 'InlineSaveHandler<string>',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'disabled',
-        'type': 'boolean',
-        'default': 'false',
-        'detail': '',
-      },
-      {
-        'name': 'items',
-        'type': 'Choice[]',
-        'default': 'Required',
-        'detail': '',
-      },
-    ],
-    'notes':
-      'Update the parent value only after persistence succeeds; throw or reject on failure. Pending saves prevent duplicate requests. Failed saves preserve the draft and offer retry or cancel. Selecting an option saves immediately. Cancel discards the pending selection.',
-    'types':
-      'type InlineSaveHandler<T> = (value: T) => void | Promise<void>\ntype Choice = { value: string; label: string }',
-  },
-  'inline-multi-select': {
-    'names': 'InlineMultiSelect',
-    'path': 'components/ui/inline-choice.tsx',
-    'rows': [
-      {
-        'name': 'label',
-        'type': 'string',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'value',
-        'type': 'string[]',
-        'default': 'Required',
-        'detail': '',
-      },
-      {
-        'name': 'onValueChange',
-        'type': 'InlineSaveHandler<string[]>',
         'default': 'Required',
         'detail': '',
       },

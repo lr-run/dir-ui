@@ -40,7 +40,7 @@ import source17 from './data-grid.tsx?raw'
 // @deno-types="../pages/studio/source-text.d.ts"
 import source18 from './list.tsx?raw'
 // @deno-types="../pages/studio/source-text.d.ts"
-import source19 from './inline-edit.tsx?raw'
+import source19 from './inline-field.tsx?raw'
 // @deno-types="../pages/studio/source-text.d.ts"
 import source20 from './chart.tsx?raw'
 // @deno-types="../pages/studio/source-text.d.ts"
@@ -53,7 +53,31 @@ import source23 from './page-shell.tsx?raw'
 import source24 from './app-shell.tsx?raw'
 // @deno-types="../pages/studio/source-text.d.ts"
 import source25 from './suite-shell.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source27 from './textarea.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source28 from './value.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source29 from './confirm-dialog.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source30 from './dropdown-menu.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source31 from './tooltip.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source32 from './empty-state.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source33 from './error-state.tsx?raw'
+// @deno-types="../pages/studio/source-text.d.ts"
+import source34 from './rich-text.tsx?raw'
 export const exampleSources: Record<string, string> = {
+  'textarea': source27,
+  'value': source28,
+  'confirm-dialog': source29,
+  'dropdown-menu': source30,
+  'tooltip': source31,
+  'empty-state': source32,
+  'error-state': source33,
+  'rich-text': source34,
   'button': source0,
   'toolbar-button': source1,
   'input': source2,
@@ -74,7 +98,7 @@ export const exampleSources: Record<string, string> = {
   'header': source16,
   'data-grid': source17,
   'list': source18,
-  'inline-edit': source19,
+  'inline-field': source19,
   'chart': source20,
   'search-dialog': source21,
   'file-upload': source22,

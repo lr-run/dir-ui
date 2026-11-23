@@ -8,7 +8,7 @@ export const columnMenuItem =
 export function ColumnPopup({ children }: { children: ReactNode }) {
   return (
     <Menu.Portal>
-      <Menu.Positioner className='z-2147483140' sideOffset={3} align='start'>
+      <Menu.Positioner className='z-50' sideOffset={3} align='start'>
         <Menu.Popup className='min-w-[220px] max-w-[min(320px,calc(100vw_-_24px))] p-1 border border-border rounded-lg bg-popover text-popover-foreground shadow-md outline-none text-[13px]'>
           {children}
         </Menu.Popup>

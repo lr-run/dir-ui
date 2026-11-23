@@ -62,7 +62,7 @@ export function BlockMenu({ editor, disabled }: { editor: Editor | null; disable
       </Menu.Trigger>
       <Menu.Portal>
         <Menu.Positioner
-          className='[outline:0] z-2147483140'
+          className='[outline:0] z-50'
           sideOffset={7}
           align='start'
           collisionPadding={8}
@@ -100,7 +100,7 @@ export function SlashMenu(
       <Menu.Portal>
         <Menu.Positioner
           anchor={anchor}
-          className='[outline:0] z-2147483140'
+          className='[outline:0] z-50'
           sideOffset={6}
           align='start'
           collisionPadding={12}

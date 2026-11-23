@@ -15,9 +15,9 @@ export function Modal(
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className='[backdrop-filter:blur(2px)] [transition:opacity_160ms] [@media(prefers-reduced-motion:_reduce)]:[transition:none] fixed inset-0 [background:var(--ui-overlay)] z-2147483100 [&[data-starting-style]]:opacity-0 [&[data-ending-style]]:opacity-0' />
+        <Dialog.Backdrop className='[backdrop-filter:blur(2px)] [transition:opacity_160ms] [@media(prefers-reduced-motion:_reduce)]:[transition:none] fixed inset-0 [background:var(--ui-overlay)] z-50 [&[data-starting-style]]:opacity-0 [&[data-ending-style]]:opacity-0' />
         <Dialog.Popup
-          className={"m-0 [transition:opacity_140ms] [@media(prefers-reduced-motion:_reduce)]:[transition:none] fixed left-[50%] top-[50%] [transform:translate(-50%,-50%)] [background:var(--ui-surface)] [border:1px_solid_var(--ui-border)] rounded-[12px] [box-shadow:var(--ui-shadow)] max-h-[90dvh] overflow-auto [outline:none] z-2147483110 [&[data-starting-style]]:opacity-0 [&[data-ending-style]]:opacity-0 group/app-modal w-[min(520px,calc(100vw_-_32px))] [&>header]:p-[17px_20px] [&>header]:[border-bottom:1px_solid_var(--ui-border)] [&>header]:flex [&>header]:items-center [&>header]:justify-between [&>header_h2]:text-[length:var(--dir-text-body)] [&>header_h2]:[font-weight:550] [&[class~='group/wide']]:w-[min(720px,calc(100vw_-_32px))] " +
+          className={"m-0 [transition:opacity_140ms] [@media(prefers-reduced-motion:_reduce)]:[transition:none] fixed left-[50%] top-[50%] [transform:translate(-50%,-50%)] [background:var(--ui-surface)] [border:1px_solid_var(--ui-border)] rounded-[12px] [box-shadow:var(--ui-shadow)] max-h-[90dvh] overflow-auto [outline:none] z-50 [&[data-starting-style]]:opacity-0 [&[data-ending-style]]:opacity-0 group/app-modal w-[min(520px,calc(100vw_-_32px))] [&>header]:p-[17px_20px] [&>header]:[border-bottom:1px_solid_var(--ui-border)] [&>header]:flex [&>header]:items-center [&>header]:justify-between [&>header_h2]:text-[length:var(--dir-text-body)] [&>header_h2]:[font-weight:550] [&[class~='group/wide']]:w-[min(720px,calc(100vw_-_32px))] " +
             (wide ? 'group/wide' : '')}
           initialFocus={() =>
             Array.from(document.querySelectorAll("[class~='group/app-modal']")).at(-1)?.querySelector(

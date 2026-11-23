@@ -2,7 +2,7 @@
 // and the claim's Line items tab.
 import { type ReactNode, useState } from 'react'
 import { Button } from '@/components/ui/button.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { ChoiceContent } from '@/components/ui/choice-content.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
 import { EmptyState } from '@/components/ui/empty-state.tsx'

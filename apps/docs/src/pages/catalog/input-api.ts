@@ -56,9 +56,9 @@ export const inputApi = {
     types: '',
     notes: 'Other native textarea attributes are forwarded.',
   },
-  'inline-edit': {
+  'inline-field': {
     names: 'InlineInput',
-    path: 'components/ui/inline-edit.tsx',
+    path: 'components/ui/inline-field.tsx',
     rows: [
       ...inlineRows,
       ...typeRows.filter((r) => r.name !== 'min / max / step'),
@@ -71,7 +71,7 @@ export const inputApi = {
   },
   'inline-textarea': {
     names: 'InlineTextarea',
-    path: 'components/ui/inline-edit.tsx',
+    path: 'components/ui/inline-field.tsx',
     rows: [...inlineRows, row('rows', 'number', '4')],
     types: '',
     notes:

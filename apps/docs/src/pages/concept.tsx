@@ -1,3 +1,4 @@
+import { WorkflowDemo } from '../../../../examples/workflow/workflow-demo.tsx'
 import { exampleRoute, recipes } from '../navigation.ts'
 import { landingHref } from '../routes.ts'
 
@@ -35,14 +36,14 @@ export default function ConceptPage() {
       <header className='flex flex-col gap-3'>
         <h1 className='m-0 text-[28px] leading-tight font-semibold tracking-tight max-[700px]:text-[24px]'>Concept</h1>
         <p className='m-0 text-[18px] leading-7 font-medium'>
-          With dir/ui, internal tools built on dir are far higher in quality than anything else.
+          One purpose, one pattern. Consistent workflows for CRM, recruiting and task management.
         </p>
       </header>
       <section className='flex flex-col gap-4'>
         <h2 className='m-0 text-[16px] font-semibold tracking-tight'>What it covers</h2>
         <p className='m-0 text-[14px] leading-6 text-muted-foreground'>
-          dir/ui ships as a skill. It gives an agent the parts, the layouts and the rules it needs to build a complete
-          internal tool.
+          Start with a proven workflow: find a record, inspect it, update it and decide the next action. Components,
+          layouts and quality states are composed together so people and agents share the same defaults.
         </p>
         <ol className='m-0 flex flex-col gap-3 p-0 [&_li]:list-none'>
           {items.map(([title, text], index) => (
@@ -56,6 +57,7 @@ export default function ConceptPage() {
           ))}
         </ol>
       </section>
+      <WorkflowDemo />
     </article>
   )
 }

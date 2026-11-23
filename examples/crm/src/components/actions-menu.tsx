@@ -1,8 +1,12 @@
-import { Menu } from '@base-ui/react/menu'
 import { EllipsisVerticalIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu.tsx'
 import { IconButton } from '@/components/ui/icon-button.tsx'
-import { MenuPopup } from '@/components/ui/menu-popup.tsx'
 
 export function ActionsMenu({ label, items, disabled = false }: {
   label: string
@@ -10,8 +14,8 @@ export function ActionsMenu({ label, items, disabled = false }: {
   disabled?: boolean
 }) {
   return (
-    <Menu.Root>
-      <Menu.Trigger
+    <DropdownMenu>
+      <DropdownMenuTrigger
         render={
           <IconButton
             label={label}
@@ -22,19 +26,15 @@ export function ActionsMenu({ label, items, disabled = false }: {
         }
       >
         <EllipsisVerticalIcon size={16} strokeWidth={1.5} aria-hidden />
-      </Menu.Trigger>
-      <MenuPopup>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align='end' className='w-auto min-w-[190px]'>
         {items.map((item) => (
-          <Menu.Item
-            key={item.label}
-            onClick={item.onClick}
-            className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs outline-none data-highlighted:bg-accent'
-          >
+          <DropdownMenuItem key={item.label} onClick={item.onClick}>
             {item.icon}
             {item.label}
-          </Menu.Item>
+          </DropdownMenuItem>
         ))}
-      </MenuPopup>
-    </Menu.Root>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

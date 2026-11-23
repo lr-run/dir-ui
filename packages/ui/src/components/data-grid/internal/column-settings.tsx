@@ -140,7 +140,7 @@ function ColumnSettings({ columns, value, onChange, onReset, disabled }: ColumnS
         margin: '0',
         boxSizing: 'border-box',
         pointerEvents: 'none',
-        zIndex: '2147483646',
+        zIndex: '50',
         font: computed.font,
         color: computed.color,
         backgroundColor: computed.backgroundColor,
@@ -156,7 +156,7 @@ function ColumnSettings({ columns, value, onChange, onReset, disabled }: ColumnS
         top: '0',
         height: '2px',
         pointerEvents: 'none',
-        zIndex: '2147483647',
+        zIndex: '50',
         backgroundColor: computed.getPropertyValue('--ui-accent') || computed.color,
       })
       line.hidden = true

@@ -1,16 +1,40 @@
-import { specs } from './pages/catalog/playground/specs.ts'
+import { componentApi } from './pages/catalog/api-data.ts'
 
 /** v2 information architecture: concept, foundations, one page per component (grouped), layouts, rules, recipes. */
 export const componentGroups = [
-  { slug: 'buttons', title: 'Buttons', members: ['button', 'toolbar-button'] },
-  { slug: 'inputs', title: 'Inputs', members: ['input', 'date-input'] },
-  { slug: 'selection', title: 'Selection', members: ['checkbox', 'select', 'combobox'] },
-  { slug: 'labels', title: 'Labels', members: ['field', 'tabs', 'tab-bar', 'badge'] },
-  { slug: 'overlays', title: 'Overlays', members: ['dialog', 'sheet', 'popover'] },
-  { slug: 'feedback', title: 'Feedback', members: ['toast', 'skeleton'] },
-  { slug: 'shell', title: 'Shell', members: ['sidebar', 'header'] },
-  { slug: 'records', title: 'Records', members: ['data-grid', 'list', 'inline-edit'] },
-  { slug: 'content', title: 'Content', members: ['chart', 'search-dialog', 'file-upload'] },
+  { slug: 'basic', title: 'Basic', members: ['button', 'badge', 'value'] },
+  {
+    slug: 'input',
+    title: 'Input',
+    members: [
+      'input',
+      'textarea',
+      'date-input',
+      'checkbox',
+      'select',
+      'combobox',
+      'file-upload',
+      'rich-text',
+    ],
+  },
+  { slug: 'form', title: 'Form', members: ['field', 'inline-field'] },
+  { slug: 'table', title: 'Table', members: ['data-grid', 'list', 'toolbar-button'] },
+  {
+    slug: 'overlay',
+    title: 'Overlay',
+    members: [
+      'dialog',
+      'confirm-dialog',
+      'sheet',
+      'popover',
+      'dropdown-menu',
+      'tooltip',
+      'search-dialog',
+    ],
+  },
+  { slug: 'feedback', title: 'Feedback', members: ['toast', 'skeleton', 'empty-state', 'error-state'] },
+  { slug: 'navigation', title: 'Navigation', members: ['header', 'sidebar', 'tabs', 'tab-bar'] },
+  { slug: 'chart', title: 'Chart', members: ['chart'] },
 ] as const
 export type ComponentGroup = (typeof componentGroups)[number]
 /** Component page titles are the component names only. */
@@ -18,28 +42,66 @@ export const componentTitles: Record<string, string> = {
   button: 'Button',
   'toolbar-button': 'ToolbarButton',
   input: 'Input',
-  'date-input': 'DateInput · Calendar',
+  textarea: 'Textarea',
+  'date-input': 'DateInput',
   checkbox: 'Checkbox',
   select: 'Select',
   combobox: 'Combobox',
   field: 'Field',
   tabs: 'Tabs',
   'tab-bar': 'TabBar',
-  badge: 'Badge · ChoiceContent · Value',
-  dialog: 'Dialog · Drawer · ConfirmDialog',
+  badge: 'Badge',
+  value: 'Value',
+  dialog: 'Dialog',
+  'confirm-dialog': 'ConfirmDialog',
   sheet: 'Sheet',
-  popover: 'Popover · DropdownMenu · Tooltip',
+  popover: 'Popover',
+  'dropdown-menu': 'DropdownMenu',
+  tooltip: 'Tooltip',
   toast: 'Toast',
-  skeleton: 'Skeleton · LoadingState · EmptyState · ErrorState',
+  skeleton: 'Skeleton',
+  'empty-state': 'EmptyState',
+  'error-state': 'ErrorState',
   sidebar: 'Sidebar',
   header: 'Header',
   'data-grid': 'DataGrid',
-  list: 'List · ListItem',
-  'inline-edit': 'InlineEdit',
-  chart: 'Charts',
+  list: 'List',
+  'inline-field': 'InlineField',
+  chart: 'Chart',
   'search-dialog': 'SearchDialog',
-  'file-upload': 'FileUpload · RichText',
+  'file-upload': 'FileUpload',
+  'rich-text': 'RichText',
 }
+/** API tables on a component page and in its Markdown, the page's main component first. */
+const pageApis: Record<string, string[]> = {
+  value: ['number-value', 'date-value', 'choice-value'],
+  combobox: ['combobox', 'multi-combobox'],
+  'inline-field': [
+    'inline-field',
+    'inline-textarea',
+    'inline-number',
+    'inline-money',
+    'inline-percent',
+    'inline-date',
+    'inline-datetime',
+    'inline-select',
+    'inline-combobox',
+    'inline-multi-combobox',
+    'inline-rich-text',
+  ],
+  list: ['list', 'list-item'],
+  chart: [
+    'chart',
+    'chart-frame',
+    'revenue-bars',
+    'line-chart',
+    'horizontal-bars',
+    'spark-chart',
+    'chart-tooltip',
+    'chart-legend',
+  ],
+}
+export const apiIdsFor = (id: string): string[] => pageApis[id] ?? (id in componentApi ? [id] : [])
 export const componentIds: readonly string[] = componentGroups.flatMap((group) => group.members)
 /** One page per layout, ordered by how much navigation they carry. */
 export const layoutIds: readonly string[] = ['page-shell', 'app-shell', 'suite-shell']
@@ -51,6 +113,7 @@ export const componentDescriptions: Record<string, string> = {
   button: 'Displays a button or a component that looks like one.',
   'toolbar-button': 'A compact control for search, sort, filter and column settings above a list.',
   input: 'A single-line control for text, numbers, money, percentages, dates and times.',
+  textarea: 'A multiline text input that grows with its content from 64px.',
   'date-input': 'A date or date-time input with a calendar popover.',
   checkbox: 'Turns one option on or off. Use it for booleans that are committed with Save.',
   select: 'Picks one value from a short, fixed list of 2–7 options.',
@@ -58,20 +121,28 @@ export const componentDescriptions: Record<string, string> = {
   field: 'Associates a control with its label, description and validation error.',
   tabs: 'A set of layered sections of content, displayed one at a time.',
   'tab-bar': 'Tabs inside the page content: a full-width band of line tabs with counts and actions.',
-  badge: 'Displays a badge, a colored choice, or a formatted value.',
-  dialog: 'A window overlaid on the page: a form, a wide drawer, or a confirmation.',
+  badge: 'A small label for a category, a count or a code.',
+  value: 'Numbers, dates and choices formatted the same way in every grid, list and detail.',
+  dialog: 'A window overlaid on the page for a form, or a wide drawer docked to the right.',
+  'confirm-dialog':
+    'Confirms a destructive action; focus starts on Cancel and `busy` locks both buttons while it runs.',
   sheet: 'A panel that slides in from the side, or stays beside a list.',
-  popover: 'Rich content, menus and tooltips anchored to a trigger.',
+  popover: 'Rich content anchored to a trigger, such as a small form.',
+  'dropdown-menu': 'Actions and options opened from a button, with groups, shortcuts and submenus.',
+  tooltip: 'A short label for an icon-only button, or why a control is disabled.',
   toast: 'A succinct message that is displayed temporarily.',
-  skeleton: 'Placeholders for loading, empty and failed content.',
+  skeleton: 'Placeholders that keep the shape of content while it loads.',
+  'empty-state': 'Shown when there are no records yet or none match, with one action.',
+  'error-state': 'Shown when content fails to load, with an optional retry.',
   sidebar: 'A composable, collapsible workspace sidebar.',
   header: 'A page header with a leading slot, a title and actions.',
   'data-grid': 'A virtualized grid with search, sorting, filters and column settings.',
   list: 'A vertical list of items with slots for leading, trailing and actions.',
-  'inline-edit': 'Edits a record value in place and saves it on commit.',
+  'inline-field': 'A labeled record value that is edited in place and saved on commit.',
   chart: 'Responsive Recharts charts with shared colors, tooltips and legends.',
   'search-dialog': 'A command-style search dialog opened with ⌘K.',
-  'file-upload': 'File selection with progress and retry, and a rich text editor.',
+  'file-upload': 'File selection with progress, cancel and retry.',
+  'rich-text': 'An editor for formatted notes; it loads lazily.',
   'page-shell': 'A header only, for single-purpose tools and forms; up to five header tabs switch between views.',
   'app-shell': 'A global sidebar and a page header, for one app with up to two levels of navigation.',
   'suite-shell': 'Section tabs in a global header, each section with its own sidebar of up to two levels.',
@@ -79,12 +150,13 @@ export const componentDescriptions: Record<string, string> = {
 
 export const recipes = [
   { slug: 'crm', title: 'Sales CRM', short: 'CRM', system: '営業CRM', shell: 'App' },
+  { slug: 'recruiting', title: 'Recruiting', short: 'Recruiting', system: '採用管理', shell: 'App' },
+  { slug: 'task-board', title: 'Task Board', short: 'Task Board', system: 'タスク管理', shell: 'App' },
   { slug: 'sales-report', title: 'Sales report', short: 'Sales', system: '売上集計', shell: 'App' },
   { slug: 'customer-portal', title: 'Customer portal', short: 'Portal', system: '顧客ポータル', shell: 'Page' },
   { slug: 'inventory', title: 'Inventory', short: 'Inventory', system: '在庫管理', shell: 'App' },
   { slug: 'expense', title: 'Expense claims', short: 'Expenses', system: '経費精算', shell: 'Page' },
   { slug: 'daily-report', title: 'Daily reports', short: 'Daily reports', system: '日報・週報', shell: 'Page' },
-  { slug: 'recruiting', title: 'Recruiting', short: 'Recruiting', system: '採用管理', shell: 'App' },
   { slug: 'inquiry', title: 'Inquiry management', short: 'Inquiries', system: '問合せ管理', shell: 'App' },
   { slug: 'contract', title: 'Contract management', short: 'Contracts', system: '契約管理', shell: 'App' },
 ] as const
@@ -261,7 +333,7 @@ export const docTabs: DocTab[] = [
     }],
   },
 ]
-/** The header tab a route belongs to; component playground pages stay under Components. */
+/** The header tab a route belongs to. */
 export function tabOf(id: string): DocTab | undefined {
   const tab = id === 'layouts' || layoutIds.includes(id)
     ? 'layouts'
@@ -271,7 +343,7 @@ export function tabOf(id: string): DocTab | undefined {
     ? 'foundations'
     : exampleOf(id)
     ? 'examples'
-    : componentIds.includes(id) || specById.has(id)
+    : componentIds.includes(id)
     ? 'components'
     : id
   return docTabs.find((item) => item.id === tab)
@@ -286,8 +358,3 @@ export const pageTitles = new Map<string, string>([
   ),
   ...uiRules.map((rule) => [`rules/${rule.slug}`, rule.title] as [string, string]),
 ])
-/** Playground pages remain for components without a v2 page; the API tables are shared. */
-export const specById = new Map(specs.map((spec) => [spec.id, spec]))
-export const groupBySpec = new Map<string, ComponentGroup>(
-  componentGroups.flatMap((group) => group.members.map((member) => [member, group] as const)),
-)

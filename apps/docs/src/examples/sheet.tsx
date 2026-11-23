@@ -43,7 +43,7 @@ export function SheetLeft() {
           <SheetTitle className='text-[13px] font-medium'>Sales workspace</SheetTitle>
         </SheetHeader>
         <SheetBody>
-          <List className='p-2 [&_li]:border-0 [&_li]:p-2'>
+          <List separators='none' className='p-2 [&_li]:p-2'>
             {['Companies', 'Deals', 'People', 'Report'].map((label) => (
               <ListItem key={label} title={label} selected={label === 'Deals'} className='rounded-md' />
             ))}

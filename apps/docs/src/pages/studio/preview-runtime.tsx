@@ -1,6 +1,7 @@
 import { ErrorToastProvider, Toasts } from '@dir/ui/components/ui/toast.tsx'
 import '../../tailwind.css'
 import { initializeDocumentStyles } from '../../document-styles.ts'
+import { setThemeColor } from '../../theme-colors.ts'
 import { installThemes, isTheme, setThemeAttributes } from '../../theme-presets.ts'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -12,6 +13,7 @@ import { ErrorBoundary } from '@dir/ui/components/ui/error-boundary.tsx'
 import { CrmApp } from '@dir/crm/app.tsx'
 import { KitApp } from '@/components/systems/kit/app.tsx'
 import { systemExamples } from '@/components/systems/index.ts'
+import { TaskBoardApp } from '@/components/systems/task-board/app.tsx'
 initializeDocumentStyles(true)
 const root = document.getElementById('screen-root')
 if (!root) throw new Error('Missing preview root')
@@ -20,6 +22,7 @@ const count = z.coerce.number().int().min(0).max(1000).catch(100).parse(params.g
 const theme = params.get('theme')
 installThemes()
 setThemeAttributes(isTheme(theme) ? theme : 'light')
+setThemeColor(params.get('color'))
 // The first path segment after /preview/ picks the example; the CRM keeps its own app.
 const slug = location.pathname.split('/')[2] ?? 'crm'
 const system = systemExamples[slug]
@@ -36,7 +39,9 @@ createRoot(root).render(
         <Toast.Provider>
           <ErrorBoundary>
             <ErrorToastProvider>
-              {system
+              {slug === 'task-board'
+                ? <TaskBoardApp count={count} />
+                : system
                 ? <KitApp config={system.config} layout={system.layout} count={count} basePath={basePath} />
                 : <CrmApp count={count} basePath={basePath} />}
             </ErrorToastProvider>

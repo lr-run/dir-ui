@@ -58,6 +58,7 @@ export type KitObject = {
   /** Values a new record starts with, such as today's date or the next number. */
   defaults?: (store: KitStore) => Record<string, unknown>
   detail?: {
+    compactHeader?: boolean
     /** Buttons in the record's page header; end with the one primary action. */
     actions?: (context: KitDetailContext) => ReactNode
     /** Objects left out of the Related tab because a custom tab already lists them. */

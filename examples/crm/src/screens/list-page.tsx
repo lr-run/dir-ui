@@ -15,10 +15,17 @@ import { RecordList } from '@/components/crm/components/record-list.tsx'
 import type { RecordFilter, RecordSort } from '@/components/data-grid/data-grid.tsx'
 import { Button } from '@/components/ui/button.tsx'
 import { IconButton } from '@/components/ui/icon-button.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
-import { Menu as DropdownMenu } from '@base-ui/react/menu'
-import { MenuPopup } from '@/components/ui/menu-popup.tsx'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu.tsx'
 import { Field } from '@/components/ui/field.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { List, ListItem } from '@/components/ui/list.tsx'
@@ -49,6 +56,7 @@ export function ListPage<R>(
     onCreate,
     onOpenDetail,
     onOpenPreview,
+    previewId,
     archived = false,
     onArchivedChange,
     inlineEditing,
@@ -56,13 +64,14 @@ export function ListPage<R>(
     inlineEditing?: RecordTableProps<R>['inlineEditing']
     archived?: boolean
     onArchivedChange?: (value: boolean) => void
+    previewId?: string
     definition: ListPageDefinition<R>
     leading?: ReactNode
     records: readonly R[]
     /** Omit for read-only records: the New button and the empty state's create action disappear. */
     onCreate?: () => void
     onOpenDetail: (record: R) => void
-    onOpenPreview: (record: R, rows: readonly R[]) => void
+    onOpenPreview: (record: R, rows: readonly R[], fieldId?: string) => void
   },
 ) {
   const [search, setSearch] = useState('')
@@ -142,7 +151,8 @@ export function ListPage<R>(
     rowHeight: 40,
     search: { value: search, onChange: setSearch, label: `Search ${config.title.toLowerCase()}` },
     onOpenRecord: onOpenDetail,
-    onPreviewRecord: (record) => onOpenPreview(record, rows),
+    previewKey: previewId,
+    onPreviewRecord: (record, fieldId) => onOpenPreview(record, rows, fieldId),
     renderers: {
       noRowsFallback: emptyState,
     },
@@ -189,8 +199,8 @@ export function ListPage<R>(
                     </span>
                     <span className='truncate'>{view.name}</span>
                   </Button>
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger
+                  <DropdownMenu>
+                    <DropdownMenuTrigger
                       render={
                         <IconButton
                           variant='ghost'
@@ -200,39 +210,33 @@ export function ListPage<R>(
                       }
                     >
                       <ChevronDownIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
-                    </DropdownMenu.Trigger>
-                    <MenuPopup>
-                      <DropdownMenu.Group>
-                        <DropdownMenu.GroupLabel className='max-w-64 truncate px-2 py-1.5 text-xs font-medium text-muted-foreground'>
-                          {view.name}
-                        </DropdownMenu.GroupLabel>
-                        <DropdownMenu.Item
-                          onClick={() => setEditing(view)}
-                          className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs outline-none data-highlighted:bg-accent'
-                        >
-                          <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Rename
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Item
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align='end' className='w-auto min-w-[190px]'>
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel className='max-w-64 truncate'>{view.name}</DropdownMenuLabel>
+                        <DropdownMenuItem onClick={() => setEditing(view)}>
+                          <PencilIcon size={16} strokeWidth={1.5} aria-hidden='true' />Rename
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
                           onClick={() => {
                             setRemoved(null)
                             setSearch('')
                             setSaved((previous) => addListView(previous, view, `${view.name} copy`))
                           }}
-                          className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs outline-none data-highlighted:bg-accent'
                         >
-                          <CopyIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Duplicate
-                        </DropdownMenu.Item>
-                        <DropdownMenu.Separator className='my-1 h-px bg-border' />
-                        <DropdownMenu.Item
+                          <CopyIcon size={16} strokeWidth={1.5} aria-hidden='true' />Duplicate
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          variant='destructive'
                           disabled={saved.views.length === 1}
                           onClick={() => setDeleting(view)}
-                          className='flex cursor-default items-center gap-2 rounded px-2 py-1.5 text-xs text-destructive outline-none data-highlighted:bg-accent data-disabled:opacity-40'
                         >
-                          <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />Delete
-                        </DropdownMenu.Item>
-                      </DropdownMenu.Group>
-                    </MenuPopup>
-                  </DropdownMenu.Root>
+                          <Trash2Icon size={16} strokeWidth={1.5} aria-hidden='true' />Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </div>
               ))}
             </div>

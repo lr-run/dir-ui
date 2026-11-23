@@ -14,9 +14,10 @@ const sharedCrm = Object.fromEntries(
   ),
 )
 const appName = (slug: string) => slug.replace(/(^|-)(\w)/g, (_, _dash, letter: string) => letter.toUpperCase()) + 'App'
-export function PreviewStudio({ example, theme, codeView, count, viewport, revision }: {
+export function PreviewStudio({ example, theme, color, codeView, count, viewport, revision }: {
   example: string
   theme: string
+  color: string
   codeView: boolean
   count: number
   viewport: string
@@ -35,9 +36,11 @@ export function PreviewStudio({ example, theme, codeView, count, viewport, revis
     } count={${count}} /></div>\n}\n`
   const files: Record<string, string> = crm
     ? { 'Example.tsx': usage, ...sourceFiles }
+    : example === 'task-board'
+    ? { 'Example.tsx': usage, ...systemSources[example] }
     : { 'Example.tsx': usage, ...systemSources[example], ...kitSources, ...sharedCrm }
   const source = files[file] ?? usage
-  const previewUrl = useMemo(() => examplePreviewUrl(example, count, theme), [count, theme, example])
+  const previewUrl = useMemo(() => examplePreviewUrl(example, count, theme, color), [count, theme, color, example])
   const copy = async (all: boolean) => {
     try {
       await navigator.clipboard.writeText(

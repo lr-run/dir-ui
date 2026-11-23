@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { InlineEdit } from '@/components/ui/inline-edit.tsx'
+import { InlineField } from '@/components/ui/inline-field.tsx'
 import { Input } from '@/components/ui/input.tsx'
 import { DateValue, type NumberFormat, NumberValue } from '@/components/ui/value.tsx'
 import { type ComboboxOptions } from '@/hooks/use-choices.ts'
@@ -20,7 +20,7 @@ export function InlineNumber(
 ) {
   const inputType = format.format === 'currency' ? 'money' : format.format === 'percent' ? 'percent' : 'number'
   return (
-    <InlineEdit
+    <InlineField
       label={label}
       disabled={disabled}
       value={value === null ? '' : String(value)}
@@ -53,7 +53,7 @@ type DateProps = {
 }
 export function InlineDate(props: DateProps) {
   return (
-    <InlineEdit
+    <InlineField
       {...props}
       type='date'
       display={<DateValue value={props.value} locale={props.locale} />}
@@ -63,7 +63,7 @@ export function InlineDate(props: DateProps) {
 }
 export function InlineDateTime(props: DateProps) {
   return (
-    <InlineEdit
+    <InlineField
       {...props}
       type='datetime-local'
       display={props.value.replace('T', ' ')}

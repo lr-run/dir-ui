@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import { resolve } from 'node:path'
 import { installPath, sourcePath, targetPath } from '../registry/paths.ts'
-import { imports, makeRegistry, registrySources, root } from '../scripts/registry.ts'
+import { imports, makeRegistry, official, registrySources, root } from '../scripts/registry.ts'
 import { registryAddress } from '../registry/catalog.ts'
 
 Deno.test('registry gives every shared source exactly one owner and uses consumer alias targets', async () => {
@@ -30,7 +30,7 @@ Deno.test('registry dependency graph is complete and has no cycles', async () =>
   const registry = await makeRegistry(), sources = await registrySources(registry)
   const byAddress = new Map(registry.items.map((i) => [registryAddress(i.name), i]))
   const byFile = new Map(registry.items.flatMap((i) => i.files.map((f) => [f.path, i] as const)))
-  const upstream = new Set(['components/ui/label.tsx', 'components/ui/separator.tsx', 'components/ui/skeleton.tsx'])
+  const upstream = new Set(Object.keys(official).map((path) => path.replace('packages/ui/src/', '')))
   function visit(item: typeof registry.items[number], stack: string[]) {
     assert.ok(!stack.includes(item.name), `Cycle: ${[...stack, item.name].join(' -> ')}`)
     for (const d of item.registryDependencies) if (byAddress.has(d)) visit(byAddress.get(d)!, [...stack, item.name])
@@ -85,7 +85,7 @@ Deno.test('standard targets map authored workspace paths without copying source'
   )
   assert.ok(theme.css?.['@media (prefers-reduced-motion: reduce)'])
   assert.ok(
-    registry.items.find((item) => item.name === 'data-grid-styles')?.css
+    registry.items.find((item) => item.name === 'data-grid')?.css
       ?.["@import 'react-data-grid/lib/styles.css' layer(components)"],
   )
 })

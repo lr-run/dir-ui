@@ -86,30 +86,28 @@ export function Sidebar({ children, className }: { children: ReactNode; classNam
         {children}
         {collapsible && <SidebarRail />}
       </aside>
-      {openMobile && (
-        <Sheet open onOpenChange={setOpenMobile}>
-          <SheetContent
-            side='left'
-            className="[&_[class~='group/crm-sidebar-panel']]:flex-1 [&_[class~='group/crm-sidebar-panel']]:[border:0]"
-          >
-            <SheetTitle className='[clip-path:inset(50%)] absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0]'>
-              {t('ワークスペース')}
-            </SheetTitle>
-            <MobileContext.Provider value>
-              <aside
-                className={cn(
-                  "group/crm-sidebar-panel relative flex flex-col min-w-0 min-h-0 h-full [background:var(--ui-sidebar)] [border-right:1px_solid_var(--ui-border)] text-foreground [&_kbd]:ml-auto [&_kbd]:text-[length:var(--dir-text-caption)] [&_kbd]:text-muted-foreground [&_kbd]:[font-family:inherit] [&[data-state='collapsed']_kbd]:hidden [&[data-state='collapsed']_[class~='group/screen-workspace-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-group-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:justify-center [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:p-0 [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:h-[36px] [&[data-state='collapsed']_[class~='group/crm-sidebar-footer']]:justify-center [&[data-state='collapsed']_[class~='group/crm-sidebar-footer']]:p-[8px] [&[data-state='collapsed']_[class~='group/crm-sidebar-content']]:overflow-x-hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-group']+[class~='group/crm-sidebar-group']]:[border-top:1px_solid_var(--ui-border)] [&[data-state='collapsed']_[class~='group/crm-sidebar-group']+[class~='group/crm-sidebar-group']]:pt-[10px]",
-                  className,
-                )}
-                data-state='expanded'
-                aria-label={t('ワークスペース')}
-              >
-                {children}
-              </aside>
-            </MobileContext.Provider>
-          </SheetContent>
-        </Sheet>
-      )}
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        <SheetContent
+          side='left'
+          className="[&_[class~='group/crm-sidebar-panel']]:flex-1 [&_[class~='group/crm-sidebar-panel']]:[border:0]"
+        >
+          <SheetTitle className='[clip-path:inset(50%)] absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0]'>
+            {t('ワークスペース')}
+          </SheetTitle>
+          <MobileContext.Provider value>
+            <aside
+              className={cn(
+                "group/crm-sidebar-panel relative flex flex-col min-w-0 min-h-0 h-full [background:var(--ui-sidebar)] [border-right:1px_solid_var(--ui-border)] text-foreground [&_kbd]:ml-auto [&_kbd]:text-[length:var(--dir-text-caption)] [&_kbd]:text-muted-foreground [&_kbd]:[font-family:inherit] [&[data-state='collapsed']_kbd]:hidden [&[data-state='collapsed']_[class~='group/screen-workspace-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-group-label']]:hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:justify-center [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:p-0 [&[data-state='collapsed']_[class~='group/crm-sidebar-menu-button']]:h-[36px] [&[data-state='collapsed']_[class~='group/crm-sidebar-footer']]:justify-center [&[data-state='collapsed']_[class~='group/crm-sidebar-footer']]:p-[8px] [&[data-state='collapsed']_[class~='group/crm-sidebar-content']]:overflow-x-hidden [&[data-state='collapsed']_[class~='group/crm-sidebar-group']+[class~='group/crm-sidebar-group']]:[border-top:1px_solid_var(--ui-border)] [&[data-state='collapsed']_[class~='group/crm-sidebar-group']+[class~='group/crm-sidebar-group']]:pt-[10px]",
+                className,
+              )}
+              data-state='expanded'
+              aria-label={t('ワークスペース')}
+            >
+              {children}
+            </aside>
+          </MobileContext.Provider>
+        </SheetContent>
+      </Sheet>
     </>
   )
 }
@@ -212,7 +210,7 @@ export function SidebarMenuButton({ label, icon, active, href, onClick, shortcut
     <Tooltip.Root disabled={open || mobile}>
       <Tooltip.Trigger render={button} />
       <Tooltip.Portal>
-        <Tooltip.Positioner side='right' sideOffset={10} className='z-2147483140'>
+        <Tooltip.Positioner side='right' sideOffset={10} className='z-50'>
           <Tooltip.Popup className='p-[6px_9px] [border:1px_solid_var(--ui-border)] rounded-[6px] [background:var(--ui-text)] text-[var(--ui-raised)] text-[length:var(--dir-text-label)] [box-shadow:0_4px_12px_#0002]'>
             {label}
           </Tooltip.Popup>
@@ -252,6 +250,7 @@ export function SidebarRail() {
 export function SidebarPanel(
   { children, title, onClose }: { children: ReactNode; title: string; onClose: () => void },
 ) {
+  const [open, setOpen] = useState(true)
   const [overlay, setOverlay] = useState(() => matchMedia('(max-width: 1100px)').matches)
   useEffect(() => {
     const media = matchMedia('(max-width: 1100px)')
@@ -261,10 +260,11 @@ export function SidebarPanel(
   }, [])
   return (
     <Sheet
-      open
+      open={open}
       modal={overlay}
       disablePointerDismissal={!overlay}
-      onOpenChange={(open) => {
+      onOpenChange={setOpen}
+      onOpenChangeComplete={(open) => {
         if (!open) onClose()
       }}
     >

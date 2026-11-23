@@ -130,7 +130,7 @@ export const doc: ComponentDoc = {
     {
       id: 'inline',
       title: 'Inline',
-      description: '`InlineSelect` edits a record property in place and saves on change.',
+      description: '`InlineSelect` edits a record property in place and saves on change. It installs with InlineField.',
       example: SelectInline,
     },
   ],

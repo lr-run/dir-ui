@@ -1,7 +1,22 @@
 import type { ComponentProps, ReactNode } from 'react'
-export function List({ children, empty, ...props }: ComponentProps<'ul'> & { empty?: ReactNode }) {
+export function List({
+  children,
+  empty,
+  separators = 'between',
+  className = '',
+  ...props
+}: ComponentProps<'ul'> & {
+  empty?: ReactNode
+  /** Include a separator before the first row when the list meets a panel header. */
+  separators?: 'between' | 'start' | 'none'
+}) {
+  const separatorClass = separators === 'start'
+    ? '[&>[data-list-item]]:[border-top:1px_solid_var(--ui-border)]'
+    : separators === 'between'
+    ? '[&>[data-list-item]:not(:last-child)]:[border-bottom:1px_solid_var(--ui-border)]'
+    : ''
   return (
-    <ul {...props} className={`group/ui-list list-none m-0 p-0 w-full ${props.className ?? ''}`}>
+    <ul {...props} className={`group/ui-list list-none m-0 p-0 w-full ${separatorClass} ${className}`}>
       {children || <li className='p-[24px] text-muted-foreground text-center'>{empty ?? 'No items yet.'}</li>}
     </ul>
   )
@@ -55,9 +70,10 @@ export function ListItem({
         opens
           ? 'relative cursor-pointer [&:hover]:[background:var(--ui-hover)] [&_[data-list-actions]]:relative [&_[data-list-actions]]:z-1'
           : ''
-      } flex items-start gap-[12px] p-[14px_8px] [border-bottom:1px_solid_var(--ui-border)] text-[13px] [&:last-child]:[border-bottom:0] [&[data-selected]]:[background:var(--ui-hover)] ${
+      } flex items-start gap-[12px] p-[14px_8px] text-[13px] [&[data-selected]]:[background:var(--ui-hover)] ${
         props.className ?? ''
       }`}
+      data-list-item=''
       data-selected={selected || undefined}
     >
       {leading && <div className='ui-list-leading'>{leading}</div>}

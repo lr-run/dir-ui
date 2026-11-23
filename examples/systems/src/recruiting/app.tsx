@@ -14,7 +14,11 @@ import { seed } from '@/components/systems/recruiting/seed.ts'
 export const recruiting: KitConfig = {
   id: 'recruiting',
   brand: { name: 'Hiring', mark: <UserRoundSearchIcon size={16} strokeWidth={2} aria-hidden='true' /> },
-  objects: [{ ...candidates, detail: { actions: scheduleInterviewAction } }, interviews, positions],
+  objects: [
+    { ...candidates, detail: { actions: scheduleInterviewAction, compactHeader: true } },
+    interviews,
+    positions,
+  ],
   pages: [
     {
       id: 'pipeline',

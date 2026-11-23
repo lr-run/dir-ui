@@ -15,10 +15,11 @@ import { type ShellSection, SuiteShell } from '@dir/ui/components/shells/suite-s
 import { LoadingState } from '@dir/ui/components/ui/loading-state.tsx'
 import { Select } from '@dir/ui/components/ui/select.tsx'
 import { pageMetadata } from '../page-metadata.ts'
-import { componentIds, docTabs, exampleOf, layoutIds, specById, tabOf } from '../navigation.ts'
+import { componentIds, docTabs, exampleOf, layoutIds, tabOf } from '../navigation.ts'
 import { landingBaseUrl, landingHref, readLandingRoute } from '../routes.ts'
 import { applyTheme, readTheme, type Theme, themes } from '../theme-presets.ts'
-import { NotFound, SpecPage } from './catalog/spec-page.tsx'
+import { applyThemeColor, readThemeColor, themeColors } from '../theme-colors.ts'
+import { NotFound } from './not-found.tsx'
 import { ComponentDocPage } from './component-page.tsx'
 import { Home } from './home.tsx'
 import { ExampleWorkspace } from './example-workspace.tsx'
@@ -62,12 +63,14 @@ export function DocsApp() {
     [previewRevision, setPreviewRevision] = useState(0)
   const [active, setActive] = useState(readLandingRoute)
   const [theme, setTheme] = useState<Theme>(readTheme)
+  const [color, setColor] = useState(readThemeColor)
   useEffect(() => {
     const listener = () => setActive(readLandingRoute())
     addEventListener('popstate', listener)
     return () => removeEventListener('popstate', listener)
   }, [])
   useEffect(() => applyTheme(theme), [theme])
+  useEffect(() => applyThemeColor(color), [color])
   useEffect(() => {
     // Pages scroll inside the layout's panel; a new page starts at the top unless it links to an anchor.
     if (!location.hash) appRef.current?.parentElement?.scrollTo({ top: 0 })
@@ -91,7 +94,6 @@ export function DocsApp() {
   const example = exampleOf(active), isStudio = !!example
   const isComponent = componentIds.includes(active)
   const isLayouts = active === 'layouts' || layoutIds.includes(active)
-  const spec = isComponent ? undefined : specById.get(active)
   const navigate = (id: string) => {
     history.pushState(null, '', landingHref(id))
     setActive(id)
@@ -99,7 +101,6 @@ export function DocsApp() {
   const tab = tabOf(active)
   let page: ReactNode
   if (isComponent) page = <ComponentDocPage key={active} id={active} />
-  else if (spec) page = <SpecPage spec={spec} onNavigate={navigate} />
   else if (active === 'concept') page = <ConceptPage />
   else if (active.startsWith('foundations/')) {
     page = (
@@ -123,6 +124,7 @@ export function DocsApp() {
         example={example!.slug}
         code={example!.code}
         theme={theme}
+        color={color}
         count={count}
         viewport={viewport}
         revision={previewRevision}
@@ -141,9 +143,7 @@ export function DocsApp() {
           </div>
         )}
         <main
-          className={`mx-auto w-full min-w-0 px-10 pt-10 text-[13px] max-[1200px]:px-8 max-[700px]:px-5 max-[700px]:pt-7 [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-2 [&_a:focus-visible]:outline-ring ${
-            spec ? 'max-w-[880px]' : 'max-w-[1120px]'
-          }`}
+          className='mx-auto w-full max-w-[1120px] min-w-0 px-10 pt-10 text-[13px] max-[1200px]:px-8 max-[700px]:px-5 max-[700px]:pt-7 [&_a:focus-visible]:outline-2 [&_a:focus-visible]:outline-offset-2 [&_a:focus-visible]:outline-ring'
           key={active}
         >
           <Suspense fallback={<LoadingState label='Loading page' />}>{page}</Suspense>
@@ -178,12 +178,32 @@ export function DocsApp() {
         active={active}
         onNavigate={navigate}
         trailing={
-          <div className='w-[120px] [&_[data-slot=select-trigger]]:h-8 [&_[data-slot=select-trigger]]:w-full [&_[data-slot=select-trigger]]:text-[12px]'>
+          <div className='flex items-center gap-2'>
             <Select
               label='Theme'
               items={themes.map((item) => ({ value: item.id, label: item.label, icon: themeIcons[item.id] }))}
               value={theme}
               onChange={(value) => setTheme(value as Theme)}
+            />
+            <Select
+              label='Theme color'
+              menuLabel='Theme colors'
+              items={themeColors.map(([value, label, light]) => ({
+                value,
+                label,
+                icon: (
+                  <span
+                    aria-hidden='true'
+                    className='size-3 shrink-0 rounded-full'
+                    style={{ backgroundColor: value === 'neutral' ? 'oklch(0.556 0 0)' : light }}
+                  />
+                ),
+              }))}
+              value={color}
+              onChange={(value) => {
+                const next = themeColors.find(([id]) => id === value)
+                if (next) setColor(next[0])
+              }}
             />
           </div>
         }

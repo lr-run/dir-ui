@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button.tsx'
 import { IconButton } from '@/components/ui/icon-button.tsx'
-import { InlineEdit } from '@/components/ui/inline-edit.tsx'
+import { InlineField } from '@/components/ui/inline-field.tsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.tsx'
 import { Dialog } from '@/components/ui/dialog.tsx'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { Header } from '@/components/header.tsx'
 import { TextField } from '@/components/crm/components/record-fields.tsx'
 import { WorkspaceSidebarTrigger } from '@/components/crm/layout.tsx'
@@ -76,7 +76,7 @@ export default function Settings({ store }: { store: CrmStore }) {
                       return (
                         <tr key={stage.id} className='border-t border-border'>
                           <td className='min-w-40 p-2'>
-                            <InlineEdit
+                            <InlineField
                               label={`Stage name ${stage.name}`}
                               value={stage.name}
                               onValueChange={(name) => store.saveStage({ ...stage, name })}

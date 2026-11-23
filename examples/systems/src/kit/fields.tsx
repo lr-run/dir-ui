@@ -1,11 +1,11 @@
 // One renderer per field type: an inline editor on the record and a control in the create form.
 import { useState } from 'react'
 import { type Control, Controller, type FieldValues, type Path } from 'react-hook-form'
-import { ConfirmDialog } from '@/components/ui/alert-dialog.tsx'
+import { ConfirmDialog } from '@/components/ui/confirm-dialog.tsx'
 import { Checkbox } from '@/components/ui/checkbox.tsx'
 import { SingleCombobox } from '@/components/ui/combobox.tsx'
 import { Field } from '@/components/ui/field.tsx'
-import { InlineEdit, InlineSelect, InlineTextarea } from '@/components/ui/inline-edit.tsx'
+import { InlineField, InlineSelect, InlineTextarea } from '@/components/ui/inline-field.tsx'
 import {
   InlineCombobox,
   InlineDate,
@@ -37,7 +37,7 @@ export function fieldChoices(field: KitField, store: KitStore, users: Choice[]):
   return field.options ?? []
 }
 
-export function InlineField({ field, record, store, users, readOnly = false, onSave: save }: {
+export function RecordField({ field, record, store, users, readOnly = false, onSave: save }: {
   field: KitField
   record: KitRecord
   store: KitStore
@@ -117,7 +117,7 @@ export function InlineField({ field, record, store, users, readOnly = false, onS
       )
     default:
       return (
-        <InlineEdit
+        <InlineField
           {...common}
           type={inputType(field)}
           value={String(value ?? '')}

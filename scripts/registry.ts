@@ -15,10 +15,14 @@ export type Entry = {
 export function imports(source: string): string[] {
   return [...source.matchAll(/(?:from\s*|import\s*\(\s*|import\s*)['"]([^'"]+)['"]/g)].map((m) => m[1]!)
 }
-const official: Record<string, string> = {
+/** Unmodified shadcn files kept for the docs; installs reference the official items instead. */
+export const official: Record<string, string> = {
+  'packages/ui/src/components/ui/dropdown-menu.tsx': 'dropdown-menu',
   'packages/ui/src/components/ui/label.tsx': 'label',
+  'packages/ui/src/components/ui/popover.tsx': 'popover',
   'packages/ui/src/components/ui/separator.tsx': 'separator',
   'packages/ui/src/components/ui/skeleton.tsx': 'skeleton',
+  'packages/ui/src/components/ui/tooltip.tsx': 'tooltip',
 }
 export async function makeRegistry() {
   const entries: Record<string, Entry> = JSON.parse(await Deno.readTextFile(resolve(root, 'registry/entries.json')))
