@@ -1,4 +1,4 @@
-// Inquiry management (問合せ管理): customer tickets with SLA status, the customers who raise them and the canned replies
+// Inquiry management: customer tickets with SLA status, the customers who raise them and the canned replies
 // agents send, opening on an inbox of what needs an answer next.
 import { HeadsetIcon, InboxIcon, PlusIcon } from 'lucide-react'
 import { KitApp } from '@/components/systems/kit/app.tsx'

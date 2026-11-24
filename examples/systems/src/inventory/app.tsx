@@ -1,4 +1,4 @@
-// Inventory (在庫管理): items, suppliers and purchase orders, with a dashboard of what needs reordering.
+// Inventory: items, suppliers and purchase orders, with a dashboard of what needs reordering.
 import { BoxesIcon, FactoryIcon, LayoutDashboardIcon, PackageIcon, PlusIcon, TruckIcon } from 'lucide-react'
 import { useState } from 'react'
 import { HorizontalBars } from '@/components/charts/index.tsx'

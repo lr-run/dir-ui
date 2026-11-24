@@ -2,14 +2,16 @@ import { sourcePath } from '../registry/paths.ts'
 import { documentationFiles } from '../apps/docs/documentation.ts'
 import { componentApi } from '../apps/docs/src/pages/catalog/api-data.ts'
 import { templates } from '../registry/templates.ts'
-import { installCommand, registryAddress } from '../registry/catalog.ts'
+import { installCommand, registryAddress, releaseVersion, siteUrl } from '../registry/catalog.ts'
 import { makeRegistry, official } from '../scripts/registry.ts'
 import {
   apiIdsFor,
   componentDescriptions,
   componentIds,
   componentTitles,
+  layoutIds,
   recipes,
+  uiRules,
 } from '../apps/docs/src/navigation.ts'
 import { sitePages } from '../apps/docs/documentation.ts'
 import { pageMetadata } from '../apps/docs/documentation.ts'
@@ -95,4 +97,65 @@ Deno.test('skill documents are served from the site and indexed for agents', asy
     }
   }
   if (registry.items.some((i) => i.name.startsWith('theme-'))) throw new Error('Themes are not registry items')
+})
+
+Deno.test('agent-facing Markdown and text contain no Japanese', () => {
+  for (const [path, text] of documentationFiles()) {
+    if (!/\.(md|txt)$/.test(path)) continue
+    const match = text.match(/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}]+/u)
+    if (match) throw new Error(`Japanese text "${match[0]}" in ${path}`)
+  }
+})
+
+Deno.test('the skill works from its URL without installation', () => {
+  const docs = documentationFiles()
+  const skill = docs.get('skill/SKILL.md')!
+  for (const [path, text] of docs) {
+    if (!path.startsWith('skill/')) continue
+    const relative = text.match(/\]\((?!https?:\/\/)[^)]*\)/)
+    if (relative) throw new Error(`Relative link ${relative[0]} in ${path}`)
+    for (const [url] of text.matchAll(/https:\/\/ui\.usedir\.com\/[^\s)`,]*[^\s)`,.:]/g)) {
+      const target = url.slice(siteUrl.length)
+      if (target.includes('<')) continue
+      if (!docs.has(target) && !docs.get('sitemap.xml')!.includes(`<loc>${url}</loc>`)) {
+        throw new Error(`Broken link ${url} in ${path}`)
+      }
+    }
+  }
+  for (const recipe of recipes) {
+    const row = skill.split('\n').find((line) => line.includes(`${siteUrl}skill/recipes/${recipe.slug}.md`))
+    if (!row) throw new Error(`Unlisted recipe: ${recipe.slug}`)
+    if (!row.includes(`\`${recipe.shell}Shell\``) || !row.includes(`${siteUrl}examples/${recipe.slug}`)) {
+      throw new Error(`SKILL.md row for ${recipe.slug} lacks its layout or live preview`)
+    }
+    if (!docs.get(`skill/recipes/${recipe.slug}.md`)!.includes(`Live preview: ${siteUrl}examples/${recipe.slug}`)) {
+      throw new Error(`Recipe ${recipe.slug} lacks its live preview`)
+    }
+    if (!docs.get('skill/rules.md')!.includes(`${siteUrl}skill/recipes/${recipe.slug}.md`)) {
+      throw new Error(`Recipe missing from rules: ${recipe.slug}`)
+    }
+  }
+  for (const [version] of skill.matchAll(/#v[0-9][^\s`]*/g)) {
+    if (version !== `#v${releaseVersion}`) throw new Error(`Stale version ${version} in SKILL.md`)
+  }
+  if (!skill.includes(`The current version is v${releaseVersion}.`)) {
+    throw new Error('SKILL.md does not name the version')
+  }
+  const rules = docs.get('skill/rules.md')!
+  for (const rule of uiRules) {
+    if (!rules.includes(`${siteUrl}rules/${rule.slug}`)) throw new Error(`Rule ${rule.slug} lacks its preview`)
+  }
+  for (const id of layoutIds) {
+    if (!rules.includes(`${siteUrl}layouts/${id}`) || !skill.includes(`${siteUrl}layouts/${id}`)) {
+      throw new Error(`Layout ${id} lacks its preview`)
+    }
+  }
+  for (const id of componentIds) {
+    if (!docs.get(`components/${id}.md`)!.includes(`${siteUrl}components/${id}\n`)) {
+      throw new Error(`components/${id}.md lacks its live preview`)
+    }
+  }
+  if (!docs.get('llms.txt')!.split('\n## ')[0]!.includes(`${siteUrl}skill/SKILL.md`)) {
+    throw new Error('llms.txt does not lead with the skill')
+  }
 })

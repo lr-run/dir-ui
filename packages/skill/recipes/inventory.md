@@ -1,4 +1,6 @@
-# Inventory (在庫管理)
+# Inventory
+
+Live preview: https://ui.usedir.com/examples/inventory (its source is in the Code view).
 
 Layout: `AppShell`; a dashboard of what to reorder, the items list and each item's detail page.
 

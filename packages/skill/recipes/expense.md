@@ -1,4 +1,6 @@
-# Expense claims (経費精算)
+# Expense claims
+
+Live preview: https://ui.usedir.com/examples/expense (its source is in the Code view).
 
 Layout: `PageShell` with header `tabs` New claim / History / Approvals; the claim form uses `width="narrow"`.
 

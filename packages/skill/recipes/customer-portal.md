@@ -1,4 +1,6 @@
-# Customer portal (顧客ポータル)
+# Customer portal
+
+Live preview: https://ui.usedir.com/examples/customer-portal (its source is in the Code view).
 
 Layout: `PageShell` with header `tabs` (Home / Contract / Invoices / Support) and the Paper theme or the customer's
 primary color.

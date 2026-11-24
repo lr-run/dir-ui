@@ -39,14 +39,14 @@ export function SuiteShell(
     <TabsList
       aria-label='Sections'
       className={mobile
-        ? 'h-14 w-full p-0 [&_[data-slot=tabs-trigger]]:h-full [&_[data-slot=tabs-trigger]]:flex-col [&_[data-slot=tabs-trigger]]:gap-1 [&_[data-slot=tabs-trigger]]:text-[11px] [&_[data-slot=tabs-trigger]]:after:top-0 [&_[data-slot=tabs-trigger]]:after:bottom-auto'
+        ? 'w-full p-0 group-data-[orientation=horizontal]/tabs:h-14 [&_[data-slot=tabs-trigger]]:h-full [&_[data-slot=tabs-trigger]]:flex-1! [&_[data-slot=tabs-trigger]]:min-w-0 [&_[data-slot=tabs-trigger]]:px-0 [&_[data-slot=tabs-trigger]]:flex-col [&_[data-slot=tabs-trigger]]:gap-1 [&_[data-slot=tabs-trigger]]:text-[10px] [&_[data-slot=tabs-trigger]]:after:top-0 [&_[data-slot=tabs-trigger]]:after:bottom-auto'
         : shellPillTabsClass}
       data-variant={mobile ? 'line' : 'pill'}
     >
       {sections.map((item) => (
         <TabsTrigger key={item.id} value={item.id}>
           {mobile && item.icon}
-          {item.label}
+          {mobile ? <span className='max-w-full truncate'>{item.label}</span> : item.label}
         </TabsTrigger>
       ))}
     </TabsList>

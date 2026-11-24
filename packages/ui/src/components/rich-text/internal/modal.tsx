@@ -28,7 +28,7 @@ export function Modal(
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Close
               className='w-[28px] h-[28px] inline-grid [place-items:center] text-muted-foreground rounded-[5px] [&:hover]:[background:var(--ui-hover)]'
-              aria-label={t('閉じる')}
+              aria-label={t('閉じる', 'Close')}
             >
               <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
             </Dialog.Close>

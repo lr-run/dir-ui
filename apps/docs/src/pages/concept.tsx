@@ -25,7 +25,7 @@ const items: [string, React.ReactNode][] = [
     'UI rules',
     'conventions every screen follows: loading shows a skeleton, submitting a form disables the inputs and shows a loading state, and so on.',
   ],
-  ['Themes', 'Light, Black and Paper out of the box, each customizable with a company color.'],
+  ['Themes', 'Light and Dark out of the box, each customizable with a company color.'],
   ['Page speed', 'designed for fast first paint and small bundles.'],
   ['Examples', <Examples key='examples' />],
 ]

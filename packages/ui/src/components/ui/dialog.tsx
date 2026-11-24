@@ -41,7 +41,7 @@ export function Dialog(
             : (
               <header className='flex items-center justify-between p-[12px_18px] [border-bottom:1px_solid_var(--ui-border)] shrink-0 [&_h2]:font-semibold [&_h2]:text-[length:var(--dir-text-section)] [&_h2]:leading-[1.4]'>
                 <BaseDialog.Title>{title}</BaseDialog.Title>
-                <BaseDialog.Close render={<IconButton label={t('閉じる')} />}>
+                <BaseDialog.Close render={<IconButton label={t('閉じる', 'Close')} />}>
                   <XIcon size={16} strokeWidth={1.5} aria-hidden='true' className='shrink-0' />
                 </BaseDialog.Close>
               </header>

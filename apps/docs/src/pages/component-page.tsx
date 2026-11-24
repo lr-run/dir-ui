@@ -133,7 +133,7 @@ export function FullScreenLink({ href }: { href: string }) {
   )
 }
 function FrameStage({ id, name }: { id: string; name: string }) {
-  const [viewport, setViewport] = useState('desktop')
+  const [viewport, setViewport] = useState(() => matchMedia('(max-width: 800px)').matches ? 'phone' : 'desktop')
   const width = frameViewports.find((item) => item.value === viewport)!.width
   const theme = useDocumentTheme()
   return (

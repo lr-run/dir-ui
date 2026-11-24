@@ -1,4 +1,4 @@
-// Customer portal (顧客ポータル): one customer company's home, contract, invoices and support tickets, in header tabs.
+// Customer portal: one customer company's home, contract, invoices and support tickets, in header tabs.
 import { CloudIcon, FileTextIcon, HouseIcon, MessageSquarePlusIcon, SendIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button.tsx'
 import { KitApp } from '@/components/systems/kit/app.tsx'

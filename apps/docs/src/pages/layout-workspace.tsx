@@ -32,7 +32,8 @@ function useExamples(id: string) {
 /** Layouts tab: full-width preview with tabs per layout; the documentation is one button away. */
 export function LayoutWorkspace({ active, onNavigate }: { active: string; onNavigate: (id: string) => void }) {
   const isLayout = layoutIds.includes(active)
-  const [docs, setDocs] = useState(false), [viewport, setViewport] = useState('desktop')
+  const [docs, setDocs] = useState(false),
+    [viewport, setViewport] = useState(() => matchMedia('(max-width: 800px)').matches ? 'phone' : 'desktop')
   const examples = useExamples(active)
   const [example, setExample] = useState('')
   const name = examples.some((item) => item.value === example) ? example : examples[0]?.value

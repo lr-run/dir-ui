@@ -1,6 +1,8 @@
-# Sales CRM (営業CRM)
+# Sales CRM
 
-Layout: `AppShell`. Reference implementation: `examples/crm`.
+Live preview: https://ui.usedir.com/examples/crm (its source is in the Code view).
+
+Layout: `AppShell`. The whole app installs as one template: https://ui.usedir.com/examples/crm.md.
 
 ## Entities
 

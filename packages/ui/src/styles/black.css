@@ -1,4 +1,4 @@
-/* Black theme: the dark side of theme.css, whatever the OS setting. Load after theme.css. */
+/* Dark theme: the dark side of theme.css, whatever the OS setting. Load after theme.css. */
 :root {
   color-scheme: dark;
 }

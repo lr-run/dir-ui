@@ -124,7 +124,8 @@ export default function LayoutsPage({ onNavigate }: { onNavigate: (id: string) =
   return (
     <Page title='Layouts' lead='Pick the layout by how much navigation the app needs. Every screen uses exactly one.'>
       <div className='overflow-auto rounded-lg border border-border'>
-        <table className='w-full border-collapse text-left text-[13px] leading-5 [&_td]:border-t [&_td]:border-border [&_td]:px-3 [&_td]:py-2.5 [&_td]:align-middle [&_th]:px-3 [&_th]:py-2 [&_th]:font-medium [&_th]:text-muted-foreground'>
+        {/* On phones each row stacks into a card and every cell names its column, as rule 12 asks of tables. */}
+        <table className='w-full border-collapse text-left text-[13px] leading-5 [&_td]:border-t [&_td]:border-border [&_td]:px-3 [&_td]:py-2.5 [&_td]:align-middle [&_th]:px-3 [&_th]:py-2 [&_th]:font-medium [&_th]:text-muted-foreground max-[700px]:[&_thead]:hidden max-[700px]:[&_tbody]:block max-[700px]:[&_tr]:block max-[700px]:[&_tr]:border-t max-[700px]:[&_tr]:border-border max-[700px]:[&_tr:first-child]:border-t-0 max-[700px]:[&_tr]:py-2 max-[700px]:[&_td]:block max-[700px]:[&_td]:border-t-0 max-[700px]:[&_td]:py-1.5 max-[700px]:[&_td[data-label]]:before:block max-[700px]:[&_td[data-label]]:before:text-[12px] max-[700px]:[&_td[data-label]]:before:font-medium max-[700px]:[&_td[data-label]]:before:text-muted-foreground max-[700px]:[&_td[data-label]]:before:content-[attr(data-label)]'>
           <thead className='bg-muted/40 text-[12px]'>
             <tr>
               <th>Layout</th>
@@ -152,10 +153,10 @@ export default function LayoutsPage({ onNavigate }: { onNavigate: (id: string) =
                     </span>
                   </a>
                 </td>
-                <td>{layout.levels}</td>
-                <td className='text-muted-foreground'>{layout.limits}</td>
-                <td className='text-muted-foreground'>{layout.phone}</td>
-                <td className='text-muted-foreground'>{layout.use}</td>
+                <td data-label='Navigation levels'>{layout.levels}</td>
+                <td data-label='Limits' className='text-muted-foreground'>{layout.limits}</td>
+                <td data-label='Phone' className='text-muted-foreground'>{layout.phone}</td>
+                <td data-label='Use for' className='text-muted-foreground'>{layout.use}</td>
               </tr>
             ))}
           </tbody>

@@ -149,16 +149,76 @@ export const componentDescriptions: Record<string, string> = {
 }
 
 export const recipes = [
-  { slug: 'crm', title: 'Sales CRM', short: 'CRM', system: '営業CRM', shell: 'App' },
-  { slug: 'recruiting', title: 'Recruiting', short: 'Recruiting', system: '採用管理', shell: 'App' },
-  { slug: 'task-board', title: 'Task Board', short: 'Task Board', system: 'タスク管理', shell: 'App' },
-  { slug: 'sales-report', title: 'Sales report', short: 'Sales', system: '売上集計', shell: 'App' },
-  { slug: 'customer-portal', title: 'Customer portal', short: 'Portal', system: '顧客ポータル', shell: 'Page' },
-  { slug: 'inventory', title: 'Inventory', short: 'Inventory', system: '在庫管理', shell: 'App' },
-  { slug: 'expense', title: 'Expense claims', short: 'Expenses', system: '経費精算', shell: 'Page' },
-  { slug: 'daily-report', title: 'Daily reports', short: 'Daily reports', system: '日報・週報', shell: 'Page' },
-  { slug: 'inquiry', title: 'Inquiry management', short: 'Inquiries', system: '問合せ管理', shell: 'App' },
-  { slug: 'contract', title: 'Contract management', short: 'Contracts', system: '契約管理', shell: 'App' },
+  {
+    slug: 'crm',
+    title: 'Sales CRM',
+    short: 'CRM',
+    summary: 'Companies, people and deals with a pipeline, saved views and inline-edited deal details',
+    shell: 'App',
+  },
+  {
+    slug: 'recruiting',
+    title: 'Recruiting',
+    short: 'Recruiting',
+    summary: 'Candidates by stage, candidate details and interview scheduling',
+    shell: 'App',
+  },
+  {
+    slug: 'task-board',
+    title: 'Task Board',
+    short: 'Task Board',
+    summary: 'A team issue board grouped by status, with an issue editor',
+    shell: 'App',
+  },
+  {
+    slug: 'sales-report',
+    title: 'Sales report',
+    short: 'Sales',
+    summary: 'KPI cards, revenue charts and a product breakdown',
+    shell: 'App',
+  },
+  {
+    slug: 'customer-portal',
+    title: 'Customer portal',
+    short: 'Portal',
+    summary: 'A customer-facing portal for contracts, invoices and support tickets',
+    shell: 'Page',
+  },
+  {
+    slug: 'inventory',
+    title: 'Inventory',
+    short: 'Inventory',
+    summary: 'Reorder dashboard, item list and item details with purchase orders',
+    shell: 'App',
+  },
+  {
+    slug: 'expense',
+    title: 'Expense claims',
+    short: 'Expenses',
+    summary: 'Expense claim form with line items and receipts, history and approvals',
+    shell: 'Page',
+  },
+  {
+    slug: 'daily-report',
+    title: 'Daily reports',
+    short: 'Daily reports',
+    summary: 'Mobile-first daily report form, team feed and weekly summary',
+    shell: 'Page',
+  },
+  {
+    slug: 'inquiry',
+    title: 'Inquiry management',
+    short: 'Inquiries',
+    summary: 'Support inbox, ticket list and ticket conversations with macros',
+    shell: 'App',
+  },
+  {
+    slug: 'contract',
+    title: 'Contract management',
+    short: 'Contracts',
+    summary: 'Contract list, contract details with documents, and renewals',
+    shell: 'App',
+  },
 ] as const
 export const recipeSlugs: readonly string[] = recipes.map((recipe) => recipe.slug)
 /** One page per foundation topic, at foundations/<slug>. */
@@ -188,7 +248,7 @@ export const foundationPages = [
   {
     slug: 'themes',
     title: 'Themes',
-    summary: 'Light, Black and Paper, as in the dir console, and what a company color may change.',
+    summary: 'Light and Dark, and what a company color may change.',
   },
 ] as const
 export const foundationSlugs: readonly string[] = foundationPages.map((page) => page.slug)

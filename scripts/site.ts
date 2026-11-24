@@ -31,7 +31,7 @@ export function staticPage(html: string, route: string, production: boolean) {
     )
 }
 if (import.meta.main) {
-  const production = Deno.env.get('SITE_ENV') === 'prd'
+  const production = Deno.env.get('SITE_ENV') !== 'preview'
   const base = await Deno.readTextFile('dist/index.html')
   for (const route of siteRoutes) {
     const path = resolve('dist', route === '/' ? 'index.html' : route.slice(1) + '.html')

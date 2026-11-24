@@ -1,4 +1,6 @@
-# Sales report (売上集計)
+# Sales report
+
+Live preview: https://ui.usedir.com/examples/sales-report (its source is in the Code view).
 
 Layout: `AppShell` (or a section of a `SuiteShell` shared with the CRM).
 

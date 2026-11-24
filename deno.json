@@ -66,10 +66,7 @@
       "apps/docs/public/llms.txt",
       "apps/docs/public/sitemap.xml",
       "apps/docs/public/robots.txt",
-      "apps/docs/public/api/docs/",
-      "internal/publish/files.json",
-      "internal/**/*.json",
-      ".release/"
+      "apps/docs/public/api/docs/"
     ],
     "indentWidth": 2,
     "lineWidth": 120,
@@ -86,8 +83,6 @@
     "registry:check": "deno run --allow-read --allow-env=CI scripts/registry.ts --check",
     "registry:validate": "npm exec --yes --package=shadcn@4.21.0 -- shadcn registry validate registry.json",
     "docs:build": "deno run --allow-read --allow-write=apps/docs/public scripts/documentation.ts",
-    "check:standalone": "deno task check",
-    "build:standalone": "deno task build",
     "registry:local": "deno run --allow-read --allow-env=CI --allow-write scripts/registry-local.ts",
     "dev:crm": "deno run -A npm:vite@^8 --config examples/crm/vite.config.ts --host 127.0.0.1",
     "build:crm": "deno run -A npm:vite@^8 build --config examples/crm/vite.config.ts",

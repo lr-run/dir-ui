@@ -1,4 +1,4 @@
-// Daily and weekly reports (日報・週報): members write a short report each day, the team reads the feed and leads
+// Daily and weekly reports: members write a short report each day, the team reads the feed and leads
 // check the weekly summary. Reports belong to projects, projects to teams.
 import {
   BarChart3Icon,

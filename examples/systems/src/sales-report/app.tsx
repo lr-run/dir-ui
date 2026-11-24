@@ -1,4 +1,4 @@
-// Sales report (売上集計): orders against products and customers, with a report page of revenue, target attainment,
+// Sales report: orders against products and customers, with a report page of revenue, target attainment,
 // revenue by product and customer, the largest orders and customers whose revenue is falling.
 import {
   BuildingIcon,

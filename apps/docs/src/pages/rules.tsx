@@ -106,7 +106,7 @@ function Phone({ children }: { children: ReactNode }) {
     </div>
   )
 }
-/** The same card styled with tokens or with hard-coded colors, in Light and Black side by side. */
+/** The same card styled with tokens or with hard-coded colors, in Light and Dark side by side. */
 function ThemedCard({ raw }: { raw?: boolean }) {
   return (
     <div className='flex gap-3'>
@@ -128,7 +128,7 @@ function ThemedCard({ raw }: { raw?: boolean }) {
               New client
             </span>
           </div>
-          <code className='text-[11px] text-muted-foreground'>{theme === 'light' ? 'Light' : 'Black'}</code>
+          <code className='text-[11px] text-muted-foreground'>{theme === 'light' ? 'Light' : 'Dark'}</code>
         </div>
       ))}
     </div>
@@ -220,10 +220,10 @@ const visuals: Record<string, RuleVisual> = {
   },
   tokens: {
     why:
-      'Light, Black and Paper and a company color all change the --ui-* tokens. A raw hex or a palette class stays the same in every theme and stands out in all but one.',
+      'Light, Dark and a company color all change the --ui-* tokens. A raw hex or a palette class stays the same in every theme and stands out in all but one.',
     check: 'Search the app for #, rgb( and palette classes such as bg-blue-500; there are none.',
     good: { caption: 'bg-primary, text-muted-foreground: the card follows the theme.', node: <ThemedCard /> },
-    bad: { caption: '#ffffff and #2563eb: the card stays light inside the Black theme.', node: <ThemedCard raw /> },
+    bad: { caption: '#ffffff and #2563eb: the card stays light inside the Dark theme.', node: <ThemedCard raw /> },
   },
   'one-layout': {
     why:

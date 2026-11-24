@@ -7,14 +7,10 @@ node_modules/
 *.sqlite
 *.sqlite-*
 .DS_Store
-.dir/google-calendar.local.json
-.dir/google-calendar.local.key
 .dir/
-dir.json
 coverage/
 *.tsbuildinfo
 apps/docs/public/r/
-.standalone-dist/
 apps/docs/public/components/
 apps/docs/public/examples/
 apps/docs/public/skill/
@@ -23,11 +19,5 @@ apps/docs/public/sitemap.xml
 apps/docs/public/robots.txt
 apps/docs/public/api/docs/
 
-.release/
-firebase-debug.log
-firebase-debug.*.log
-gha-creds-*.json
-
-pglite-debug.log
 
 examples/crm/dist/

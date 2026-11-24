@@ -1,4 +1,4 @@
-// Contract management (契約管理): contracts, counterparties and signed documents, with a renewals dashboard of what
+// Contract management: contracts, counterparties and signed documents, with a renewals dashboard of what
 // ends soonest.
 import {
   Building2Icon,

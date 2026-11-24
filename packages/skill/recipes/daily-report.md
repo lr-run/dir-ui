@@ -1,4 +1,6 @@
-# Daily and weekly reports (日報・週報)
+# Daily and weekly reports
+
+Live preview: https://ui.usedir.com/examples/daily-report (its source is in the Code view).
 
 Layout: `PageShell` with header `tabs` Write / Team feed / Weekly, mobile first.
 

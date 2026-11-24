@@ -1,4 +1,4 @@
-// Expense claims (経費精算): a claim form with line items and receipts, the submitter's history and the approver's
+// Expense claims: a claim form with line items and receipts, the submitter's history and the approver's
 // inbox. Claims, their line items and the approval decisions are kit objects, so every claim also has a detail page.
 import { ClipboardCheckIcon, FilePlusIcon, HistoryIcon, WalletIcon } from 'lucide-react'
 import { KitApp } from '@/components/systems/kit/app.tsx'

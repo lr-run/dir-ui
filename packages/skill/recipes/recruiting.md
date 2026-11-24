@@ -1,4 +1,6 @@
-# Recruiting (採用管理)
+# Recruiting
+
+Live preview: https://ui.usedir.com/examples/recruiting (its source is in the Code view).
 
 Layout: `AppShell`.
 

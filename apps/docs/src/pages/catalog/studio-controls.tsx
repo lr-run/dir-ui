@@ -20,7 +20,8 @@ export function ViewportSwitcher(
 ) {
   return (
     <div
-      className='flex items-center gap-0.5 rounded-lg border border-border bg-muted/50 p-0.5'
+      // A phone already shows the phone layout, so the width switch only appears on wider screens.
+      className='flex items-center gap-0.5 rounded-lg border border-border bg-muted/50 p-0.5 max-[800px]:hidden'
       role='group'
       aria-label='Preview width'
     >

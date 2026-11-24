@@ -26,9 +26,9 @@ export function ChartFrame(
       {error
         ? <ErrorState message={error} />
         : loading
-        ? <Skeleton label={t('読み込み中…')} />
+        ? <Skeleton label={t('読み込み中…', 'Loading…')} />
         : empty
-        ? <EmptyState title={t('表示するデータがありません')} />
+        ? <EmptyState title={t('表示するデータがありません', 'No data to display')} />
         : (
           <ChartContainer
             config={config}

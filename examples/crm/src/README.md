@@ -29,9 +29,9 @@ its USD scope and excludes archived deals. Settings manages stage names and orde
 column; new stages default to open. Users is read-only. Inactive-assignee and used-stage restrictions remain enforced by
 the example store. No backend, localStorage, or production deployment is required.
 
-Record List, its table renderer/model and table skeleton are private CRM example compositions under `components/`. They
-build on the shared DataGrid, but are not standalone library components or registry items. Installing the CRM Block
-includes these files under the consumer's CRM directory.
+Record List, its table renderer/model and table skeleton are CRM example compositions under `components/`, not shipped
+as registry items of their own. They build on the shared DataGrid. Installing the CRM Block includes these files under
+the consumer's CRM directory.
 
 Skeleton compositions are scoped to this demo. Report and Settings reserve their page layout while their code loads. The
 in-memory store returns synchronously, so record pages do not introduce artificial loading delays. The CRM table can

@@ -1,5 +1,8 @@
 # dir/ui API digest
 
+Live previews: each component has a page with every variant and state at https://ui.usedir.com/components/<item> (add
+`.md` for its full API); the layout shells are at https://ui.usedir.com/layouts/<shell>.
+
 Import paths use the shadcn `@/` alias as installed. Every control: `disabled` renders at 50% opacity; `invalid` /
 `aria-invalid` turns the border `--ui-red`; focus turns the border `--ui-ring`.
 
@@ -72,13 +75,12 @@ All three take `title?`, `leading?`, `actions?`, `width?: 'full' | 'narrow'` (64
 | `useInlineSave`                   | `use-inline-save.ts`                     | optimistic single-field save with retry / cancel state   |
 | `useRemoteSearch`                 | `use-remote-search.ts`                   | debounced remote search state for comboboxes and dialogs |
 | `useChoices`                      | `use-choices.ts`                         | local or remote `Choice` lists for comboboxes            |
-| `useI18n`                         | `i18n.tsx`                               | `t('日本語', 'English')`, `language`                     |
+| `useI18n`                         | `i18n.tsx`                               | `t(japanese, english)`, `language`                       |
 | `queryTextRecords`, `filter-tree` | `record-list-query.ts`, `filter-tree.ts` | apply search / sorts / nested AND-OR filters             |
 | `formatNumber`, `formatDate`      | `components/ui/value.tsx`                | Intl formatting used by `NumberValue` / `DateValue`      |
 
 ## Themes (`styles/`)
 
-`theme.css` (Light) is always installed; its `light-dark()` dark side is Black. `black.css` forces the dark side and
-`paper.css` overrides `--ui-*` with warm paper tokens; copy either after `theme.css` (they are not shadcn items). The
-colors follow the dir console. Customer colors change only `--ui-primary`, `--ui-on-primary`, `--ui-primary-top`,
-`--ui-primary-hover`, `--ui-ring`, `--dir-radius`.
+`theme.css` is always installed. Light is the default; its `light-dark()` side is Dark, turned on by `class="dark"` or
+`data-theme="dark"` on the root element. Customer colors change only `--ui-primary`, `--ui-on-primary`,
+`--ui-primary-top`, `--ui-primary-hover`, `--ui-ring`, `--dir-radius`.

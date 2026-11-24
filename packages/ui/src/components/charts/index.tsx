@@ -7,10 +7,14 @@ import {
 import { ChartFrame } from '@/components/charts/chart-frame.tsx'
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ReferenceLine, XAxis, YAxis } from 'recharts'
 import { useI18n } from '@/lib/i18n.tsx'
-const yen = (value: number) => '¥' + value.toLocaleString('ja-JP')
 /** Bars show yen by default; `number` charts counts such as tickets or candidates. */
 export type ChartFormat = 'money' | 'number'
-const plain = (value: number) => value.toLocaleString('ja-JP')
+/** Amounts are yen; digits are grouped for the active language. */
+function useNumberText() {
+  const locale = useI18n().language === 'ja' ? 'ja-JP' : 'en-US'
+  const plain = (value: number) => value.toLocaleString(locale)
+  return { plain, yen: (value: number) => '¥' + plain(value) }
+}
 
 export type ChartPoint = { label: string; value: number; secondary?: number }
 const axis = { fill: 'var(--chart-muted, var(--ui-muted))', fontSize: 12 }
@@ -31,7 +35,8 @@ export function useCompactMoney() {
       : `${(value / 1000000).toLocaleString('en-US', { maximumFractionDigits: 2 })}m`
 }
 export function RevenueBars({ values, format = 'money' }: { values: ChartPoint[]; format?: ChartFormat }) {
-  const money = useCompactMoney(), compact = format === 'money' ? money : plain
+  const { plain, yen } = useNumberText(), money = useCompactMoney()
+  const compact = format === 'money' ? money : plain
   const text = format === 'money' ? yen : plain
   return (
     <ChartFrame
@@ -62,7 +67,7 @@ export function RevenueBars({ values, format = 'money' }: { values: ChartPoint[]
 export function TrendChart(
   { values, names, height = 230 }: { values: ChartPoint[]; names: [string, string?]; height?: number },
 ) {
-  const compact = useCompactMoney()
+  const compact = useCompactMoney(), { yen } = useNumberText()
   return (
     <ChartFrame
       config={{ value: { label: names[0], color: primary }, secondary: { label: names[1], color: secondary } }}
@@ -107,7 +112,8 @@ export function HorizontalBars(
     format?: ChartFormat
   },
 ) {
-  const money = useCompactMoney(), compact = format === 'money' ? money : plain
+  const { plain, yen } = useNumberText(), money = useCompactMoney()
+  const compact = format === 'money' ? money : plain
   const text = format === 'money' ? yen : plain
   return (
     <ChartFrame
@@ -148,6 +154,7 @@ export function HorizontalBars(
   )
 }
 export function SparkChart({ values }: { values: ChartPoint[] }) {
+  const { yen } = useNumberText()
   return (
     <div
       className='w-[80px] h-[24px] block'

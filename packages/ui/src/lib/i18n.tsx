@@ -1,20 +1,11 @@
 import { createContext, type ReactNode, useContext, useState } from 'react'
 export type Language = 'ja' | 'en'
-const en: Record<string, string> = {
-  '閉じる': 'Close',
-  '表示するデータがありません': 'No data to display',
-  'ワークスペース': 'Workspace',
-  'キャンセル': 'Cancel',
-  '読み込み中…': 'Loading…',
-  '再試行': 'Retry',
-  '処理中…': 'Working…',
-}
-export const translate = (language: Language, text: string, english?: string) =>
-  language === 'ja' ? text : english ?? en[text] ?? text
+/** Every string passes its Japanese and English text; nothing is looked up, so a missing translation fails type-check. */
+export const translate = (language: Language, text: string, english: string) => language === 'ja' ? text : english
 const Context = createContext({
   language: 'en' as Language,
   setLanguage: (_l: Language) => {},
-  t: (text: string, english?: string) => translate('en', text, english),
+  t: (text: string, english: string) => translate('en', text, english),
 })
 export function I18n({ children, defaultLanguage = 'en' }: { children: ReactNode; defaultLanguage?: Language }) {
   const [language, setLanguage] = useState<Language>(defaultLanguage)

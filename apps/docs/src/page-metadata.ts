@@ -55,7 +55,7 @@ export function pageMetadata(path: string) {
       title: `${pageTitles.get(page)} — dir/ui`,
       description: pageDescriptions[page] ?? rule?.summary ?? foundation?.summary ??
         (recipe
-          ? `${recipe.title} (${recipe.system}) example app built with dir/ui components and the ${recipe.shell}Shell layout.`
+          ? `${recipe.title} example app built with dir/ui components and the ${recipe.shell}Shell layout.`
           : `${pageTitles.get(page)} of dir/ui: live examples of every variant, size and state.`),
       markdown: rule ? 'skill/rules.md' : recipe ? `skill/recipes/${recipe.slug}.md` : 'llms.txt',
     }

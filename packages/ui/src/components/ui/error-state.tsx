@@ -9,7 +9,7 @@ export function ErrorState({ message, retry }: { message: string; retry?: () => 
       role='alert'
     >
       {message}
-      {retry && <Button onClick={retry}>{t('再試行')}</Button>}
+      {retry && <Button onClick={retry}>{t('再試行', 'Retry')}</Button>}
     </div>
   )
 }

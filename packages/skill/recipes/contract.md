@@ -1,4 +1,6 @@
-# Contract management (契約管理)
+# Contract management
+
+Live preview: https://ui.usedir.com/examples/contract (its source is in the Code view).
 
 Layout: `AppShell`.
 

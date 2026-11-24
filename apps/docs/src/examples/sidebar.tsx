@@ -39,7 +39,7 @@ export function SidebarDemo() {
   return (
     <div className='h-[360px] w-full overflow-hidden rounded-lg border border-border'>
       <SidebarProvider
-        className="grid h-full min-h-0 grid-cols-[208px_minmax(0,1fr)] [&[data-sidebar-state='collapsed']]:grid-cols-[56px_minmax(0,1fr)] [&_[class~='group/crm-sidebar-menu-button']]:h-[30px] [&_[class~='group/crm-sidebar-menu-button']]:text-[12px]"
+        className="grid h-full min-h-0 grid-cols-[208px_minmax(0,1fr)] [&[data-sidebar-state='collapsed']]:grid-cols-[56px_minmax(0,1fr)] max-[800px]:grid-cols-[minmax(0,1fr)]! max-[800px]:[&>[class~='group/crm-sidebar-panel']]:hidden [&_[class~='group/crm-sidebar-menu-button']]:h-[30px] [&_[class~='group/crm-sidebar-menu-button']]:text-[12px]"
         openMobile={openMobile}
         setOpenMobile={setOpenMobile}
       >
@@ -110,7 +110,7 @@ export function SidebarCollapsed() {
   return (
     <div className='h-[300px] w-full overflow-hidden rounded-lg border border-border'>
       <SidebarProvider
-        className="grid h-full min-h-0 grid-cols-[208px_minmax(0,1fr)] [&[data-sidebar-state='collapsed']]:grid-cols-[56px_minmax(0,1fr)]"
+        className="grid h-full min-h-0 grid-cols-[208px_minmax(0,1fr)] [&[data-sidebar-state='collapsed']]:grid-cols-[56px_minmax(0,1fr)] max-[800px]:grid-cols-[minmax(0,1fr)]! max-[800px]:[&>[class~='group/crm-sidebar-panel']]:hidden"
         openMobile={openMobile}
         setOpenMobile={setOpenMobile}
       >
@@ -146,8 +146,8 @@ export function SidebarCollapsed() {
   )
 }
 function HeaderTrigger() {
-  const { open } = useSidebar()
-  return open ? null : <SidebarTrigger />
+  const { open, isMobile } = useSidebar()
+  return open && !isMobile ? null : <SidebarTrigger />
 }
 function MobileOpener() {
   const { setOpenMobile } = useSidebar()
@@ -159,12 +159,13 @@ function MobileOpener() {
   )
 }
 function CollapseOnMount() {
-  const { open, toggleSidebar } = useSidebar()
+  const { open, isMobile, toggleSidebar } = useSidebar()
   const [done, setDone] = useState(false)
   useLayoutEffect(() => {
-    if (!done && open) toggleSidebar()
+    // On phones the toggle opens the sidebar as a Sheet, so only the wide layout starts collapsed.
+    if (!done && open && !isMobile) toggleSidebar()
     setDone(true)
-  }, [done, open, toggleSidebar])
+  }, [done, open, isMobile, toggleSidebar])
   return null
 }
 export const doc: ComponentDoc = {

@@ -1,4 +1,4 @@
-/* Light theme, the default; its dark side is the Black theme. A cool near-white frame (#f8f9fb), white panels with
+/* Light theme, the default; its dark side is the Dark theme. A cool near-white frame (#f8f9fb), white panels with
    faint lines, one blue accent and pastel status tints. */
 :root {
   --ui-ring: light-dark(rgb(37 99 235 / 0.45), rgb(96 165 250 / 0.55));

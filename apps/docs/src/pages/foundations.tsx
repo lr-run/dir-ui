@@ -262,8 +262,8 @@ function Themes({ theme, onThemeChange }: { theme: Theme; onThemeChange: (theme:
   return (
     <>
       <Section
-        title='Light, Black and Paper'
-        note='theme.css is Light, and its light-dark() dark side is Black. black.css forces that side and paper.css swaps in warm paper tokens; copy either after theme.css. They are plain CSS files, not shadcn items, and components never branch on the theme name.'
+        title='Light and Dark'
+        note='theme.css is Light by default, and class="dark" or data-theme="dark" on the root element switches it to its light-dark() Dark side. Paper is a preset of this site that only overrides the --ui-* tokens. Components never branch on the theme name.'
       >
         <div className='grid grid-cols-3 gap-4 max-[1000px]:grid-cols-2 max-[600px]:grid-cols-1'>
           {themes.map((item) => (
@@ -288,7 +288,7 @@ function Themes({ theme, onThemeChange }: { theme: Theme; onThemeChange: (theme:
       </Section>
       <Section
         title='Company colors'
-        note='A customer’s color changes these tokens only. Test every screen in Light, Black and Paper.'
+        note='A customer’s color changes these tokens only. Test every screen in Light and Dark.'
       >
         <ul className='m-0 flex flex-wrap gap-2 p-0 [&_li]:list-none'>
           {customization.map((token) => (

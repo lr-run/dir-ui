@@ -28,7 +28,7 @@ export const skillDocument = (file: string) => readFileSync(fileURLToPath(new UR
 const code = (language: string, source: string) => `\`\`\`${language}\n${source}\n\`\`\``
 const cell = (value: string) => value.replaceAll('|', '\\|').replaceAll('\n', '<br>')
 const setup =
-  `Requires React 19, Tailwind CSS 4 and shadcn initialized with Base UI. Registry target placeholders resolve through components.json: @ui, @components, @hooks and @lib. Imports below use the conventional @/ prefix for illustration; the CLI rewrites them to your configured aliases. Shared components are installed once through registryDependencies. The installer merges shared theme rules into the stylesheet configured in components.json. Existing files are never forcibly overwritten; review CLI conflicts before accepting changes. No Dir runtime is required.`
+  `Requires React 19, Tailwind CSS 4 and shadcn initialized with Base UI: npx shadcn@4.21.0 init --base base --preset base-nova (in Vite, set up the @/* path alias in tsconfig.json and vite.config.ts first). Registry target placeholders resolve through components.json: @ui, @components, @hooks and @lib. Imports below use the conventional @/ prefix for illustration; the CLI rewrites them to your configured aliases. Shared components are installed once through registryDependencies. The installer merges shared theme rules into the stylesheet configured in components.json. Existing files are never forcibly overwritten; review CLI conflicts before accepting changes. No Dir runtime is required.`
 
 function reference(id: string) {
   const api = componentApi[id as keyof typeof componentApi]
@@ -55,7 +55,9 @@ export function documentationFiles(): Map<string, string> {
   for (const id of componentIds) {
     files.set(
       `components/${id}.md`,
-      `# ${componentTitles[id]}\n\n${componentDescriptions[id]}\n\n## Install\n\n${
+      `# ${componentTitles[id]}\n\n${
+        componentDescriptions[id]
+      }\n\nLive preview of every variant and state: ${siteUrl}components/${id}\n\n## Install\n\n${
         code('sh', installCommand(id))
       }\n\n[Registry item with source and dependencies](${registryUrl(id)})\n\n${setup}\n${
         constraints[id] ? '\n' + constraints[id] + '\n' : ''
@@ -65,7 +67,7 @@ export function documentationFiles(): Map<string, string> {
   for (const template of templates) {
     files.set(
       `examples/${template.id}.md`,
-      `# ${template.title} template\n\n${template.description}\n\n## Install\n\n${
+      `# ${template.title} template\n\n${template.description}\n\nLive preview: ${siteUrl}examples/${template.id}\n\n## Install\n\n${
         code('sh', installCommand(template.registryItem))
       }\n\n[Registry item with all source and dependencies](${registryUrl(template.registryItem)})\n\n${setup}\n\n${
         code('css', template.styles)
@@ -86,7 +88,7 @@ export function documentationFiles(): Map<string, string> {
   for (const file of skillFiles) files.set(`skill/${file}`, skillDocument(file))
   files.set(
     'llms.txt',
-    `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry items declare owned files, shared registry dependencies, and npm versions. The library has no Dir runtime dependency.\n\n${
+    `# dir/ui\n\n> React components and copyable application templates for internal tools. React 19, Base UI, Tailwind CSS 4, React Hook Form, Recharts, and react-data-grid.\n\nInstall individual components or complete templates with shadcn. Each Markdown document contains installation, imports, props, types, and integration constraints. Registry items declare owned files, shared registry dependencies, and npm versions. The library has no Dir runtime dependency.\n\nBuilding a screen with an AI agent? Start with [the dir/ui skill](${siteUrl}skill/SKILL.md): it says which of these documents to read, in which order, and how to install what a screen needs.\n\n${
       componentGroups.map((group) =>
         `## ${group.title}\n\n${
           group.members.map((id) =>
@@ -96,7 +98,7 @@ export function documentationFiles(): Map<string, string> {
       ).join('\n\n')
     }\n\n## System\n\n- [Layouts](${siteUrl}layouts): PageShell, AppShell and SuiteShell, chosen by how much navigation an app needs.\n- [Foundations](${siteUrl}foundations/color): tokens and the Light, Black and Paper themes; a theme overrides --ui-* only.\n- [UI rules](${siteUrl}skill/rules.md): the twelve rules every generated screen follows.\n- [API digest](${siteUrl}skill/api-digest.md): import paths and key props.\n- [Skill](${siteUrl}skill/SKILL.md): how to use the rules, recipes and digest.\n\n## Page recipes\n\n${
       recipes.map((recipe) =>
-        `- [${recipe.title}](${siteUrl}skill/recipes/${recipe.slug}.md): ${recipe.system}, ${recipe.shell} shell.`
+        `- [${recipe.title}](${siteUrl}skill/recipes/${recipe.slug}.md): ${recipe.summary}. ${recipe.shell}Shell.`
       ).join('\n')
     }\n\n## Application templates\n\n${
       templates.map((template) =>

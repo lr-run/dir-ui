@@ -7,11 +7,11 @@ import black from '../../../packages/ui/src/styles/black.css?raw'
 // @deno-types="./pages/studio/source-text.d.ts"
 import paper from '../../../packages/ui/src/styles/paper.css?raw'
 
-/** The three themes of the dir console. Dark is the dark side of theme.css; Paper overrides it with warm tokens. */
+/** Site themes. Dark is the dark side of theme.css; Paper is a site-only preset that overrides the tokens. */
 export const themes = [
   { id: 'light', label: 'Light', note: 'theme.css · default', css: '', scheme: 'light' },
-  { id: 'black', label: 'Dark', note: 'black.css · dark', css: black, scheme: 'dark' },
-  { id: 'paper', label: 'Paper', note: 'paper.css · warm', css: paper, scheme: 'light' },
+  { id: 'black', label: 'Dark', note: 'theme.css · data-theme="dark"', css: black, scheme: 'dark' },
+  { id: 'paper', label: 'Paper', note: 'site preset · warm', css: paper, scheme: 'light' },
 ] as const
 export type Theme = (typeof themes)[number]['id']
 const key = 'ui-theme'

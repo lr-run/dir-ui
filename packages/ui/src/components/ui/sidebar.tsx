@@ -81,7 +81,7 @@ export function Sidebar({ children, className }: { children: ReactNode; classNam
           className,
         )}
         data-state={open ? 'expanded' : 'collapsed'}
-        aria-label={t('ワークスペース')}
+        aria-label={t('ワークスペース', 'Workspace')}
       >
         {children}
         {collapsible && <SidebarRail />}
@@ -92,7 +92,7 @@ export function Sidebar({ children, className }: { children: ReactNode; classNam
           className="[&_[class~='group/crm-sidebar-panel']]:flex-1 [&_[class~='group/crm-sidebar-panel']]:[border:0]"
         >
           <SheetTitle className='[clip-path:inset(50%)] absolute w-[1px] h-[1px] p-0 m-[-1px] overflow-hidden [clip:rect(0,0,0,0)] whitespace-nowrap [border:0]'>
-            {t('ワークスペース')}
+            {t('ワークスペース', 'Workspace')}
           </SheetTitle>
           <MobileContext.Provider value>
             <aside
@@ -101,7 +101,7 @@ export function Sidebar({ children, className }: { children: ReactNode; classNam
                 className,
               )}
               data-state='expanded'
-              aria-label={t('ワークスペース')}
+              aria-label={t('ワークスペース', 'Workspace')}
             >
               {children}
             </aside>

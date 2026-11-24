@@ -1,4 +1,4 @@
-/* Paper theme: warm off-white surfaces and ink text, as in the dir console. Overrides --ui-* only; load after theme.css. */
+/* Paper theme: warm off-white surfaces and ink text. Overrides --ui-* only; load after theme.css. */
 :root {
   color-scheme: light;
   --ui-canvas: #f7f7f4;

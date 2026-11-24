@@ -1,7 +1,8 @@
 # Task Board
 
-Use `AppShell` for a team's issue board. The runnable example is `examples/systems/src/task-board/app.tsx` and is
-available at `/examples/task-board` with its complete source, including `board.css`, in the Code view.
+Live preview: https://ui.usedir.com/examples/task-board (its source is in the Code view).
+
+Use `AppShell` for a team's issue board.
 
 - Group compact issue cards by Todo, In progress, In review and Done. Keep Backlog and Canceled in the hidden-column
   area until requested. Show counts, a column menu and an Add issue action on each column.

@@ -1,4 +1,4 @@
-// Recruiting (採用管理): candidates, positions and interview rounds, with a pipeline dashboard and a schedule.
+// Recruiting: candidates, positions and interview rounds, with a pipeline dashboard and a schedule.
 import { CalendarDaysIcon, LayoutDashboardIcon, UserRoundSearchIcon } from 'lucide-react'
 import { KitApp } from '@/components/systems/kit/app.tsx'
 import type { KitConfig } from '@/components/systems/kit/types.ts'

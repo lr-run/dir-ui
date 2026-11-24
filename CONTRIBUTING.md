@@ -5,9 +5,9 @@ The library package lists its own runtime and peer dependencies. The shadcn CLI 
 
 ## Structure
 
-- `packages/ui/src/`: shared components, hooks, helpers and styles. No imports from docs, CRM or private operations.
+- `packages/ui/src/`: shared components, hooks, helpers and styles. No imports from docs, CRM or registry scripts.
 - `examples/crm/src/`: CRM Block source; routes, reusable screens, CRM-specific parts, and in-memory data adapters.
-- `examples/crm/main.tsx` and Vite configuration: a standalone development host, not installed by the Block.
+- `examples/crm/main.tsx` and Vite configuration: a development host for the CRM on its own, not installed by the Block.
 - `apps/docs/`: documentation, interactive previews, code viewer and the CRM preview host.
 - `registry/entries.json`: file ownership, item dependencies and stylesheet inputs.
 - `registry.json`: generated metadata pointing directly to the authored files above.
@@ -43,5 +43,4 @@ example state.
 HTML, Markdown, llms.txt and the CRM iframe entry. `deno task preview` previews that build. No hosting credentials or
 backend are needed. All example persistence and simulated API requests run in browser memory.
 
-Public CI checks types, tests, registry validity and the static production build. Hosting and release operations are
-managed separately from this public source repository.
+CI checks types, tests, registry validity and the static production build.
